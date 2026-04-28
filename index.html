@@ -758,7 +758,17 @@
         body: JSON.stringify({ email }),
       });
 
-      if (!response.ok) throw new Error('Server error');
+      if (!response.ok) {
+        if (response.status === 429) {
+          const data = await response.json();
+          loadingEl.innerHTML = currentLang === 'pt'
+            ? `⚠️ Limite de downloads atingido. Tenta novamente em ${data.retry_after_minutes} minutos.`
+            : `⚠️ Download limit reached. Please try again in ${data.retry_after_minutes} minutes.`;
+        } else {
+          throw new Error('Server error');
+        }
+        return;
+      }
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
