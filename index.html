@@ -31,6 +31,16 @@
     .nav-links a { font-size:.85rem; font-weight:500; color:var(--text-mid); text-decoration:none; transition:color .2s; }
     .nav-links a:hover { color:var(--text); }
 
+    .btn-cv {
+      display:inline-block; padding:.35rem 1rem;
+      font-family:var(--sans); font-size:.78rem; font-weight:600;
+      text-decoration:none; border-radius:99px;
+      background:var(--text); color:#fff;
+      transition:all .2s; white-space:nowrap;
+      letter-spacing:.02em;
+    }
+    .btn-cv:hover { background:var(--pink-dark); transform:translateY(-1px); }
+
     /* LANG TOGGLE */
     .lang-toggle { display:flex; align-items:center; border:1.5px solid var(--border); border-radius:99px; overflow:hidden; font-size:.75rem; font-weight:600; }
     .lang-btn { padding:.3rem .7rem; cursor:pointer; background:transparent; border:none; font-family:var(--sans); font-size:.75rem; font-weight:600; color:var(--text-light); transition:all .2s; letter-spacing:.04em; }
@@ -185,6 +195,9 @@
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">PT</button>
     </div>
+    <a href="https://raw.githubusercontent.com/larixa/larixa.github.io/main/CV_Larissa%20Paiva%202026.pdf"
+       download="CV_Larissa_Paiva_2026.pdf"
+       class="btn-cv" data-en="Download CV" data-pt="Baixar CV">Download CV</a>
   </div>
 </nav>
 
