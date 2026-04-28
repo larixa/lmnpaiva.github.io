@@ -41,6 +41,8 @@
     }
     .btn-cv:hover { background:var(--pink-dark); transform:translateY(-1px); }
 
+    .hamburger { display:none; }
+
     /* LANG TOGGLE */
     .lang-toggle { display:flex; align-items:center; border:1.5px solid var(--border); border-radius:99px; overflow:hidden; font-size:.75rem; font-weight:600; }
     .lang-btn { padding:.3rem .7rem; cursor:pointer; background:transparent; border:none; font-family:var(--sans); font-size:.75rem; font-weight:600; color:var(--text-light); transition:all .2s; letter-spacing:.04em; }
@@ -184,12 +186,33 @@
     /* ── MOBILE ── */
     @media(max-width:640px) {
       /* Nav */
-      nav { padding:.85rem 1rem; gap:.5rem; flex-wrap:wrap; }
+      nav { padding:.85rem 1rem; gap:.5rem; }
       .nav-logo { font-size:1rem; }
-      .nav-right { width:100%; justify-content:space-between; gap:.5rem; }
-      .nav-links { display:none; } /* hide links on mobile — use scroll */
+      .nav-right { gap:.5rem; }
+      .nav-links { display:none; }
+      .nav-links.open {
+        display:flex; flex-direction:column; gap:0;
+        position:fixed; top:56px; left:0; right:0;
+        background:rgba(253,250,247,0.98);
+        backdrop-filter:blur(12px);
+        border-bottom:1px solid var(--border);
+        padding:.5rem 0; z-index:99;
+      }
+      .nav-links.open li a {
+        display:block; padding:.75rem 1.5rem;
+        font-size:.95rem; border-bottom:1px solid var(--border);
+      }
       .lang-toggle { flex-shrink:0; }
       .btn-cv { font-size:.72rem; padding:.3rem .8rem; }
+      .hamburger {
+        display:flex; flex-direction:column; gap:5px;
+        background:none; border:none; cursor:pointer; padding:.3rem;
+      }
+      .hamburger span {
+        display:block; width:22px; height:2px;
+        background:var(--text); border-radius:2px;
+        transition:all .3s;
+      }
 
       /* Hero */
       #hero { padding:5.5rem 1.25rem 2.5rem; gap:1.5rem; }
@@ -246,12 +269,15 @@
 <nav>
   <span class="nav-logo">Larissa Paiva</span>
   <div class="nav-right">
-    <ul class="nav-links">
-      <li><a href="#skills" data-en="Skills" data-pt="Skills">Skills</a></li>
-      <li><a href="#experience" data-en="Experience" data-pt="Experiência">Experience</a></li>
-      <li><a href="#certs" data-en="Certifications" data-pt="Certificações">Certifications</a></li>
-      <li><a href="#education" data-en="Education" data-pt="Formação">Education</a></li>
-      <li><a href="#contact" data-en="Contact" data-pt="Contato">Contact</a></li>
+    <button class="hamburger" id="hamburger-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#skills" onclick="closeMenu()" data-en="Skills" data-pt="Skills">Skills</a></li>
+      <li><a href="#experience" onclick="closeMenu()" data-en="Experience" data-pt="Experiência">Experience</a></li>
+      <li><a href="#certs" onclick="closeMenu()" data-en="Certifications" data-pt="Certificações">Certifications</a></li>
+      <li><a href="#education" onclick="closeMenu()" data-en="Education" data-pt="Formação">Education</a></li>
+      <li><a href="#contact" onclick="closeMenu()" data-en="Contact" data-pt="Contato">Contact</a></li>
     </ul>
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
@@ -670,6 +696,20 @@
 </div>
 
 <script>
+  // HAMBURGER MENU
+  function toggleMenu() {
+    const links = document.getElementById('nav-links');
+    links.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('nav-links').classList.remove('open');
+  }
+  // Close menu on outside click
+  document.addEventListener('click', function(e) {
+    const nav = document.querySelector('nav');
+    if (!nav.contains(e.target)) closeMenu();
+  });
+
   // INTERSECTION OBSERVER
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
