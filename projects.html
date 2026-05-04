@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Larissa Paiva — Projects</title>
+  <meta name="description" content="Projects portfolio — IT Operations, ITSM, AIOps and Cybersecurity by Larissa Paiva." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink:#F2A7BB; --pink-light:#FCE8EF; --pink-dark:#B85C72;
+      --yellow:#F7D97A; --yellow-light:#FEF6DC; --yellow-dark:#9E7A10;
+      --blue:#93BEE8; --blue-light:#DCF0FF; --blue-dark:#3A6E9E;
+      --green:#6BBF8A; --green-light:#E5F5EC; --green-dark:#2E7D52;
+      --purple:#A78BFA; --purple-light:#EFE7F5; --purple-dark:#7B5BA5;
+      --bg:#FDFAF7; --bg2:#F7F3EF;
+      --text:#2C2825; --text-mid:#6B6460; --text-light:#A09890;
+      --border:rgba(44,40,37,0.1);
+      --serif:'DM Serif Display',Georgia,serif;
+      --sans:'DM Sans',system-ui,sans-serif;
+      --radius:16px;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--bg); color:var(--text); font-family:var(--sans); font-size:16px; line-height:1.7; overflow-x:hidden; }
+
+    /* === NAV (matches main site) === */
+    nav { position:fixed; top:0; width:100%; padding:1.1rem 2.5rem; display:flex; justify-content:space-between; align-items:center; background:rgba(253,250,247,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); z-index:100; gap:1rem; }
+    .nav-logo { font-family:var(--serif); font-size:1.1rem; color:var(--text); white-space:nowrap; text-decoration:none; }
+    .nav-logo em { color:var(--pink-dark); font-style:italic; }
+    .nav-links { display:flex; gap:2.2rem; }
+    .nav-links a { font-size:.85rem; font-weight:500; color:var(--text-mid); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--pink-dark); }
+    .nav-right { display:flex; align-items:center; gap:1rem; }
+    .lang-toggle { display:flex; align-items:center; border:1.5px solid var(--border); border-radius:99px; overflow:hidden; }
+    .lang-btn { padding:.3rem .7rem; cursor:pointer; background:transparent; border:none; font-family:var(--sans); font-size:.75rem; font-weight:600; color:var(--text-light); transition:all .2s; letter-spacing:.04em; }
+    .lang-btn.active { background:var(--text); color:#fff; border-radius:99px; }
+    .lang-btn:hover:not(.active) { color:var(--text); }
+    .btn-back { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--sans); font-size:.78rem; font-weight:600; color:var(--text); text-decoration:none; padding:.55rem 1.1rem; border-radius:99px; border:1.5px solid var(--border); transition:all .2s; }
+    .btn-back:hover { border-color:var(--text); background:var(--bg2); }
+
+    /* === PAGE HEADER === */
+    .page-header { padding:9rem 2.5rem 3rem; max-width:1200px; margin:0 auto; }
+    .eyebrow { display:flex; align-items:center; gap:.6rem; margin-bottom:1rem; }
+    .eyebrow-line { width:28px; height:2px; background:var(--pink); border-radius:2px; }
+    .eyebrow-text { font-size:.74rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--pink-dark); }
+    .page-title { font-family:var(--serif); font-size:clamp(2.5rem,5vw,3.8rem); color:var(--text); line-height:1.1; margin-bottom:1rem; }
+    .page-title em { color:var(--pink-dark); font-style:italic; }
+    .page-desc { font-size:1rem; color:var(--text-mid); max-width:640px; }
+
+    /* === HERO PROJECT CARD === */
+    .hero-section { max-width:1200px; margin:0 auto; padding:1rem 2.5rem 4rem; }
+    .hero-card {
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 8px 40px rgba(44,40,37,.06);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+    }
+    .hero-card-content { padding:3rem; display:flex; flex-direction:column; justify-content:center; }
+    .hero-card-tag { display:inline-flex; align-items:center; gap:.4rem; background:var(--pink-light); color:var(--pink-dark); font-size:.7rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:.4rem .9rem; border-radius:99px; margin-bottom:1.2rem; align-self:flex-start; }
+    .hero-card-title { font-family:var(--serif); font-size:clamp(2rem,3.5vw,3rem); color:var(--text); line-height:1.1; margin-bottom:1rem; }
+    .hero-card-title em { color:var(--pink-dark); font-style:italic; }
+    .hero-card-subtitle { font-size:.95rem; color:var(--text-mid); margin-bottom:2rem; line-height:1.6; }
+    .hero-card-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:2rem; padding:1.2rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .hero-stat-num { font-family:var(--serif); font-size:1.6rem; color:var(--pink-dark); display:block; }
+    .hero-stat-label { font-size:.7rem; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem; }
+    .hero-card-actions { display:flex; gap:.7rem; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:.4rem; padding:.72rem 1.4rem; font-family:var(--sans); font-size:.82rem; font-weight:600; text-decoration:none; border-radius:99px; transition:all .2s; cursor:pointer; border:none; white-space:nowrap; }
+    .btn-primary { background:var(--text); color:#fff; }
+    .btn-primary:hover { background:var(--pink-dark); transform:translateY(-1px); }
+    .btn-outline { background:transparent; color:var(--text); border:1.5px solid var(--border); }
+    .btn-outline:hover { border-color:var(--text); background:var(--bg2); }
+    .hero-card-visual {
+      background:linear-gradient(135deg, var(--pink-light) 0%, var(--yellow-light) 100%);
+      padding:3rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      min-height:380px;
+    }
+    .hero-card-visual::before {
+      content:"";
+      position:absolute;
+      width:200px; height:200px;
+      background:var(--pink);
+      border-radius:50%;
+      filter:blur(60px);
+      opacity:.4;
+      top:-50px; right:-50px;
+    }
+    .hero-card-visual::after {
+      content:"";
+      position:absolute;
+      width:250px; height:250px;
+      background:var(--yellow);
+      border-radius:50%;
+      filter:blur(80px);
+      opacity:.3;
+      bottom:-80px; left:-50px;
+    }
+    /* ITSM Mockup illustration */
+    .mockup {
+      position:relative;
+      width:100%;
+      max-width:340px;
+      background:#fff;
+      border-radius:14px;
+      padding:1.2rem;
+      box-shadow:0 12px 50px rgba(44,40,37,.12);
+      z-index:1;
+    }
+    .mockup-header { display:flex; align-items:center; gap:.5rem; margin-bottom:1.2rem; }
+    .mockup-logo { width:28px; height:28px; border-radius:8px; background:linear-gradient(135deg,var(--pink-dark),var(--pink)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:.85rem; }
+    .mockup-title { font-family:var(--serif); font-size:.95rem; color:var(--text); }
+    .mockup-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:1rem; }
+    .mockup-kpi { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:.7rem; }
+    .mockup-kpi-label { font-size:.6rem; color:var(--text-light); text-transform:uppercase; letter-spacing:.05em; margin-bottom:.2rem; }
+    .mockup-kpi-value { font-family:var(--serif); font-size:1.3rem; color:var(--text); }
+    .mockup-kpi.pink .mockup-kpi-value { color:var(--pink-dark); }
+    .mockup-kpi.green .mockup-kpi-value { color:var(--green-dark); }
+    .mockup-bar-row { display:flex; align-items:center; gap:.5rem; margin-bottom:.4rem; font-size:.65rem; }
+    .mockup-bar-label { color:var(--text-mid); width:24px; font-weight:600; }
+    .mockup-bar { flex:1; height:6px; background:var(--bg2); border-radius:3px; overflow:hidden; }
+    .mockup-bar-fill { height:100%; border-radius:3px; }
+    .mockup-bar-num { color:var(--text-mid); width:14px; text-align:right; }
+    .mockup-floating-tag {
+      position:absolute;
+      top:-12px; right:-10px;
+      background:var(--yellow-light);
+      border:1.5px solid var(--yellow);
+      border-radius:10px;
+      padding:.4rem .7rem;
+      font-size:.65rem;
+      font-weight:600;
+      color:var(--yellow-dark);
+      z-index:2;
+      animation:float 3s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+
+    /* === STORY SECTIONS === */
+    .story-section { max-width:1000px; margin:0 auto; padding:3rem 2.5rem; }
+    .story-section h2 { font-family:var(--serif); font-size:clamp(1.6rem,3vw,2.2rem); color:var(--text); margin-bottom:1.2rem; line-height:1.2; }
+    .story-section h2 em { color:var(--pink-dark); font-style:italic; }
+    .story-section p { color:var(--text-mid); font-size:.96rem; line-height:1.75; margin-bottom:1rem; max-width:780px; }
+    .story-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.2rem; margin-top:2rem; }
+    .feat-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.6rem; transition:transform .2s, box-shadow .2s; }
+    .feat-card:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(44,40,37,.06); }
+    .feat-icon { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; margin-bottom:1rem; }
+    .feat-icon.pink { background:var(--pink-light); color:var(--pink-dark); }
+    .feat-icon.blue { background:var(--blue-light); color:var(--blue-dark); }
+    .feat-icon.yellow { background:var(--yellow-light); color:var(--yellow-dark); }
+    .feat-icon.green { background:var(--green-light); color:var(--green-dark); }
+    .feat-icon.purple { background:var(--purple-light); color:var(--purple-dark); }
+    .feat-title { font-family:var(--serif); font-size:1.05rem; color:var(--text); margin-bottom:.5rem; }
+    .feat-desc { font-size:.85rem; color:var(--text-mid); line-height:1.55; }
+
+    /* Methodology / stack list */
+    .meta-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .meta-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:1.2rem; }
+    .meta-card-label { font-size:.68rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--pink-dark); margin-bottom:.6rem; }
+    .meta-card-value { font-family:var(--serif); font-size:1.15rem; color:var(--text); line-height:1.3; }
+
+    .tech-pills { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+    .tech-pill { font-size:.72rem; font-weight:500; padding:.35rem .9rem; border-radius:99px; background:var(--bg2); color:var(--text-mid); border:1px solid var(--border); }
+
+    /* === GRID OF FUTURE PROJECTS === */
+    .future-section { background:var(--bg2); padding:5rem 2.5rem; margin-top:4rem; }
+    .future-inner { max-width:1200px; margin:0 auto; }
+    .future-header { margin-bottom:3rem; }
+    .future-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,2.4rem); color:var(--text); margin-bottom:.6rem; line-height:1.15; }
+    .future-desc { font-size:.94rem; color:var(--text-mid); max-width:560px; }
+    .future-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:1.4rem; }
+    .future-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.8rem; transition:transform .2s, box-shadow .2s; position:relative; overflow:hidden; }
+    .future-card.coming-soon { opacity:.75; }
+    .future-card.coming-soon::before {
+      content:""; position:absolute; inset:0;
+      background:repeating-linear-gradient(45deg, transparent, transparent 14px, rgba(44,40,37,.015) 14px, rgba(44,40,37,.015) 28px);
+      pointer-events:none;
+    }
+    .future-card:not(.coming-soon):hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(44,40,37,.06); }
+    .future-card-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin-bottom:1.1rem; position:relative; z-index:1; }
+    .future-card-tag { display:inline-block; font-size:.62rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:.25rem .65rem; border-radius:99px; margin-bottom:.7rem; position:relative; z-index:1; }
+    .tag-coming { background:var(--bg2); color:var(--text-light); border:1px solid var(--border); }
+    .tag-live { background:var(--green-light); color:var(--green-dark); }
+    .future-card-title { font-family:var(--serif); font-size:1.15rem; color:var(--text); margin-bottom:.5rem; line-height:1.3; position:relative; z-index:1; }
+    .future-card-desc { font-size:.83rem; color:var(--text-mid); line-height:1.55; margin-bottom:1.2rem; position:relative; z-index:1; }
+    .future-card-link { font-size:.78rem; font-weight:600; color:var(--pink-dark); text-decoration:none; display:inline-flex; align-items:center; gap:.3rem; position:relative; z-index:1; }
+    .future-card-link:hover { color:var(--text); }
+    .future-card.coming-soon .future-card-link { color:var(--text-light); cursor:default; }
+
+    /* === CTA SECTION === */
+    .cta-section { padding:5rem 2.5rem; text-align:center; }
+    .cta-inner { max-width:600px; margin:0 auto; }
+    .cta-title { font-family:var(--serif); font-size:clamp(1.8rem,3vw,2.4rem); color:var(--text); margin-bottom:1rem; line-height:1.2; }
+    .cta-title em { color:var(--pink-dark); font-style:italic; }
+    .cta-desc { color:var(--text-mid); margin-bottom:2rem; }
+
+    /* === FOOTER === */
+    footer { padding:2.5rem; border-top:1px solid var(--border); text-align:center; color:var(--text-light); font-size:.78rem; }
+    footer strong { color:var(--text); }
+
+    /* === RESPONSIVE === */
+    @media (max-width:880px) {
+      nav { padding:1rem 1.2rem; }
+      .nav-links { display:none; }
+      .page-header { padding:7rem 1.2rem 2rem; }
+      .hero-section { padding:1rem 1.2rem 3rem; }
+      .hero-card { grid-template-columns:1fr; }
+      .hero-card-content, .hero-card-visual { padding:2rem; }
+      .hero-card-visual { min-height:300px; }
+      .story-section { padding:2.5rem 1.2rem; }
+      .future-section { padding:3.5rem 1.2rem; }
+      .cta-section { padding:3.5rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">Larissa <em>Paiva</em></a>
+    <div class="nav-links">
+      <a href="index.html#skills">Skills</a>
+      <a href="projects.html" class="active" data-i18n="navProjects">Projects</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#certs">Certifications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <button class="lang-btn active" data-lang="pt">PT</button>
+      </div>
+      <a href="index.html" class="btn-back" data-i18n="back">← Início</a>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text" data-i18n="eyebrow">Portfolio</span>
+    </div>
+    <h1 class="page-title" data-i18n="pageTitle">Projects & <em>Case Studies</em></h1>
+    <p class="page-desc" data-i18n="pageDesc">Hands-on projects where I apply IT Operations, ITSM, AIOps and Cybersecurity concepts — from concept to deployed product.</p>
+  </header>
+
+  <!-- HERO PROJECT — FluxoOps -->
+  <section class="hero-section">
+    <div class="hero-card">
+      <div class="hero-card-content">
+        <div class="hero-card-tag">★ <span data-i18n="featuredProject">Featured project</span></div>
+        <h2 class="hero-card-title">Fluxo<em>Ops</em></h2>
+        <p class="hero-card-subtitle" data-i18n="fluxoSubtitle">A bilingual ITSM platform with AIOps-driven ticket categorization, ITIL-aligned workflows, asset logistics tracking and self-service knowledge base.</p>
+        <div class="hero-card-stats">
+          <div>
+            <span class="hero-stat-num">8</span>
+            <span class="hero-stat-label" data-i18n="statCategories">Categories</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">3</span>
+            <span class="hero-stat-label" data-i18n="statItilTypes">ITIL Types</span>
+          </div>
+          <div>
+            <span class="hero-stat-num">2</span>
+            <span class="hero-stat-label" data-i18n="statLanguages">Languages</span>
+          </div>
+        </div>
+        <div class="hero-card-actions">
+          <a href="https://fluxoops.lmnpaiva.com.br" target="_blank" rel="noopener" class="btn btn-primary">
+            <span data-i18n="visitLive">Visit live</span> →
+          </a>
+          <a href="https://github.com/larixa/fluxoops" target="_blank" rel="noopener" class="btn btn-outline">
+            <span data-i18n="viewSource">Source code</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Stylized mockup -->
+      <div class="hero-card-visual">
+        <div class="mockup">
+          <div class="mockup-floating-tag">✦ AIOps</div>
+          <div class="mockup-header">
+            <div class="mockup-logo">F</div>
+            <div class="mockup-title">FluxoOps Dashboard</div>
+          </div>
+          <div class="mockup-stat-grid">
+            <div class="mockup-kpi pink">
+              <div class="mockup-kpi-label" data-i18n="mkOpen">Tickets</div>
+              <div class="mockup-kpi-value">24</div>
+            </div>
+            <div class="mockup-kpi green">
+              <div class="mockup-kpi-label" data-i18n="mkSla">SLA</div>
+              <div class="mockup-kpi-value">96%</div>
+            </div>
+          </div>
+          <div style="font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem;font-weight:600;" data-i18n="mkPriority">By priority</div>
+          <div class="mockup-bar-row"><span class="mockup-bar-label">P1</span><div class="mockup-bar"><div class="mockup-bar-fill" style="width:18%;background:var(--pink-dark);"></div></div><span class="mockup-bar-num">3</span></div>
+          <div class="mockup-bar-row"><span class="mockup-bar-label">P2</span><div class="mockup-bar"><div class="mockup-bar-fill" style="width:42%;background:var(--yellow-dark);"></div></div><span class="mockup-bar-num">7</span></div>
+          <div class="mockup-bar-row"><span class="mockup-bar-label">P3</span><div class="mockup-bar"><div class="mockup-bar-fill" style="width:65%;background:var(--blue-dark);"></div></div><span class="mockup-bar-num">11</span></div>
+          <div class="mockup-bar-row"><span class="mockup-bar-label">P4</span><div class="mockup-bar"><div class="mockup-bar-fill" style="width:25%;background:var(--text-light);"></div></div><span class="mockup-bar-num">3</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE STORY -->
+  <section class="story-section">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text" data-i18n="storyEyebrow">The story</span>
+    </div>
+    <h2 data-i18n="storyTitle">Why I built <em>FluxoOps</em></h2>
+    <p data-i18n="storyP1">FluxoOps started from a real conversation about the future of IT: as AI accelerates, traditional ticketing is being replaced by smarter, more automated workflows. I wanted to translate this future into something tangible — a tool that combines the discipline of ITIL with the agility of AIOps.</p>
+    <p data-i18n="storyP2">The goal was never to clone ServiceNow or Jira. It was to design from scratch a focused, opinionated, and elegant ITSM platform that solves the real pain points I see daily in IT operations: slow triage, scattered service catalogs, lost devices in international shipping, and end users who don't know where to start.</p>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="story-section">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text" data-i18n="methodEyebrow">Methodology</span>
+    </div>
+    <h2 data-i18n="methodTitle">Frameworks & <em>practices applied</em></h2>
+    <p data-i18n="methodP1">FluxoOps applies real-world ITSM frameworks rather than building features in isolation.</p>
+
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="meta-card-label">ITIL 4</div>
+        <div class="meta-card-value" data-i18n="metaItil">Incident · Service Request · Change</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-label">AIOps</div>
+        <div class="meta-card-value" data-i18n="metaAiops">Auto-categorization & priority</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-label">RBAC</div>
+        <div class="meta-card-value" data-i18n="metaRbac">Operator vs End-user roles</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-card-label">Asset Mgmt</div>
+        <div class="meta-card-value" data-i18n="metaAsset">CMDB-ready logistics</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FEATURES -->
+  <section class="story-section">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text" data-i18n="featEyebrow">Key features</span>
+    </div>
+    <h2 data-i18n="featTitle">What's <em>inside</em></h2>
+
+    <div class="story-grid">
+      <div class="feat-card">
+        <div class="feat-icon pink">✦</div>
+        <h3 class="feat-title" data-i18n="feat1Title">AIOps Categorization</h3>
+        <p class="feat-desc" data-i18n="feat1Desc">Smart engine that analyzes ticket content and proposes type, category, sub-category, priority and team — with full manual override.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon blue">⚙</div>
+        <h3 class="feat-title" data-i18n="feat2Title">ITIL-aligned types</h3>
+        <p class="feat-desc" data-i18n="feat2Desc">Full separation of Incidents, Service Requests and Changes, with RFC-specific fields like change window, risk and rollback plan.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon yellow">📦</div>
+        <h3 class="feat-title" data-i18n="feat3Title">Asset Logistics</h3>
+        <p class="feat-desc" data-i18n="feat3Desc">Track international device shipping with a visual pipeline (preparing → delivered → registered in CMDB) and a global destinations mini-map.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon green">📚</div>
+        <h3 class="feat-title" data-i18n="feat4Title">Knowledge Base</h3>
+        <p class="feat-desc" data-i18n="feat4Desc">Curated articles with markdown rendering, plus live AI-driven suggestions while users type their tickets — to deflect avoidable requests.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon purple">👥</div>
+        <h3 class="feat-title" data-i18n="feat5Title">Role-based UX</h3>
+        <p class="feat-desc" data-i18n="feat5Desc">Operators see the full ops dashboard and tools. End users see a simple self-service portal — with their own tickets and devices only.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon pink">🌍</div>
+        <h3 class="feat-title" data-i18n="feat6Title">Bilingual native</h3>
+        <p class="feat-desc" data-i18n="feat6Desc">Full English + Portuguese support across every screen, message, category and seed data — designed for multinational companies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="story-section">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-text" data-i18n="stackEyebrow">Tech stack</span>
+    </div>
+    <h2 data-i18n="stackTitle">Built <em>with</em></h2>
+    <p data-i18n="stackP1">Modern frontend stack with no backend dependency — fully client-side so the demo can be experienced without any setup.</p>
+
+    <div class="tech-pills">
+      <span class="tech-pill">React 18</span>
+      <span class="tech-pill">Vite 5</span>
+      <span class="tech-pill">Tailwind CSS</span>
+      <span class="tech-pill">Recharts</span>
+      <span class="tech-pill">Lucide Icons</span>
+      <span class="tech-pill">DM Serif Display</span>
+      <span class="tech-pill">DM Sans</span>
+      <span class="tech-pill">localStorage persistence</span>
+      <span class="tech-pill">Vercel deploy</span>
+      <span class="tech-pill">GitHub</span>
+    </div>
+  </section>
+
+  <!-- FUTURE PROJECTS GRID -->
+  <section class="future-section">
+    <div class="future-inner">
+      <div class="future-header">
+        <div class="eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text" data-i18n="futureEyebrow">Coming next</span>
+        </div>
+        <h2 class="future-title" data-i18n="futureTitle">More projects in the pipeline</h2>
+        <p class="future-desc" data-i18n="futureDesc">Other case studies I'm building to deepen practical experience across IAM, security and operations.</p>
+      </div>
+
+      <div class="future-grid">
+        <div class="future-card coming-soon">
+          <div class="future-card-icon" style="background:var(--purple-light);color:var(--purple-dark);">🔐</div>
+          <span class="future-card-tag tag-coming" data-i18n="comingSoon">Coming soon</span>
+          <h3 class="future-card-title" data-i18n="proj2Title">IAM Lab</h3>
+          <p class="future-card-desc" data-i18n="proj2Desc">Visual lab simulating user lifecycle: onboarding via Entra ID, RBAC role assignment, joiner/mover/leaver workflows and offboarding with audit trail.</p>
+          <span class="future-card-link" data-i18n="inDevelopment">In development</span>
+        </div>
+
+        <div class="future-card coming-soon">
+          <div class="future-card-icon" style="background:#F5E5EA;color:#8B2845;">🛡️</div>
+          <span class="future-card-tag tag-coming" data-i18n="comingSoon">Coming soon</span>
+          <h3 class="future-card-title" data-i18n="proj3Title">SOC Triage Simulator</h3>
+          <p class="future-card-desc" data-i18n="proj3Desc">SOC analyst training environment: alert triage, MITRE ATT&CK mapping, false-positive identification and incident escalation playbooks.</p>
+          <span class="future-card-link" data-i18n="inDevelopment">In development</span>
+        </div>
+
+        <div class="future-card coming-soon">
+          <div class="future-card-icon" style="background:var(--blue-light);color:var(--blue-dark);">☁️</div>
+          <span class="future-card-tag tag-coming" data-i18n="comingSoon">Coming soon</span>
+          <h3 class="future-card-title" data-i18n="proj4Title">Cloud FinOps Dashboard</h3>
+          <p class="future-card-desc" data-i18n="proj4Desc">Cost visibility for AWS / Azure / GCP environments: budget alerts, anomaly detection, tag governance and chargeback by cost center.</p>
+          <span class="future-card-link" data-i18n="inDevelopment">In development</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2 class="cta-title" data-i18n="ctaTitle">Want to <em>collaborate?</em></h2>
+      <p class="cta-desc" data-i18n="ctaDesc">I'm open to opportunities and projects in IT Operations, IAM and Cybersecurity.</p>
+      <a href="index.html#contact" class="btn btn-primary" data-i18n="ctaBtn">Get in touch →</a>
+    </div>
+  </section>
+
+  <footer>
+    Developed by <strong>Larissa Paiva</strong> — lmnpaiva.com.br
+  </footer>
+
+  <script>
+    /* === I18N === */
+    const i18n = {
+      en: {
+        navProjects: "Projects",
+        back: "← Home",
+        eyebrow: "Portfolio",
+        pageTitle: 'Projects & <em>Case Studies</em>',
+        pageDesc: "Hands-on projects where I apply IT Operations, ITSM, AIOps and Cybersecurity concepts — from concept to deployed product.",
+        featuredProject: "Featured project",
+        fluxoSubtitle: "A bilingual ITSM platform with AIOps-driven ticket categorization, ITIL-aligned workflows, asset logistics tracking and self-service knowledge base.",
+        statCategories: "Categories",
+        statItilTypes: "ITIL Types",
+        statLanguages: "Languages",
+        visitLive: "Visit live",
+        viewSource: "Source code",
+        mkOpen: "Tickets",
+        mkSla: "SLA",
+        mkPriority: "By priority",
+        storyEyebrow: "The story",
+        storyTitle: 'Why I built <em>FluxoOps</em>',
+        storyP1: "FluxoOps started from a real conversation about the future of IT: as AI accelerates, traditional ticketing is being replaced by smarter, more automated workflows. I wanted to translate this future into something tangible — a tool that combines the discipline of ITIL with the agility of AIOps.",
+        storyP2: "The goal was never to clone ServiceNow or Jira. It was to design from scratch a focused, opinionated, and elegant ITSM platform that solves the real pain points I see daily in IT operations: slow triage, scattered service catalogs, lost devices in international shipping, and end users who don't know where to start.",
+        methodEyebrow: "Methodology",
+        methodTitle: 'Frameworks & <em>practices applied</em>',
+        methodP1: "FluxoOps applies real-world ITSM frameworks rather than building features in isolation.",
+        metaItil: "Incident · Service Request · Change",
+        metaAiops: "Auto-categorization & priority",
+        metaRbac: "Operator vs End-user roles",
+        metaAsset: "CMDB-ready logistics",
+        featEyebrow: "Key features",
+        featTitle: "What's <em>inside</em>",
+        feat1Title: "AIOps Categorization",
+        feat1Desc: "Smart engine that analyzes ticket content and proposes type, category, sub-category, priority and team — with full manual override.",
+        feat2Title: "ITIL-aligned types",
+        feat2Desc: "Full separation of Incidents, Service Requests and Changes, with RFC-specific fields like change window, risk and rollback plan.",
+        feat3Title: "Asset Logistics",
+        feat3Desc: "Track international device shipping with a visual pipeline (preparing → delivered → registered in CMDB) and a global destinations mini-map.",
+        feat4Title: "Knowledge Base",
+        feat4Desc: "Curated articles with markdown rendering, plus live AI-driven suggestions while users type their tickets — to deflect avoidable requests.",
+        feat5Title: "Role-based UX",
+        feat5Desc: "Operators see the full ops dashboard and tools. End users see a simple self-service portal — with their own tickets and devices only.",
+        feat6Title: "Bilingual native",
+        feat6Desc: "Full English + Portuguese support across every screen, message, category and seed data — designed for multinational companies.",
+        stackEyebrow: "Tech stack",
+        stackTitle: 'Built <em>with</em>',
+        stackP1: "Modern frontend stack with no backend dependency — fully client-side so the demo can be experienced without any setup.",
+        futureEyebrow: "Coming next",
+        futureTitle: "More projects in the pipeline",
+        futureDesc: "Other case studies I'm building to deepen practical experience across IAM, security and operations.",
+        comingSoon: "Coming soon",
+        proj2Title: "IAM Lab",
+        proj2Desc: "Visual lab simulating user lifecycle: onboarding via Entra ID, RBAC role assignment, joiner/mover/leaver workflows and offboarding with audit trail.",
+        proj3Title: "SOC Triage Simulator",
+        proj3Desc: "SOC analyst training environment: alert triage, MITRE ATT&CK mapping, false-positive identification and incident escalation playbooks.",
+        proj4Title: "Cloud FinOps Dashboard",
+        proj4Desc: "Cost visibility for AWS / Azure / GCP environments: budget alerts, anomaly detection, tag governance and chargeback by cost center.",
+        inDevelopment: "In development",
+        ctaTitle: 'Want to <em>collaborate?</em>',
+        ctaDesc: "I'm open to opportunities and projects in IT Operations, IAM and Cybersecurity.",
+        ctaBtn: "Get in touch →",
+      },
+      pt: {
+        navProjects: "Projetos",
+        back: "← Início",
+        eyebrow: "Portfólio",
+        pageTitle: 'Projetos & <em>Estudos de Caso</em>',
+        pageDesc: "Projetos práticos onde aplico conceitos de Operações de TI, ITSM, AIOps e Cybersecurity — do conceito ao produto em produção.",
+        featuredProject: "Projeto em destaque",
+        fluxoSubtitle: "Plataforma ITSM bilíngue com categorização de tickets via AIOps, workflows alinhados ao ITIL, rastreio de logística de ativos e base de conhecimento self-service.",
+        statCategories: "Categorias",
+        statItilTypes: "Tipos ITIL",
+        statLanguages: "Idiomas",
+        visitLive: "Acessar projeto",
+        viewSource: "Código-fonte",
+        mkOpen: "Tickets",
+        mkSla: "SLA",
+        mkPriority: "Por prioridade",
+        storyEyebrow: "A história",
+        storyTitle: 'Por que criei o <em>FluxoOps</em>',
+        storyP1: "O FluxoOps começou de uma conversa real sobre o futuro da TI: à medida que a IA acelera, o ticketing tradicional está sendo substituído por workflows mais inteligentes e automatizados. Quis traduzir esse futuro em algo tangível — uma ferramenta que combina a disciplina do ITIL com a agilidade do AIOps.",
+        storyP2: "O objetivo nunca foi clonar ServiceNow ou Jira. Foi desenhar do zero uma plataforma ITSM focada, opinativa e elegante que resolve dores reais do dia a dia em operações: triagem lenta, catálogos de serviço dispersos, devices perdidos em remessas internacionais e usuários finais que não sabem por onde começar.",
+        methodEyebrow: "Metodologia",
+        methodTitle: 'Frameworks e <em>práticas aplicadas</em>',
+        methodP1: "O FluxoOps aplica frameworks ITSM do mundo real em vez de construir funcionalidades isoladas.",
+        metaItil: "Incidente · Solicitação · Mudança",
+        metaAiops: "Auto-categorização e prioridade",
+        metaRbac: "Operador vs Usuário final",
+        metaAsset: "Logística pronta pra CMDB",
+        featEyebrow: "Funcionalidades",
+        featTitle: 'O que está <em>por dentro</em>',
+        feat1Title: "Categorização AIOps",
+        feat1Desc: "Engine inteligente que analisa o conteúdo do ticket e propõe tipo, categoria, subcategoria, prioridade e time — com override manual completo.",
+        feat2Title: "Tipos alinhados ao ITIL",
+        feat2Desc: "Separação total entre Incidentes, Solicitações de Serviço e Mudanças, com campos específicos de RFC como janela, risco e plano de rollback.",
+        feat3Title: "Logística de Ativos",
+        feat3Desc: "Rastreio de envio internacional de devices com pipeline visual (preparando → entregue → registrado no CMDB) e mini-mapa global de destinos.",
+        feat4Title: "Base de Conhecimento",
+        feat4Desc: "Artigos curados com renderização markdown, mais sugestões automáticas via IA enquanto o usuário digita o ticket — pra reduzir solicitações evitáveis.",
+        feat5Title: "UX baseada em papel",
+        feat5Desc: "Operadores veem o dashboard completo e ferramentas técnicas. Usuários finais veem um portal self-service simples — com apenas seus próprios tickets e devices.",
+        feat6Title: "Nativamente bilíngue",
+        feat6Desc: "Suporte completo em Português e Inglês em cada tela, mensagem, categoria e dado seed — desenhado pra empresas multinacionais.",
+        stackEyebrow: "Stack técnica",
+        stackTitle: 'Construído <em>com</em>',
+        stackP1: "Stack moderna de frontend sem dependência de backend — totalmente client-side, então o demo pode ser experimentado sem qualquer setup.",
+        futureEyebrow: "Em breve",
+        futureTitle: "Mais projetos no pipeline",
+        futureDesc: "Outros estudos de caso que estou construindo pra aprofundar experiência prática em IAM, segurança e operações.",
+        comingSoon: "Em breve",
+        proj2Title: "IAM Lab",
+        proj2Desc: "Laboratório visual simulando o ciclo de vida do usuário: onboarding via Entra ID, atribuição de papéis RBAC, fluxos joiner/mover/leaver e offboarding com trilha de auditoria.",
+        proj3Title: "Simulador de Triagem SOC",
+        proj3Desc: "Ambiente de treinamento de analista SOC: triagem de alertas, mapeamento MITRE ATT&CK, identificação de falsos positivos e playbooks de escalada de incidentes.",
+        proj4Title: "Cloud FinOps Dashboard",
+        proj4Desc: "Visibilidade de custos em ambientes AWS / Azure / GCP: alertas de orçamento, detecção de anomalias, governança de tags e chargeback por centro de custo.",
+        inDevelopment: "Em desenvolvimento",
+        ctaTitle: 'Quer <em>colaborar?</em>',
+        ctaDesc: "Estou aberta a oportunidades e projetos em Operações de TI, IAM e Cybersecurity.",
+        ctaBtn: "Falar comigo →",
+      }
+    };
+
+    const LANG_KEY = "lmnpaiva-lang";
+    let currentLang = localStorage.getItem(LANG_KEY) || "pt";
+
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem(LANG_KEY, lang);
+      document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+      });
+      document.querySelectorAll(".lang-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll(".lang-btn").forEach((btn) => {
+      btn.addEventListener("click", () => applyLang(btn.dataset.lang));
+    });
+
+    applyLang(currentLang);
+  </script>
+</body>
+</html>
