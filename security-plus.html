@@ -6062,7 +6062,175 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-<script async defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script id="lmn-manual-i18n-final">
+/* Final bilingual layer: manual PT/EN labels for the static study guide UI.
+   It does not depend on Google Translate, so the toggle works on GitHub Pages and local previews. */
+(function() {
+  const KEY = 'lmn_security_plan_language';
+  const PT_TO_EN = {
+  "▸ Plano de Estudo Completo": "▸ Complete Study Plan",
+  "Guia completo com domínios, diagramas, estudos de caso, PBQs e quizzes de 10 questões por módulo": "Complete guide with domains, diagrams, case studies, PBQs and 10-question quizzes per module",
+  "Domínios": "Domains",
+  "Questões na Prova": "Exam Questions",
+  "Score Mínimo / 900": "Minimum Score / 900",
+  "Visão Geral": "Overview",
+  "📖 Acrônimos": "📖 Acronyms",
+  "📅 Cronograma": "📅 Schedule",
+  "🎯 Testes de Prática": "🎯 Practice Tests",
+  "Distribuição dos Domínios na Prova": "Exam Domain Distribution",
+  "Formato da Prova": "Exam Format",
+  "Tipo de questões": "Question type",
+  "Múltipla escolha + PBQ (Performance-Based)": "Multiple choice + PBQ (Performance-Based)",
+  "Total de questões": "Total questions",
+  "Máximo 90 questões": "Maximum 90 questions",
+  "Tempo disponível": "Available time",
+  "90 minutos": "90 minutes",
+  "Score de aprovação": "Passing score",
+  "750 de 900 pontos": "750 out of 900 points",
+  "PBQs esperadas": "Expected PBQs",
+  "3–5 questões (início da prova)": "3–5 questions (at the beginning of the exam)",
+  "Idioma": "Language",
+  "Inglês (principal) + outros": "English (main) + others",
+  "// Diagrama — Estrutura da Prova SY0-701": "// Diagram — SY0-701 Exam Structure",
+  "Tópicos do Domínio 1": "Domain 1 Topics",
+  "Tópicos do Domínio 2": "Domain 2 Topics",
+  "Tópicos do Domínio 3": "Domain 3 Topics",
+  "Tópicos do Domínio 4": "Domain 4 Topics",
+  "Tópicos do Domínio 5": "Domain 5 Topics",
+  "Explicação Detalhada dos Tópicos": "Detailed Topic Explanations",
+  "Fundamentos de segurança: controles, criptografia, autenticação e conceitos essenciais": "Security fundamentals: controls, cryptography, authentication and core concepts",
+  "Alta densidade conceitual": "High conceptual density",
+  "da prova": "of the exam",
+  "questões": "questions",
+  "~11 questões": "~11 questions",
+  "~20 questões": "~20 questions",
+  "~16 questões": "~16 questions",
+  "~25 questões": "~25 questions",
+  "~18 questões": "~18 questions",
+  "Nenhum acrônimo encontrado. Tente outro termo.": "No acronyms found. Try another term.",
+  "Busca por acrônimo ou termo...": "Search by acronym or term...",
+  "Testes de Prática": "Practice Tests",
+  "Quiz Lab · Treino Interativo": "Quiz Lab · Interactive Practice",
+  "Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho.": "Use this area to access the interactive Security+ SY0-701 quiz page. The quiz includes domain selection, mixed mode, custom mode, instant feedback and a final performance report.",
+  "A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos.": "The practice tests page also has a PT/EN toggle, so you can study in Portuguese or English without leaving the study plan.",
+  "Abrir quiz em nova aba →": "Open quiz in a new tab →",
+  "Abrir tela cheia": "Open full screen",
+  "📅 Cronograma de Estudo · 8 dias até a prova": "📅 Study Schedule · 8 days until the exam",
+  "32h totais": "32h total",
+  "Prova: 06/05": "Exam: 06/05",
+  "5 domínios + simulado": "5 domains + mock exam",
+  "Dicas de Ouro para a Reta Final": "Golden Tips for the Final Stretch",
+  "Recursos Recomendados": "Recommended Resources",
+  "DIA": "DAY",
+  "FOCO": "FOCUS",
+  "vídeo-aula": "video lesson",
+  "leitura": "reading",
+  "prática": "practice",
+  "revisão": "review"
+};
+  const EN_TO_PT = Object.fromEntries(Object.entries(PT_TO_EN).map(([pt,en]) => [en, pt]));
+
+  function preferredLang() {
+    try {
+      const p = new URLSearchParams(location.search).get('lang');
+      if (p === 'en' || p === 'pt') return p;
+      const stored = localStorage.getItem(KEY);
+      if (stored === 'en' || stored === 'pt') return stored;
+    } catch(e) {}
+    return 'pt';
+  }
+
+  function setPracticeTargets(lang) {
+    const suffix = '?lang=' + (lang === 'en' ? 'en' : 'pt');
+    document.querySelectorAll('a[href^="security-plus-practice-tests.html"]').forEach(a => {
+      a.href = 'security-plus-practice-tests.html' + suffix;
+    });
+    const frame = document.querySelector('.practice-frame');
+    if (frame) {
+      const desired = 'security-plus-practice-tests.html' + suffix;
+      const current = frame.getAttribute('src') || '';
+      if (!current.includes('lang=' + lang)) frame.setAttribute('src', desired);
+    }
+  }
+
+  function setDataI18n(lang) {
+    document.querySelectorAll('[data-i18n-pt][data-i18n-en]').forEach(el => {
+      const value = el.getAttribute(lang === 'en' ? 'data-i18n-en' : 'data-i18n-pt');
+      if (value !== null) el.innerHTML = value;
+    });
+  }
+
+  function shouldSkipTextNode(node) {
+    const parent = node.parentElement;
+    if (!parent) return true;
+    const tag = parent.tagName;
+    if (['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','INPUT','OPTION'].includes(tag)) return true;
+    if (parent.closest('.language-switcher')) return true;
+    if (parent.closest('.notranslate') && !parent.closest('[data-i18n-pt]')) return true;
+    return false;
+  }
+
+  function translateTextNodes(lang) {
+    const map = lang === 'en' ? PT_TO_EN : EN_TO_PT;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (shouldSkipTextNode(node)) return NodeFilter.FILTER_REJECT;
+        const normalized = node.nodeValue.replace(/\s+/g, ' ').trim();
+        return map[normalized] ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const leading = (node.nodeValue.match(/^\s*/) || [''])[0];
+      const trailing = (node.nodeValue.match(/\s*$/) || [''])[0];
+      const normalized = node.nodeValue.replace(/\s+/g, ' ').trim();
+      node.nodeValue = leading + map[normalized] + trailing;
+    });
+  }
+
+  function updateToggle(lang) {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      const active = btn.dataset.lang === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function notifyPracticeFrame(lang) {
+    try { localStorage.setItem('lmn_security_quiz_language', lang); } catch(e) {}
+    const frame = document.querySelector('.practice-frame');
+    if (frame && frame.contentWindow) {
+      frame.contentWindow.postMessage({ type: 'LMN_SET_LANG', lang }, '*');
+    }
+  }
+
+  function apply(lang) {
+    lang = lang === 'en' ? 'en' : 'pt';
+    try { localStorage.setItem(KEY, lang); } catch(e) {}
+    setDataI18n(lang);
+    translateTextNodes(lang);
+    updateToggle(lang);
+    setPracticeTargets(lang);
+    notifyPracticeFrame(lang);
+  }
+
+  window.setLanguage = apply;
+  window.setLmnStudyLanguage = apply;
+
+  function init() {
+    const lang = preferredLang();
+    apply(lang);
+    const frame = document.querySelector('.practice-frame');
+    if (frame) frame.addEventListener('load', () => notifyPracticeFrame(preferredLang()));
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 
 </body>
 </html>
