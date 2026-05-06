@@ -140,6 +140,61 @@
     .cert-status { display:inline-block; font-size:.7rem; font-weight:600; padding:.2rem .65rem; border-radius:99px; align-self:flex-start; background:var(--green-light); color:var(--green-dark); }
     .cert-status-progress { background:var(--yellow-light); color:var(--yellow-dark); }
 
+
+    /* SECURITY+ CREDENTIAL CARD CTA */
+    .cert-card-link {
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+    .cert-card-link:visited,
+    .cert-card-link:hover,
+    .cert-card-link:focus {
+      color: inherit;
+    }
+    .cert-card-link:hover,
+    .cert-card-link:focus-visible {
+      border-color: var(--pink);
+      box-shadow: 0 16px 38px rgba(184, 92, 114, 0.16);
+      outline: none;
+    }
+    .cert-hover-cta {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      padding: 1.25rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(184, 92, 114, .96), rgba(58, 110, 158, .96));
+      color: #fff;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease;
+    }
+    .cert-hover-cta span {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      line-height: 1.15;
+    }
+    .cert-hover-cta small {
+      max-width: 180px;
+      font-size: .72rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, .88);
+    }
+    .cert-card-link:hover .cert-hover-cta,
+    .cert-card-link:focus-visible .cert-hover-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* EDUCATION */
     #education { background:var(--bg); }
     .edu-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem 2.5rem; display:flex; align-items:flex-start; gap:1.5rem; max-width:700px; }
@@ -255,6 +310,9 @@
       .certs-grid { grid-template-columns:1fr; gap:1rem; }
       .cert-card { flex-direction:row; align-items:center; padding:1rem; gap:1rem; }
       .cert-logo { width:48px; height:48px; flex-shrink:0; }
+
+      .cert-card-link { min-height: 96px; }
+      .cert-hover-cta span { font-size: 1rem; }
 
       /* Education */
       .edu-card { padding:1.2rem; flex-direction:column; gap:1rem; }
@@ -547,11 +605,15 @@
     <h2 class="section-title reveal" data-en="Credentials" data-pt="Credenciais">Credentials</h2>
     <p class="section-desc reveal" data-en="Internationally recognized certifications in security, Microsoft technologies and IT service management." data-pt="Certificações reconhecidas internacionalmente em segurança, Microsoft e gestão de serviços de TI.">Internationally recognized certifications in security, Microsoft technologies and IT service management.</p>
     <div class="certs-grid">
-      <div class="cert-card reveal">
+      <a class="cert-card reveal cert-card-link cert-security-plus" href="security-plus.html" aria-label="Veja como eu passei na certificação CompTIA Security+ SY0-701">
+        <div class="cert-hover-cta">
+          <span data-en="See how I passed" data-pt="Veja como eu passei">See how I passed</span>
+          <small data-en="Study guide + practice question pool" data-pt="Guia de estudos + pool de questões">Study guide + practice question pool</small>
+        </div>
         <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/Security%2B.png" alt="CompTIA Security+"></div>
         <div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA · SY0-701</div></div>
         <span class="cert-status" data-en="✓ Certified" data-pt="✓ Certificada">✓ Certified</span>
-      </div>
+      </a>
       <div class="cert-card reveal">
         <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/SC-900.png" alt="SC-900"></div>
         <div><div class="cert-name">Security, Compliance &amp; Identity Fundamentals</div><div class="cert-issuer">Microsoft · SC-900</div></div>
