@@ -5258,19 +5258,18 @@
   <div class="practice-intro">
     <div class="practice-kicker notranslate" data-i18n-pt="Quiz Lab · Treino Interativo" data-i18n-en="Quiz Lab · Interactive Practice">Quiz Lab · Treino Interativo</div>
     <h2 class="practice-title"><span class="notranslate" data-i18n-pt="Testes de Prática" data-i18n-en="Practice Tests">Testes de Prática</span></h2>
-    <p>Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho.</p>
-    <p>A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos.</p>
+    <p data-i18n-pt="Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho." data-i18n-en="Use this area to access the interactive Security+ SY0-701 quiz page. The quiz includes domain selection, mixed mode, custom mode, instant feedback and a final performance report.">Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho.</p>
+    <p data-i18n-pt="A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos." data-i18n-en="The practice tests page also has a PT/EN toggle, so you can study in Portuguese or English without leaving the study plan.">A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos.</p>
     <div class="practice-actions">
-      <a class="practice-link" href="security-plus-practice-tests.html" target="_blank" rel="noopener">Abrir quiz em nova aba →</a>
-      <a class="practice-link secondary" href="security-plus-practice-tests.html" target="_blank" rel="noopener">Abrir tela cheia</a>
+      <a class="practice-link" href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir quiz em nova aba →" data-i18n-en="Open quiz in a new tab →">Abrir quiz em nova aba →</a>
+      <a class="practice-link secondary" href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir tela cheia" data-i18n-en="Open full screen">Abrir tela cheia</a>
     </div>
-    <div class="practice-note">Dica: mantenha este arquivo e o arquivo <strong>security-plus-practice-tests.html</strong> na mesma pasta para que o quiz carregue dentro desta aba.</div>
   </div>
 
   <div class="practice-frame-shell">
     <div class="practice-frame-toolbar">
-      <span>Security+ SY0-701 · Practice Tests</span>
-      <a href="security-plus-practice-tests.html" target="_blank" rel="noopener">Abrir tela cheia</a>
+      <span class="notranslate">Security+ SY0-701 · Practice Tests</span>
+      <a href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir tela cheia" data-i18n-en="Open full screen">Abrir tela cheia</a>
     </div>
     <iframe class="practice-frame" src="security-plus-practice-tests.html" title="Security+ SY0-701 Practice Tests" loading="lazy"></iframe>
   </div>
@@ -5998,11 +5997,23 @@ function updateManualLabels(lang) {
 function updateLanguageToggle(lang) {
   document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
   updateManualLabels(lang);
+  syncPracticeFrameLanguage(lang);
   document.querySelectorAll('.lang-option').forEach(btn => {
     const isActive = btn.dataset.lang === lang;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', String(isActive));
   });
+}
+
+function syncPracticeFrameLanguage(lang) {
+  const normalized = lang === 'en' ? 'en' : 'pt';
+  try {
+    localStorage.setItem('lmn_security_quiz_language', normalized);
+  } catch (e) {}
+  const frame = document.querySelector('.practice-frame');
+  if (frame && frame.contentWindow) {
+    frame.contentWindow.postMessage({ type: 'LMN_SET_LANG', lang: normalized }, '*');
+  }
 }
 
 function applyGoogleLanguage(lang, reloadIfNeeded) {
@@ -6045,6 +6056,10 @@ function googleTranslateElementInit() {
 window.addEventListener('DOMContentLoaded', () => {
   const preferred = localStorage.getItem(LMN_LANG_KEY) || (document.cookie.includes('googtrans=/pt/en') ? 'en' : 'pt');
   updateLanguageToggle(preferred);
+  const practiceFrame = document.querySelector('.practice-frame');
+  if (practiceFrame) {
+    practiceFrame.addEventListener('load', () => syncPracticeFrameLanguage(localStorage.getItem(LMN_LANG_KEY) || preferred));
+  }
 });
 </script>
 <script async defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

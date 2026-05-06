@@ -1212,6 +1212,141 @@ const DOMAIN_INFO = {
   D5: { name: "Program Management", desc: "Governança, risco, compliance, contratos, third-party", weight: "20%" },
 };
 
+const DOMAIN_INFO_EN = {
+  D1: { desc: "CIA Triad, controls, cryptography, PKI, AAA, Zero Trust" },
+  D2: { desc: "Threat types, malware, attacks and mitigations" },
+  D3: { desc: "Cloud, networks, IDS/IPS, resilience and architectural models" },
+  D4: { desc: "SIEM, hardening, IR, IAM, EDR and vulnerability management" },
+  D5: { desc: "Governance, risk, compliance, contracts and third-party management" },
+};
+
+function getQuizLanguage() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const fromUrl = params.get('lang');
+    if (fromUrl === 'en' || fromUrl === 'pt') return fromUrl;
+  } catch (e) {}
+  try {
+    const stored = localStorage.getItem('lmn_security_quiz_language');
+    if (stored === 'en' || stored === 'pt') return stored;
+  } catch (e) {}
+  return document.cookie.includes('googtrans=/pt/en') ? 'en' : 'pt';
+}
+
+function isQuizEnglish() {
+  return getQuizLanguage() === 'en';
+}
+
+function tQuiz(pt, en) {
+  return isQuizEnglish() ? en : pt;
+}
+
+function getDomainDescription(domain) {
+  return isQuizEnglish() && DOMAIN_INFO_EN[domain] ? DOMAIN_INFO_EN[domain].desc : DOMAIN_INFO[domain].desc;
+}
+
+function questionWord(count) {
+  return isQuizEnglish() ? (count === 1 ? 'question' : 'questions') : (count === 1 ? 'questão' : 'questões');
+}
+
+function applyManualQuizLabels(lang = getQuizLanguage()) {
+  const isEn = lang === 'en';
+  const setText = (selector, pt, en) => {
+    const el = document.querySelector(selector);
+    if (el) el.textContent = isEn ? en : pt;
+  };
+  const setHTML = (selector, pt, en) => {
+    const el = document.querySelector(selector);
+    if (el) el.innerHTML = isEn ? en : pt;
+  };
+
+  setText('.hero .pill', 'CompTIA Security+ · Quiz Interativo', 'CompTIA Security+ · Interactive Quiz');
+  setHTML('.hero h1', 'Estudo focado por <em>domínio</em>', 'Focused study by <em>domain</em>');
+  setText('.hero p', '200 questões cobrindo todos os 5 domínios do exame SY0-701. Escolha um domínio específico, faça um quiz misto com todos, ou monte um quiz personalizado selecionando os domínios desejados.', '200 questions covering all 5 domains of the SY0-701 exam. Choose a specific domain, take a mixed quiz with all domains, or build a custom quiz by selecting the domains you want.');
+  const tags = document.querySelectorAll('.hero-tag');
+  if (tags[0]) tags[0].textContent = isEn ? '200 questions' : '200 questões';
+  if (tags[1]) tags[1].textContent = isEn ? '5 domains' : '5 domínios';
+  if (tags[2]) tags[2].textContent = isEn ? 'Instant feedback' : 'Feedback instantâneo';
+  if (tags[3]) tags[3].textContent = isEn ? 'Detailed report' : 'Relatório detalhado';
+
+  setText('.tab[data-screen="menu"]', '📚 Modo de Estudo', '📚 Study Mode');
+  setText('#quiz-tab', '📝 Quiz em andamento', '📝 Quiz in progress');
+
+  setHTML('#screen-welcome h2', 'Bem-vinda ao seu <em>quiz</em>', 'Welcome to your <em>quiz</em>');
+  setText('#screen-welcome p', 'Antes de começar, conte como podemos te chamar. Esse nome vai aparecer no seu relatório final ao terminar cada quiz.', 'Before you start, tell us what we should call you. This name will appear in your final report after each quiz.');
+  const nameInput = document.getElementById('user-name-input');
+  if (nameInput) nameInput.placeholder = isEn ? 'Your name' : 'Seu nome';
+  setText('.name-hint', 'Esse nome fica salvo apenas no seu navegador, em nenhum servidor.', 'This name is saved only in your browser, not on any server.');
+  setText('#save-name-btn', 'Continuar →', 'Continue →');
+
+  const menuSections = document.querySelectorAll('#screen-menu .menu-section');
+  if (menuSections[0]) {
+    menuSections[0].querySelector('h2').textContent = isEn ? 'Study by domain' : 'Estudo por domínio';
+    menuSections[0].querySelector('p').textContent = isEn ? 'Choose a domain to answer 40 focused questions. Ideal for identifying weak points.' : 'Escolha um domínio para fazer 40 questões focadas. Ideal para identificar pontos fracos.';
+  }
+  if (menuSections[1]) {
+    menuSections[1].querySelector('h2').textContent = isEn ? 'Mixed quiz' : 'Quiz misto';
+    menuSections[1].querySelector('p').textContent = isEn ? 'Practice like the real exam: questions from all domains in random order.' : 'Pratique como será na prova: questões de todos os domínios, em ordem aleatória.';
+    const card = menuSections[1].querySelector('.setup-card');
+    if (card) {
+      card.querySelector('h3').textContent = isEn ? '🎲 Mix all domains' : '🎲 Misturar todos os domínios';
+      card.querySelector('p').textContent = isEn ? 'Shuffles questions from all 5 domains. Good for general simulation.' : 'Embaralha questões dos 5 domínios. Bom para simulação geral.';
+      card.querySelector('label').textContent = isEn ? 'Amount:' : 'Quantidade:';
+      const options = card.querySelectorAll('#mixed-count option');
+      const labels = isEn ? ['20 questions','40 questions','60 questions','90 questions (mock exam)','All 200'] : ['20 questões','40 questões','60 questões','90 questões (simulado)','Todas as 200'];
+      options.forEach((opt, idx) => { if (labels[idx]) opt.textContent = labels[idx]; });
+      const info = card.querySelector('.info-text');
+      if (info) info.textContent = isEn ? '~1 min/question' : '~1min/questão';
+      const btn = card.querySelector('.btn');
+      if (btn) btn.textContent = isEn ? 'Start mixed quiz →' : 'Começar quiz misto →';
+    }
+  }
+  if (menuSections[2]) {
+    menuSections[2].querySelector('h2').textContent = isEn ? 'Custom quiz' : 'Quiz personalizado';
+    menuSections[2].querySelector('p').textContent = isEn ? 'Select the domains you want to practice and the number of questions.' : 'Selecione os domínios que quer praticar e a quantidade de questões.';
+    const card = menuSections[2].querySelector('.setup-card');
+    if (card) {
+      card.querySelector('h3').textContent = isEn ? '🎯 Build my own quiz' : '🎯 Montar meu próprio quiz';
+      card.querySelector('p').textContent = isEn ? 'Useful for focusing on the domains where you feel less confident.' : 'Útil para focar nos domínios onde você se sente menos confiante.';
+      const selectDomainsLabel = card.querySelector('p[style]');
+      if (selectDomainsLabel) selectDomainsLabel.textContent = isEn ? 'Select the domains:' : 'Selecione os domínios:';
+      const label = card.querySelector('.setup-row label');
+      if (label) label.textContent = isEn ? 'Amount:' : 'Quantidade:';
+      const btn = document.getElementById('custom-start');
+      if (btn) btn.textContent = isEn ? 'Start custom quiz →' : 'Começar quiz personalizado →';
+    }
+  }
+
+  if (!quizState) setText('#quiz-title', 'Quiz em andamento', 'Quiz in progress');
+  const statTotal = document.getElementById('stat-total')?.textContent || '0';
+  const statAnswered = document.getElementById('stat-answered')?.textContent || '0';
+  const statCorrect = document.getElementById('stat-correct')?.textContent || '0';
+  const statWrong = document.getElementById('stat-wrong')?.textContent || '0';
+  const stats = document.querySelectorAll('.quiz-stats .stat');
+  if (stats[0]) stats[0].innerHTML = `${isEn ? 'Total' : 'Total'}: <strong id="stat-total">${statTotal}</strong>`;
+  if (stats[1]) stats[1].innerHTML = `${isEn ? 'Answered' : 'Respondidas'}: <strong id="stat-answered">${statAnswered}</strong>`;
+  if (stats[2]) stats[2].innerHTML = `${isEn ? 'Correct' : 'Acertos'}: <strong id="stat-correct">${statCorrect}</strong>`;
+  if (stats[3]) stats[3].innerHTML = `${isEn ? 'Wrong' : 'Erros'}: <strong id="stat-wrong">${statWrong}</strong>`;
+  setText('.quiz-nav .btn-secondary', '← Voltar ao menu', '← Back to menu');
+
+  setHTML('#report-title', 'Relatório de <em>Desempenho</em>', 'Performance <em>Report</em>');
+  const reportSections = document.querySelectorAll('.report-section h3');
+  if (reportSections[0]) reportSections[0].innerHTML = isEn ? '📊 <em>Overview</em>' : '📊 <em>Visão geral</em>';
+  if (reportSections[1]) reportSections[1].innerHTML = isEn ? '🎯 Performance by <em>domain</em>' : '🎯 Desempenho por <em>domínio</em>';
+  if (reportSections[2]) reportSections[2].innerHTML = isEn ? '💪 <em>Strengths</em>' : '💪 Pontos <em>fortes</em>';
+  if (reportSections[3]) reportSections[3].innerHTML = isEn ? '📚 What to <em>improve</em>' : '📚 O que <em>melhorar</em>';
+  if (reportSections[4]) reportSections[4].innerHTML = isEn ? '🎓 Study <em>recommendations</em>' : '🎓 <em>Recomendações</em> de estudo';
+  const reportButtons = document.querySelectorAll('.report-actions .btn');
+  if (reportButtons[0]) reportButtons[0].textContent = isEn ? '🔄 Retake this quiz' : '🔄 Refazer este quiz';
+  if (reportButtons[1]) reportButtons[1].textContent = isEn ? '🖨️ Print / Save PDF' : '🖨️ Imprimir / Salvar PDF';
+  if (reportButtons[2]) reportButtons[2].textContent = isEn ? '📚 Back to menu' : '📚 Voltar ao menu';
+
+  const footer = document.querySelector('footer');
+  if (footer) footer.innerHTML = isEn ? 'Larissa <em>Paiva</em> · SY0-701 Quiz · Made with care for your journey' : 'Larissa <em>Paiva</em> · SY0-701 Quiz · Feito com cuidado para sua jornada';
+  applyName();
+  updateCustomPool();
+}
+
 // ===================================================
 // BANCO DE QUESTÕES (125 questões)
 // ===================================================
@@ -1447,11 +1582,11 @@ function renderDomainCards() {
     card.onclick = () => startDomainQuiz(d);
     card.innerHTML = `
       <div class="domain-stripe"></div>
-      <div class="domain-num">DOMÍNIO ${d.replace('D','')} · ${info.weight}</div>
+      <div class="domain-num">${tQuiz('DOMÍNIO', 'DOMAIN')} ${d.replace('D','')} · ${info.weight}</div>
       <h3>${info.name}</h3>
-      <p>${info.desc}</p>
+      <p>${getDomainDescription(d)}</p>
       <div class="domain-meta">
-        <span>${QUESTIONS[d].length} questões</span>
+        <span>${QUESTIONS[d].length} ${questionWord(QUESTIONS[d].length)}</span>
         <span>→</span>
       </div>
     `;
@@ -1480,7 +1615,7 @@ function renderCustomDomainChecks() {
 function updateCustomPool() {
   const selected = Array.from(document.querySelectorAll('.domain-check.selected')).map(b => b.dataset.domain);
   const pool = selected.reduce((sum, d) => sum + QUESTIONS[d].length, 0);
-  document.getElementById('custom-pool').textContent = pool > 0 ? `${pool} disponíveis` : 'Selecione ao menos 1';
+  document.getElementById('custom-pool').textContent = pool > 0 ? `${pool} ${isQuizEnglish() ? 'available' : 'disponíveis'}` : tQuiz('Selecione ao menos 1', 'Select at least 1');
   const startBtn = document.getElementById('custom-start');
   startBtn.disabled = pool === 0;
   // Limita o input ao máximo disponível
@@ -1503,7 +1638,7 @@ function shuffle(arr) {
 function startDomainQuiz(domain) {
   const questions = QUESTIONS[domain].map((q, idx) => ({...q, _domain: domain, _idx: idx}));
   startQuiz({
-    title: `Domínio ${domain.replace('D','')} · <em>${DOMAIN_INFO[domain].name}</em>`,
+    title: `${tQuiz('Domínio', 'Domain')} ${domain.replace('D','')} · <em>${DOMAIN_INFO[domain].name}</em>`,
     questions: shuffle(questions),
     mode: 'domain',
     config: { domain }
@@ -1518,7 +1653,7 @@ function startMixed() {
   });
   pool = shuffle(pool).slice(0, count);
   startQuiz({
-    title: `Quiz Misto · <em>${count} questões</em>`,
+    title: `${tQuiz('Quiz Misto', 'Mixed Quiz')} · <em>${count} ${questionWord(count)}</em>`,
     questions: pool,
     mode: 'mixed',
     config: { count }
@@ -1535,7 +1670,7 @@ function startCustom() {
   });
   pool = shuffle(pool).slice(0, count);
   startQuiz({
-    title: `Quiz Personalizado · <em>${selected.join(' + ')}</em>`,
+    title: `${tQuiz('Quiz Personalizado', 'Custom Quiz')} · <em>${selected.join(' + ')}</em>`,
     questions: pool,
     mode: 'custom',
     config: { domains: selected, count }
@@ -1560,6 +1695,7 @@ function startQuiz({ title, questions, mode, config }) {
   document.getElementById('stat-wrong').textContent = 0;
   document.getElementById('report-card').classList.remove('show');
   renderQuestions();
+  applyManualQuizLabels(getQuizLanguage());
   switchScreen('quiz');
   document.getElementById('quiz-tab').style.display = 'inline-flex';
 }
@@ -1610,7 +1746,7 @@ function renderQuestions() {
     const tag = document.createElement('div');
     tag.className = 'question-tag';
     tag.dataset.domain = item._domain;
-    tag.textContent = `Questão ${i + 1} de ${quizState.questions.length} · ${item._domain}`;
+    tag.textContent = `${tQuiz('Questão', 'Question')} ${i + 1} ${tQuiz('de', 'of')} ${quizState.questions.length} · ${item._domain}`;
     card.appendChild(tag);
 
     const qText = document.createElement('div');
@@ -1632,7 +1768,7 @@ function renderQuestions() {
     const exp = document.createElement('div');
     exp.className = 'explanation';
     exp.id = 'exp-' + i;
-    exp.innerHTML = `<span class="label">Explicação</span>${item.explanation}`;
+    exp.innerHTML = `<span class="label">${tQuiz('Explicação', 'Explanation')}</span>${item.explanation}`;
     card.appendChild(exp);
 
     container.appendChild(card);
@@ -1692,7 +1828,7 @@ function updateProgress() {
   document.getElementById('stat-answered').textContent = answered;
   document.getElementById('stat-correct').textContent = quizState.correct;
   document.getElementById('stat-wrong').textContent = quizState.wrong;
-  document.getElementById('progress-text').textContent = `${answered}/${total} respondidas`;
+  document.getElementById('progress-text').textContent = `${answered}/${total} ${tQuiz('respondidas', 'answered')}`;
 }
 
 // ===================================================
@@ -1715,11 +1851,11 @@ function showReport() {
 
   // Header
   let emoji, headlineFeedback, headlineTitle;
-  if (pct >= 90)      { emoji = '🌟'; headlineTitle = 'Resultado excelente!'; headlineFeedback = 'Domínio impressionante do conteúdo. Você está pronta para a prova com folga.'; }
-  else if (pct >= 80) { emoji = '🎯'; headlineTitle = 'Muito bom!'; headlineFeedback = 'Resultado acima do necessário para aprovação. Revise as questões erradas e estará tranquila.'; }
-  else if (pct >= 70) { emoji = '✅'; headlineTitle = 'Bom resultado!'; headlineFeedback = 'Você está no caminho. Foque um pouco mais nos domínios com menor nota.'; }
-  else if (pct >= 60) { emoji = '📚'; headlineTitle = 'Continue praticando!'; headlineFeedback = 'Resultado razoável, mas precisa reforçar os tópicos onde teve mais dúvidas antes da prova.'; }
-  else                { emoji = '💪'; headlineTitle = 'Hora de revisar!'; headlineFeedback = 'Vale dedicar mais tempo de estudo aos domínios com pior desempenho. Volte aos materiais de revisão.'; }
+  if (pct >= 90)      { emoji = '🌟'; headlineTitle = tQuiz('Resultado excelente!', 'Excellent result!'); headlineFeedback = tQuiz('Domínio impressionante do conteúdo. Você está pronta para a prova com folga.', 'Impressive mastery of the content. You are comfortably ready for the exam.'); }
+  else if (pct >= 80) { emoji = '🎯'; headlineTitle = tQuiz('Muito bom!', 'Very good!'); headlineFeedback = tQuiz('Resultado acima do necessário para aprovação. Revise as questões erradas e estará tranquila.', 'Result above the passing target. Review the wrong answers and you will be fine.'); }
+  else if (pct >= 70) { emoji = '✅'; headlineTitle = tQuiz('Bom resultado!', 'Good result!'); headlineFeedback = tQuiz('Você está no caminho. Foque um pouco mais nos domínios com menor nota.', 'You are on the right path. Focus a little more on the domains with lower scores.'); }
+  else if (pct >= 60) { emoji = '📚'; headlineTitle = tQuiz('Continue praticando!', 'Keep practicing!'); headlineFeedback = tQuiz('Resultado razoável, mas precisa reforçar os tópicos onde teve mais dúvidas antes da prova.', 'Reasonable result, but you should reinforce the topics where you had more doubts before the exam.'); }
+  else                { emoji = '💪'; headlineTitle = tQuiz('Hora de revisar!', 'Time to review!'); headlineFeedback = tQuiz('Vale dedicar mais tempo de estudo aos domínios com pior desempenho. Volte aos materiais de revisão.', 'Dedicate more study time to the domains with weaker performance. Go back to the review materials.'); }
 
   document.getElementById('report-emoji').textContent = emoji;
   document.getElementById('overall-title').textContent = headlineTitle;
@@ -1731,30 +1867,30 @@ function showReport() {
 
   // Meta info (data, duração, modo)
   const userName = getUserName();
-  const dateStr = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  const dateStr = new Date().toLocaleDateString(isQuizEnglish() ? 'en-US' : 'pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
   const timeStr = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   const durationMs = new Date() - quizState.startTime;
   const minutes = Math.floor(durationMs / 60000);
   const seconds = Math.floor((durationMs % 60000) / 1000);
-  const modeLabel = quizState.mode === 'domain' ? `Domínio ${quizState.config.domain}` : (quizState.mode === 'mixed' ? 'Quiz Misto' : 'Personalizado');
+  const modeLabel = quizState.mode === 'domain' ? `${tQuiz('Domínio', 'Domain')} ${quizState.config.domain}` : (quizState.mode === 'mixed' ? tQuiz('Quiz Misto', 'Mixed Quiz') : tQuiz('Personalizado', 'Custom'));
   document.getElementById('report-meta').innerHTML =
-    `${userName} · ${dateStr} às ${timeStr} · Duração: ${minutes}m ${seconds}s · Modo: ${modeLabel}`;
-  document.getElementById('report-title').innerHTML = `Relatório de <em>${userName}</em>`;
+    `${userName} · ${dateStr} ${tQuiz('às', 'at')} ${timeStr} · ${tQuiz('Duração', 'Duration')}: ${minutes}m ${seconds}s · ${tQuiz('Modo', 'Mode')}: ${modeLabel}`;
+  document.getElementById('report-title').innerHTML = `${tQuiz('Relatório de', 'Report for')} <em>${userName}</em>`;
 
   // Score row
   const scoreRow = document.getElementById('report-score-row');
   scoreRow.innerHTML = `
     <div class="score-stat primary">
       <div class="num">${pct}%</div>
-      <div class="label">Aproveitamento</div>
+      <div class="label">${tQuiz('Aproveitamento', 'Score')}</div>
     </div>
     <div class="score-stat green">
       <div class="num">${correct}</div>
-      <div class="label">Acertos</div>
+      <div class="label">${tQuiz('Acertos', 'Correct')}</div>
     </div>
     <div class="score-stat red">
       <div class="num">${wrong}</div>
-      <div class="label">Erros</div>
+      <div class="label">${tQuiz('Erros', 'Wrong')}</div>
     </div>
     <div class="score-stat">
       <div class="num">${total}</div>
@@ -1775,7 +1911,7 @@ function showReport() {
     bar.innerHTML = `
       <div class="domain-label">
         <strong>${d} · ${info.name}</strong>
-        <small>Peso na prova: ${info.weight}</small>
+        <small>${tQuiz('Peso na prova', 'Exam weight')}: ${info.weight}</small>
       </div>
       <div class="bar-track">
         <div class="bar-fill ${cls}" style="width: ${dPct}%">${dPct}%</div>
@@ -1978,8 +2114,14 @@ function changeName() {
 }
 
 function applyName() {
-  const name = getUserName();
-  document.getElementById('greeting-name').textContent = name;
+  const rawName = getUserName();
+  const name = rawName === 'amiga' && isQuizEnglish() ? 'friend' : rawName;
+  const greeting = document.querySelector('.greeting-text');
+  if (greeting) {
+    greeting.innerHTML = isQuizEnglish()
+      ? `Hi, <em id="greeting-name">${name}</em>! Ready to study? 💪`
+      : `Olá, <em id="greeting-name">${name}</em>! Pronta para estudar? 💪`;
+  }
   document.getElementById('topbar-user').textContent = `${name} · SY0-701`;
 }
 
@@ -2012,6 +2154,7 @@ function switchScreen(name) {
 document.addEventListener('DOMContentLoaded', () => {
   renderDomainCards();
   renderCustomDomainChecks();
+  applyManualQuizLabels(getQuizLanguage());
   checkFirstVisit();
 
   // Permite Enter no campo de nome
@@ -2065,11 +2208,15 @@ function clearTranslateCookie() {
 function updateLanguageToggle(lang) {
   const normalized = lang === 'en' ? 'en' : 'pt';
   document.documentElement.lang = normalized === 'en' ? 'en' : 'pt-BR';
+  try { localStorage.setItem(LMN_QUIZ_LANG_KEY, normalized); } catch (e) {}
   document.querySelectorAll('.lang-option').forEach(btn => {
     const isActive = btn.dataset.lang === normalized;
     btn.classList.toggle('active', isActive);
     btn.setAttribute('aria-pressed', String(isActive));
   });
+  applyManualQuizLabels(normalized);
+  renderDomainCards();
+  renderCustomDomainChecks();
 }
 
 function triggerGoogleTranslateToEnglish() {
@@ -2123,7 +2270,7 @@ function googleTranslateElementInit() {
     autoDisplay: false
   }, 'google_translate_element');
 
-  const preferred = localStorage.getItem(LMN_QUIZ_LANG_KEY) || 'pt';
+  const preferred = getQuizLanguage();
   updateLanguageToggle(preferred);
   if (preferred === 'en') {
     window.setTimeout(() => applyGoogleLanguage('en', false), 650);
@@ -2131,7 +2278,7 @@ function googleTranslateElementInit() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const preferred = localStorage.getItem(LMN_QUIZ_LANG_KEY) || (document.cookie.includes('googtrans=/pt/en') ? 'en' : 'pt');
+  const preferred = getQuizLanguage();
   updateLanguageToggle(preferred);
 
   const dynamicTargets = [
@@ -2147,6 +2294,15 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   dynamicTargets.forEach(target => observer.observe(target, { childList: true, subtree: true, characterData: true }));
   restoreOptionLetters();
+});
+
+window.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'LMN_SET_LANG') return;
+  const lang = event.data.lang === 'en' ? 'en' : 'pt';
+  localStorage.setItem(LMN_QUIZ_LANG_KEY, lang);
+  updateLanguageToggle(lang);
+  applyGoogleLanguage(lang, false);
+  if (lang === 'en') refreshDynamicTranslation();
 });
 </script>
 <script async defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
