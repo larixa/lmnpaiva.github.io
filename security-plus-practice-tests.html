@@ -2307,5 +2307,71 @@ window.addEventListener('message', (event) => {
 </script>
 <script async defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+
+<script id="lmn-quiz-i18n-final">
+/* Final bilingual layer for the quiz UI. This avoids full-page reloads and translates
+   all fixed interface labels manually. The question bank remains available in Portuguese;
+   when online, the existing Google layer may still translate rendered question text. */
+(function(){
+  const KEY = 'lmn_security_quiz_language';
+
+  function preferredLang(){
+    try {
+      const p = new URLSearchParams(location.search).get('lang');
+      if (p === 'en' || p === 'pt') return p;
+      const s = localStorage.getItem(KEY);
+      if (s === 'en' || s === 'pt') return s;
+    } catch(e) {}
+    return 'pt';
+  }
+
+  function updateToggle(lang){
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+    document.querySelectorAll('.lang-option').forEach(btn => {
+      const active = btn.dataset.lang === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function setSelectLabels(lang){
+    const isEn = lang === 'en';
+    const mixed = document.querySelectorAll('#mixed-count option');
+    const labels = isEn ? ['20 questions','40 questions','60 questions','90 questions (mock exam)','All 200'] : ['20 questões','40 questões','60 questões','90 questões (simulado)','Todas as 200'];
+    mixed.forEach((opt, i) => { if (labels[i]) opt.textContent = labels[i]; });
+  }
+
+  function apply(lang){
+    lang = lang === 'en' ? 'en' : 'pt';
+    try { localStorage.setItem(KEY, lang); } catch(e) {}
+    updateToggle(lang);
+    if (typeof applyManualQuizLabels === 'function') applyManualQuizLabels(lang);
+    setSelectLabels(lang);
+    if (typeof renderDomainCards === 'function') renderDomainCards();
+    if (typeof renderCustomDomainChecks === 'function') renderCustomDomainChecks();
+    if (typeof updateCustomPool === 'function') updateCustomPool();
+    if (typeof applyName === 'function') applyName();
+    if (typeof updateStats === 'function') updateStats();
+    if (lang === 'en' && typeof refreshDynamicTranslation === 'function') {
+      setTimeout(refreshDynamicTranslation, 700);
+    }
+  }
+
+  window.setLanguage = apply;
+  window.setLmnQuizLanguage = apply;
+
+  window.addEventListener('message', (event) => {
+    if (!event.data || event.data.type !== 'LMN_SET_LANG') return;
+    apply(event.data.lang === 'en' ? 'en' : 'pt');
+  });
+
+  function init(){
+    apply(preferredLang());
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
 </body>
 </html>
