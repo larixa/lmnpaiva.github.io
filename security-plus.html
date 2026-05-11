@@ -1006,6 +1006,7 @@
   <button class="nav-btn" onclick="showSection('d4')">D4 · Operations</button>
   <button class="nav-btn" onclick="showSection('d5')">D5 · Governance</button>
   <button class="nav-btn" onclick="showSection('acronyms')">📖 Acrônimos</button>
+  <button class="nav-btn" onclick="showSection('practice')">🎯 Testes</button>
   <button class="nav-btn" onclick="showSection('testimonials')">💬 Depoimentos</button>
   <button class="nav-btn" onclick="showSection('schedule')">📅 Cronograma</button>
 </nav>
@@ -4510,85 +4511,568 @@
 </div> <!-- /acronyms -->
 
 <!-- ===== TESTIMONIALS ===== -->
-<div id="testimonials" class="section">
-  <div class="practice-intro">
-    <div class="practice-kicker notranslate" data-i18n-pt="Depoimentos · Quem usou este material" data-i18n-en="Testimonials · Who used this material">Depoimentos · Quem usou este material</div>
-    <h2 class="practice-title"><span class="notranslate" data-i18n-pt="O que dizem sobre este guia" data-i18n-en="What they say about this guide">O que dizem sobre este guia</span></h2>
-    <p data-i18n-pt="Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701. Se você também usou este guia e quer deixar seu depoimento, entre em contato!" data-i18n-en="This material was built from the real experience of those who studied and passed the CompTIA Security+ SY0-701. If you also used this guide and want to share your testimonial, get in touch!">Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701. Se você também usou este guia e quer deixar seu depoimento, entre em contato!</p>
+<!-- ===== DEPOIMENTOS + TESTES DE PRÁTICA ===== -->
+<div id="practice" class="section">
+
+  <div style="margin-bottom:1.5rem;">
+    <div class="practice-kicker notranslate">🎯 Testes de Prática · 200 Questões</div>
+    <h2 class="practice-title" style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.5rem;" data-i18n-pt="Pratique por domínio" data-i18n-en="Practice by domain">Pratique por domínio</h2>
+    <p style="color:var(--text-dim);font-size:.92rem;" data-i18n-pt="200 questões cobrindo todos os domínios SY0-701 com feedback detalhado e relatório de desempenho." data-i18n-en="200 questions covering all SY0-701 domains with detailed feedback and performance report.">200 questões cobrindo todos os domínios SY0-701 com feedback detalhado e relatório de desempenho.</p>
   </div>
 
-  <!-- Testimonials grid -->
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:2.5rem;">
+<!-- QUIZ INLINE EMBED -->
+  <div id="quiz-app" style="background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 28px 80px rgba(58,110,158,0.10);">
 
-    <!-- Testimonial 1 — Larissa (autora) -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;gap:1rem;backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(58,110,158,0.08);">
-      <div style="display:flex;align-items:center;gap:1rem;">
-        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">👩🏾‍💻</div>
-        <div>
-          <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);">Larissa Paiva</div>
-          <div style="font-size:0.78rem;color:var(--text-muted);">Service Desk Coordinator · Van Ameyde · Lisboa</div>
+    <!-- Quiz Header -->
+    <div style="padding:1.4rem 1.8rem;background:linear-gradient(90deg,rgba(184,92,114,0.09),rgba(58,110,158,0.06));border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;">
+      <div>
+        <div style="font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--text);" id="qa-title" data-i18n-pt="Escolha um modo de estudo" data-i18n-en="Choose a study mode">Escolha um modo de estudo</div>
+        <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-muted);margin-top:.2rem;" id="qa-meta">SY0-701 · 200 questões disponíveis</div>
+      </div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;" id="qa-stats" style="display:none;">
+        <span style="font-family:var(--mono);font-size:.75rem;background:var(--surface2);border:1px solid var(--border);padding:.25rem .65rem;border-radius:99px;color:var(--text-muted);">Total: <strong id="qa-stat-total" style="color:var(--text);">0</strong></span>
+        <span style="font-family:var(--mono);font-size:.75rem;background:var(--green-light);border:1px solid #a8d5b5;padding:.25rem .65rem;border-radius:99px;color:var(--green-dark);">✓ <strong id="qa-stat-correct">0</strong></span>
+        <span style="font-family:var(--mono);font-size:.75rem;background:var(--pink-light);border:1px solid var(--pink);padding:.25rem .65rem;border-radius:99px;color:var(--accent2);">✗ <strong id="qa-stat-wrong">0</strong></span>
+      </div>
+    </div>
+
+    <!-- MENU SCREEN -->
+    <div id="qa-screen-menu" style="padding:1.8rem;">
+
+      <!-- Seleção por domínio -->
+      <div style="margin-bottom:1.8rem;">
+        <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.35rem;" data-i18n-pt="Estudo por domínio" data-i18n-en="Study by domain">Estudo por domínio</div>
+        <p style="font-size:.82rem;color:var(--text-dim);margin-bottom:1rem;" data-i18n-pt="Clique num domínio para praticar todas as questões daquela área." data-i18n-en="Click a domain to practice all questions from that area.">Clique num domínio para praticar todas as questões daquela área.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;" id="qa-domain-grid"></div>
+      </div>
+
+      <!-- Divisória -->
+      <div style="height:1px;background:var(--border);margin:1.5rem 0;"></div>
+
+      <!-- Quiz Misto -->
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem;" data-i18n-pt="Quiz misto — todos os domínios" data-i18n-en="Mixed quiz — all domains">Quiz misto — todos os domínios</div>
+        <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.75rem;">
+          <select id="qa-mixed-count" style="background:var(--surface2);border:1px solid var(--border);padding:.5rem .9rem;border-radius:10px;font-family:var(--sans);font-size:.85rem;color:var(--text);cursor:pointer;">
+            <option value="20">20 questões</option>
+            <option value="40">40 questões</option>
+            <option value="60" selected>60 questões</option>
+            <option value="90">90 questões (simulado)</option>
+            <option value="200">Todas as 200</option>
+          </select>
+          <button onclick="qaStartMixed()" style="background:var(--text);color:#fff;border:none;padding:.55rem 1.3rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--text)'" data-i18n-pt="Começar misto →" data-i18n-en="Start mixed →">Começar misto →</button>
         </div>
-        <div style="margin-left:auto;background:rgba(184,92,114,0.1);border:1px solid rgba(184,92,114,0.25);border-radius:99px;padding:0.25rem 0.75rem;font-size:0.7rem;font-weight:700;color:var(--accent2);">✓ Aprovada</div>
       </div>
-      <div style="display:flex;gap:2px;margin:-0.25rem 0;">
-        <span style="color:var(--accent4);font-size:1rem;">★★★★★</span>
-      </div>
-      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.75;font-style:italic;">"Criei este material porque não encontrei nada em português que fosse ao mesmo tempo completo e prático. Estudei 8 dias com este guia, focando nos domínios mais pesados (D2 e D4), e passei com folga. O que mais me ajudou foram os estudos de caso e os PBQs — a prova cobra exatamente esse tipo de raciocínio contextualizado."</p>
-      <div style="font-size:0.72rem;color:var(--text-muted);padding-top:0.5rem;border-top:1px solid var(--border);">CompTIA Security+ SY0-701 · Maio 2025</div>
+
     </div>
 
-    <!-- Testimonial 2 — placeholder A -->
-    <div style="background:var(--surface);border:2px dashed var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;min-height:220px;backdrop-filter:blur(16px);">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(58,110,158,0.08);border:2px dashed rgba(58,110,158,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💬</div>
-      <div>
-        <div style="font-family:var(--display);font-size:1rem;color:var(--text-muted);margin-bottom:0.4rem;" data-i18n-pt="O seu depoimento aqui" data-i18n-en="Your testimonial here">O seu depoimento aqui</div>
-        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;" data-i18n-pt="Passou na Security+ usando este material? Entre em contacto e partilhe a sua experiência!" data-i18n-en="Passed the Security+ using this material? Get in touch and share your experience!">Passou na Security+ usando este material? Entre em contacto e partilhe a sua experiência!</p>
-      </div>
-      <a href="/#contact" style="font-size:0.78rem;font-weight:600;color:var(--accent2);text-decoration:none;border:1px solid rgba(184,92,114,0.3);padding:0.4rem 1rem;border-radius:99px;background:rgba(184,92,114,0.07);transition:all 0.2s;" data-i18n-pt="Enviar depoimento →" data-i18n-en="Send testimonial →">Enviar depoimento →</a>
-    </div>
-
-    <!-- Testimonial 3 — placeholder B -->
-    <div style="background:var(--surface);border:2px dashed var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;min-height:220px;backdrop-filter:blur(16px);">
-      <div style="width:56px;height:56px;border-radius:50%;background:rgba(158,122,16,0.08);border:2px dashed rgba(158,122,16,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏆</div>
-      <div>
-        <div style="font-family:var(--display);font-size:1rem;color:var(--text-muted);margin-bottom:0.4rem;" data-i18n-pt="Em breve" data-i18n-en="Coming soon">Em breve</div>
-        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;" data-i18n-pt="Mais depoimentos serão adicionados à medida que candidatos passarem no exame." data-i18n-en="More testimonials will be added as candidates pass the exam.">Mais depoimentos serão adicionados à medida que candidatos passarem no exame.</p>
+    <!-- QUIZ SCREEN -->
+    <div id="qa-screen-quiz" style="display:none;padding:1.8rem;">
+      <div id="qa-questions"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border);flex-wrap:wrap;gap:.75rem;">
+        <button onclick="qaAbandon()" style="background:transparent;color:var(--text-muted);border:1px solid var(--border);padding:.5rem 1.1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;" data-i18n-pt="← Voltar ao menu" data-i18n-en="← Back to menu">← Voltar ao menu</button>
+        <span style="font-family:var(--mono);font-size:.78rem;color:var(--text-muted);" id="qa-progress">0/0</span>
       </div>
     </div>
 
+    <!-- RESULT SCREEN -->
+    <div id="qa-screen-result" style="display:none;padding:1.8rem;text-align:center;">
+      <div id="qa-result-emoji" style="font-size:2.5rem;margin-bottom:.5rem;">🎉</div>
+      <div style="font-family:var(--display);font-size:1.4rem;color:var(--text);margin-bottom:.25rem;" id="qa-result-title">Quiz completo!</div>
+      <div style="font-family:var(--display);font-size:3rem;font-weight:800;color:var(--accent2);line-height:1.1;margin:.5rem 0;" id="qa-result-score">0%</div>
+      <div style="font-size:.85rem;color:var(--text-muted);margin-bottom:1.2rem;" id="qa-result-detail">0 corretas de 0</div>
+      <div id="qa-domain-bars" style="text-align:left;margin-bottom:1.5rem;"></div>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+        <button onclick="qaRestart()" style="background:var(--text);color:#fff;border:none;padding:.6rem 1.4rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;" data-i18n-pt="🔄 Refazer" data-i18n-en="🔄 Retry">🔄 Refazer</button>
+        <button onclick="qaAbandon()" style="background:transparent;color:var(--text);border:1px solid var(--border);padding:.6rem 1.4rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;" data-i18n-pt="📚 Menu" data-i18n-en="📚 Menu">📚 Menu</button>
+      </div>
+    </div>
+
+  </div><!-- /quiz-app -->
+
+
+
+</div><!-- /practice -->
+
+<script>
+// ===================================================
+// QUIZ INLINE — BANCO DE 200 QUESTÕES
+// ===================================================
+const QA_DOMAIN_INFO = {
+  D1:{name:"General Security Concepts",weight:"12%",color:"#3A6E9E"},
+  D2:{name:"Threats & Vulnerabilities",weight:"22%",color:"#B85C72"},
+  D3:{name:"Security Architecture",weight:"18%",color:"#2E7D52"},
+  D4:{name:"Security Operations",weight:"28%",color:"#9E7A10"},
+  D5:{name:"Program Management",weight:"20%",color:"#B85C72"}
+};
+
+const QA_QUESTIONS = {
+  D1:[
+    {q:"Qual NÃO é um princípio da Tríade CIA?",o:["Confidentiality","Integrity","Authentication","Availability"],c:2,e:"CIA = Confidentiality, Integrity, Availability. Authentication faz parte do AAA, não da CIA."},
+    {q:"Uma empresa implementa MFA com senha + token FIDO2. Quais fatores?",o:["Algo que sabe + algo que sabe","Algo que sabe + algo que tem","Algo que é + algo que tem","Algo que faz + algo que sabe"],c:1,e:"Senha = algo que SABE. Token FIDO2 = algo que TEM. MFA real exige categorias diferentes."},
+    {q:"Para garantir não-repúdio em uma transação digital, qual técnica é usada?",o:["Criptografia simétrica","Hashing simples","Assinatura digital com chave privada","Tokenização"],c:2,e:"Não-repúdio: apenas o dono da chave privada pode assinar, provando autoria inequívoca."},
+    {q:"Qual algoritmo de hash é considerado SEGURO para uso atual?",o:["MD5","SHA-1","SHA-256","DES"],c:2,e:"SHA-256 é seguro. MD5 e SHA-1 são vulneráveis a colisões. DES é cifra simétrica, não hash."},
+    {q:"Para que serve o salt em senhas armazenadas?",o:["Acelerar o hash","Impedir rainbow tables","Criptografar a senha","Permitir reversão"],c:1,e:"Salt aleatório torna senhas iguais com hashes diferentes, invalidando tabelas pré-computadas."},
+    {q:"Qual método de revogação de certificado consulta status em tempo real?",o:["CRL","OCSP","PKI","CSR"],c:1,e:"OCSP consulta status individual em tempo real. CRL é lista completa baixada periodicamente."},
+    {q:"Qual tecnologia de hardware habilita BitLocker e Secure Boot no Windows 11?",o:["HSM","TPM 2.0","FIDO2","Smart Card"],c:1,e:"TPM 2.0 é chip na placa-mãe, obrigatório no Windows 11 para BitLocker e Secure Boot."},
+    {q:"Com Perfect Forward Secrecy (PFS), se a chave privada do servidor vazar no futuro:",o:["Sessões antigas são descriptografadas","Sessões anteriores permanecem protegidas","Só sessões futuras são afetadas","Só o servidor descriptografa"],c:1,e:"PFS usa chaves efêmeras por sessão, descartadas após uso. Vazamento posterior não expõe sessões antigas."},
+    {q:"Qual categoria é a 'política corporativa de senhas fortes'?",o:["Technical","Managerial","Operational","Physical"],c:1,e:"Políticas são controles Managerial. Technical = ferramenta. Operational = atividade humana. Physical = tangível."},
+    {q:"Banner 'Sistema monitorado — uso autorizado apenas' é qual TIPO de controle?",o:["Preventive","Detective","Deterrent","Compensating"],c:2,e:"Deterrent desencoraja antes da tentativa, sem impedir tecnicamente."},
+    {q:"Sistema legado sem patches: segmentação de rede implementada. Qual tipo de controle?",o:["Preventive primário","Compensating","Corrective","Detective"],c:1,e:"Compensating substitui controle primário ausente (patching) quando não viável."},
+    {q:"Qual protocolo de federação usa assertions XML para SSO empresarial?",o:["OAuth 2.0","OIDC","SAML","Kerberos"],c:2,e:"SAML usa XML, padrão em SSO empresarial (Salesforce, Workday)."},
+    {q:"Diferença entre OAuth 2.0 e OpenID Connect (OIDC)?",o:["OAuth é mais novo","OAuth = autenticação, OIDC = autorização","OAuth = autorização, OIDC adiciona autenticação","Não há diferença"],c:2,e:"OAuth = autorização. OIDC adiciona camada de autenticação sobre OAuth com ID Tokens JWT."},
+    {q:"No Kerberos, o que é o TGT?",o:["Ticket para serviço específico","Ticket inicial emitido pelo KDC após autenticação","Hash da senha","Certificado digital"],c:1,e:"TGT é emitido pelo KDC após login. Troca por TGS específico por serviço."},
+    {q:"Senha + PIN é MFA legítimo?",o:["Sim, são credenciais diferentes","Não, ambos são 'algo que sabe'","Sim se em telas separadas","Sim se PIN tiver 6+ dígitos"],c:1,e:"MFA exige categorias DIFERENTES. Senha + PIN = ambos 'conhecimento'. Não é MFA real."},
+    {q:"Qual é exemplo de criptografia ASSIMÉTRICA?",o:["AES-256","RSA-2048","SHA-256","ChaCha20"],c:1,e:"RSA é assimétrica (par público/privada). AES e ChaCha20 são simétricas. SHA-256 é hash."},
+    {q:"FIDO2/Passkeys protegem contra qual ataque que SMS NÃO protege?",o:["Brute force","Credential stuffing","Phishing/AiTM","Keylogger"],c:2,e:"FIDO2 é vinculado ao domínio, imune a phishing. SMS pode ser interceptado em proxies reversos."},
+    {q:"Em Zero Trust, qual princípio NÃO se aplica?",o:["Never trust, always verify","Verificação contínua","Confiança implícita dentro do perímetro","Menor privilégio"],c:2,e:"Zero Trust ELIMINA confiança por localização. Todo acesso é verificado independentemente da origem."},
+    {q:"Diferença entre HSM e TPM?",o:["HSM é software, TPM hardware","HSM = appliance dedicado em servidores; TPM = chip na placa-mãe","HSM só faz hash","São sinônimos"],c:1,e:"HSM = appliance dedicado em datacenters (FIPS 140-2 L3+). TPM = chip embutido em endpoints."},
+    {q:"O que faz uma CA (Certificate Authority) em PKI?",o:["Armazena senhas","Emite e assina certificados digitais","Criptografa dados em trânsito","Substitui senhas"],c:1,e:"CA emite e assina certificados, vinculando identidade à chave pública."},
+    {q:"Key stretching (bcrypt, Argon2) serve para:",o:["Acelerar hashes","Tornar hashes propositalmente lentos contra brute force","Criptografar simétricamente","Comprimir dados"],c:1,e:"Key stretching é propositalmente lento para frustrar ataques de brute force em senhas."},
+    {q:"Em AAA, qual componente registra o que o usuário fez?",o:["Authentication","Authorization","Accounting","Auditing (diferente de Accounting)"],c:2,e:"Accounting registra ações (logs). Auth = quem é. Authz = o que pode. Accounting = o que fez."},
+    {q:"Câmera sem aviso visível classifica-se como:",o:["Physical + Preventive","Physical + Deterrent","Physical + Detective","Operational + Corrective"],c:2,e:"Física + Detective (detecta, não impede). Sem aviso = não é Deterrent (que precisa ser visível)."},
+    {q:"Pentest realizado com total conhecimento de arquitetura e código:",o:["Black Box","Gray Box","White Box","Red Team"],c:2,e:"White Box = conhecimento total (código, credenciais, arquitetura). Mais profundo."},
+    {q:"RADIUS vs TACACS+: principal diferença?",o:["RADIUS = TCP, TACACS+ = UDP","RADIUS combina autenticação+autorização; TACACS+ separa os 3 processos AAA","TACACS+ é mais antigo","São idênticos"],c:1,e:"RADIUS usa UDP, combina auth+authz. TACACS+ usa TCP, separa AAA, criptografa pacote inteiro."},
+    {q:"Algoritmo recomendado para hash de senhas em novas aplicações?",o:["MD5","SHA-1","Argon2","Base64"],c:2,e:"Argon2 é o recomendado atualmente (Password Hashing Competition 2015). Resistente a GPU/ASIC."},
+    {q:"CSR (Certificate Signing Request) é:",o:["Revogar certificado","Pedido de emissão à CA com chave pública e dados","Validar TLS handshake","Cifrar comunicação"],c:1,e:"CSR gerado pelo solicitante com chave pública + dados. CA valida e emite certificado assinado."},
+    {q:"Para enviar mensagem confidencial a Bob, Alice usa:",o:["Chave privada de Alice","Chave pública de Bob","Chave privada de Bob","Chave pública de Alice"],c:1,e:"Confidencialidade: criptografa com chave PÚBLICA do destinatário (só ele descriptografa)."},
+    {q:"Técnica que oculta parte dos dados (4532-XXXX-XXXX-1234):",o:["Tokenization","Encryption","Data masking","Hashing"],c:2,e:"Data Masking oculta parte mantendo formato. Usado em telas e logs."},
+    {q:"Authentication vs Authorization: diferença fundamental?",o:["São sinônimos","Auth confirma quem é; Authz define o que pode fazer","Auth é mais segura","Authz vem antes de Auth"],c:1,e:"Authentication = QUEM é (login). Authorization = O QUE pode fazer (RBAC, permissões)."},
+    {q:"AES-256 e ChaCha20 são exemplos de:",o:["Algoritmos de hash","Cifras simétricas","Cifras assimétricas","Protocolos de autenticação"],c:1,e:"AES-256 e ChaCha20 são cifras simétricas (mesma chave). RSA, ECC = assimétricas."},
+    {q:"O que é steganography?",o:["Criptografia forte","Esconder existência da mensagem dentro de outro arquivo","Substituir senhas","Detectar malware"],c:1,e:"Steganography esconde que existe mensagem (dentro de imagem, áudio). Diferente de criptografia."},
+    {q:"Just-in-Time (JIT) Access é:",o:["Acesso permanente para admins","Privilégios temporários que expiram após uso","Acesso por geolocalização","Acesso compartilhado via cofre"],c:1,e:"JIT concede privilégios apenas quando necessário, com expiração automática. Reduz superfície de ataque."},
+    {q:"Defense in Depth significa:",o:["Usar apenas o controle mais forte","Múltiplas camadas independentes de controles","Centralizar em um único firewall","Confiar no fornecedor"],c:1,e:"Defense in Depth = camadas múltiplas e independentes. Falha de uma não compromete tudo."},
+    {q:"O que é salt em criptografia?",o:["Tipo de cifra","Valor aleatório adicionado antes do hash para unicidade","Chave pública","Protocolo de auth"],c:1,e:"Salt é valor aleatório adicionado à senha antes do hash. Mesmo input → hashes diferentes."},
+    {q:"Proteção para dados In Use (em memória)?",o:["BitLocker","TLS 1.3","Confidential Computing (Intel SGX)","VPN IPsec"],c:2,e:"Confidential Computing protege dados em processamento em enclaves seguros (SGX, AMD SEV)."},
+    {q:"CVSS score 9.8 indica:",o:["Severidade média, patch no próximo ciclo","Vulnerabilidade apenas teórica","Severidade CRÍTICA, patch emergencial imediato","Severidade alta, patch em 30 dias"],c:2,e:"CVSS 9.0-10.0 = Crítica. Exige patch emergencial ou isolamento imediato do sistema."},
+    {q:"Time-of-day restrictions é exemplo de qual modelo de controle?",o:["DAC","MAC","RBAC","ABAC"],c:3,e:"ABAC usa múltiplos atributos (cargo + horário + localização). Horário = atributo ABAC."},
+    {q:"Qual o propósito de hashing em segurança?",o:["Criptografar dados reversivelmente","Garantir integridade — detecta qualquer alteração","Substituir senhas","Comprimir arquivos"],c:1,e:"Hash é unidirecional. Qualquer alteração muda o hash. Usado para verificar integridade."},
+    {q:"Security through obscurity é considerado anti-padrão porque:",o:["É lento","Depende APENAS do segredo do método como única defesa","É caro","Não usa criptografia"],c:1,e:"Princípio de Kerckhoffs: sistema deve ser seguro mesmo que tudo seja público, exceto a chave."}
+  ],
+  D2:[
+    {q:"Qual ator de ameaça tem motivação geopolítica e recursos quase ilimitados?",o:["Hacktivist","Script kiddie","Nation-state / APT","Insider threat"],c:2,e:"APT = nation-state, recursos vastos, persistência meses/anos. Ex: APT29 (SolarWinds 2020)."},
+    {q:"Phishing direcionado a executivos C-Level chama-se:",o:["Spear phishing","Whaling","Vishing","Smishing"],c:1,e:"Whaling = phishing em executivos. Spear = qualquer alvo específico. Vishing = voz. Smishing = SMS."},
+    {q:"Email se passando por CEO solicitando transferência urgente:",o:["DDoS","BEC (Business Email Compromise)","Watering hole","SQL injection"],c:1,e:"BEC combina pretexting + autoridade + urgência. Mitigação: verificação por canal alternativo."},
+    {q:"Diferença entre vírus e worm?",o:["Vírus afeta hardware; worm software","Vírus precisa hospedeiro+ação do usuário; worm propaga-se sozinho","Worm é mais antigo","Não há diferença"],c:1,e:"Worm é autônomo, propaga via rede sem interação. Ex: WannaCry explorou SMB EternalBlue."},
+    {q:"Ransomware 'double extortion' significa:",o:["Pede resgate duas vezes","Criptografa E ameaça vazar dados","Ataca duas empresas","Usa duas chaves"],c:1,e:"Double extortion: rouba dados antes de criptografar. Ameaça de vazamento complementa o ransomware."},
+    {q:"Ataque que compromete site frequentado pelo público-alvo:",o:["Spear phishing","Watering hole","Tailgating","Smishing"],c:1,e:"Watering hole compromete site legítimo visitado pela vítima. Difícil detectar."},
+    {q:"Registrar 'g00gle.com' para enganar usuários é qual técnica?",o:["DNS hijacking","Typosquatting","Pharming","Cache poisoning"],c:1,e:"Typosquatting: domínios similares explorando erros de digitação ou caracteres confundíveis."},
+    {q:"Vulnerabilidade sem patch, desconhecida pelo fabricante:",o:["CVE","CVSS","Zero-day","KEV"],c:2,e:"Zero-day = desconhecida, sem patch. Mitigar com WAF, EDR comportamental, segmentação."},
+    {q:"CISA KEV é:",o:["Catálogo de vulns ATIVAMENTE exploradas","Lista de produtos certificados","Padrão de criptografia","Framework de threat intel"],c:0,e:"KEV = Known Exploited Vulnerabilities. Priorize SEMPRE KEVs independentemente do CVSS."},
+    {q:"Em ataque MitM (on-path), o atacante:",o:["Sobrecarrega o servidor","Intercepta comunicação entre cliente e servidor","Apaga arquivos","Cria contas falsas"],c:1,e:"On-path: atacante entre cliente e servidor, lendo ou modificando tráfego."},
+    {q:"Mitigação mais eficaz contra SQL Injection:",o:["Antivirus atualizado","Prepared statements / parameterized queries","Firewall de rede","MFA no banco"],c:1,e:"Prepared statements separam código SQL de dados. Input nunca é interpretado como comando."},
+    {q:"XSS armazenado (Stored XSS) caracteriza-se por:",o:["Script via URL refletido","Script salvo no BD e exibido a outros usuários","Manipulação do DOM","Ataque ao SMTP"],c:1,e:"Stored XSS: script salvo no banco e executado quando outros usuários acessam a página."},
+    {q:"Malware sem arquivos no disco, operando apenas em memória:",o:["Rootkit","Fileless malware","Logic bomb","Polymorphic virus"],c:1,e:"Fileless usa LOLBins (PowerShell, WMI). Difícil de detectar por AV. EDR comportamental essencial."},
+    {q:"Mitigação mais eficaz contra movimento lateral de ransomware:",o:["Antivirus tradicional","Senhas fortes","Segmentação de rede","Treinamento anti-phishing"],c:2,e:"Segmentação isola redes — ransomware não se move entre segmentos."},
+    {q:"Código que apaga dados quando funcionário é demitido:",o:["Worm","Trojan","Logic bomb","Rootkit"],c:2,e:"Logic bomb: ativa em condição específica (data, evento). Comum em insider threat."},
+    {q:"Rede de máquinas infectadas controladas remotamente:",o:["Botnet","Honeypot","Sandbox","Honeynet"],c:0,e:"Botnet = rede de bots controlados por C2. Ex: Mirai causou DDoS de 1Tbps em 2016."},
+    {q:"Qual NÃO é categoria de ataque DDoS?",o:["Volumetric (UDP flood)","Protocol (SYN flood)","Application layer (HTTP flood)","Phishing-based"],c:3,e:"DDoS tem 3 categorias: Volumetric, Protocol, Application. Phishing é engenharia social separada."},
+    {q:"Framework de referência para TTPs de adversários:",o:["NIST CSF","MITRE ATT&CK","ISO 27001","OWASP Top 10"],c:1,e:"MITRE ATT&CK = base de TTPs reais. Tactics = objetivo. Techniques = como. Usado em threat hunting."},
+    {q:"Diferença entre IoC e IoA?",o:["IoC é mais novo","IoC = evidências pós-comprometimento; IoA = comportamentos durante ataque","São sinônimos","IoC só para malware"],c:1,e:"IoC: hashes, IPs (reativo). IoA: comportamentos em tempo real (proativo)."},
+    {q:"ARP Poisoning é mitigado com:",o:["Antivírus","DAI + DHCP snooping","Patch do OS","Filtro de email"],c:1,e:"ARP opera em Layer 2. Mitigação em switches: Dynamic ARP Inspection + DHCP snooping."},
+    {q:"Allowlisting de aplicações é mais eficaz contra:",o:["DDoS volumétrico","Malware desconhecido / zero-day","Phishing por email","ARP poisoning"],c:1,e:"Allowlisting bloqueia tudo que não está aprovado, inclusive malware desconhecido e zero-day."},
+    {q:"Qual tipo de phishing usa SMS?",o:["Vishing","Smishing","Whaling","Spear phishing"],c:1,e:"Smishing = SMS phishing. Vishing = voz. Whaling = executivos. Spear = alvo específico."},
+    {q:"APT é o OPOSTO de:",o:["Ataque sofisticado","Ataque persistente","Ataque rápido e oportunista","Ataque nation-state"],c:2,e:"APT é lento, metódico, persistente. Ataques oportunistas são de script kiddies."},
+    {q:"Mitigação primária contra credential stuffing:",o:["Antivirus moderno","MFA + monitoramento de logins anômalos","Firewall de rede","Backup frequente"],c:1,e:"Credential stuffing usa creds vazadas. MFA neutraliza mesmo com senha correta."},
+    {q:"Criar cenário fictício elaborado ('sou da auditoria') para extrair informações:",o:["Phishing","Pretexting","Tailgating","Shoulder surfing"],c:1,e:"Pretexting = criar contexto plausível para ganhar confiança. Combinado com autoridade é potente."},
+    {q:"Seguir funcionário autorizado por porta de acesso sem usar crachá:",o:["Tailgating","Shoulder surfing","Dumpster diving","Pretexting"],c:0,e:"Tailgating = seguir alguém autorizado. Piggybacking = autorizado consente (segura a porta)."},
+    {q:"Observar usuário digitando senha em café:",o:["Tailgating","Shoulder surfing","Dumpster diving","Smishing"],c:1,e:"Shoulder surfing = observar visualmente credenciais. Mitigação: filtros de privacidade."},
+    {q:"Revirar lixo em busca de documentos sensíveis:",o:["Pharming","Dumpster diving","Pretexting","Tailgating"],c:1,e:"Dumpster diving. Mitigação: trituração cross-cut, políticas de descarte, containers fechados."},
+    {q:"O que é pharming?",o:["Phishing por SMS","Redirecionar via DNS comprometido para site falso","Coletar dados em ATM falso","Atacar servidores de email"],c:1,e:"Pharming manipula DNS para redirecionar tráfego sem que usuário perceba."},
+    {q:"Hacker com autorização explícita do dono para testar segurança:",o:["Black hat","Gray hat","White hat","Red hat"],c:2,e:"White hat = ético, autorizado. Black hat = malicioso. Gray hat = sem autorização mas sem má intenção."},
+    {q:"Supply chain attack compromete:",o:["Diretamente a empresa-alvo","Fornecedor/biblioteca para atingir clientes downstream","DDoS coordenado","Phishing em massa"],c:1,e:"Supply chain: compromete fornecedor confiável. Ex: SolarWinds (2020), Log4Shell (2021)."},
+    {q:"DNS Poisoning insere registros falsos para:",o:["Redirecionar vítimas para sites maliciosos","Sobrecarregar o servidor","Criptografar tráfego","Bloquear DNS"],c:0,e:"DNS Poisoning = registros falsos no cache, redirecionando para site malicioso. Mitigação: DNSSEC."},
+    {q:"AP Wi-Fi falso imitando rede legítima:",o:["Evil twin","ARP poisoning","Pharming","Smishing"],c:0,e:"Evil Twin = AP malicioso imitando rede real. Captura credenciais e tráfego."},
+    {q:"Input do usuário executado como comando do SO sem sanitização:",o:["SQL injection","Command injection","XSS","CSRF"],c:1,e:"Command Injection = execução arbitrária de comandos do OS via input não sanitizado."},
+    {q:"CSRF força usuário autenticado a:",o:["Executar ação não desejada no site","Injetar SQL via URL","Roubar cookies via XSS","Causar negação de serviço"],c:0,e:"CSRF explora cookies automáticos da sessão. Mitigação: CSRF tokens, SameSite cookies."},
+    {q:"OWASP Top 10 NÃO inclui:",o:["Broken Access Control","Cryptographic Failures","Injection","Hardware Failure"],c:3,e:"OWASP cobre falhas de software/aplicação. Hardware Failure é problema operacional separado."},
+    {q:"DNS Tunneling é usado para:",o:["Melhorar performance DNS","Exfiltrar dados ou C2 disfarçado em queries DNS","Bloquear DNS","Criptografar DNS"],c:1,e:"DNS Tunneling encapsula dados em queries/respostas DNS, passando por firewalls."},
+    {q:"Pass-the-Hash usa:",o:["Senha em texto claro","Hash NTLM capturado, sem precisar quebrá-lo","Token Kerberos","Certificado digital"],c:1,e:"Pass-the-Hash usa hash NTLM diretamente. Mitigação: Credential Guard, Restricted Admin Mode."},
+    {q:"Defesa contra ataque de dicionário em senhas:",o:["Senhas curtas mas complexas","Passphrases longas + lockout + MFA","Compartilhar senhas com a equipe","Trocar senhas a cada 30 dias"],c:1,e:"Passphrases longas (alta entropy) + lockout + MFA (neutraliza mesmo com senha correta)."},
+    {q:"Rootkit opera em qual nível?",o:["Aplicação","Kernel / ring 0 — invisível ao OS","Rede","Firmware apenas"],c:1,e:"Rootkit opera no kernel, tornando-se invisível ao OS e ferramentas de segurança."}
+  ],
+  D3:[
+    {q:"Diferença entre IDS e IPS?",o:["IDS bloqueia; IPS alerta","IDS alerta (passivo); IPS bloqueia (inline, ativo)","IDS é hardware; IPS software","São sinônimos"],c:1,e:"IDS = passivo, alerta. IPS = inline, bloqueia ativamente em tempo real."},
+    {q:"WAF protege contra:",o:["Ataques Layer 3/4","Ataques a aplicações web (OWASP Top 10)","Ataques físicos","Phishing de email"],c:1,e:"WAF (Layer 7) protege contra SQLi, XSS, CSRF etc. Diferente de NGFW (proteção de rede geral)."},
+    {q:"DMZ tipicamente hospeda:",o:["Servidores internos de BD","Serviços acessíveis pela internet (web, mail, DNS)","Estações de funcionários","Active Directory"],c:1,e:"DMZ é zona semi-confiável. Comprometimento de servidor DMZ não dá acesso direto à rede interna."},
+    {q:"Em SaaS, quem é responsável pela segurança da APLICAÇÃO?",o:["Cliente","CSP","Ambos igualmente","Nenhum"],c:1,e:"Em SaaS, CSP cuida de app, runtime, OS, hardware. Cliente cuida APENAS de dados e IAM."},
+    {q:"Em qualquer modelo cloud, o cliente SEMPRE é responsável por:",o:["Datacenter físico","Hipervisor","Dados, classificação e identidade/IAM","Hardware de rede"],c:2,e:"Regra de ouro: cliente sempre cuida de dados e identidade. CSP sempre cuida de hardware."},
+    {q:"CASB serve para:",o:["Substituir firewall","Visibilidade e controle sobre SaaS, incluindo Shadow IT","Criptografar discos","Substituir antivirus"],c:1,e:"CASB = ponto de controle entre usuários e CSPs. Visibilidade, DLP, controle, threat protection."},
+    {q:"ZTNA substitui modernamente:",o:["NAT","VPN tradicional","Firewall","Antivírus"],c:1,e:"ZTNA substitui VPN. VPN dá acesso à rede inteira; ZTNA dá acesso aplicação-específico."},
+    {q:"Para detectar buckets S3 públicos e security groups permissivos:",o:["CASB","CWPP","CSPM","ZTNA"],c:2,e:"CSPM identifica configurações inseguras em cloud. CWPP protege workloads."},
+    {q:"Hypervisor Type 1 vs Type 2:",o:["Type 1 = sobre OS; Type 2 = no hardware","Type 1 = no hardware (bare metal); Type 2 = sobre OS","Não há diferença","Type 2 é mais seguro"],c:1,e:"Type 1 (ESXi, Hyper-V, KVM) = bare metal, produção. Type 2 (VirtualBox) = sobre OS, lab."},
+    {q:"Containers compartilham com o host:",o:["Hardware apenas","Kernel do OS","RAM apenas","Nada — totalmente isolados"],c:1,e:"Containers compartilham kernel (mais leves que VMs, isolamento menor). Risco: container escape."},
+    {q:"Os 3 estados dos dados são:",o:["Públicos, internos, confidenciais","At rest, in transit, in use","Locais, remotos, em backup","Originais, cópias, arquivados"],c:1,e:"At Rest → BitLocker/TDE. In Transit → TLS/IPsec. In Use → Confidential Computing."},
+    {q:"Tokenização vs Criptografia: principal diferença?",o:["Tokenização é mais fraca","Tokenização = token aleatório com vault; criptografia = transformação matemática","São sinônimos","Criptografia não é reversível"],c:1,e:"Tokenização substitui por token aleatório (vault separado). Criptografia transforma matematicamente."},
+    {q:"RTO=4h e RPO=15min significam:",o:["Recuperar em 15min, perda máxima 4h","Recuperar em até 4h, perda máxima 15min de dados","Backup a cada 4h, retenção 15min","Operação de 4h"],c:1,e:"RTO = tempo p/ restaurar serviço. RPO = perda aceitável de dados (define frequência de backup)."},
+    {q:"Hot site vs Cold site:",o:["Ambos têm dados em real-time","Hot = operacional 24/7 real-time, Cold = só espaço físico","Cold é mais caro que Hot","São equivalentes em RTO"],c:1,e:"Hot site: operacional, dados em tempo real, RTO minutos, mais caro. Cold: só espaço, RTO dias."},
+    {q:"Backup incremental requer para restaurar:",o:["Apenas o último incremental","Apenas o full","Full + último incremental","Full + TODOS os incrementais em ordem"],c:3,e:"Incremental exige Full + TODOS incrementais em ordem. Differential = Full + último differential."},
+    {q:"Regra 3-2-1 de backup:",o:["3 cópias, 2 mídias, 1 offsite","3 backups/dia, 2 retidos, 1 destruído","3 servidores, 2 datacenters, 1 cloud","3 anos retenção"],c:0,e:"3 cópias (incluindo original), 2 tipos de mídia, 1 cópia offsite. 3-2-1-1-0 adiciona imutável."},
+    {q:"RAID 5 oferece:",o:["Mirror apenas","Striping sem redundância","Striping + paridade, tolera 1 falha de disco","Striping + 2 paridades, tolera 2 falhas"],c:2,e:"RAID 5: stripe+paridade, tolera 1 falha, mín 3 discos. RAID 6: tolera 2 falhas. RAID 0: sem redundância."},
+    {q:"Em ICS/SCADA, qual prioridade prevalece sobre as demais?",o:["Confidentiality","Integrity","Availability","Auditing"],c:2,e:"Em OT (Operational Technology), DISPONIBILIDADE prevalece. Oposto da TI tradicional."},
+    {q:"Para reduzir escopo PCI-DSS com dados de cartão:",o:["Hashing simples","Tokenização","Compressão","Pseudonimização"],c:1,e:"Tokenização substitui PAN por token aleatório. Sistemas usando token ficam fora do escopo PCI."},
+    {q:"Sub-rede entre internet e rede interna:",o:["Honeypot","VLAN","DMZ / Screened Subnet","Bastion host"],c:2,e:"DMZ hospeda serviços públicos com firewall em ambos os lados."},
+    {q:"Vantagem de segurança de microservices:",o:["Comprometimento afeta toda app","Isolamento granular por serviço","Não requerem autenticação","Imunes a SQLi"],c:1,e:"Microservices: cada serviço pode ter controles próprios. Desvantagem: mais APIs = mais superfície."},
+    {q:"Proteção para dados In Use em RAM:",o:["BitLocker","TLS 1.3","Confidential Computing (Intel SGX)","VPN IPsec"],c:2,e:"Confidential Computing usa enclaves seguros (TEE). Intel SGX, AMD SEV, ARM TrustZone."},
+    {q:"Cold site é:",o:["Operacional 24/7 com dados em real-time","Apenas espaço físico, RTO de dias","Hardware pronto, dados precisam carregar","Site móvel em caminhão"],c:1,e:"Cold site = só espaço físico (luz, refrigeração). Hardware e dados precisam ser instalados."},
+    {q:"Arquitetura híbrida (cloud + on-prem) exige crítico:",o:["Nenhum desafio","Identidade unificada entre ambos os ambientes","Só custo de licença","Só espaço físico"],c:1,e:"Híbrido exige federação de identidade, políticas consistentes, monitoramento unificado."},
+    {q:"Cloud NÃO elimina automaticamente:",o:["Elasticidade","Pay-per-use","Riscos de segurança — responsabilidade ainda existe","Acesso global"],c:2,e:"Cloud apenas TRANSFERE algumas responsabilidades. Misconfiguration é causa principal de breaches."},
+    {q:"IaC (Infrastructure as Code) é:",o:["Programar dentro de servidores","Definir infra em arquivos versionáveis (Terraform)","Substituir hardware por software","Migrar tudo para cloud"],c:1,e:"IaC = infra definida em código. Benefícios: versionamento, automação. Riscos: secrets hardcoded."},
+    {q:"Em serverless (FaaS), o cliente é responsável por:",o:["OS e patches","Apenas o código e dados","Toda a infraestrutura","Hardware do datacenter"],c:1,e:"Serverless: cliente foca em CÓDIGO + DADOS + IAM. CSP cuida de runtime, OS, infra."},
+    {q:"Site-to-Site VPN com IPsec cria:",o:["DMZ","Túnel cifrado entre redes corporativas","NAT","Proxy"],c:1,e:"Site-to-Site VPN com IPsec cria túnel cifrado entre gateways de redes diferentes."},
+    {q:"Air gap em arquitetura de segurança é:",o:["Falha de configuração","Isolamento físico total sem qualquer conexão de rede","Tipo de criptografia","Ataque por canal lateral"],c:1,e:"Air gap = isolamento físico total. Stuxnet provou que pode ser quebrado via USB."},
+    {q:"Load balancing serve para:",o:["Bloquear atacantes","Distribuir tráfego entre servidores para HA e performance","Substituir firewall","Criar backups"],c:1,e:"Load Balancer distribui carga, com failover automático via health checks."},
+    {q:"Micro-segmentation é:",o:["Reduzir tamanho de pacotes","Segmentar redes até por workload com políticas granulares","Compactar logs","Diminuir RAM de VMs"],c:1,e:"Micro-segmentation vai além de VLANs. Implementado por SDN, service mesh. Limita movimento lateral."},
+    {q:"Security group em cloud é:",o:["Equipe de segurança","Firewall virtual aplicado a recursos cloud","Grupo do AD","Tipo de criptografia"],c:1,e:"Security Group = firewall stateful em cloud (AWS, Azure, GCP). Regras de ALLOW, deny implícito."},
+    {q:"Public Cloud vs Private Cloud: principal diferença?",o:["Só custo","Public = multi-tenant compartilhado; Private = dedicada a uma org","Public é mais segura","Não há diferença prática"],c:1,e:"Public = multi-tenant, escalável, pay-per-use. Private = dedicada, mais controle, custo fixo alto."},
+    {q:"IAM cloud gerencia:",o:["DNS","Usuários, roles e políticas de acesso a recursos cloud","WAF","CDN"],c:1,e:"IAM cloud: usuários, roles, policies. Boas práticas: PoLP, MFA no root, roles em vez de users."},
+    {q:"Security baseline é:",o:["Timeline de incidentes","Configuração mínima aceitável aplicada uniformemente","Backup do sistema","Política de senhas"],c:1,e:"Baseline = configuração padrão segura mínima (CIS Benchmarks, DISA STIGs). Aplicada via GPO."},
+    {q:"HA Cluster oferece:",o:["Múltiplos servidores com failover automático","Backup de servidor","Servidor com hardware caro","Servidor premium"],c:0,e:"HA Cluster: nós com failover automático (Active-Passive ou Active-Active)."},
+    {q:"Multi-region em cloud significa:",o:["Só backup em outra região","Aplicação ativa em múltiplas regiões geográficas","Múltiplas contas","Múltiplos providers"],c:1,e:"Multi-region: aplicação em várias regiões para resiliência e baixa latência."},
+    {q:"SDN (Software-Defined Networking) separa:",o:["Rede com fio de sem fio","Control Plane de Data Plane, gerenciado por software","Servidores de storage","Backups de produção"],c:1,e:"SDN separa control plane (decisão) de data plane (encaminhamento). Permite automação e micro-seg."},
+    {q:"Em Zero Trust, NUNCA se confia em:",o:["Só tráfego externo","Nenhuma entidade — interno OU externo, sempre verificar","Só dispositivos mobile","Só usuários convidados"],c:1,e:"Zero Trust elimina confiança por localização. Todo acesso é verificado. Substitui modelo perimetral."},
+    {q:"SASE converge:",o:["RAID + Backup + DLP","SD-WAN + CASB + SWG + ZTNA + FWaaS","SIEM + SOAR + Threat Intel","IDS + IPS + Firewall tradicional"],c:1,e:"SASE combina networking (SD-WAN) e segurança em plataforma cloud. Ex: Zscaler, Cloudflare."}
+  ],
+  D4:[
+    {q:"Hardening de servidores tipicamente segue:",o:["NIST CSF","CIS Benchmarks","ISO 27001","PCI-DSS"],c:1,e:"CIS Benchmarks = padrões consensuais por SO/aplicação. Levels L1 (compatível) e L2 (rigoroso)."},
+    {q:"Microsoft Patch Tuesday ocorre:",o:["1ª terça-feira","2ª terça-feira","Última terça-feira","Toda terça-feira"],c:1,e:"Microsoft libera patches mensais na 2ª terça-feira. Out-of-band = emergencial para vulns críticas."},
+    {q:"SAST analisa:",o:["App em produção","Código-fonte sem executar","Rede em busca de vulns","Logs de servidor"],c:1,e:"SAST (Static) analisa código sem executar. DAST testa app rodando. SCA = dependências vulneráveis."},
+    {q:"DAST é melhor para encontrar:",o:["Vulns em código-fonte","Vulns em runtime na app rodando","Bibliotecas vulneráveis","Falhas de configuração de OS"],c:1,e:"DAST testa aplicação rodando. Menos falsos positivos que SAST. Ferramentas: OWASP ZAP, Burp Suite."},
+    {q:"4 fases do IR Lifecycle do NIST SP 800-61:",o:["Plan, Do, Check, Act","Identify, Protect, Detect, Respond","Preparation, Detection, Containment/Eradication/Recovery, Post-Incident","Discover, Analyze, Mitigate, Document"],c:2,e:"NIST SP 800-61: Preparation → Detection & Analysis → Containment/Eradication/Recovery → Post-Incident."},
+    {q:"Documentação de quem teve acesso à evidência digital:",o:["Audit log","Chain of custody","Forensic timeline","Risk register"],c:1,e:"Chain of Custody documenta quem teve evidência, quando, onde. Quebra invalida em juízo."},
+    {q:"Order of Volatility (RFC 3227) — mais ao menos volátil:",o:["Disco → RAM → Cache → Backups","Backups → Disco → RAM → Cache","Cache CPU → RAM → Estado da rede → Disco → Backups arquivados","RAM → Cache → Disco → Logs"],c:2,e:"Mais volátil: Cache CPU → RAM → Rede → Processos → Temp → Disco → Logs remotos → Backups."},
+    {q:"SIEM faz primariamente:",o:["Bloqueia ataques em real-time","Coleta, normaliza e correlaciona logs de múltiplas fontes","Substitui antivirus","Cria backups"],c:1,e:"SIEM: coleta logs, normaliza, correlaciona, gera alertas. SIEM detecta; SOAR responde."},
+    {q:"SOAR complementa SIEM como?",o:["Substitui o SIEM","Automatiza respostas a alertas (isola host, bloqueia IP, cria ticket)","Faz só relatórios","Substitui EDR"],c:1,e:"SOAR executa playbooks automatizados em resposta a alertas. Reduz MTTR drasticamente."},
+    {q:"Windows Event ID 1102 indica:",o:["Logon bem-sucedido","Falha de logon","Processo criado","Log de auditoria LIMPO — alerta máximo"],c:3,e:"1102 = log apagado. Atacantes apagam rastros. Outros críticos: 4624, 4625, 4648, 4688."},
+    {q:"5+ logon failures (4625) seguidos de 1 sucesso (4624) indica:",o:["Operação normal","Possível brute force bem-sucedido","Falha do servidor","Backup automático"],c:1,e:"Padrão clássico de brute force bem-sucedido. SIEM correlaciona e alerta via threshold."},
+    {q:"RBAC vs ABAC — qual é mais granular?",o:["RBAC","ABAC (atributos: cargo + horário + localização)","São idênticos","Nenhum dos dois"],c:1,e:"ABAC usa múltiplos atributos dinâmicos. RBAC = por papel/função. ABAC é mais flexível e granular."},
+    {q:"PoLP significa:",o:["Plan of Last Privilege","Principle of Least Privilege","Policy of Limited Permissions","Privilege of Local Process"],c:1,e:"PoLP = conceder MÍNIMO de privilégios necessários. Reduz superfície de ataque e impacto de compromisso."},
+    {q:"SoD (Separation of Duties) é aplicado quando:",o:["Um único usuário faz tudo","Tarefas críticas são divididas entre múltiplas pessoas","Senhas são compartilhadas","Backups são feitos manualmente"],c:1,e:"SoD divide tarefas críticas. Ex: quem cria fornecedor não aprova pagamento."},
+    {q:"PAM (Privileged Access Management) oferece:",o:["Auth de funcionários comuns","Cofre de senhas + rotação automática + gravação de sessão para contas privilegiadas","Backup de BD","Filtro de email"],c:1,e:"PAM: cofre, rotação, sessão gravada, JIT access. Ex: CyberArk, Azure PIM, BeyondTrust."},
+    {q:"Privilege creep ocorre quando:",o:["Atacante escala privilégios","Funcionário acumula acessos antigos ao mudar de função","Contas bloqueiam após inatividade","Senhas são rotacionadas"],c:1,e:"Privilege creep: acessos antigos mantidos + novos adquiridos. Mitigação: access reviews, automação ILM."},
+    {q:"Service accounts são alvo prioritário porque:",o:["Sempre têm MFA","Senhas raramente rotacionadas e privilégios excessivos comuns","São auditadas diariamente","Criadas só por admins"],c:1,e:"Service accounts: senhas raramente rotacionadas, sem monitoramento. Mitigação: gMSA, PAM."},
+    {q:"Para detectar comportamento anômalo de usuário em larga escala:",o:["Antivirus","Firewall","UEBA (User & Entity Behavior Analytics)","DLP"],c:2,e:"UEBA usa ML para baseline de comportamento e detecta anomalias. Anti-insider threat."},
+    {q:"EDR vs antivirus: EDR oferece:",o:["Só detecção por assinatura","Detecção comportamental + investigação + resposta automática","Só escaneamento agendado","Substitui patches"],c:1,e:"EDR: comportamental + telemetria + network containment + kill process. AV = só signature-based."},
+    {q:"SCA (Software Composition Analysis) identifica:",o:["Tráfego de rede","Dependências/bibliotecas vulneráveis em projetos","Backups de software","Uso de licenças"],c:1,e:"SCA analisa dependências. Crucial pós-Log4Shell. Ferramentas: Snyk, Dependabot."},
+    {q:"SBOM (Software Bill of Materials) é:",o:["Lista de preços de software","Inventário formal de componentes/dependências para resposta a CVEs","Substitui antivírus","Opcional para compliance"],c:1,e:"SBOM lista todos os componentes. Crucial para resposta rápida a Log4Shell/similares."},
+    {q:"Protocolo padrão para envio centralizado de logs:",o:["FTP","Syslog (UDP 514 / TCP 6514+TLS)","HTTP","Telnet"],c:1,e:"Syslog é o protocolo padrão. UDP 514 (clássico) ou TCP 6514 com TLS (seguro, moderno)."},
+    {q:"EDR 'network containment' significa:",o:["Inspeção profunda de pacotes","Isolamento do host comprometido, mantendo só comunicação com console EDR","Bloqueio no firewall","Backup de rede"],c:1,e:"Network containment isola host mas mantém canal para investigação remota via EDR."},
+    {q:"Tipo de pentest sem informação prévia (simula atacante externo):",o:["White Box","Gray Box","Black Box","Bug Bounty"],c:2,e:"Black Box = sem info prévia. White Box = conhecimento total. Gray Box = parcial."},
+    {q:"Etapa do ciclo de vida de identidade quando funcionário é demitido:",o:["Joiner","Mover","Leaver","Lurker"],c:2,e:"JML: Joiner (admissão), Mover (mudança de função), Leaver (saída). Leaver exige deprovisioning imediato."},
+    {q:"SOC analista Tier 1 faz:",o:["Threat hunting avançado","Triagem inicial de alertas e escalonamento","Forense digital profunda","Desenvolvimento de exploits"],c:1,e:"Tier 1 = triagem, alertas básicos, escalonamento. Tier 2 = investigação. Tier 3 = threat hunting."},
+    {q:"SIEM agrega logs de:",o:["Só endpoints","Servers, FW, EDR, apps, cloud — múltiplas fontes","Só firewalls","Só aplicações web"],c:1,e:"SIEM agrega de múltiplas fontes. Splunk, Sentinel, QRadar, Elastic, Wazuh."},
+    {q:"Threat hunting é:",o:["Reagir a alertas de SIEM","Busca proativa de ameaças que evadiram detecções","Atualizar antivírus","Aplicar patches"],c:1,e:"Threat hunting = proativo, baseado em hipóteses. Diferente de IR (reativo) e SOC (alertas)."},
+    {q:"Vulnerability scanning vs Penetration testing:",o:["São sinônimos","Scan = automatizado, identifica vulns. Pentest = manual, valida exploração real","Pentest é mais rápido","Scan substitui pentest"],c:1,e:"Complementares: scan frequente, pentest 1-2x/ano. Scan = automático, pentest = manual+contextual."},
+    {q:"'Lessons learned' no IR é:",o:["Treinar novos funcionários","Reunião pós-incidente para identificar melhorias em processos e controles","Atualização de software","Backup do sistema"],c:1,e:"Post-Incident Activity: retrospectiva, o que funcionou/falhou, ações de melhoria, update playbooks."},
+    {q:"DLP (Data Loss Prevention) protege contra:",o:["DDoS volumétrico","Exfiltração de dados sensíveis (CPF, cartão, PHI)","Malware de rede","Brute force"],c:1,e:"DLP detecta padrões (regex, fingerprint) e bloqueia exfiltração. Network, Endpoint e Cloud DLP."},
+    {q:"NAC (Network Access Control) faz:",o:["Tipo de firewall","Verifica postura do dispositivo antes de permitir acesso à rede","Substitui antivirus","Tipo de criptografia"],c:1,e:"NAC verifica postura (patches, AV, criptografia). Combina com 802.1X. BYOD fundamental."},
+    {q:"Security awareness training:",o:["Substitui controles técnicos","Reduz vetor humano — treina contra phishing e engenharia social","Só serve para compliance","Substitui o SOC"],c:1,e:"Awareness training reduz risco humano (#1 vetor). Complementa, não substitui controles técnicos."},
+    {q:"Change management formal inclui:",o:["Aceitar mudanças sem revisão","RFC → análise → CAB → testes → implementação → verificação","Trocar fornecedores frequentemente","Substituir hardware anualmente"],c:1,e:"Change Management: RFC, análise de risco, aprovação CAB, testes, implementação, verificação."},
+    {q:"Configuration drift é:",o:["Mudança gradual para fora do baseline aprovado","Backup automático","Tipo de ataque","Atualização de software"],c:0,e:"Configuration Drift: sistemas desviam do baseline (mudanças manuais não documentadas)."},
+    {q:"Na preservação de evidência forense, NUNCA:",o:["Manter chain of custody","Calcular hashes","Modificar o original para análise mais rápida","Usar write-blocker"],c:2,e:"NUNCA modifique o original. Trabalhe em cópias bit-a-bit. Hash antes/depois prova integridade."},
+    {q:"MDR vs EDR:",o:["MDR é software; EDR hardware","MDR = serviço gerenciado 24/7; EDR = software de proteção de endpoint","MDR é mais antigo","São sinônimos"],c:1,e:"MDR = serviço terceirizado que monitora EDR 24/7. Útil sem SOC interno."},
+    {q:"Tabletop exercise é:",o:["Teste real cortando produção","Simulação em mesa sem impacto real, validando o plano","Pentest físico no datacenter","Backup automático"],c:1,e:"Tabletop = simulação verbal, sem impacto. Valida procedimentos e identifica lacunas nos planos."},
+    {q:"Frequência recomendada para vulnerability scanning:",o:["Anual","Contínuo ou frequente com priorização por risco","Apenas após incidentes","Nunca"],c:1,e:"Scanning deve ser frequente/contínuo. Priorize KEV e CVEs com exploit público."},
+    {q:"SBOM ajuda organizações a:",o:["Calcular custo de licenças","Responder rapidamente a CVEs em dependências (ex: Log4Shell)","Substituir antivírus","Gerenciar backups"],c:1,e:"SBOM identifica onde uma biblioteca vulnerável é usada, acelerando a resposta."}
+  ],
+  D5:[
+    {q:"Hierarquia de documentos: qual é obrigatório de alto nível?",o:["Guideline","Procedure","Policy","Baseline"],c:2,e:"Policy = alto nível, obrigatório (o quê). Standard = técnico obrigatório. Procedure = passos. Guideline = recomendação."},
+    {q:"ALE calcula-se por:",o:["AV × EF","SLE × ARO","AV × ARO","EF × ARO"],c:1,e:"ALE = SLE × ARO. SLE = AV × EF (perda em UM evento). ALE = perda anualizada esperada."},
+    {q:"Contratar seguro cibernético é qual estratégia de risco?",o:["Avoid","Transfer","Mitigate","Accept"],c:1,e:"Seguro = Transfer (transfere impacto financeiro). Accountability nunca transfere — só responsabilidade operacional."},
+    {q:"Risco que permanece após controles aplicados:",o:["Inherent risk","Residual risk","Risk appetite","Risk threshold"],c:1,e:"Residual Risk = após controles. Inherent Risk = antes. Residual deve estar dentro do apetite."},
+    {q:"Repositório formal de riscos com responsável, status e plano:",o:["BIA","Risk Register","Risk Appetite Statement","BCP"],c:1,e:"Risk Register lista riscos com owner, likelihood, impact, plano de tratamento, status."},
+    {q:"Pentest sem aviso à equipe defensiva é típico de:",o:["Vulnerability scan","Red Team exercise","Tabletop","Compliance audit"],c:1,e:"Red Team simula atacante real sem aviso à Blue Team. Mais realista e revelador."},
+    {q:"BAA é exigido por qual regulamento?",o:["GDPR","HIPAA","PCI-DSS","SOX"],c:1,e:"BAA (Business Associate Agreement) exigido por HIPAA entre Covered Entity e Business Associate com PHI."},
+    {q:"Acordo OBRIGATÓRIO entre Controller e Processor sob GDPR/LGPD:",o:["BAA","DPA","MOU","ISA"],c:1,e:"DPA (Data Processing Agreement) = GDPR Art. 28, LGPD Art. 39. Sem DPA = violação direta."},
+    {q:"Qual NÃO é vinculante legalmente?",o:["NDA","MSA","SOW","MOU"],c:3,e:"MOU = intenção de cooperação, GERALMENTE não vinculante. NDA, MSA, SOW são contratos vinculantes."},
+    {q:"GDPR exige notificação de breach em até:",o:["24 horas","48 horas","72 horas","30 dias"],c:2,e:"GDPR = 72h para autoridade. HIPAA = 60 dias. LGPD = prazo razoável (~2-3 dias)."},
+    {q:"SOC 2 Type II avalia:",o:["Só design dos controles","Eficácia operacional dos controles por 6-12 meses","Controles financeiros","Só controles físicos"],c:1,e:"SOC 2 Type II = eficácia operacional ao longo do tempo. Preferido por enterprise. Type I = snapshot."},
+    {q:"PCI-DSS aplica-se a:",o:["Empresas na UE","Empresas que tocam dados de cartão de pagamento","Só instituições financeiras","Empresas listadas em bolsa"],c:1,e:"PCI-DSS aplica a qualquer empresa que armazena, processa ou transmite dados de cartão."},
+    {q:"DPIA/RIPD é obrigatório quando:",o:["Sempre em qualquer tratamento","Tratamento de alto risco (dados sensíveis, monitoramento sistemático)","Apenas em backup","Só para empresas pequenas"],c:1,e:"DPIA obrigatório para alto risco: SPII em larga escala, monitoramento sistemático, decisões automatizadas."},
+    {q:"Data Controller decide:",o:["Processa dados em nome de outra entidade","Finalidade e meios do tratamento","Quem são os data subjects","Quem opera os servidores"],c:1,e:"Controller decide o 'porquê' e 'como'. Processor trata em nome do Controller."},
+    {q:"Data Custodian faz:",o:["Classifica dados e define requisitos de proteção","Executa tecnicamente (backups, permissões, storage)","Define políticas de privacidade","Representa a empresa perante a lei"],c:1,e:"Custodian EXECUTA o técnico. Owner define requisitos. Steward cuida de qualidade."},
+    {q:"Princípio GDPR/LGPD 'Data Minimization':",o:["Usar dados para qualquer finalidade","Coletar APENAS o mínimo necessário","Reter dados indefinidamente","Compartilhar dados livremente"],c:1,e:"Data Minimization = mínimo necessário. Purpose Limitation = só para finalidade declarada."},
+    {q:"Privacy by Design significa:",o:["Privacidade adicionada após lançamento","Privacidade considerada desde o início do projeto","Privacidade só em produção","Só para usuários pagantes"],c:1,e:"Privacy by Design = desde a concepção. Não opção, é exigência legal (GDPR/LGPD)."},
+    {q:"Tabletop exercise é:",o:["Teste real cortando produção","Simulação em mesa, sem impacto real","Pentest físico","Backup mensal"],c:1,e:"Tabletop = discussão verbal, valida planos sem impacto. Recomendado trimestralmente."},
+    {q:"Risk Owner é:",o:["Software de gestão","Pessoa responsável por gerenciar um risco específico","Relatório anual","O DPO"],c:1,e:"Risk Owner = responsável por gerenciar o risco (decisões, monitoramento). Documentado no Risk Register."},
+    {q:"Due Diligence em vendor risk inclui:",o:["Onboarding imediato","Solicitar SOC 2, ISO 27001, questionários de segurança ANTES de contratar","Monitoramento contínuo","Offboarding"],c:1,e:"Due Diligence = avaliação prévia com evidências. Onboarding, Monitoring e Offboarding são fases posteriores."},
+    {q:"Qual NÃO é direito do titular sob GDPR/LGPD?",o:["Acesso aos seus dados","Eliminação (right to be forgotten)","Revisão de decisões automatizadas","Modificar políticas internas da empresa"],c:3,e:"Titular não tem direito de modificar políticas da empresa. Tem: acesso, retificação, eliminação, portabilidade."},
+    {q:"ISA (Interconnection Security Agreement) é para:",o:["Transferência de dados pessoais","Interconexão técnica de redes entre organizações","Confidencialidade geral","Serviços de TI"],c:1,e:"ISA define controles para INTERCONEXÃO de redes/sistemas. Diferente de NDA, DPA ou MSA."},
+    {q:"ROSI calcula-se por:",o:["Custo do controle apenas","ALE_pré - ALE_pós - Custo do controle","AV × EF","SLE / ARO"],c:1,e:"ROSI = ALE_pre - ALE_pos - Custo_controle. Justifica financeiramente investimento em segurança."},
+    {q:"Em empresa europeia usa SaaS de RH: quem é o Controller?",o:["SaaS é Controller","A empresa é Controller, SaaS é Processor","Ambos são Controllers","Funcionários são Controllers"],c:1,e:"Empresa DECIDE a finalidade (Controller). SaaS TRATA em nome dela (Processor). DPA é exigido."},
+    {q:"Risk Register NÃO substitui:",o:["Listar riscos identificados","Documentar likelihood e impact","BCP (Business Continuity Plan)","Registrar status do tratamento"],c:2,e:"Risk Register é repositório de riscos. BCP é plano de continuidade — documento separado."},
+    {q:"Risk Appetite é:",o:["Quantidade de riscos identificados","Nível de risco que a org aceita para atingir objetivos","Custo de seguros","Quantidade de incidentes/ano"],c:1,e:"Risk Appetite = declaração formal do nível aceitável de risco. Definida pelo board/diretoria."},
+    {q:"NIST RMF (SP 800-37) NÃO inclui a fase:",o:["Categorize","Select controls","Implement","Outsource"],c:3,e:"NIST RMF: Prepare, Categorize, Select, Implement, Assess, Authorize, Monitor. Outsource não é fase."},
+    {q:"Papel do DPO (Data Protection Officer)?",o:["Representante legal externo","Supervisiona compliance de privacidade, ponto de contato com autoridade e titulares","Substitui o CISO","Responsável por backups"],c:1,e:"DPO supervisiona compliance, é ponto de contato com ANPD + data subjects. Independente da org."},
+    {q:"Compliance vs Security: diferença?",o:["São sinônimos","Compliance = atender regulamentos; Security = proteger ativos. Compliant ≠ Secure","Compliance é mais importante","Security exige Compliance"],c:1,e:"Compliance = piso mínimo regulatório. Security = objetivo real. Empresa pode passar audit e ser hackeada."},
+    {q:"Data retention policy define:",o:["Como contratar funcionários","Quanto tempo manter dados antes da destruição segura","Backup automático","Política de senhas"],c:1,e:"Retention Policy: períodos de retenção por tipo de dado. Excesso = risco. Pouco = problemas legais."},
+    {q:"'Right to be forgotten' permite:",o:["Não criar conta","Solicitar eliminação dos dados pessoais (com exceções legais)","Mudar de empresa","Não ser identificado"],c:1,e:"Right to Erasure (GDPR Art. 17): eliminar dados. Exceções: obrigação legal, defesa, interesse público."},
+    {q:"RoPA/ROPA é:",o:["Lista de funcionários","Inventário formal de atividades de tratamento de dados (GDPR Art. 30)","Backup de logs","Manual da empresa"],c:1,e:"RoPA = inventário obrigatório: finalidade, categorias, destinatários, retenção, transferências internacionais."},
+    {q:"SoD em compliance significa:",o:["Divisão entre TI e RH","Tarefas críticas divididas para prevenir fraude e erros","Backup de funcionários","Política de férias"],c:1,e:"SoD: nenhuma pessoa controla processo crítico inteiro. Combate fraude e insider threat."},
+    {q:"CISO é:",o:["Operacional, gerencia servidores","Executivo estratégico de segurança que define estratégia e reporta riscos ao board","Substitui o SOC","Responsável por backups"],c:1,e:"CISO = executivo estratégico. Não operacional. Define estratégia, compliance, relatórios ao board."},
+    {q:"'Mandatory vacation' como controle de segurança:",o:["Política de RH sem ligação com segurança","Forçar funcionários em posições sensíveis a tirar férias para detectar fraudes","Substituto de auditoria","Política de bem-estar"],c:1,e:"Mandatory Vacation: durante a ausência, outra pessoa cobre. Fraudes em andamento são descobertas."},
+    {q:"Fourth-party risk é:",o:["Risco de funcionário","Risco dos fornecedores DOS seus fornecedores","Risco de atacante externo","Risco regulatório"],c:1,e:"Fourth-party = subcontratados dos seus vendors. Difícil mapear. Cláusulas devem exigir visibilidade."},
+    {q:"Gap analysis em compliance serve para:",o:["Calcular receita","Comparar estado atual com requisito do padrão e identificar lacunas","Listar funcionários","Fazer backup de dados"],c:1,e:"Gap Analysis: AS-IS vs TO-BE (padrão desejado). Output: roadmap com owner, deadline, custo."},
+    {q:"Attestation (atestação) em auditoria é:",o:["Declaração jurídica do CEO","Declaração formal por auditor independente de que controles estão em conformidade","Backup do sistema","Política da empresa"],c:1,e:"Attestation = relatório de auditor independente (SOC 2, ISO). Diferente de certificação."},
+    {q:"Evidence collection em audit:",o:["Tirar fotos do escritório","Reunir provas (logs, configs, políticas) de que controles funcionam","Backup de dados","Reunião de equipe"],c:1,e:"Audit Evidence: configs, logs, screenshots, políticas. SOC 2 Type II exige evidências por 6-12 meses."},
+    {q:"Qual NÃO é fase do Vendor Risk Lifecycle?",o:["Due Diligence","Contracting","Penetration Testing (como fase separada)","Offboarding"],c:2,e:"Fases: Due Diligence, Contracting, Onboarding, Ongoing Monitoring, Offboarding. Pentest pode ser parte de Due Diligence."}
+  ]
+};
+
+let qaState = null;
+
+function qaShuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function qaRenderDomainGrid() {
+  const grid = document.getElementById('qa-domain-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  Object.keys(QA_DOMAIN_INFO).forEach(d => {
+    const info = QA_DOMAIN_INFO[d];
+    const card = document.createElement('div');
+    card.style.cssText = `background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;`;
+    card.innerHTML = `
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${info.color};"></div>
+      <div style="font-family:var(--mono);font-size:.68rem;color:var(--text-muted);margin-bottom:.3rem;">${d} · ${info.weight}</div>
+      <div style="font-family:var(--display);font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.5rem;">${info.name}</div>
+      <div style="font-family:var(--mono);font-size:.72rem;color:var(--text-muted);">${QA_QUESTIONS[d].length} questões →</div>
+    `;
+    card.addEventListener('mouseenter', () => { card.style.transform = 'translateY(-2px)'; card.style.borderColor = info.color; card.style.boxShadow = `0 8px 24px ${info.color}22`; });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; card.style.borderColor = 'var(--border)'; card.style.boxShadow = ''; });
+    card.addEventListener('click', () => qaStartDomain(d));
+    grid.appendChild(card);
+  });
+}
+
+function qaStartDomain(domain) {
+  const qs = qaShuffleArray(QA_QUESTIONS[domain].map(q => ({...q, _domain: domain})));
+  qaStartQuiz(`${domain} · ${QA_DOMAIN_INFO[domain].name}`, qs, domain);
+}
+
+function qaStartMixed() {
+  const count = parseInt(document.getElementById('qa-mixed-count').value);
+  let pool = [];
+  Object.keys(QA_QUESTIONS).forEach(d => {
+    QA_QUESTIONS[d].forEach(q => pool.push({...q, _domain: d}));
+  });
+  pool = qaShuffleArray(pool).slice(0, count);
+  qaStartQuiz(`Quiz Misto · ${count} questões`, pool, 'MIXED');
+}
+
+function qaStartQuiz(title, questions, mode) {
+  qaState = { title, questions, answered: new Array(questions.length).fill(null), correct: 0, wrong: 0, mode };
+  document.getElementById('qa-title').textContent = title;
+  document.getElementById('qa-meta').textContent = `${questions.length} questões · SY0-701`;
+  document.getElementById('qa-stats').style.display = 'flex';
+  document.getElementById('qa-stat-total').textContent = questions.length;
+  document.getElementById('qa-stat-correct').textContent = '0';
+  document.getElementById('qa-stat-wrong').textContent = '0';
+  qaRenderQuestions();
+  qaShowScreen('quiz');
+}
+
+function qaRenderQuestions() {
+  const container = document.getElementById('qa-questions');
+  container.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  qaState.questions.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.id = 'qa-q-' + i;
+    card.style.cssText = 'background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;margin-bottom:1rem;transition:border-color .2s;';
+
+    const domInfo = QA_DOMAIN_INFO[item._domain] || {};
+    const tag = document.createElement('div');
+    tag.style.cssText = `display:inline-block;background:${domInfo.color}18;border:1px solid ${domInfo.color}44;color:${domInfo.color};padding:.18rem .65rem;border-radius:99px;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.75rem;`;
+    tag.textContent = `Q${i+1} · ${item._domain}`;
+    card.appendChild(tag);
+
+    const qText = document.createElement('div');
+    qText.style.cssText = 'font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:1rem;line-height:1.4;';
+    qText.textContent = item.q;
+    card.appendChild(qText);
+
+    const optsDiv = document.createElement('div');
+    optsDiv.style.cssText = 'display:flex;flex-direction:column;gap:.6rem;';
+    item.o.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.style.cssText = 'background:var(--surface);border:1px solid var(--border);color:var(--text-dim);padding:.75rem 1rem;border-radius:9px;cursor:pointer;font-family:var(--sans);font-size:.88rem;text-align:left;transition:all .15s;display:flex;align-items:flex-start;gap:.75rem;line-height:1.45;width:100%;';
+      btn.innerHTML = `<span style="background:var(--surface2);color:var(--text-muted);width:24px;height:24px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.72rem;font-weight:700;flex-shrink:0;">${letters[idx]}</span><span>${opt}</span>`;
+      btn.addEventListener('mouseenter', () => { if (!btn.disabled) btn.style.borderColor = 'var(--accent2)'; });
+      btn.addEventListener('mouseleave', () => { if (!btn.disabled) btn.style.borderColor = 'var(--border)'; });
+      btn.addEventListener('click', () => qaAnswerQuestion(i, idx));
+      optsDiv.appendChild(btn);
+    });
+    card.appendChild(optsDiv);
+
+    const exp = document.createElement('div');
+    exp.id = 'qa-exp-' + i;
+    exp.style.cssText = 'display:none;margin-top:1rem;background:var(--surface);border-left:3px solid var(--accent2);padding:.9rem 1rem;border-radius:0 8px 8px 0;font-size:.85rem;color:var(--text-dim);line-height:1.65;';
+    exp.innerHTML = `<span style="display:block;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--accent2);margin-bottom:.4rem;font-weight:600;">Explicação</span>${item.e}`;
+    card.appendChild(exp);
+    container.appendChild(card);
+  });
+  qaUpdateProgress();
+}
+
+function qaAnswerQuestion(qIdx, optIdx) {
+  if (qaState.answered[qIdx] !== null) return;
+  const card = document.getElementById('qa-q-' + qIdx);
+  const options = card.querySelectorAll('button');
+  const correctIdx = qaState.questions[qIdx].c;
+  const isCorrect = optIdx === correctIdx;
+  const domInfo = QA_DOMAIN_INFO[qaState.questions[qIdx]._domain] || {};
+
+  options.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (idx === optIdx && isCorrect) {
+      btn.style.background = 'rgba(46,125,82,0.12)'; btn.style.borderColor = 'var(--green-dark)'; btn.style.color = 'var(--green-dark)';
+      btn.querySelector('span').style.background = 'var(--green-dark)'; btn.querySelector('span').style.color = '#fff';
+    } else if (idx === optIdx && !isCorrect) {
+      btn.style.background = 'rgba(184,92,114,0.12)'; btn.style.borderColor = 'var(--accent2)'; btn.style.color = 'var(--accent2)';
+    } else if (!isCorrect && idx === correctIdx) {
+      btn.style.background = 'rgba(46,125,82,0.08)'; btn.style.borderColor = 'var(--green-dark)'; btn.style.opacity = '.8';
+    }
+  });
+  document.getElementById('qa-exp-' + qIdx).style.display = 'block';
+  qaState.answered[qIdx] = isCorrect;
+  if (isCorrect) qaState.correct++; else qaState.wrong++;
+  document.getElementById('qa-stat-correct').textContent = qaState.correct;
+  document.getElementById('qa-stat-wrong').textContent = qaState.wrong;
+  qaUpdateProgress();
+  const totalAnswered = qaState.answered.filter(a => a !== null).length;
+  if (totalAnswered === qaState.questions.length) setTimeout(qaShowResult, 700);
+}
+
+function qaUpdateProgress() {
+  const total = qaState.questions.length;
+  const answered = qaState.answered.filter(a => a !== null).length;
+  document.getElementById('qa-progress').textContent = `${answered}/${total} respondidas`;
+}
+
+function qaShowResult() {
+  const total = qaState.questions.length;
+  const correct = qaState.correct;
+  const pct = Math.round((correct / total) * 100);
+  const emoji = pct >= 90 ? '🌟' : pct >= 75 ? '🎯' : pct >= 60 ? '✅' : '📚';
+  const title = pct >= 90 ? 'Excelente domínio!' : pct >= 75 ? 'Muito bom!' : pct >= 60 ? 'No caminho certo!' : 'Continue praticando!';
+  document.getElementById('qa-result-emoji').textContent = emoji;
+  document.getElementById('qa-result-title').textContent = title;
+  document.getElementById('qa-result-score').textContent = pct + '%';
+  document.getElementById('qa-result-detail').textContent = `${correct} corretas de ${total}`;
+
+  // Breakdown por domínio
+  const breakdown = {};
+  qaState.questions.forEach((q, i) => {
+    if (!breakdown[q._domain]) breakdown[q._domain] = {total:0,correct:0};
+    breakdown[q._domain].total++;
+    if (qaState.answered[i]) breakdown[q._domain].correct++;
+  });
+  const barsHTML = Object.keys(breakdown).map(d => {
+    const b = breakdown[d];
+    const dPct = Math.round((b.correct/b.total)*100);
+    const info = QA_DOMAIN_INFO[d];
+    const color = dPct >= 80 ? 'var(--green-dark)' : dPct >= 65 ? info.color : 'var(--accent2)';
+    return `<div style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-bottom:1px dashed var(--border);">
+      <div style="min-width:120px;font-size:.8rem;color:var(--text-muted);">${d}</div>
+      <div style="flex:1;height:10px;background:var(--surface2);border-radius:5px;overflow:hidden;">
+        <div style="height:100%;width:${dPct}%;background:${color};border-radius:5px;transition:width .5s;"></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:.78rem;font-weight:700;color:${color};min-width:60px;text-align:right;">${b.correct}/${b.total} · ${dPct}%</div>
+    </div>`;
+  }).join('');
+  document.getElementById('qa-domain-bars').innerHTML = barsHTML || '';
+  qaShowScreen('result');
+}
+
+function qaRestart() {
+  if (!qaState) return;
+  if (qaState.mode === 'MIXED') {
+    qaStartMixed();
+  } else {
+    qaStartDomain(qaState.mode);
+  }
+}
+
+function qaAbandon() {
+  qaState = null;
+  document.getElementById('qa-stats').style.display = 'none';
+  document.getElementById('qa-title').textContent = 'Escolha um modo de estudo';
+  document.getElementById('qa-meta').textContent = 'SY0-701 · 200 questões disponíveis';
+  qaShowScreen('menu');
+}
+
+function qaShowScreen(name) {
+  ['menu','quiz','result'].forEach(s => {
+    const el = document.getElementById('qa-screen-' + s);
+    if (el) el.style.display = s === name ? 'block' : 'none';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('qa-domain-grid')) {
+    qaRenderDomainGrid();
+  }
+});
+</script>
+<div id="testimonials" class="section">
+
+
+  <!-- DEPOIMENTOS -->
+  <div style="margin-bottom:2.5rem;">
+    <div class="practice-kicker notranslate" data-i18n-pt="Depoimentos · Quem passou com este material" data-i18n-en="Testimonials · Who passed with this material">Depoimentos · Quem passou com este material</div>
+    <h2 class="practice-title" style="font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.5rem;"><span data-i18n-pt="O que dizem sobre este guia" data-i18n-en="What they say about this guide">O que dizem sobre este guia</span></h2>
+    <p style="color:var(--text-dim);font-size:.92rem;margin-bottom:1.5rem;" data-i18n-pt="Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701." data-i18n-en="This material was built from the real experience of those who studied and passed the CompTIA Security+ SY0-701.">Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin-bottom:1.5rem;">
+      <!-- Card Larissa -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.6rem;display:flex;flex-direction:column;gap:.9rem;backdrop-filter:blur(16px);box-shadow:0 20px 50px rgba(58,110,158,0.07);">
+        <div style="display:flex;align-items:center;gap:.9rem;">
+          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">👩🏾‍💻</div>
+          <div>
+            <div style="font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--text);">Larissa Paiva</div>
+            <div style="font-size:.75rem;color:var(--text-muted);">IT Operations · Van Ameyde · Lisboa</div>
+          </div>
+          <div style="margin-left:auto;background:rgba(184,92,114,0.1);border:1px solid rgba(184,92,114,0.25);border-radius:99px;padding:.2rem .65rem;font-size:.68rem;font-weight:700;color:var(--accent2);white-space:nowrap;">✓ Aprovada</div>
+        </div>
+        <div style="color:var(--accent4);font-size:.9rem;">★★★★★</div>
+        <p style="font-size:.84rem;color:var(--text-dim);line-height:1.7;font-style:italic;">"Estudei 8 dias com este guia, focando nos domínios mais pesados (D2 e D4), e passei com folga. O que mais me ajudou foram os estudos de caso, os PBQs e os quizzes por domínio — a prova cobra exatamente esse tipo de raciocínio contextualizado."</p>
+        <div style="font-size:.7rem;color:var(--text-muted);padding-top:.5rem;border-top:1px solid var(--border);">CompTIA Security+ SY0-701 · Maio 2025</div>
+      </div>
+
+      <!-- Placeholder A -->
+      <div style="background:var(--surface);border:2px dashed var(--border);border-radius:16px;padding:1.6rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;text-align:center;min-height:200px;backdrop-filter:blur(16px);">
+        <div style="width:52px;height:52px;border-radius:50%;background:rgba(58,110,158,0.07);border:2px dashed rgba(58,110,158,0.22);display:flex;align-items:center;justify-content:center;font-size:1.4rem;">💬</div>
+        <div>
+          <div style="font-family:var(--display);font-size:.95rem;color:var(--text-muted);margin-bottom:.35rem;" data-i18n-pt="O seu depoimento aqui" data-i18n-en="Your testimonial here">O seu depoimento aqui</div>
+          <p style="font-size:.8rem;color:var(--text-muted);line-height:1.55;" data-i18n-pt="Passou na Security+ usando este material? Entre em contacto!" data-i18n-en="Passed the Security+ using this material? Get in touch!">Passou na Security+ usando este material? Entre em contacto!</p>
+        </div>
+        <a href="/" style="font-size:.76rem;font-weight:600;color:var(--accent2);text-decoration:none;border:1px solid rgba(184,92,114,0.3);padding:.35rem .9rem;border-radius:99px;background:rgba(184,92,114,0.07);" data-i18n-pt="Enviar depoimento →" data-i18n-en="Send testimonial →">Enviar depoimento →</a>
+      </div>
+
+      <!-- Stats -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.6rem;display:flex;flex-direction:column;justify-content:center;gap:1rem;backdrop-filter:blur(16px);box-shadow:0 20px 50px rgba(58,110,158,0.07);">
+        <div style="display:flex;justify-content:space-around;align-items:center;">
+          <div style="text-align:center;"><div style="font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--accent2);">200</div><div style="font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;" data-i18n-pt="Questões" data-i18n-en="Questions">Questões</div></div>
+          <div style="width:1px;height:36px;background:var(--border);"></div>
+          <div style="text-align:center;"><div style="font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--accent);">5</div><div style="font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;" data-i18n-pt="Domínios" data-i18n-en="Domains">Domínios</div></div>
+          <div style="width:1px;height:36px;background:var(--border);"></div>
+          <div style="text-align:center;"><div style="font-family:var(--display);font-size:1.8rem;font-weight:800;color:var(--accent4);">750</div><div style="font-size:.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em;">Min Score</div></div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:1rem;text-align:center;">
+          <p style="font-size:.78rem;color:var(--text-dim);" data-i18n-pt="Pool de 200 questões cobrindo todos os domínios SY0-701 com feedback detalhado e relatório de desempenho." data-i18n-en="Pool of 200 questions covering all SY0-701 domains with detailed feedback and performance report.">Pool de 200 questões cobrindo todos os domínios SY0-701 com feedback detalhado e relatório de desempenho.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Stats bar -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem 2rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;align-items:center;margin-bottom:2rem;backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(58,110,158,0.08);">
-    <div style="text-align:center;">
-      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent2);">750+</div>
-      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Score mínimo aprovação" data-i18n-en="Minimum passing score">Score mínimo aprovação</div>
-    </div>
-    <div style="width:1px;height:40px;background:var(--border);"></div>
-    <div style="text-align:center;">
-      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent);">8</div>
-      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Dias de estudo intensivo" data-i18n-en="Days of intensive study">Dias de estudo intensivo</div>
-    </div>
-    <div style="width:1px;height:40px;background:var(--border);"></div>
-    <div style="text-align:center;">
-      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent4);">5</div>
-      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Domínios cobertos" data-i18n-en="Domains covered">Domínios cobertos</div>
-    </div>
-    <div style="width:1px;height:40px;background:var(--border);"></div>
-    <div style="text-align:center;">
-      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent2);">50+</div>
-      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Questões de prática" data-i18n-en="Practice questions">Questões de prática</div>
-    </div>
-  </div>
-
-  <!-- CTA -->
-  <div style="background:linear-gradient(135deg,rgba(184,92,114,0.10),rgba(58,110,158,0.08));border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;backdrop-filter:blur(16px);">
-    <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;" data-i18n-pt="Quer deixar o seu depoimento?" data-i18n-en="Want to leave your testimonial?">Quer deixar o seu depoimento?</div>
-    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:1.2rem;" data-i18n-pt="Se passou na Security+ usando este material, adoraria saber! Entre em contacto pelo portfólio." data-i18n-en="If you passed the Security+ using this material, I'd love to know! Get in touch via the portfolio.">Se passou na Security+ usando este material, adoraria saber! Entre em contacto pelo portfólio.</p>
-    <a href="/" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:0.82rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--accent2),var(--accent));border-radius:99px;padding:0.7rem 1.5rem;box-shadow:0 14px 32px rgba(184,92,114,0.18);transition:all 0.2s;" data-i18n-pt="← Voltar ao Portfólio" data-i18n-en="← Back to Portfolio">← Voltar ao Portfólio</a>
-  </div>
-
-</div>
+</div><!-- /testimonials -->
 
 <!-- =========== SCHEDULE SECTION =========== -->
 <div class="section" id="schedule">
@@ -5212,7 +5696,7 @@ function showSection(id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const btns = document.querySelectorAll('.nav-btn');
-  const map = {overview:0, d1:1, d2:2, d3:3, d4:4, d5:5, acronyms:6, testimonials:7, schedule:8};
+  const map = {overview:0, d1:1, d2:2, d3:3, d4:4, d5:5, acronyms:6, practice:7, testimonials:8, schedule:9};
   btns[map[id]].classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 }
