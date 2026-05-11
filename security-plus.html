@@ -4564,6 +4564,32 @@
         </div>
       </div>
 
+      <!-- Divisória -->
+      <div style="height:1px;background:var(--border);margin:1.5rem 0;"></div>
+
+      <!-- Quiz Personalizado -->
+      <div>
+        <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem;" data-i18n-pt="Quiz personalizado — escolhe os domínios" data-i18n-en="Custom quiz — choose your domains">Quiz personalizado — escolhe os domínios</div>
+        <p style="font-size:.82rem;color:var(--text-dim);margin-bottom:.9rem;" data-i18n-pt="Seleciona 2 ou mais domínios e a quantidade de questões." data-i18n-en="Select 2 or more domains and the number of questions.">Seleciona 2 ou mais domínios e a quantidade de questões.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;" id="qa-custom-domains">
+          <button onclick="qaToggleDomain(this,'D1')" data-domain="D1" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;transition:all .2s;">D1 · General</button>
+          <button onclick="qaToggleDomain(this,'D2')" data-domain="D2" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;transition:all .2s;">D2 · Threats</button>
+          <button onclick="qaToggleDomain(this,'D3')" data-domain="D3" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;transition:all .2s;">D3 · Architecture</button>
+          <button onclick="qaToggleDomain(this,'D4')" data-domain="D4" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;transition:all .2s;">D4 · Operations</button>
+          <button onclick="qaToggleDomain(this,'D5')" data-domain="D5" style="background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);padding:.45rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.82rem;cursor:pointer;transition:all .2s;">D5 · Governance</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;">
+          <select id="qa-custom-count" style="background:var(--surface2);border:1px solid var(--border);padding:.5rem .9rem;border-radius:10px;font-family:var(--sans);font-size:.85rem;color:var(--text);cursor:pointer;">
+            <option value="10">10 questões</option>
+            <option value="20" selected>20 questões</option>
+            <option value="40">40 questões</option>
+            <option value="60">60 questões</option>
+          </select>
+          <span id="qa-custom-pool" style="font-family:var(--mono);font-size:.75rem;color:var(--text-muted);">Seleciona ao menos 1 domínio</span>
+          <button onclick="qaStartCustom()" id="qa-custom-start" disabled style="background:var(--text);color:#fff;border:none;padding:.55rem 1.3rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;opacity:.4;" data-i18n-pt="Começar personalizado →" data-i18n-en="Start custom →">Começar personalizado →</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- QUIZ SCREEN -->
@@ -4854,6 +4880,56 @@ function qaRenderDomainGrid() {
 function qaStartDomain(domain) {
   const qs = qaShuffleArray(QA_QUESTIONS[domain].map(q => ({...q, _domain: domain})));
   qaStartQuiz(`${domain} · ${QA_DOMAIN_INFO[domain].name}`, qs, domain);
+}
+
+function qaToggleDomain(btn, domain) {
+  const isSelected = btn.dataset.selected === 'true';
+  if (isSelected) {
+    btn.dataset.selected = 'false';
+    btn.style.background = 'var(--surface2)';
+    btn.style.borderColor = 'var(--border)';
+    btn.style.color = 'var(--text-muted)';
+    btn.style.fontWeight = '';
+  } else {
+    const info = QA_DOMAIN_INFO[domain];
+    btn.dataset.selected = 'true';
+    btn.style.background = info.color + '18';
+    btn.style.borderColor = info.color;
+    btn.style.color = info.color;
+    btn.style.fontWeight = '700';
+  }
+  qaUpdateCustomPool();
+}
+
+function qaUpdateCustomPool() {
+  const selected = Array.from(document.querySelectorAll('#qa-custom-domains button[data-selected="true"]')).map(b => b.dataset.domain);
+  const pool = selected.reduce((sum, d) => sum + QA_QUESTIONS[d].length, 0);
+  const poolEl = document.getElementById('qa-custom-pool');
+  const startBtn = document.getElementById('qa-custom-start');
+  if (pool > 0) {
+    poolEl.textContent = pool + ' disponíveis';
+    startBtn.disabled = false;
+    startBtn.style.opacity = '1';
+    startBtn.style.cursor = 'pointer';
+  } else {
+    poolEl.textContent = 'Seleciona ao menos 1 domínio';
+    startBtn.disabled = true;
+    startBtn.style.opacity = '.4';
+    startBtn.style.cursor = 'not-allowed';
+  }
+  const countEl = document.getElementById('qa-custom-count');
+  if (countEl && pool > 0 && parseInt(countEl.value) > pool) countEl.value = pool;
+}
+
+function qaStartCustom() {
+  const selected = Array.from(document.querySelectorAll('#qa-custom-domains button[data-selected="true"]')).map(b => b.dataset.domain);
+  if (selected.length === 0) return;
+  const count = parseInt(document.getElementById('qa-custom-count').value) || 20;
+  let pool = [];
+  selected.forEach(d => QA_QUESTIONS[d].forEach(q => pool.push({...q, _domain: d})));
+  pool = qaShuffleArray(pool).slice(0, count);
+  const label = selected.join(' + ');
+  qaStartQuiz('Personalizado · ' + label, pool, 'CUSTOM_' + selected.join('_'));
 }
 
 function qaStartMixed() {
