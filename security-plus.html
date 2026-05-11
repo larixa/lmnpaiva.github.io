@@ -1,29 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-original-language="pt">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FDFAF7">
-<meta name="color-scheme" content="light">
-<title>CompTIA Security+ SY0-701 | Study Plan · Larissa Paiva</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>CompTIA Security+ SY0-701 | Plano de Estudo Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --surface2: #1a2235;
-    --border: #1e2d45;
-    --accent: #00d4ff;
-    --accent2: #7c3aed;
-    --accent3: #10b981;
-    --accent4: #f59e0b;
-    --danger: #ef4444;
-    --text: #e2e8f0;
-    --text-muted: #64748b;
-    --text-dim: #94a3b8;
+    --bg: #FDFAF7;
+    --surface: #FFFFFF;
+    --surface2: #F7F3EF;
+    --border: rgba(44,40,37,0.12);
+    --accent: #B85C72;
+    --accent2: #3A6E9E;
+    --accent3: #2E7D52;
+    --accent4: #9E7A10;
+    --danger: #C0392B;
+    --text: #2C2825;
+    --text-muted: #A09890;
+    --text-dim: #6B6460;
     --mono: 'JetBrains Mono', monospace;
-    --sans: 'Inter', sans-serif;
-    --display: 'Syne', sans-serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --display: 'DM Serif Display', Georgia, serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,8 +49,8 @@
     left: -20%;
     width: 140%;
     height: 200%;
-    background: radial-gradient(ellipse at 30% 30%, rgba(0,212,255,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 70%, rgba(124,58,237,0.07) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 30%, rgba(184,92,114,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 70%, rgba(58,110,158,0.07) 0%, transparent 60%);
     pointer-events: none;
   }
   .hero-badge {
@@ -62,7 +60,7 @@
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--accent);
-    border: 1px solid rgba(0,212,255,0.3);
+    border: 1px solid rgba(184,92,114,0.3);
     padding: 6px 18px;
     border-radius: 2px;
     margin-bottom: 24px;
@@ -73,7 +71,7 @@
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
+    background: linear-gradient(135deg, #2C2825 0%, var(--accent) 50%, var(--accent2) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -112,7 +110,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10,14,26,0.95);
+    background: rgba(253,250,247,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     padding: 0 40px;
@@ -570,7 +568,7 @@
   .topic-content li { margin-bottom: 6px; }
   .topic-content li strong { color: var(--accent); font-weight: 600; }
   .example-block {
-    background: rgba(124,58,237,0.07);
+    background: rgba(58,110,158,0.07);
     border-left: 3px solid var(--accent2);
     padding: 12px 16px;
     border-radius: 0 6px 6px 0;
@@ -978,757 +976,16 @@
     .nav { padding: 0 16px; }
     .hero-stats { gap: 24px; }
   }
-
-
-  /* =========================================================
-     LMNPAIVA PORTFOLIO THEME + BILINGUAL TOGGLE
-     Inspired by lmnpaiva.com.br: dark tech portfolio, cyan/blue,
-     violet highlights, glass cards and EN/PT language control.
-     ========================================================= */
-  :root {
-    --bg: #080b14;
-    --surface: rgba(15, 23, 42, 0.78);
-    --surface2: rgba(30, 41, 59, 0.72);
-    --border: rgba(148, 163, 184, 0.18);
-    --accent: #38bdf8;
-    --accent2: #a78bfa;
-    --accent3: #22c55e;
-    --accent4: #f59e0b;
-    --danger: #fb7185;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-dim: #cbd5e1;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.14), transparent 34%),
-      radial-gradient(circle at 84% 16%, rgba(167, 139, 250, 0.14), transparent 32%),
-      radial-gradient(circle at 72% 88%, rgba(34, 197, 94, 0.08), transparent 30%),
-      var(--bg);
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-    background-image:
-      linear-gradient(rgba(148, 163, 184, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.035) 1px, transparent 1px);
-    background-size: 52px 52px;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.82), transparent 82%);
-  }
-
-  .hero {
-    background:
-      linear-gradient(135deg, rgba(8, 11, 20, 0.88), rgba(15, 23, 42, 0.70)),
-      radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.13), transparent 45%);
-  }
-
-  .hero::before {
-    background:
-      radial-gradient(ellipse at 30% 24%, rgba(56,189,248,0.13) 0%, transparent 60%),
-      radial-gradient(ellipse at 72% 70%, rgba(167,139,250,0.12) 0%, transparent 62%);
-  }
-
-  .portfolio-mark {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 18px;
-    padding: 7px 14px;
-    border: 1px solid rgba(148, 163, 184, 0.18);
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.58);
-    color: var(--text-dim);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(14px);
-  }
-
-  .portfolio-mark::before {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 16px rgba(56, 189, 248, 0.75);
-  }
-
-  .hero-badge {
-    position: relative;
-    z-index: 1;
-    color: var(--accent);
-    border-color: rgba(56,189,248,0.34);
-    background: rgba(56,189,248,0.06);
-    border-radius: 999px;
-  }
-
-  .hero h1 {
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(135deg, #ffffff 0%, #dbeafe 32%, var(--accent) 58%, var(--accent2) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero p, .hero-stats { position: relative; z-index: 1; }
-
-  .stat {
-    min-width: 120px;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    background: rgba(15, 23, 42, 0.56);
-    backdrop-filter: blur(14px);
-    box-shadow: 0 18px 55px rgba(0,0,0,.18);
-  }
-
-  .nav {
-    top: 0;
-    padding: 0 170px 0 40px;
-    background: rgba(8, 11, 20, 0.84);
-    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
-  }
-
-  .nav-btn:hover,
-  .nav-btn.active {
-    color: var(--accent);
-    background: rgba(56, 189, 248, 0.055);
-  }
-
-  .container { position: relative; z-index: 1; }
-
-  .domain-card,
-  .module-header,
-  .topic-item,
-  .diagram-box,
-  .case-study,
-  .pbq-box,
-  .quiz-question,
-  .info-card,
-  .topic-detail,
-  .acronym-category,
-  .day-card,
-  .resources-box,
-  .tips-box,
-  .schedule-intro,
-  .acronyms-intro {
-    backdrop-filter: blur(16px);
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
-  }
-
-  .domain-card,
-  .module-header,
-  .diagram-box,
-  .quiz-question,
-  .info-card,
-  .topic-detail,
-  .acronym-category,
-  .day-card,
-  .resources-box {
-    border-radius: 18px;
-  }
-
-  .domain-card:hover,
-  .day-card:hover,
-  .acronym-category:hover,
-  .topic-detail[open] {
-    border-color: rgba(56, 189, 248, 0.36);
-    box-shadow: 0 26px 80px rgba(56, 189, 248, 0.08), 0 20px 65px rgba(0,0,0,.28);
-  }
-
-  .domain-pct,
-  .stat-value,
-  .acronym-key,
-  h3,
-  code,
-  .q-num,
-  .resource-item strong {
-    color: var(--accent);
-  }
-
-  .badge,
-  .q-option,
-  .resource-item,
-  .study-block,
-  .schedule-stat,
-  .day-countdown {
-    border-radius: 12px;
-  }
-
-  .case-study::before { content: 'ESTUDO DE CASO'; }
-  .example-block::before { content: '◆ EXEMPLO PRÁTICO'; }
-  html[lang="en"] .case-study::before { content: 'CASE STUDY'; }
-  html[lang="en"] .example-block::before { content: '◆ PRACTICAL EXAMPLE'; }
-
-  #google_translate_element,
-  .goog-te-banner-frame,
-  .goog-te-balloon-frame,
-  .skiptranslate,
-  .goog-logo-link,
-  .goog-te-gadget {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-  }
-
-  body { top: 0 !important; }
-
-  .language-switcher {
-    position: fixed;
-    top: 16px;
-    right: 18px;
-    z-index: 9999;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px;
-    border: 1px solid rgba(148, 163, 184, 0.24);
-    border-radius: 999px;
-    background: rgba(8, 11, 20, 0.82);
-    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.02) inset;
-    backdrop-filter: blur(18px);
-  }
-
-  .language-switcher::before {
-    content: 'LANG';
-    padding: 0 8px 0 6px;
-    color: var(--text-muted);
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.2px;
-  }
-
-  .lang-option {
-    min-width: 40px;
-    height: 30px;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    color: var(--text-muted);
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    cursor: pointer;
-    transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
-  }
-
-  .lang-option:hover {
-    color: var(--text);
-    transform: translateY(-1px);
-  }
-
-  .lang-option.active {
-    color: #020617;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    box-shadow: 0 10px 28px rgba(56, 189, 248, 0.26);
-  }
-
-  @media (max-width: 760px) {
-    .nav { padding: 0 128px 0 16px; }
-    .language-switcher {
-      top: 10px;
-      right: 10px;
-      transform: scale(.92);
-      transform-origin: top right;
-    }
-    .language-switcher::before { display: none; }
-    .stat { min-width: 105px; }
-  }
-
-
-
-  /* =========================================================
-     LMNPAIVA CUSTOM PALETTE — requested colors
-     Pink #B85C72 · Blue #3A6E9E · Yellow #9E7A10 · Background #FDFAF7
-     This block intentionally overrides the previous dark portfolio theme.
-     ========================================================= */
-  :root {
-    --bg: #FDFAF7;
-    --surface: rgba(255, 255, 255, 0.82);
-    --surface2: rgba(250, 244, 239, 0.88);
-    --border: rgba(58, 110, 158, 0.18);
-    --accent: #3A6E9E;
-    --accent2: #B85C72;
-    --accent3: #B85C72;
-    --accent4: #9E7A10;
-    --danger: #B85C72;
-    --text: #2B2522;
-    --text-muted: #8B7C73;
-    --text-dim: #5E5550;
-  }
-
-  body {
-    color: var(--text);
-    background:
-      radial-gradient(circle at 8% 6%, rgba(184, 92, 114, 0.16), transparent 34%),
-      radial-gradient(circle at 84% 14%, rgba(58, 110, 158, 0.16), transparent 32%),
-      radial-gradient(circle at 72% 88%, rgba(158, 122, 16, 0.11), transparent 30%),
-      linear-gradient(180deg, #FDFAF7 0%, #F7EFE9 100%);
-  }
-
-  body::before {
-    background-image:
-      linear-gradient(rgba(58, 110, 158, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(184, 92, 114, 0.05) 1px, transparent 1px);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.34), transparent 82%);
-  }
-
-  .hero {
-    background:
-      linear-gradient(135deg, rgba(253, 250, 247, 0.92), rgba(255, 255, 255, 0.72)),
-      radial-gradient(circle at 50% 0%, rgba(58, 110, 158, 0.16), transparent 46%);
-    border-bottom-color: var(--border);
-  }
-
-  .hero::before {
-    background:
-      radial-gradient(ellipse at 28% 24%, rgba(184,92,114,0.16) 0%, transparent 62%),
-      radial-gradient(ellipse at 74% 70%, rgba(58,110,158,0.15) 0%, transparent 62%),
-      radial-gradient(ellipse at 54% 96%, rgba(158,122,16,0.10) 0%, transparent 56%);
-  }
-
-  .portfolio-mark,
-  .stat,
-  .language-switcher,
-  .nav,
-  .domain-card,
-  .module-header,
-  .topic-item,
-  .diagram-box,
-  .case-study,
-  .pbq-box,
-  .quiz-question,
-  .info-card,
-  .topic-detail,
-  .acronym-category,
-  .day-card,
-  .resources-box,
-  .tips-box,
-  .schedule-intro,
-  .acronyms-intro,
-  .q-option,
-  .resource-item,
-  .study-block,
-  .schedule-stat,
-  .day-countdown,
-  .acronym-search {
-    background: var(--surface);
-    border-color: var(--border);
-    box-shadow: 0 24px 60px rgba(58, 110, 158, 0.08), 0 10px 28px rgba(43, 37, 34, 0.06);
-  }
-
-  .surface2,
-  .q-option,
-  .pbq-task,
-  .pbq-answer,
-  .study-block,
-  .resource-item,
-  .schedule-stat,
-  .day-countdown,
-  code,
-  .topic-content code,
-  .key-term {
-    background: var(--surface2);
-  }
-
-  .portfolio-mark {
-    color: var(--text-dim);
-    border-color: rgba(184, 92, 114, 0.22);
-  }
-
-  .portfolio-mark::before {
-    background: var(--accent2);
-    box-shadow: 0 0 16px rgba(184, 92, 114, 0.55);
-  }
-
-  .hero-badge {
-    color: var(--accent2);
-    border-color: rgba(184, 92, 114, 0.32);
-    background: rgba(184, 92, 114, 0.08);
-  }
-
-  .hero h1,
-  .acronyms-intro h2,
-  .schedule-intro h2 {
-    background: linear-gradient(135deg, var(--accent2) 0%, var(--accent) 55%, var(--accent4) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .hero p,
-  .module-meta p,
-  .case-study p,
-  .pbq-scenario,
-  .q-explanation,
-  .topic-content,
-  .resource-item p,
-  .tips-box ul li,
-  .acronyms-intro p,
-  .schedule-intro p,
-  .acronym-desc {
-    color: var(--text-dim);
-  }
-
-  .nav {
-    background: rgba(253, 250, 247, 0.88);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 16px 42px rgba(58, 110, 158, 0.10);
-  }
-
-  .nav-btn {
-    color: var(--text-muted);
-  }
-
-  .nav-btn:hover,
-  .nav-btn.active {
-    color: var(--accent2);
-    border-bottom-color: var(--accent2);
-    background: rgba(184, 92, 114, 0.07);
-  }
-
-  .domain-card:hover,
-  .day-card:hover,
-  .acronym-category:hover,
-  .topic-detail[open] {
-    border-color: rgba(184, 92, 114, 0.34);
-    box-shadow: 0 26px 70px rgba(184, 92, 114, 0.10), 0 18px 48px rgba(58, 110, 158, 0.08);
-  }
-
-  .domain-card[data-color="cyan"]::before,
-  .progress-fill[style*="--accent"] { background: var(--accent) !important; }
-  .domain-card[data-color="purple"]::before { background: var(--accent2); }
-  .domain-card[data-color="green"]::before { background: var(--accent); }
-  .domain-card[data-color="amber"]::before { background: var(--accent4); }
-  .domain-card[data-color="red"]::before { background: var(--accent2); }
-
-  .domain-pct,
-  .stat-value,
-  .acronym-key,
-  h3,
-  code,
-  .q-num,
-  .resource-item strong,
-  .topic-content li strong,
-  .key-term {
-    color: var(--accent);
-  }
-
-  h3::before,
-  .topic-detail summary::before,
-  .topic-item,
-  .topic-detail,
-  .q-explanation,
-  .case-highlight {
-    border-color: var(--accent);
-  }
-
-  .case-study::before,
-  .case-study h4,
-  .case-highlight,
-  .q-option.correct,
-  .q-option.reveal-correct,
-  .pbq-answer summary,
-  .tips-box h3,
-  .tips-box ul li::before {
-    color: var(--accent2);
-    border-color: rgba(184, 92, 114, 0.30);
-  }
-
-  .case-highlight,
-  .pbq-answer,
-  .tips-box {
-    background: rgba(184, 92, 114, 0.07);
-  }
-
-  .pbq-box,
-  .pbq-task {
-    border-color: rgba(158, 122, 16, 0.30);
-  }
-
-  .pbq-box::before,
-  .pbq-task strong {
-    color: var(--accent4);
-  }
-
-  .pbq-task,
-  .example-block {
-    background: rgba(158, 122, 16, 0.07);
-    border-color: var(--accent4);
-  }
-
-  .example-block::before {
-    color: var(--accent4);
-  }
-
-  .badge-cyan,
-  .badge-purple,
-  .badge-green,
-  .badge-red {
-    color: var(--accent2);
-    border-color: rgba(184, 92, 114, 0.28);
-    background: rgba(184, 92, 114, 0.07);
-  }
-
-  .badge-amber {
-    color: var(--accent4);
-    border-color: rgba(158, 122, 16, 0.30);
-    background: rgba(158, 122, 16, 0.07);
-  }
-
-  .q-option:hover {
-    border-color: var(--accent2);
-    background: rgba(184, 92, 114, 0.06);
-  }
-
-  .q-option.correct,
-  .q-option.reveal-correct {
-    background: rgba(184, 92, 114, 0.08);
-  }
-
-  .q-option.wrong {
-    color: var(--danger);
-    border-color: rgba(184, 92, 114, 0.35);
-    background: rgba(184, 92, 114, 0.08);
-  }
-
-  .acronym-category[data-cat] h3::before {
-    background: var(--accent2);
-  }
-
-  .day-card.exam-day {
-    border-color: var(--accent2);
-    background: rgba(184, 92, 114, 0.05);
-  }
-
-  .day-header,
-  .day-card[data-day] .day-header,
-  .day-card.exam-day .day-header {
-    background: linear-gradient(90deg, rgba(184, 92, 114, 0.10), rgba(58, 110, 158, 0.04), transparent);
-    border-bottom-color: var(--border);
-  }
-
-  .study-block,
-  .study-block.reading { border-left-color: var(--accent); }
-  .study-block.video,
-  .study-block.review { border-left-color: var(--accent2); }
-  .study-block.practice,
-  .study-block.exam { border-left-color: var(--accent4); }
-
-  .study-block .block-tasks li::before,
-  .study-block.video .block-tasks li::before,
-  .study-block.reading .block-tasks li::before,
-  .study-block.practice .block-tasks li::before,
-  .study-block.review .block-tasks li::before,
-  .study-block.exam .block-tasks li::before {
-    color: var(--accent2);
-  }
-
-  .acronym-search:focus {
-    border-color: var(--accent2);
-    box-shadow: 0 0 0 3px rgba(184, 92, 114, 0.12);
-  }
-
-  .language-switcher {
-    background: rgba(253, 250, 247, 0.92);
-    border-color: rgba(184, 92, 114, 0.26);
-    box-shadow: 0 18px 50px rgba(58, 110, 158, 0.14), 0 0 0 1px rgba(255,255,255,0.55) inset;
-  }
-
-  .language-switcher::before,
-  .lang-option {
-    color: var(--text-muted);
-  }
-
-  .lang-option:hover {
-    color: var(--accent2);
-  }
-
-  .lang-option.active {
-    color: #FFFFFF;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    box-shadow: 0 10px 28px rgba(184, 92, 114, 0.22);
-  }
-
-  ::-webkit-scrollbar-track { background: #F7EFE9; }
-  ::-webkit-scrollbar-thumb { background: rgba(184, 92, 114, 0.42); }
-
-  /* Lighten embedded SVG diagram panels so they don't clash with the new light palette. */
-  .diagram-box svg rect[fill="#111827"] { fill: rgba(255,255,255,0.72); }
-  .diagram-box svg text[fill="#94a3b8"],
-  .diagram-box svg text[fill="#64748b"] { fill: #5E5550; }
-
-
-
-  /* ===== PRACTICE TESTS TAB ===== */
-  .practice-intro {
-    background:
-      linear-gradient(135deg, rgba(184, 92, 114, 0.10), rgba(58, 110, 158, 0.08)),
-      var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    margin-bottom: 24px;
-    box-shadow: 0 24px 60px rgba(58, 110, 158, 0.08), 0 10px 28px rgba(43, 37, 34, 0.06);
-  }
-
-  .practice-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent2);
-    background: rgba(184, 92, 114, 0.08);
-    border: 1px solid rgba(184, 92, 114, 0.22);
-    border-radius: 999px;
-    padding: 6px 14px;
-    margin-bottom: 16px;
-  }
-
-  .practice-title {
-    font-family: var(--display);
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    line-height: 1.1;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, var(--accent2), var(--accent), var(--accent4));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .practice-intro p {
-    color: var(--text-dim);
-    max-width: 780px;
-    font-size: 0.98rem;
-    margin-bottom: 18px;
-  }
-
-  .practice-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 18px;
-  }
-
-  .practice-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #fff;
-    background: linear-gradient(135deg, var(--accent2), var(--accent));
-    border: 1px solid rgba(184, 92, 114, 0.25);
-    border-radius: 999px;
-    padding: 11px 18px;
-    box-shadow: 0 14px 32px rgba(184, 92, 114, 0.18);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .practice-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 18px 42px rgba(58, 110, 158, 0.18);
-  }
-
-  .practice-link.secondary {
-    color: var(--accent2);
-    background: rgba(255, 255, 255, 0.62);
-    border-color: rgba(184, 92, 114, 0.26);
-    box-shadow: none;
-  }
-
-  .practice-frame-shell {
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 28px 80px rgba(58, 110, 158, 0.12), 0 12px 32px rgba(43, 37, 34, 0.07);
-  }
-
-  .practice-frame-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 13px 16px;
-    background: linear-gradient(90deg, rgba(184, 92, 114, 0.09), rgba(58, 110, 158, 0.06));
-    border-bottom: 1px solid var(--border);
-    color: var(--text-muted);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .practice-frame-toolbar a {
-    color: var(--accent2);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .practice-frame-toolbar a:hover { text-decoration: underline; }
-
-  .practice-frame {
-    display: block;
-    width: 100%;
-    min-height: 78vh;
-    border: 0;
-    background: var(--bg);
-  }
-
-  .practice-note {
-    margin-top: 14px;
-    color: var(--text-muted);
-    font-family: var(--mono);
-    font-size: 11px;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 760px) {
-    .practice-intro { padding: 22px; }
-    .practice-frame { min-height: 86vh; }
-    .practice-frame-toolbar { align-items: flex-start; flex-direction: column; }
-  }
 </style>
 </head>
 <body>
-
-<!-- LMNPAIVA BILINGUAL TOGGLE -->
-<div id="google_translate_element" aria-hidden="true"></div>
-<div class="language-switcher notranslate" role="group" aria-label="Selecionar idioma / Select language">
-  <button type="button" class="lang-option" data-lang="pt" onclick="setLanguage('pt')" aria-label="Português">PT</button>
-  <button type="button" class="lang-option" data-lang="en" onclick="setLanguage('en')" aria-label="English">EN</button>
+<div style="background:rgba(253,250,247,0.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(44,40,37,0.1);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:999;">
+  <span style="font-family:DM Serif Display,serif;font-size:1rem;color:#2C2825;">Larissa Paiva</span>
+  <a href="/" style="font-family:DM Sans,sans-serif;font-size:.8rem;font-weight:600;color:#B85C72;text-decoration:none;padding:.4rem 1rem;border:1.5px solid #F2A7BB;border-radius:99px;background:#FCE8EF;">← Back to Portfolio</a>
 </div>
-
 
 <!-- HERO -->
 <div class="hero">
-  <div class="portfolio-mark notranslate">lmnpaiva.com.br · IT Operations · IAM · Cybersecurity</div>
   <div class="hero-badge">▸ Plano de Estudo Completo</div>
   <h1>CompTIA Security+<br>SY0-701</h1>
   <p>Guia completo com domínios, diagramas, estudos de caso, PBQs e quizzes de 10 questões por módulo</p>
@@ -1749,7 +1006,7 @@
   <button class="nav-btn" onclick="showSection('d4')">D4 · Operations</button>
   <button class="nav-btn" onclick="showSection('d5')">D5 · Governance</button>
   <button class="nav-btn" onclick="showSection('acronyms')">📖 Acrônimos</button>
-  <button class="nav-btn" onclick="showSection('practice')"><span class="notranslate" data-i18n-pt="🎯 Testes de Prática" data-i18n-en="🎯 Practice Tests">🎯 Testes de Prática</span></button>
+  <button class="nav-btn" onclick="showSection('testimonials')">💬 Depoimentos</button>
   <button class="nav-btn" onclick="showSection('schedule')">📅 Cronograma</button>
 </nav>
 
@@ -2066,7 +1323,7 @@
       <!-- A -->
       <circle cx="300" cy="240" r="28" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-width="1.5"/>
       <text x="300" y="236" fill="#10b981" text-anchor="middle" font-size="11" font-weight="bold">A</text>
-      <text x="300" y="250" fill="#10b981" text-anchor="middle" font-size="9">Availability</text>
+      <text x="300" y="250" fill="#10b981" text-anchor="middle" font-size="9">Availability</span>
       <!-- Center -->
       <text x="180" y="148" fill="#94a3b8" text-anchor="middle" font-size="10">CIA</text>
       <text x="180" y="162" fill="#94a3b8" text-anchor="middle" font-size="10">TRIAD</text>
@@ -5252,27 +4509,85 @@
 
 </div> <!-- /acronyms -->
 
-
-<!-- ===== PRACTICE TESTS ===== -->
-<div id="practice" class="section">
+<!-- ===== TESTIMONIALS ===== -->
+<div id="testimonials" class="section">
   <div class="practice-intro">
-    <div class="practice-kicker notranslate" data-i18n-pt="Quiz Lab · Treino Interativo" data-i18n-en="Quiz Lab · Interactive Practice">Quiz Lab · Treino Interativo</div>
-    <h2 class="practice-title"><span class="notranslate" data-i18n-pt="Testes de Prática" data-i18n-en="Practice Tests">Testes de Prática</span></h2>
-    <p data-i18n-pt="Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho." data-i18n-en="Use this area to access the interactive Security+ SY0-701 quiz page. The quiz includes domain selection, mixed mode, custom mode, instant feedback and a final performance report.">Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho.</p>
-    <p data-i18n-pt="A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos." data-i18n-en="The practice tests page also has a PT/EN toggle, so you can study in Portuguese or English without leaving the study plan.">A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos.</p>
-    <div class="practice-actions">
-      <a class="practice-link" href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir quiz em nova aba →" data-i18n-en="Open quiz in a new tab →">Abrir quiz em nova aba →</a>
-      <a class="practice-link secondary" href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir tela cheia" data-i18n-en="Open full screen">Abrir tela cheia</a>
+    <div class="practice-kicker notranslate" data-i18n-pt="Depoimentos · Quem usou este material" data-i18n-en="Testimonials · Who used this material">Depoimentos · Quem usou este material</div>
+    <h2 class="practice-title"><span class="notranslate" data-i18n-pt="O que dizem sobre este guia" data-i18n-en="What they say about this guide">O que dizem sobre este guia</span></h2>
+    <p data-i18n-pt="Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701. Se você também usou este guia e quer deixar seu depoimento, entre em contato!" data-i18n-en="This material was built from the real experience of those who studied and passed the CompTIA Security+ SY0-701. If you also used this guide and want to share your testimonial, get in touch!">Este material foi criado com base na experiência real de quem estudou e passou na CompTIA Security+ SY0-701. Se você também usou este guia e quer deixar seu depoimento, entre em contato!</p>
+  </div>
+
+  <!-- Testimonials grid -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:2.5rem;">
+
+    <!-- Testimonial 1 — Larissa (autora) -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;gap:1rem;backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(58,110,158,0.08);">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">👩🏾‍💻</div>
+        <div>
+          <div style="font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);">Larissa Paiva</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);">Service Desk Coordinator · Van Ameyde · Lisboa</div>
+        </div>
+        <div style="margin-left:auto;background:rgba(184,92,114,0.1);border:1px solid rgba(184,92,114,0.25);border-radius:99px;padding:0.25rem 0.75rem;font-size:0.7rem;font-weight:700;color:var(--accent2);">✓ Aprovada</div>
+      </div>
+      <div style="display:flex;gap:2px;margin:-0.25rem 0;">
+        <span style="color:var(--accent4);font-size:1rem;">★★★★★</span>
+      </div>
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.75;font-style:italic;">"Criei este material porque não encontrei nada em português que fosse ao mesmo tempo completo e prático. Estudei 8 dias com este guia, focando nos domínios mais pesados (D2 e D4), e passei com folga. O que mais me ajudou foram os estudos de caso e os PBQs — a prova cobra exatamente esse tipo de raciocínio contextualizado."</p>
+      <div style="font-size:0.72rem;color:var(--text-muted);padding-top:0.5rem;border-top:1px solid var(--border);">CompTIA Security+ SY0-701 · Maio 2025</div>
+    </div>
+
+    <!-- Testimonial 2 — placeholder A -->
+    <div style="background:var(--surface);border:2px dashed var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;min-height:220px;backdrop-filter:blur(16px);">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(58,110,158,0.08);border:2px dashed rgba(58,110,158,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💬</div>
+      <div>
+        <div style="font-family:var(--display);font-size:1rem;color:var(--text-muted);margin-bottom:0.4rem;" data-i18n-pt="O seu depoimento aqui" data-i18n-en="Your testimonial here">O seu depoimento aqui</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;" data-i18n-pt="Passou na Security+ usando este material? Entre em contacto e partilhe a sua experiência!" data-i18n-en="Passed the Security+ using this material? Get in touch and share your experience!">Passou na Security+ usando este material? Entre em contacto e partilhe a sua experiência!</p>
+      </div>
+      <a href="/#contact" style="font-size:0.78rem;font-weight:600;color:var(--accent2);text-decoration:none;border:1px solid rgba(184,92,114,0.3);padding:0.4rem 1rem;border-radius:99px;background:rgba(184,92,114,0.07);transition:all 0.2s;" data-i18n-pt="Enviar depoimento →" data-i18n-en="Send testimonial →">Enviar depoimento →</a>
+    </div>
+
+    <!-- Testimonial 3 — placeholder B -->
+    <div style="background:var(--surface);border:2px dashed var(--border);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;min-height:220px;backdrop-filter:blur(16px);">
+      <div style="width:56px;height:56px;border-radius:50%;background:rgba(158,122,16,0.08);border:2px dashed rgba(158,122,16,0.25);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏆</div>
+      <div>
+        <div style="font-family:var(--display);font-size:1rem;color:var(--text-muted);margin-bottom:0.4rem;" data-i18n-pt="Em breve" data-i18n-en="Coming soon">Em breve</div>
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;" data-i18n-pt="Mais depoimentos serão adicionados à medida que candidatos passarem no exame." data-i18n-en="More testimonials will be added as candidates pass the exam.">Mais depoimentos serão adicionados à medida que candidatos passarem no exame.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stats bar -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem 2rem;display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;align-items:center;margin-bottom:2rem;backdrop-filter:blur(16px);box-shadow:0 24px 60px rgba(58,110,158,0.08);">
+    <div style="text-align:center;">
+      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent2);">750+</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Score mínimo aprovação" data-i18n-en="Minimum passing score">Score mínimo aprovação</div>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border);"></div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent);">8</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Dias de estudo intensivo" data-i18n-en="Days of intensive study">Dias de estudo intensivo</div>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border);"></div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent4);">5</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Domínios cobertos" data-i18n-en="Domains covered">Domínios cobertos</div>
+    </div>
+    <div style="width:1px;height:40px;background:var(--border);"></div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--display);font-size:2rem;font-weight:800;color:var(--accent2);">50+</div>
+      <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;" data-i18n-pt="Questões de prática" data-i18n-en="Practice questions">Questões de prática</div>
     </div>
   </div>
 
-  <div class="practice-frame-shell">
-    <div class="practice-frame-toolbar">
-      <span class="notranslate">Security+ SY0-701 · Practice Tests</span>
-      <a href="security-plus-practice-tests.html" target="_blank" rel="noopener" data-i18n-pt="Abrir tela cheia" data-i18n-en="Open full screen">Abrir tela cheia</a>
-    </div>
-    <iframe class="practice-frame" src="security-plus-practice-tests.html" title="Security+ SY0-701 Practice Tests" loading="lazy"></iframe>
+  <!-- CTA -->
+  <div style="background:linear-gradient(135deg,rgba(184,92,114,0.10),rgba(58,110,158,0.08));border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;backdrop-filter:blur(16px);">
+    <div style="font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;" data-i18n-pt="Quer deixar o seu depoimento?" data-i18n-en="Want to leave your testimonial?">Quer deixar o seu depoimento?</div>
+    <p style="font-size:0.88rem;color:var(--text-dim);margin-bottom:1.2rem;" data-i18n-pt="Se passou na Security+ usando este material, adoraria saber! Entre em contacto pelo portfólio." data-i18n-en="If you passed the Security+ using this material, I'd love to know! Get in touch via the portfolio.">Se passou na Security+ usando este material, adoraria saber! Entre em contacto pelo portfólio.</p>
+    <a href="/" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-size:0.82rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--accent2),var(--accent));border-radius:99px;padding:0.7rem 1.5rem;box-shadow:0 14px 32px rgba(184,92,114,0.18);transition:all 0.2s;" data-i18n-pt="← Voltar ao Portfólio" data-i18n-en="← Back to Portfolio">← Voltar ao Portfólio</a>
   </div>
+
 </div>
 
 <!-- =========== SCHEDULE SECTION =========== -->
@@ -5897,7 +5212,7 @@ function showSection(id) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const btns = document.querySelectorAll('.nav-btn');
-  const map = {overview:0, d1:1, d2:2, d3:3, d4:4, d5:5, acronyms:6, practice:7, schedule:8};
+  const map = {overview:0, d1:1, d2:2, d3:3, d4:4, d5:5, acronyms:6, testimonials:7, schedule:8};
   btns[map[id]].classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
 }
@@ -5953,284 +5268,5 @@ function answer(btn, result, qId) {
   if (exp) exp.classList.add('show');
 }
 </script>
-
-
-<script>
-/* LMNPAIVA bilingual language toggle
-   Portuguese is the source/original page language. English is provided through
-   Google Translate so the complete long study plan can be switched without backend. */
-const LMN_LANG_KEY = 'lmn_security_plan_language';
-
-function setTranslateCookie(value) {
-  const expires = 'expires=' + new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
-  const cookieValue = value ? `/pt/${value}` : '';
-  const base = `googtrans=${cookieValue}; ${expires}; path=/`;
-  document.cookie = base;
-  try {
-    const hostParts = location.hostname.split('.');
-    if (hostParts.length > 1) {
-      const rootDomain = '.' + hostParts.slice(-2).join('.');
-      document.cookie = `${base}; domain=${rootDomain}`;
-    }
-  } catch (e) {}
-}
-
-function clearTranslateCookie() {
-  const expired = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
-  document.cookie = expired;
-  try {
-    const hostParts = location.hostname.split('.');
-    if (hostParts.length > 1) {
-      const rootDomain = '.' + hostParts.slice(-2).join('.');
-      document.cookie = `${expired}; domain=${rootDomain}`;
-    }
-  } catch (e) {}
-}
-
-function updateManualLabels(lang) {
-  document.querySelectorAll('[data-i18n-pt][data-i18n-en]').forEach(el => {
-    const attr = lang === 'en' ? 'data-i18n-en' : 'data-i18n-pt';
-    el.textContent = el.getAttribute(attr);
-  });
-}
-
-function updateLanguageToggle(lang) {
-  document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
-  updateManualLabels(lang);
-  syncPracticeFrameLanguage(lang);
-  document.querySelectorAll('.lang-option').forEach(btn => {
-    const isActive = btn.dataset.lang === lang;
-    btn.classList.toggle('active', isActive);
-    btn.setAttribute('aria-pressed', String(isActive));
-  });
-}
-
-function syncPracticeFrameLanguage(lang) {
-  const normalized = lang === 'en' ? 'en' : 'pt';
-  try {
-    localStorage.setItem('lmn_security_quiz_language', normalized);
-  } catch (e) {}
-  const frame = document.querySelector('.practice-frame');
-  if (frame && frame.contentWindow) {
-    frame.contentWindow.postMessage({ type: 'LMN_SET_LANG', lang: normalized }, '*');
-  }
-}
-
-function applyGoogleLanguage(lang, reloadIfNeeded) {
-  if (lang === 'pt') {
-    clearTranslateCookie();
-    if (reloadIfNeeded) window.location.reload();
-    return;
-  }
-
-  setTranslateCookie('en');
-  const combo = document.querySelector('.goog-te-combo');
-  if (combo) {
-    combo.value = 'en';
-    combo.dispatchEvent(new Event('change'));
-  } else if (reloadIfNeeded) {
-    window.location.reload();
-  }
-}
-
-function setLanguage(lang) {
-  localStorage.setItem(LMN_LANG_KEY, lang);
-  updateLanguageToggle(lang);
-  applyGoogleLanguage(lang, true);
-}
-
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'pt',
-    includedLanguages: 'en,pt',
-    autoDisplay: false
-  }, 'google_translate_element');
-
-  const preferred = localStorage.getItem(LMN_LANG_KEY) || 'pt';
-  updateLanguageToggle(preferred);
-  if (preferred === 'en') {
-    window.setTimeout(() => applyGoogleLanguage('en', false), 650);
-  }
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const preferred = localStorage.getItem(LMN_LANG_KEY) || (document.cookie.includes('googtrans=/pt/en') ? 'en' : 'pt');
-  updateLanguageToggle(preferred);
-  const practiceFrame = document.querySelector('.practice-frame');
-  if (practiceFrame) {
-    practiceFrame.addEventListener('load', () => syncPracticeFrameLanguage(localStorage.getItem(LMN_LANG_KEY) || preferred));
-  }
-});
-</script>
-
-<script id="lmn-manual-i18n-final">
-/* Final bilingual layer: manual PT/EN labels for the static study guide UI.
-   It does not depend on Google Translate, so the toggle works on GitHub Pages and local previews. */
-(function() {
-  const KEY = 'lmn_security_plan_language';
-  const PT_TO_EN = {
-  "▸ Plano de Estudo Completo": "▸ Complete Study Plan",
-  "Guia completo com domínios, diagramas, estudos de caso, PBQs e quizzes de 10 questões por módulo": "Complete guide with domains, diagrams, case studies, PBQs and 10-question quizzes per module",
-  "Domínios": "Domains",
-  "Questões na Prova": "Exam Questions",
-  "Score Mínimo / 900": "Minimum Score / 900",
-  "Visão Geral": "Overview",
-  "📖 Acrônimos": "📖 Acronyms",
-  "📅 Cronograma": "📅 Schedule",
-  "🎯 Testes de Prática": "🎯 Practice Tests",
-  "Distribuição dos Domínios na Prova": "Exam Domain Distribution",
-  "Formato da Prova": "Exam Format",
-  "Tipo de questões": "Question type",
-  "Múltipla escolha + PBQ (Performance-Based)": "Multiple choice + PBQ (Performance-Based)",
-  "Total de questões": "Total questions",
-  "Máximo 90 questões": "Maximum 90 questions",
-  "Tempo disponível": "Available time",
-  "90 minutos": "90 minutes",
-  "Score de aprovação": "Passing score",
-  "750 de 900 pontos": "750 out of 900 points",
-  "PBQs esperadas": "Expected PBQs",
-  "3–5 questões (início da prova)": "3–5 questions (at the beginning of the exam)",
-  "Idioma": "Language",
-  "Inglês (principal) + outros": "English (main) + others",
-  "// Diagrama — Estrutura da Prova SY0-701": "// Diagram — SY0-701 Exam Structure",
-  "Tópicos do Domínio 1": "Domain 1 Topics",
-  "Tópicos do Domínio 2": "Domain 2 Topics",
-  "Tópicos do Domínio 3": "Domain 3 Topics",
-  "Tópicos do Domínio 4": "Domain 4 Topics",
-  "Tópicos do Domínio 5": "Domain 5 Topics",
-  "Explicação Detalhada dos Tópicos": "Detailed Topic Explanations",
-  "Fundamentos de segurança: controles, criptografia, autenticação e conceitos essenciais": "Security fundamentals: controls, cryptography, authentication and core concepts",
-  "Alta densidade conceitual": "High conceptual density",
-  "da prova": "of the exam",
-  "questões": "questions",
-  "~11 questões": "~11 questions",
-  "~20 questões": "~20 questions",
-  "~16 questões": "~16 questions",
-  "~25 questões": "~25 questions",
-  "~18 questões": "~18 questions",
-  "Nenhum acrônimo encontrado. Tente outro termo.": "No acronyms found. Try another term.",
-  "Busca por acrônimo ou termo...": "Search by acronym or term...",
-  "Testes de Prática": "Practice Tests",
-  "Quiz Lab · Treino Interativo": "Quiz Lab · Interactive Practice",
-  "Use esta área para acessar a página de quizzes interativos do Security+ SY0-701. O quiz tem seleção por domínio, modo misto, modo personalizado, feedback instantâneo e relatório final de desempenho.": "Use this area to access the interactive Security+ SY0-701 quiz page. The quiz includes domain selection, mixed mode, custom mode, instant feedback and a final performance report.",
-  "A página dos testes também possui o toggle PT/EN, então você pode estudar em português ou inglês sem sair do plano de estudos.": "The practice tests page also has a PT/EN toggle, so you can study in Portuguese or English without leaving the study plan.",
-  "Abrir quiz em nova aba →": "Open quiz in a new tab →",
-  "Abrir tela cheia": "Open full screen",
-  "📅 Cronograma de Estudo · 8 dias até a prova": "📅 Study Schedule · 8 days until the exam",
-  "32h totais": "32h total",
-  "Prova: 06/05": "Exam: 06/05",
-  "5 domínios + simulado": "5 domains + mock exam",
-  "Dicas de Ouro para a Reta Final": "Golden Tips for the Final Stretch",
-  "Recursos Recomendados": "Recommended Resources",
-  "DIA": "DAY",
-  "FOCO": "FOCUS",
-  "vídeo-aula": "video lesson",
-  "leitura": "reading",
-  "prática": "practice",
-  "revisão": "review"
-};
-  const EN_TO_PT = Object.fromEntries(Object.entries(PT_TO_EN).map(([pt,en]) => [en, pt]));
-
-  function preferredLang() {
-    try {
-      const p = new URLSearchParams(location.search).get('lang');
-      if (p === 'en' || p === 'pt') return p;
-      const stored = localStorage.getItem(KEY);
-      if (stored === 'en' || stored === 'pt') return stored;
-    } catch(e) {}
-    return 'pt';
-  }
-
-  function setPracticeTargets(lang) {
-    const suffix = '?lang=' + (lang === 'en' ? 'en' : 'pt');
-    document.querySelectorAll('a[href^="security-plus-practice-tests.html"]').forEach(a => {
-      a.href = 'security-plus-practice-tests.html' + suffix;
-    });
-    const frame = document.querySelector('.practice-frame');
-    if (frame) {
-      const desired = 'security-plus-practice-tests.html' + suffix;
-      const current = frame.getAttribute('src') || '';
-      if (!current.includes('lang=' + lang)) frame.setAttribute('src', desired);
-    }
-  }
-
-  function setDataI18n(lang) {
-    document.querySelectorAll('[data-i18n-pt][data-i18n-en]').forEach(el => {
-      const value = el.getAttribute(lang === 'en' ? 'data-i18n-en' : 'data-i18n-pt');
-      if (value !== null) el.innerHTML = value;
-    });
-  }
-
-  function shouldSkipTextNode(node) {
-    const parent = node.parentElement;
-    if (!parent) return true;
-    const tag = parent.tagName;
-    if (['SCRIPT','STYLE','NOSCRIPT','TEXTAREA','INPUT','OPTION'].includes(tag)) return true;
-    if (parent.closest('.language-switcher')) return true;
-    if (parent.closest('.notranslate') && !parent.closest('[data-i18n-pt]')) return true;
-    return false;
-  }
-
-  function translateTextNodes(lang) {
-    const map = lang === 'en' ? PT_TO_EN : EN_TO_PT;
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        if (shouldSkipTextNode(node)) return NodeFilter.FILTER_REJECT;
-        const normalized = node.nodeValue.replace(/\s+/g, ' ').trim();
-        return map[normalized] ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-      }
-    });
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach(node => {
-      const leading = (node.nodeValue.match(/^\s*/) || [''])[0];
-      const trailing = (node.nodeValue.match(/\s*$/) || [''])[0];
-      const normalized = node.nodeValue.replace(/\s+/g, ' ').trim();
-      node.nodeValue = leading + map[normalized] + trailing;
-    });
-  }
-
-  function updateToggle(lang) {
-    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
-    document.querySelectorAll('.lang-option').forEach(btn => {
-      const active = btn.dataset.lang === lang;
-      btn.classList.toggle('active', active);
-      btn.setAttribute('aria-pressed', String(active));
-    });
-  }
-
-  function notifyPracticeFrame(lang) {
-    try { localStorage.setItem('lmn_security_quiz_language', lang); } catch(e) {}
-    const frame = document.querySelector('.practice-frame');
-    if (frame && frame.contentWindow) {
-      frame.contentWindow.postMessage({ type: 'LMN_SET_LANG', lang }, '*');
-    }
-  }
-
-  function apply(lang) {
-    lang = lang === 'en' ? 'en' : 'pt';
-    try { localStorage.setItem(KEY, lang); } catch(e) {}
-    setDataI18n(lang);
-    translateTextNodes(lang);
-    updateToggle(lang);
-    setPracticeTargets(lang);
-    notifyPracticeFrame(lang);
-  }
-
-  window.setLanguage = apply;
-  window.setLmnStudyLanguage = apply;
-
-  function init() {
-    const lang = preferredLang();
-    apply(lang);
-    const frame = document.querySelector('.practice-frame');
-    if (frame) frame.addEventListener('load', () => notifyPracticeFrame(preferredLang()));
-  }
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-</script>
-
 </body>
 </html>
