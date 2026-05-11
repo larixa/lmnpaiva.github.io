@@ -22,34 +22,19 @@
     }
     html { scroll-behavior: smooth; }
     body { background:var(--bg); color:var(--text); font-family:var(--sans); font-size:16px; line-height:1.7; overflow-x:hidden; }
-
-    /* NAV */
     nav { position:fixed; top:0; width:100%; padding:1.1rem 2.5rem; display:flex; justify-content:space-between; align-items:center; background:rgba(253,250,247,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); z-index:100; gap:1rem; }
     .nav-logo { font-family:var(--serif); font-size:1.1rem; color:var(--text); white-space:nowrap; }
     .nav-right { display:flex; align-items:center; gap:2rem; }
     .nav-links { display:flex; gap:1.5rem; list-style:none; }
     .nav-links a { font-size:.85rem; font-weight:500; color:var(--text-mid); text-decoration:none; transition:color .2s; }
     .nav-links a:hover { color:var(--text); }
-
-    .btn-cv {
-      display:inline-block; padding:.35rem 1rem;
-      font-family:var(--sans); font-size:.78rem; font-weight:600;
-      text-decoration:none; border-radius:99px;
-      background:var(--text); color:#fff;
-      transition:all .2s; white-space:nowrap;
-      letter-spacing:.02em;
-    }
+    .btn-cv { display:inline-block; padding:.35rem 1rem; font-family:var(--sans); font-size:.78rem; font-weight:600; text-decoration:none; border-radius:99px; background:var(--text); color:#fff; transition:all .2s; white-space:nowrap; letter-spacing:.02em; }
     .btn-cv:hover { background:var(--pink-dark); transform:translateY(-1px); }
-
     .hamburger { display:none; }
-
-    /* LANG TOGGLE */
     .lang-toggle { display:flex; align-items:center; border:1.5px solid var(--border); border-radius:99px; overflow:hidden; font-size:.75rem; font-weight:600; }
     .lang-btn { padding:.3rem .7rem; cursor:pointer; background:transparent; border:none; font-family:var(--sans); font-size:.75rem; font-weight:600; color:var(--text-light); transition:all .2s; letter-spacing:.04em; }
     .lang-btn.active { background:var(--text); color:#fff; border-radius:99px; }
     .lang-btn:hover:not(.active) { color:var(--text); }
-
-    /* HERO */
     #hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:4rem; max-width:1100px; margin:0 auto; padding:7rem 2.5rem 4rem; }
     .hero-tag { display:inline-block; background:var(--yellow-light); color:var(--yellow-dark); font-size:.74rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:.35rem .9rem; border-radius:99px; margin-bottom:1.5rem; opacity:0; animation:fadeUp .6s .2s forwards; }
     .hero-name { font-family:var(--serif); font-size:clamp(3rem,5vw,4.5rem); line-height:1.05; color:var(--text); margin-bottom:.8rem; opacity:0; animation:fadeUp .6s .4s forwards; }
@@ -57,8 +42,8 @@
     .hero-role { font-size:1rem; color:var(--text-mid); margin-bottom:1.8rem; opacity:0; animation:fadeUp .6s .6s forwards; }
     .hero-pills { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2.5rem; opacity:0; animation:fadeUp .6s .8s forwards; }
     .pill { font-size:.78rem; font-weight:500; padding:.3rem .85rem; border-radius:99px; border:1.5px solid transparent; }
-    .pill-pink   { background:var(--pink-light);   color:var(--pink-dark);   border-color:var(--pink); }
-    .pill-blue   { background:var(--blue-light);   color:var(--blue-dark);   border-color:var(--blue); }
+    .pill-pink { background:var(--pink-light); color:var(--pink-dark); border-color:var(--pink); }
+    .pill-blue { background:var(--blue-light); color:var(--blue-dark); border-color:var(--blue); }
     .pill-yellow { background:var(--yellow-light); color:var(--yellow-dark); border-color:var(--yellow); }
     .hero-cta { display:flex; gap:.8rem; flex-wrap:wrap; opacity:0; animation:fadeUp .6s 1s forwards; }
     .btn { display:inline-block; padding:.72rem 1.6rem; font-family:var(--sans); font-size:.85rem; font-weight:600; text-decoration:none; border-radius:99px; transition:all .2s; cursor:pointer; border:none; }
@@ -66,8 +51,6 @@
     .btn-primary:hover { background:#111; transform:translateY(-1px); }
     .btn-outline { background:transparent; color:var(--text); border:1.5px solid var(--border); }
     .btn-outline:hover { border-color:var(--text); background:var(--bg2); }
-
-    /* HERO CARD */
     .hero-right { opacity:0; animation:fadeUp .7s .5s forwards; }
     .card-stack { position:relative; height:390px; }
     .deco-card { position:absolute; border-radius:var(--radius); padding:1.5rem; }
@@ -76,25 +59,21 @@
     .deco-avatar { width:64px; height:64px; border-radius:50%; overflow:hidden; margin-bottom:1rem; border:3px solid var(--pink-light); }
     .deco-avatar img { width:100%; height:100%; object-fit:cover; }
     .deco-name { font-family:var(--serif); font-size:1.3rem; margin-bottom:.25rem; }
-    .deco-sub  { font-size:.8rem; color:var(--text-mid); margin-bottom:1.3rem; }
+    .deco-sub { font-size:.8rem; color:var(--text-mid); margin-bottom:1.3rem; }
     .deco-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.3rem; }
-    .deco-tag  { font-size:.7rem; font-weight:500; padding:.22rem .65rem; border-radius:99px; background:var(--bg2); color:var(--text-mid); border:1px solid var(--border); }
+    .deco-tag { font-size:.7rem; font-weight:500; padding:.22rem .65rem; border-radius:99px; background:var(--bg2); color:var(--text-mid); border:1px solid var(--border); }
     .deco-stat-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.5rem; border-top:1px solid var(--border); padding-top:1rem; }
     .deco-stat { text-align:center; }
     .deco-stat-num { font-family:var(--serif); font-size:1.3rem; color:var(--pink-dark); display:block; }
     .deco-stat-label { font-size:.66rem; color:var(--text-light); text-transform:uppercase; letter-spacing:.08em; }
     .floating-badge { position:absolute; right:-12px; bottom:55px; background:var(--yellow-light); border:1.5px solid var(--yellow); border-radius:12px; padding:.55rem .9rem; font-size:.74rem; font-weight:500; color:var(--yellow-dark); z-index:3; animation:float 3s ease-in-out infinite; }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-
-    /* SECTIONS */
     .section-inner { max-width:1100px; margin:0 auto; padding:5.5rem 2.5rem; }
     .section-eyebrow { display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem; }
     .eyebrow-line { width:28px; height:2px; background:var(--pink); border-radius:2px; }
     .eyebrow-text { font-size:.74rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--pink-dark); }
     .section-title { font-family:var(--serif); font-size:clamp(2rem,4vw,2.8rem); color:var(--text); margin-bottom:.8rem; line-height:1.15; }
-    .section-desc  { font-size:.94rem; color:var(--text-mid); max-width:560px; margin-bottom:3rem; }
-
-    /* SKILLS */
+    .section-desc { font-size:.94rem; color:var(--text-mid); max-width:560px; margin-bottom:3rem; }
     #skills { background:var(--bg2); }
     .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; }
     .skill-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.6rem; transition:transform .2s,box-shadow .2s; }
@@ -106,8 +85,6 @@
     .skill-item { display:flex; align-items:flex-start; gap:.5rem; font-size:.85rem; color:var(--text-mid); line-height:1.4; }
     .skill-dot { width:6px; height:6px; border-radius:50%; margin-top:6px; flex-shrink:0; }
     .dot-pink{background:var(--pink)} .dot-blue{background:var(--blue)} .dot-yellow{background:var(--yellow-dark)} .dot-green{background:#6BBF8A}
-
-    /* EXPERIENCE */
     #experience { background:var(--bg); }
     .exp-list { display:flex; flex-direction:column; gap:1.5rem; }
     .exp-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.8rem 2rem; transition:transform .2s,box-shadow .2s; }
@@ -127,96 +104,37 @@
     .exp-tag-blue { background:var(--blue-light); color:var(--blue-dark); border-color:var(--blue); }
     .exp-tag-yellow { background:var(--yellow-light); color:var(--yellow-dark); border-color:var(--yellow); }
     .exp-tag-green { background:var(--green-light); color:var(--green-dark); border-color:#a8d5b5; }
-
-    /* CERTS */
     #certs { background:var(--bg2); }
     .certs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; }
-    .cert-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; display:flex; flex-direction:column; gap:.75rem; transition:transform .2s,box-shadow .2s; }
+    .cert-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.5rem; display:flex; flex-direction:column; gap:.75rem; transition:transform .2s,box-shadow .2s; position:relative; }
     .cert-card:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(44,40,37,.07); }
-    .cert-logo { width:64px; height:64px; border-radius:0; display:flex; align-items:center; justify-content:center; }
+    .cert-logo { width:64px; height:64px; display:flex; align-items:center; justify-content:center; }
     .cert-logo img { width:100%; height:100%; object-fit:contain; }
-    .cert-name   { font-family:var(--serif); font-size:1rem; color:var(--text); line-height:1.3; }
+    .cert-name { font-family:var(--serif); font-size:1rem; color:var(--text); line-height:1.3; }
     .cert-issuer { font-size:.78rem; color:var(--text-light); }
     .cert-status { display:inline-block; font-size:.7rem; font-weight:600; padding:.2rem .65rem; border-radius:99px; align-self:flex-start; background:var(--green-light); color:var(--green-dark); }
     .cert-status-progress { background:var(--yellow-light); color:var(--yellow-dark); }
-
-
-    /* SECURITY+ CREDENTIAL CARD CTA */
-    .cert-card-link {
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
+    /* CERT TOOLTIP */
+    .cert-tooltip { position:relative; }
+    .cert-tooltip-text {
+      visibility:hidden; opacity:0;
+      position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+      background:var(--text); color:#fff;
+      font-size:.72rem; font-weight:500; white-space:nowrap;
+      padding:.4rem .8rem; border-radius:8px;
+      transition:opacity .2s;
+      z-index:10; pointer-events:none;
     }
-    .cert-card-link:visited,
-    .cert-card-link:hover,
-    .cert-card-link:focus {
-      color: inherit;
-    }
-    .cert-card-link:hover,
-    .cert-card-link:focus-visible {
-      border-color: var(--pink);
-      box-shadow: 0 16px 38px rgba(184, 92, 114, 0.16);
-      outline: none;
-    }
-    .cert-hover-cta {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      padding: 1.25rem;
-      text-align: center;
-      background: linear-gradient(135deg, rgba(184, 92, 114, .96), rgba(58, 110, 158, .96));
-      color: #fff;
-      opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
-      transition: opacity .22s ease, transform .22s ease;
-    }
-    .cert-hover-cta span {
-      font-family: var(--serif);
-      font-size: 1.1rem;
-      line-height: 1.15;
-    }
-    .cert-hover-cta small {
-      max-width: 180px;
-      font-size: .72rem;
-      line-height: 1.45;
-      color: rgba(255, 255, 255, .88);
-    }
-    .cert-card-link:hover .cert-hover-cta,
-    .cert-card-link:focus-visible .cert-hover-cta {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* EDUCATION */
+    .cert-tooltip-text::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--text); }
+    .cert-tooltip:hover .cert-tooltip-text { visibility:visible; opacity:1; }
     #education { background:var(--bg); }
     .edu-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:2rem 2.5rem; display:flex; align-items:flex-start; gap:1.5rem; max-width:700px; }
     .edu-icon { width:72px; height:72px; border-radius:14px; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; padding:6px; }
     .edu-icon img { width:100%; height:100%; object-fit:contain; }
-    .edu-degree      { font-family:var(--serif); font-size:1.2rem; margin-bottom:.3rem; }
+    .edu-degree { font-family:var(--serif); font-size:1.2rem; margin-bottom:.3rem; }
     .edu-institution { font-size:.9rem; color:var(--blue-dark); font-weight:500; margin-bottom:.4rem; }
-    .edu-desc        { font-size:.85rem; color:var(--text-mid); line-height:1.6; }
-
-    /* HONEYPOT - visually hidden from humans, visible to bots */
-    .hp-field {
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 0;
-      width: 0;
-      z-index: -1;
-      pointer-events: none;
-    }
-
-    /* CONTACT */
+    .edu-desc { font-size:.85rem; color:var(--text-mid); line-height:1.6; }
+    .hp-field { opacity:0; position:absolute; top:0; left:0; height:0; width:0; z-index:-1; pointer-events:none; }
     #contact { background:var(--bg2); }
     .contact-grid { display:grid; grid-template-columns:1fr 1.1fr; gap:4rem; align-items:start; }
     .contact-intro { font-size:.94rem; color:var(--text-mid); line-height:1.8; margin-bottom:2rem; }
@@ -232,15 +150,11 @@
     .form-textarea { resize:vertical; min-height:110px; }
     .btn-send { background:var(--text); color:#fff; border:none; border-radius:99px; padding:.8rem 1.8rem; font-family:var(--sans); font-size:.88rem; font-weight:600; cursor:pointer; transition:all .2s; align-self:flex-start; }
     .btn-send:hover { background:#111; transform:translateY(-1px); }
-
     footer { background:var(--text); color:rgba(255,255,255,.5); text-align:center; padding:2rem; font-size:.8rem; }
     footer strong { color:rgba(255,255,255,.85); }
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
     .reveal { opacity:0; transform:translateY(20px); transition:opacity .6s,transform .6s; }
     .reveal.visible { opacity:1; transform:none; }
-
-    /* ── TABLET ── */
     @media(max-width:900px) {
       #hero { grid-template-columns:1fr; gap:2rem; min-height:auto; padding:6rem 2rem 3rem; }
       .hero-right { display:none; }
@@ -249,39 +163,17 @@
       .certs-grid { grid-template-columns:repeat(2,1fr); }
       .exp-card { padding:1.4rem 1.5rem; }
     }
-
-    /* ── MOBILE ── */
     @media(max-width:640px) {
-      /* Nav */
       nav { padding:.85rem 1rem; gap:.5rem; }
       .nav-logo { font-size:1rem; }
       .nav-right { gap:.5rem; }
       .nav-links { display:none; }
-      .nav-links.open {
-        display:flex; flex-direction:column; gap:0;
-        position:fixed; top:56px; left:0; right:0;
-        background:rgba(253,250,247,0.98);
-        backdrop-filter:blur(12px);
-        border-bottom:1px solid var(--border);
-        padding:.5rem 0; z-index:99;
-      }
-      .nav-links.open li a {
-        display:block; padding:.75rem 1.5rem;
-        font-size:.95rem; border-bottom:1px solid var(--border);
-      }
+      .nav-links.open { display:flex; flex-direction:column; gap:0; position:fixed; top:56px; left:0; right:0; background:rgba(253,250,247,0.98); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:.5rem 0; z-index:99; }
+      .nav-links.open li a { display:block; padding:.75rem 1.5rem; font-size:.95rem; border-bottom:1px solid var(--border); }
       .lang-toggle { flex-shrink:0; }
       .btn-cv { font-size:.72rem; padding:.3rem .8rem; }
-      .hamburger {
-        display:flex; flex-direction:column; gap:5px;
-        background:none; border:none; cursor:pointer; padding:.3rem;
-      }
-      .hamburger span {
-        display:block; width:22px; height:2px;
-        background:var(--text); border-radius:2px;
-        transition:all .3s;
-      }
-
-      /* Hero */
+      .hamburger { display:flex; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:.3rem; }
+      .hamburger span { display:block; width:22px; height:2px; background:var(--text); border-radius:2px; transition:all .3s; }
       #hero { padding:5.5rem 1.25rem 2.5rem; gap:1.5rem; }
       .hero-name { font-size:clamp(2.4rem,10vw,3.5rem); }
       .hero-role { font-size:.9rem; }
@@ -289,45 +181,26 @@
       .pill { font-size:.72rem; padding:.25rem .7rem; }
       .hero-cta { flex-direction:column; gap:.6rem; }
       .btn { width:100%; text-align:center; padding:.8rem 1rem; }
-
-      /* Sections */
       .section-inner { padding:3rem 1.25rem; }
       .section-title { font-size:1.8rem; }
-
-      /* Skills */
       .skills-grid { grid-template-columns:1fr; gap:1rem; }
       .skill-card { padding:1.2rem; }
-
-      /* Experience */
       .exp-card { padding:1.2rem; }
       .exp-header { flex-wrap:wrap; gap:.6rem; }
       .exp-period { font-size:.7rem; width:100%; }
       .exp-company-icon { width:38px; height:38px; font-size:.75rem; }
       .exp-title { font-size:1rem; }
       .exp-activity { font-size:.82rem; }
-
-      /* Certs */
       .certs-grid { grid-template-columns:1fr; gap:1rem; }
       .cert-card { flex-direction:row; align-items:center; padding:1rem; gap:1rem; }
       .cert-logo { width:48px; height:48px; flex-shrink:0; }
-
-      .cert-card-link { min-height: 96px; }
-      .cert-hover-cta span { font-size: 1rem; }
-
-      /* Education */
       .edu-card { padding:1.2rem; flex-direction:column; gap:1rem; }
       .edu-icon { width:52px; height:52px; }
-
-      /* Contact */
       .contact-grid { grid-template-columns:1fr; gap:1.5rem; }
       .contact-form { padding:1.25rem; }
       .contact-link { font-size:.82rem; padding:.75rem .9rem; }
-
-      /* Footer */
       footer { padding:1.5rem 1rem; font-size:.75rem; }
     }
-
-    /* ── VERY SMALL ── */
     @media(max-width:380px) {
       .hero-name { font-size:2.2rem; }
       .section-inner { padding:2.5rem 1rem; }
@@ -335,7 +208,6 @@
   </style>
 </head>
 <body>
-
 <nav>
   <span class="nav-logo">Larissa Paiva</span>
   <div class="nav-right">
@@ -343,13 +215,12 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="nav-links">
-  <li><a href="#skills" onclick="closeMenu()" data-en="Skills" data-pt="Skills">Skills</a></li>
-  <li><a href="projects.html" data-en="Projects" data-pt="Projetos">Projects</a></li>
-  <li><a href="#experience" onclick="closeMenu()" data-en="Experience" data-pt="Experiência">Experience</a></li>
-  <li><a href="#certs" onclick="closeMenu()" data-en="Certifications" data-pt="Certificações">Certifications</a></li>
-  <li><a href="#education" onclick="closeMenu()" data-en="Education" data-pt="Formação">Education</a></li>
-  <li><a href="#contact" onclick="closeMenu()" data-en="Contact" data-pt="Contato">Contact</a></li>
-</ul>
+      <li><a href="#skills" onclick="closeMenu()" data-en="Skills" data-pt="Skills">Skills</a></li>
+      <li><a href="#experience" onclick="closeMenu()" data-en="Experience" data-pt="Experiência">Experience</a></li>
+      <li><a href="#certs" onclick="closeMenu()" data-en="Certifications" data-pt="Certificações">Certifications</a></li>
+      <li><a href="#education" onclick="closeMenu()" data-en="Education" data-pt="Formação">Education</a></li>
+      <li><a href="#contact" onclick="closeMenu()" data-en="Contact" data-pt="Contato">Contact</a></li>
+    </ul>
     <div class="lang-toggle">
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-pt" onclick="setLang('pt')">PT</button>
@@ -376,7 +247,6 @@
       <a href="#skills" class="btn btn-outline" data-en="View Skills" data-pt="Ver Habilidades">View Skills</a>
     </div>
   </div>
-
   <div class="hero-right">
     <div class="card-stack">
       <div class="deco-card deco-card-back"></div>
@@ -407,7 +277,6 @@
     <h2 class="section-title reveal" data-en="Areas of Expertise" data-pt="Áreas de Atuação">Areas of Expertise</h2>
     <p class="section-desc reveal" data-en="Expertise in IT Operations, Identity Management and Information Security, backed by internationally recognized certifications and a solid technical background." data-pt="Expertise em operações de TI, gestão de identidades e segurança da informação, sustentada por certificações internacionais e formação técnica sólida.">Expertise in IT Operations, Identity Management and Information Security, backed by internationally recognized certifications and a solid technical background.</p>
     <div class="skills-grid">
-
       <div class="skill-card reveal">
         <div class="skill-icon icon-yellow">⚙️</div>
         <h3 class="skill-card-title">IT Operations</h3>
@@ -420,7 +289,6 @@
           <div class="skill-item"><span class="skill-dot dot-yellow"></span><span data-en="Asset and configuration management (CMDB)" data-pt="Gestão de ativos e configuração (CMDB)">Asset and configuration management (CMDB)</span></div>
         </div>
       </div>
-
       <div class="skill-card reveal">
         <div class="skill-icon icon-pink">🔑</div>
         <h3 class="skill-card-title" data-en="IAM — Identity Management" data-pt="IAM — Gestão de Identidades">IAM — Identity Management</h3>
@@ -432,7 +300,6 @@
           <div class="skill-item"><span class="skill-dot dot-pink"></span><span data-en="Microsoft Entra ID (Azure AD)" data-pt="Microsoft Entra ID (Azure AD)">Microsoft Entra ID (Azure AD)</span></div>
         </div>
       </div>
-
       <div class="skill-card reveal">
         <div class="skill-icon icon-blue">🛡️</div>
         <h3 class="skill-card-title">Cybersecurity</h3>
@@ -444,7 +311,6 @@
           <div class="skill-item"><span class="skill-dot dot-blue"></span><span data-en="Security risk management" data-pt="Gestão de riscos de segurança">Security risk management</span></div>
         </div>
       </div>
-
       <div class="skill-card reveal">
         <div class="skill-icon icon-green">🌐</div>
         <h3 class="skill-card-title" data-en="Networks &amp; Infrastructure" data-pt="Redes &amp; Infraestrutura">Networks &amp; Infrastructure</h3>
@@ -456,7 +322,6 @@
           <div class="skill-item"><span class="skill-dot dot-green"></span><span data-en="Microsoft 365 and cloud productivity" data-pt="Microsoft 365 e produtividade em nuvem">Microsoft 365 and cloud productivity</span></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -468,8 +333,6 @@
     <h2 class="section-title reveal" data-en="Professional Journey" data-pt="Trajetória Profissional">Professional Journey</h2>
     <p class="section-desc reveal" data-en="Solid background in IT Operations, technical support and infrastructure across international companies in Portugal and Brazil." data-pt="Experiência consolidada em IT Operations, suporte técnico e infraestrutura em empresas internacionais em Portugal e no Brasil.">Solid background in IT Operations, technical support and infrastructure across international companies in Portugal and Brazil.</p>
     <div class="exp-list">
-
-      <!-- Van Ameyde -->
       <div class="exp-card reveal">
         <div class="exp-header">
           <div class="exp-company-icon" style="background:var(--pink-light);color:var(--pink-dark);">VA</div>
@@ -488,16 +351,11 @@
           <div class="exp-activity"><span data-en="Application of security best practices in access control, incident handling and knowledge base development." data-pt="Aplicação de boas práticas de segurança no controlo de acessos, gestão de incidentes e desenvolvimento da base de conhecimento.">Application of security best practices in access control, incident handling and knowledge base development.</span></div>
         </div>
         <div class="exp-tags">
-          <span class="exp-tag">Microsoft Entra ID</span>
-          <span class="exp-tag">Intune</span>
-          <span class="exp-tag exp-tag-blue">Windows Autopilot</span>
-          <span class="exp-tag exp-tag-blue">Microsoft 365</span>
-          <span class="exp-tag exp-tag-yellow">SLA / KPI</span>
-          <span class="exp-tag exp-tag-yellow">ITSM</span>
+          <span class="exp-tag">Microsoft Entra ID</span><span class="exp-tag">Intune</span>
+          <span class="exp-tag exp-tag-blue">Windows Autopilot</span><span class="exp-tag exp-tag-blue">Microsoft 365</span>
+          <span class="exp-tag exp-tag-yellow">SLA / KPI</span><span class="exp-tag exp-tag-yellow">ITSM</span>
         </div>
       </div>
-
-      <!-- Diebold Nixdorf -->
       <div class="exp-card reveal">
         <div class="exp-header">
           <div class="exp-company-icon" style="background:var(--blue-light);color:var(--blue-dark);">DN</div>
@@ -519,8 +377,6 @@
           <span class="exp-tag exp-tag-yellow">ATMs &amp; Terminals</span>
         </div>
       </div>
-
-      <!-- ALSA -->
       <div class="exp-card reveal">
         <div class="exp-header">
           <div class="exp-company-icon" style="background:var(--yellow-light);color:var(--yellow-dark);">AL</div>
@@ -541,12 +397,9 @@
           <span class="exp-tag exp-tag-yellow" data-en="Embedded Systems" data-pt="Sistemas Embarcados">Embedded Systems</span>
           <span class="exp-tag exp-tag-yellow" data-en="Urban Mobility" data-pt="Mobilidade Urbana">Urban Mobility</span>
           <span class="exp-tag">Google Workspace</span>
-          <span class="exp-tag exp-tag-blue">ITIL</span>
-          <span class="exp-tag exp-tag-blue">ISO 27001</span>
+          <span class="exp-tag exp-tag-blue">ITIL</span><span class="exp-tag exp-tag-blue">ISO 27001</span>
         </div>
       </div>
-
-      <!-- Olisipo -->
       <div class="exp-card reveal">
         <div class="exp-header">
           <div class="exp-company-icon" style="background:var(--pink-light);color:var(--pink-dark);">OL</div>
@@ -568,8 +421,6 @@
           <span class="exp-tag exp-tag-yellow" data-en="Cloud Migration" data-pt="Migração Cloud">Cloud Migration</span>
         </div>
       </div>
-
-      <!-- MacRepair -->
       <div class="exp-card reveal">
         <div class="exp-header">
           <div class="exp-company-icon" style="background:var(--green-light);color:var(--green-dark);">MR</div>
@@ -593,7 +444,6 @@
           <span class="exp-tag exp-tag-yellow" data-en="IT Consulting" data-pt="Consultoria TI">IT Consulting</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -605,15 +455,15 @@
     <h2 class="section-title reveal" data-en="Credentials" data-pt="Credenciais">Credentials</h2>
     <p class="section-desc reveal" data-en="Internationally recognized certifications in security, Microsoft technologies and IT service management." data-pt="Certificações reconhecidas internacionalmente em segurança, Microsoft e gestão de serviços de TI.">Internationally recognized certifications in security, Microsoft technologies and IT service management.</p>
     <div class="certs-grid">
-      <a class="cert-card reveal cert-card-link cert-security-plus" href="security-plus.html" aria-label="Veja como eu passei na certificação CompTIA Security+ SY0-701">
-        <div class="cert-hover-cta">
-          <span data-en="See how I passed" data-pt="Veja como eu passei">See how I passed</span>
-          <small data-en="Study guide + practice question pool" data-pt="Guia de estudos + pool de questões">Study guide + practice question pool</small>
-        </div>
-        <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/Security%2B.png" alt="CompTIA Security+"></div>
-        <div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA · SY0-701</div></div>
-        <span class="cert-status" data-en="✓ Certified" data-pt="✓ Certificada">✓ Certified</span>
-      </a>
+      <!-- Security+ with tooltip -->
+      <div class="cert-card reveal cert-tooltip">
+        <span class="cert-tooltip-text" data-en="✨ See how I passed this certification" data-pt="✨ Veja como passei nesta certificação">✨ See how I passed this certification</span>
+        <a href="/security_plus.html" style="display:contents;text-decoration:none;color:inherit;">
+          <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/Security%2B.png" alt="CompTIA Security+"></div>
+          <div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA · SY0-701</div></div>
+          <span class="cert-status" data-en="✓ Certified" data-pt="✓ Certificada">✓ Certified</span>
+        </a>
+      </div>
       <div class="cert-card reveal">
         <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/SC-900.png" alt="SC-900"></div>
         <div><div class="cert-name">Security, Compliance &amp; Identity Fundamentals</div><div class="cert-issuer">Microsoft · SC-900</div></div>
@@ -642,6 +492,11 @@
       <div class="cert-card reveal">
         <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/MD%20102%20Badge.png" alt="MD-102"></div>
         <div><div class="cert-name">Endpoint Administrator</div><div class="cert-issuer">Microsoft · MD-102</div></div>
+        <span class="cert-status cert-status-progress" data-en="⬤ In Progress" data-pt="⬤ Em Andamento">⬤ In Progress</span>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-logo"><img src="https://raw.githubusercontent.com/larixa/larixa.github.io/main/Lead%20Implementer.png" alt="ISO 27001 Lead Implementer"></div>
+        <div><div class="cert-name">ISO/IEC 27001 Lead Implementer</div><div class="cert-issuer">PECB</div></div>
         <span class="cert-status cert-status-progress" data-en="⬤ In Progress" data-pt="⬤ Em Andamento">⬤ In Progress</span>
       </div>
     </div>
@@ -682,7 +537,6 @@
         </div>
       </div>
       <div class="contact-form reveal">
-        <!-- HONEYPOT: hidden from humans, bots will fill this -->
         <div class="hp-field" aria-hidden="true">
           <label for="hp-website">Website</label>
           <input type="text" id="hp-website" name="_gotcha" tabindex="-1" autocomplete="off">
@@ -713,297 +567,100 @@
 <!-- CV DOWNLOAD MODAL -->
 <div id="cv-modal" style="display:none;position:fixed;inset:0;z-index:999;align-items:flex-start;justify-content:center;background:rgba(44,40,37,0.5);backdrop-filter:blur(4px);overflow-y:auto;padding:1rem 0;">
   <div style="background:#fff;border-radius:20px;padding:2rem;max-width:440px;width:90%;box-shadow:0 24px 60px rgba(44,40,37,0.18);position:relative;margin:auto;animation:fadeUp .3s forwards;">
-
     <button onclick="closeCVModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;color:var(--text-light);cursor:pointer;line-height:1;">✕</button>
-
     <div style="width:56px;height:56px;border-radius:14px;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;">🔐</div>
-
     <h2 style="font-family:var(--serif);font-size:1.4rem;color:var(--text);margin-bottom:.5rem;" id="modal-title">Digitally Signed CV</h2>
-
-    <p style="font-size:.88rem;color:var(--text-mid);line-height:1.7;margin-bottom:1.5rem;" id="modal-desc">
-      This document has been digitally signed via <strong>gov.br</strong>, certified by the <strong>ICP-Brasil</strong> Public Key Infrastructure. Your email and IP will be recorded as a traceability measure in accordance with GDPR.
-    </p>
-
-    <!-- info cards -->
+    <p style="font-size:.88rem;color:var(--text-mid);line-height:1.7;margin-bottom:1.5rem;" id="modal-desc">This document has been digitally signed via <strong>gov.br</strong>, certified by the <strong>ICP-Brasil</strong> Public Key Infrastructure. Your email and IP will be recorded as a traceability measure in accordance with GDPR.</p>
     <div style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem;">
       <div style="display:flex;align-items:flex-start;gap:.8rem;padding:.8rem 1rem;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">
         <span style="font-size:1rem;flex-shrink:0;">✅</span>
-        <div>
-          <div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-integrity-title">Integrity</div>
-          <div style="font-size:.78rem;color:var(--text-mid);" id="modal-integrity-desc">The document has not been altered since it was signed. Any modification invalidates the signature.</div>
-        </div>
+        <div><div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-integrity-title">Integrity</div><div style="font-size:.78rem;color:var(--text-mid);" id="modal-integrity-desc">The document has not been altered since it was signed. Any modification invalidates the signature.</div></div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:.8rem;padding:.8rem 1rem;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">
         <span style="font-size:1rem;flex-shrink:0;">🪪</span>
-        <div>
-          <div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-auth-title">Authenticity</div>
-          <div style="font-size:.78rem;color:var(--text-mid);" id="modal-auth-desc">The signature confirms the document was issued by Larissa Paiva and no one else.</div>
-        </div>
+        <div><div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-auth-title">Authenticity</div><div style="font-size:.78rem;color:var(--text-mid);" id="modal-auth-desc">The signature confirms the document was issued by Larissa Paiva and no one else.</div></div>
       </div>
       <div style="display:flex;align-items:flex-start;gap:.8rem;padding:.8rem 1rem;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">
         <span style="font-size:1rem;flex-shrink:0;">⛔</span>
-        <div>
-          <div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-nonrep-title">Non-Repudiation</div>
-          <div style="font-size:.78rem;color:var(--text-mid);" id="modal-nonrep-desc">The author cannot deny having signed and issued this document.</div>
-        </div>
+        <div><div style="font-size:.8rem;font-weight:600;color:var(--text);margin-bottom:.15rem;" id="modal-nonrep-title">Non-Repudiation</div><div style="font-size:.78rem;color:var(--text-mid);" id="modal-nonrep-desc">The author cannot deny having signed and issued this document.</div></div>
       </div>
     </div>
-
-    <!-- badge -->
     <div style="display:flex;align-items:center;gap:.6rem;padding:.6rem 1rem;background:var(--green-light);border-radius:10px;margin-bottom:1.5rem;border:1px solid #a8d5b5;">
       <span style="font-size:.9rem;">🇧🇷</span>
       <span style="font-size:.75rem;font-weight:600;color:var(--green-dark);" id="modal-badge">ICP-Brasil Certified · gov.br Digital Signature</span>
     </div>
-
-    <!-- email input -->
     <div style="margin-bottom:1rem;">
       <label style="display:block;font-size:.76rem;font-weight:600;color:var(--text-mid);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem;" id="modal-email-label">Your Email</label>
-      <input type="email" id="modal-email-input" placeholder="email@example.com"
-        style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:.75rem 1rem;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .2s;"
-        onfocus="this.style.borderColor='var(--pink)'" onblur="this.style.borderColor='var(--border)'">
-      <p id="modal-consent" style="font-size:.72rem;color:var(--text-light);margin-top:.4rem;line-height:1.5;">
-        By downloading, you agree that your email and IP address will be recorded for document traceability purposes in accordance with GDPR / LGPD.
-      </p>
+      <input type="email" id="modal-email-input" placeholder="email@example.com" style="width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);padding:.75rem 1rem;font-family:var(--sans);font-size:.9rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--pink)'" onblur="this.style.borderColor='var(--border)'">
+      <p id="modal-consent" style="font-size:.72rem;color:var(--text-light);margin-top:.4rem;line-height:1.5;">By downloading, you agree that your email and IP address will be recorded for document traceability purposes in accordance with GDPR / LGPD.</p>
       <p id="modal-error" style="font-size:.78rem;color:#C0392B;margin-top:.4rem;display:none;">Please enter a valid email address.</p>
     </div>
-
-    <!-- actions -->
     <div style="display:flex;gap:.8rem;">
-      <button id="modal-download-btn" onclick="handleCVDownload()"
-        style="flex:1;text-align:center;background:var(--text);color:#fff;padding:.75rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;"
-        data-en="⬇ Download CV" data-pt="⬇ Baixar CV">⬇ Download CV</button>
-      <button onclick="closeCVModal()"
-        style="padding:.75rem 1.2rem;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--text-mid);cursor:pointer;"
-        data-en="Close" data-pt="Fechar">Close</button>
+      <button id="modal-download-btn" onclick="handleCVDownload()" style="flex:1;text-align:center;background:var(--text);color:#fff;padding:.75rem 1rem;border-radius:99px;font-family:var(--sans);font-size:.85rem;font-weight:600;border:none;cursor:pointer;transition:all .2s;" data-en="⬇ Download CV" data-pt="⬇ Baixar CV">⬇ Download CV</button>
+      <button onclick="closeCVModal()" style="padding:.75rem 1.2rem;border-radius:99px;border:1.5px solid var(--border);background:transparent;font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--text-mid);cursor:pointer;" data-en="Close" data-pt="Fechar">Close</button>
     </div>
-
-    <!-- loading state -->
-    <p id="modal-loading" style="display:none;text-align:center;font-size:.85rem;color:var(--text-mid);margin-top:1rem;">
-      ⏳ <span id="modal-loading-text">Preparing your personalised CV...</span>
-    </p>
-
+    <p id="modal-loading" style="display:none;text-align:center;font-size:.85rem;color:var(--text-mid);margin-top:1rem;">⏳ <span id="modal-loading-text">Preparing your personalised CV...</span></p>
   </div>
 </div>
 
 <script>
-  // CONTACT FORM WITH HONEYPOT + FORMSPREE
   async function handleContactSubmit() {
-    const honeypot  = document.getElementById('hp-website').value;
-    const name      = document.getElementById('contact-name').value.trim();
-    const email     = document.getElementById('contact-email').value.trim();
-    const message   = document.getElementById('contact-message').value.trim();
-    const feedback  = document.getElementById('contact-feedback');
-    const btn       = document.querySelector('.btn-send');
-    const isEn      = currentLang === 'en';
-
-    // Honeypot triggered — silently fake success
-    if (honeypot) {
-      feedback.style.display = 'block';
-      feedback.style.color = 'var(--green-dark)';
-      feedback.textContent = isEn ? '✓ Message sent successfully!' : '✓ Mensagem enviada com sucesso!';
-      console.warn('[HONEYPOT] Bot detected — submission silently blocked.');
-      return;
-    }
-
-    // Validation
-    if (!name || !email || !message) {
-      feedback.style.display = 'block';
-      feedback.style.color = '#C0392B';
-      feedback.textContent = isEn ? 'Please fill in all fields.' : 'Por favor preenche todos os campos.';
-      return;
-    }
-    if (!email.includes('@') || !email.includes('.')) {
-      feedback.style.display = 'block';
-      feedback.style.color = '#C0392B';
-      feedback.textContent = isEn ? 'Please enter a valid email address.' : 'Por favor insere um email válido.';
-      return;
-    }
-
-    // Loading state
-    btn.disabled = true;
-    btn.style.opacity = '0.6';
-    btn.textContent = isEn ? 'Sending...' : 'A enviar...';
-    feedback.style.display = 'none';
-
+    const honeypot = document.getElementById('hp-website').value;
+    const name = document.getElementById('contact-name').value.trim();
+    const email = document.getElementById('contact-email').value.trim();
+    const message = document.getElementById('contact-message').value.trim();
+    const feedback = document.getElementById('contact-feedback');
+    const btn = document.querySelector('.btn-send');
+    const isEn = currentLang === 'en';
+    if (honeypot) { feedback.style.display='block'; feedback.style.color='var(--green-dark)'; feedback.textContent=isEn?'✓ Message sent successfully!':'✓ Mensagem enviada com sucesso!'; console.warn('[HONEYPOT] Bot detected'); return; }
+    if (!name||!email||!message) { feedback.style.display='block'; feedback.style.color='#C0392B'; feedback.textContent=isEn?'Please fill in all fields.':'Por favor preenche todos os campos.'; return; }
+    if (!email.includes('@')||!email.includes('.')) { feedback.style.display='block'; feedback.style.color='#C0392B'; feedback.textContent=isEn?'Please enter a valid email address.':'Por favor insere um email válido.'; return; }
+    btn.disabled=true; btn.style.opacity='0.6'; btn.textContent=isEn?'Sending...':'A enviar...'; feedback.style.display='none';
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
-      });
-
-      if (response.ok) {
-        feedback.style.display = 'block';
-        feedback.style.color = 'var(--green-dark)';
-        feedback.textContent = isEn ? '✓ Message sent! I\'ll get back to you soon.' : '✓ Mensagem enviada! Responderei em breve.';
-        document.getElementById('contact-name').value = '';
-        document.getElementById('contact-email').value = '';
-        document.getElementById('contact-message').value = '';
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (err) {
-      feedback.style.display = 'block';
-      feedback.style.color = '#C0392B';
-      feedback.textContent = isEn ? '❌ Something went wrong. Please try again.' : '❌ Algo correu mal. Tenta novamente.';
-    } finally {
-      btn.disabled = false;
-      btn.style.opacity = '1';
-      btn.textContent = isEn ? 'Send Message →' : 'Enviar Mensagem →';
-    }
+      const response = await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name,email,message}) });
+      if (response.ok) { feedback.style.display='block'; feedback.style.color='var(--green-dark)'; feedback.textContent=isEn?"✓ Message sent! I'll get back to you soon.":'✓ Mensagem enviada! Responderei em breve.'; document.getElementById('contact-name').value=''; document.getElementById('contact-email').value=''; document.getElementById('contact-message').value=''; }
+      else throw new Error('failed');
+    } catch(err) { feedback.style.display='block'; feedback.style.color='#C0392B'; feedback.textContent=isEn?'❌ Something went wrong. Please try again.':'❌ Algo correu mal. Tenta novamente.'; }
+    finally { btn.disabled=false; btn.style.opacity='1'; btn.textContent=isEn?'Send Message →':'Enviar Mensagem →'; }
   }
-
-  // HAMBURGER MENU
-  function toggleMenu() {
-    const links = document.getElementById('nav-links');
-    links.classList.toggle('open');
-  }
-  function closeMenu() {
-    document.getElementById('nav-links').classList.remove('open');
-  }
-  // Close menu on outside click
-  document.addEventListener('click', function(e) {
-    const nav = document.querySelector('nav');
-    if (!nav.contains(e.target)) closeMenu();
-  });
-
-  // INTERSECTION OBSERVER
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, {threshold:0.1});
+  function toggleMenu() { document.getElementById('nav-links').classList.toggle('open'); }
+  function closeMenu() { document.getElementById('nav-links').classList.remove('open'); }
+  document.addEventListener('click', function(e) { if (!document.querySelector('nav').contains(e.target)) closeMenu(); });
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, {threshold:0.1});
   document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay=(i%4)*0.08+'s'; obs.observe(el); });
-
-  // MODAL
-  function openCVModal() {
-    const m = document.getElementById('cv-modal');
-    m.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    document.getElementById('modal-email-input').value = '';
-    document.getElementById('modal-error').style.display = 'none';
-    document.getElementById('modal-loading').style.display = 'none';
-  }
-  function closeCVModal() {
-    document.getElementById('cv-modal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  document.getElementById('cv-modal').addEventListener('click', function(e) {
-    if (e.target === this) closeCVModal();
-  });
-
+  function openCVModal() { document.getElementById('cv-modal').style.display='flex'; document.body.style.overflow='hidden'; document.getElementById('modal-email-input').value=''; document.getElementById('modal-error').style.display='none'; document.getElementById('modal-loading').style.display='none'; }
+  function closeCVModal() { document.getElementById('cv-modal').style.display='none'; document.body.style.overflow=''; }
+  document.getElementById('cv-modal').addEventListener('click', function(e) { if(e.target===this) closeCVModal(); });
   async function handleCVDownload() {
     const email = document.getElementById('modal-email-input').value.trim();
     const errorEl = document.getElementById('modal-error');
     const loadingEl = document.getElementById('modal-loading');
     const btnEl = document.getElementById('modal-download-btn');
-
-    // Validate email
-    if (!email || !email.includes('@') || !email.includes('.')) {
-      errorEl.style.display = 'block';
-      return;
-    }
-    errorEl.style.display = 'none';
-
-    // Show loading
-    btnEl.disabled = true;
-    btnEl.style.opacity = '0.6';
-    loadingEl.style.display = 'block';
-
+    if (!email||!email.includes('@')||!email.includes('.')) { errorEl.style.display='block'; return; }
+    errorEl.style.display='none'; btnEl.disabled=true; btnEl.style.opacity='0.6'; loadingEl.style.display='block';
     try {
-      const response = await fetch('/api/download-cv', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
+      const response = await fetch('/api/download-cv', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email}) });
       if (!response.ok) {
-        if (response.status === 429) {
-          const data = await response.json();
-          loadingEl.innerHTML = currentLang === 'pt'
-            ? `⚠️ Limite de downloads atingido. Tenta novamente em ${data.retry_after_minutes} minutos.`
-            : `⚠️ Download limit reached. Please try again in ${data.retry_after_minutes} minutes.`;
-        } else {
-          throw new Error('Server error');
-        }
+        if (response.status===429) { const data=await response.json(); loadingEl.innerHTML=currentLang==='pt'?`⚠️ Limite atingido. Tenta em ${data.retry_after_minutes} min.`:`⚠️ Download limit reached. Try again in ${data.retry_after_minutes} minutes.`; }
+        else throw new Error('error');
         return;
       }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'CV_Larissa_Paiva_2026.pdf';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      closeCVModal();
-
-    } catch (err) {
-      loadingEl.innerHTML = currentLang === 'pt'
-        ? '❌ Erro ao gerar o CV. Tenta novamente.'
-        : '❌ Error generating CV. Please try again.';
-    } finally {
-      btnEl.disabled = false;
-      btnEl.style.opacity = '1';
-    }
+      const blob=await response.blob(); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='CV_Larissa_Paiva_2026.pdf'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); closeCVModal();
+    } catch(err) { loadingEl.innerHTML=currentLang==='pt'?'❌ Erro. Tenta novamente.':'❌ Error. Please try again.'; }
+    finally { btnEl.disabled=false; btnEl.style.opacity='1'; }
   }
-
-  // LANGUAGE TOGGLE
-  let currentLang = 'en';
+  let currentLang='en';
   const translations = {
-    en: {
-      'modal-title': 'Digitally Signed CV',
-      'modal-desc': 'This document has been digitally signed via <strong>gov.br</strong>, certified by the <strong>ICP-Brasil</strong> Public Key Infrastructure. Your email and IP will be recorded as a traceability measure in accordance with GDPR.',
-      'modal-integrity-title': 'Integrity',
-      'modal-integrity-desc': 'The document has not been altered since it was signed. Any modification invalidates the signature.',
-      'modal-auth-title': 'Authenticity',
-      'modal-auth-desc': 'The signature confirms the document was issued by Larissa Paiva and no one else.',
-      'modal-nonrep-title': 'Non-Repudiation',
-      'modal-nonrep-desc': 'The author cannot deny having signed and issued this document.',
-      'modal-badge': 'ICP-Brasil Certified · gov.br Digital Signature',
-      'modal-email-label': 'Your Email',
-      'modal-consent': 'By downloading, you agree that your email and IP address will be recorded for document traceability purposes in accordance with GDPR / LGPD.',
-      'modal-loading-text': 'Preparing your personalised CV...',
-    },
-    pt: {
-      'modal-title': 'CV Assinado Digitalmente',
-      'modal-desc': 'Este documento foi assinado digitalmente via <strong>gov.br</strong>, certificado pela Infraestrutura de Chaves Públicas <strong>ICP-Brasil</strong>. O seu email e IP serão registados como medida de rastreabilidade em conformidade com o RGPD.',
-      'modal-integrity-title': 'Integridade',
-      'modal-integrity-desc': 'O documento não foi alterado desde que foi assinado. Qualquer modificação invalida a assinatura.',
-      'modal-auth-title': 'Autenticidade',
-      'modal-auth-desc': 'A assinatura confirma que o documento foi emitido por Larissa Paiva e por ninguém mais.',
-      'modal-nonrep-title': 'Não-Repúdio',
-      'modal-nonrep-desc': 'A autora não pode negar ter assinado e emitido este documento.',
-      'modal-badge': 'Certificado ICP-Brasil · Assinatura Digital gov.br',
-      'modal-email-label': 'O seu Email',
-      'modal-consent': 'Ao fazer o download, concorda que o seu email e endereço IP serão registados para fins de rastreabilidade do documento, em conformidade com o RGPD / LGPD.',
-      'modal-loading-text': 'A preparar o seu CV personalizado...',
-    }
+    en: { 'modal-title':'Digitally Signed CV', 'modal-desc':'This document has been digitally signed via <strong>gov.br</strong>, certified by the <strong>ICP-Brasil</strong> Public Key Infrastructure. Your email and IP will be recorded as a traceability measure in accordance with GDPR.', 'modal-integrity-title':'Integrity', 'modal-integrity-desc':'The document has not been altered since it was signed. Any modification invalidates the signature.', 'modal-auth-title':'Authenticity', 'modal-auth-desc':'The signature confirms the document was issued by Larissa Paiva and no one else.', 'modal-nonrep-title':'Non-Repudiation', 'modal-nonrep-desc':'The author cannot deny having signed and issued this document.', 'modal-badge':'ICP-Brasil Certified · gov.br Digital Signature', 'modal-email-label':'Your Email', 'modal-consent':'By downloading, you agree that your email and IP address will be recorded for document traceability purposes in accordance with GDPR / LGPD.', 'modal-loading-text':'Preparing your personalised CV...' },
+    pt: { 'modal-title':'CV Assinado Digitalmente', 'modal-desc':'Este documento foi assinado digitalmente via <strong>gov.br</strong>, certificado pela Infraestrutura de Chaves Públicas <strong>ICP-Brasil</strong>. O seu email e IP serão registados como medida de rastreabilidade em conformidade com o RGPD.', 'modal-integrity-title':'Integridade', 'modal-integrity-desc':'O documento não foi alterado desde que foi assinado. Qualquer modificação invalida a assinatura.', 'modal-auth-title':'Autenticidade', 'modal-auth-desc':'A assinatura confirma que o documento foi emitido por Larissa Paiva e por ninguém mais.', 'modal-nonrep-title':'Não-Repúdio', 'modal-nonrep-desc':'A autora não pode negar ter assinado e emitido este documento.', 'modal-badge':'Certificado ICP-Brasil · Assinatura Digital gov.br', 'modal-email-label':'O seu Email', 'modal-consent':'Ao fazer o download, concorda que o seu email e endereço IP serão registados para fins de rastreabilidade do documento, em conformidade com o RGPD / LGPD.', 'modal-loading-text':'A preparar o seu CV personalizado...' }
   };
-
   function setLang(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-
-    // Update all elements with data-en / data-pt
-    document.querySelectorAll('[data-en]').forEach(el => {
-      const val = el.getAttribute('data-' + lang);
-      if (val) el.innerHTML = val;
-    });
-
-    // Update placeholders
-    document.querySelectorAll('[data-placeholder-en]').forEach(el => {
-      el.placeholder = el.getAttribute('data-placeholder-' + lang) || el.placeholder;
-    });
-
-    // Update modal static content
-    const t = translations[lang];
-    Object.keys(t).forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = t[id];
-    });
+    currentLang=lang; document.documentElement.lang=lang==='en'?'en':'pt-BR';
+    document.getElementById('btn-en').classList.toggle('active',lang==='en');
+    document.getElementById('btn-pt').classList.toggle('active',lang==='pt');
+    document.querySelectorAll('[data-en]').forEach(el => { const val=el.getAttribute('data-'+lang); if(val) el.innerHTML=val; });
+    document.querySelectorAll('[data-placeholder-en]').forEach(el => { el.placeholder=el.getAttribute('data-placeholder-'+lang)||el.placeholder; });
+    const t=translations[lang]; Object.keys(t).forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=t[id]; });
   }
 </script>
 </body>
