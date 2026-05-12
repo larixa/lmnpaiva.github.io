@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SC-300 Identity and Access Administrator — Guia de Estudo · Larissa Paiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FAF7F2;--bg-soft:#F5EFE6;--surface:#FFFFFF;--ink:#0F0F0F;--ink-soft:#2A2A2A;--ink-mute:#6B6660;--rule:#E8E2D6;--burgundy:#B8485F;--burgundy-dark:#9A3A4F;--yellow:#F5E6A8;--yellow-dark:#E8D478;--pink:#F8D5DC;--pink-dark:#E8B5C0;--blue:#D5E5F8;--blue-dark:#A8C8E8;--green-soft:#D5E8D5;--green-dark:#5A8A5A;--red-soft:#F8D5D5;--red-dark:#B85048;--serif:'Playfair Display',Georgia,'Times New Roman',serif;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(120deg,#fff 0%,var(--bg) 48%,#fff 100%);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.72}
+a{color:var(--burgundy-dark);text-decoration:none}a:hover{text-decoration:underline}
+.topbar{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--rule);background:rgba(250,247,242,.86);backdrop-filter:blur(10px);position:sticky;top:0;z-index:20}
+.brand{font-family:var(--serif);font-size:20px;color:var(--ink)}
+.topbar-right{display:flex;align-items:center;gap:14px}
+.date{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+.back-btn{font-size:13px;color:var(--burgundy-dark);border:1px solid var(--pink-dark);background:rgba(248,213,220,.22);padding:6px 14px;border-radius:99px;white-space:nowrap;transition:all .18s}.back-btn:hover{background:var(--pink);text-decoration:none}
+.hero{max-width:1180px;margin:0 auto;padding:78px 24px 58px;text-align:center}
+.label{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--pink-dark);color:var(--burgundy-dark);padding:8px 18px;border-radius:2px;letter-spacing:.28em;text-transform:uppercase;font-size:11px;background:rgba(248,213,220,.22)}
+h1{font-family:var(--serif);font-size:clamp(44px,6vw,76px);line-height:.98;margin:28px auto 18px;color:var(--burgundy-dark);font-weight:700;max-width:900px}
+.subtitle{font-size:20px;color:var(--ink-mute);max-width:820px;margin:0 auto 34px}
+.metrics{display:flex;justify-content:center;gap:64px;flex-wrap:wrap;margin-top:36px}.metric strong{display:block;font-size:32px;color:var(--burgundy);font-family:var(--serif)}.metric span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+.nav{position:sticky;top:56px;z-index:19;background:rgba(250,247,242,.94);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);backdrop-filter:blur(10px);padding:12px 18px}
+.nav-inner{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;max-width:1440px;margin:0 auto}
+.nav a{border:1px solid var(--rule);border-radius:999px;padding:7px 13px;background:rgba(255,255,255,.58);color:var(--ink-mute);font-size:11px;letter-spacing:.105em;text-transform:uppercase;font-weight:400;white-space:nowrap;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.nav a:nth-child(1),.nav a:nth-child(5),.nav a:nth-child(9){background:rgba(245,230,168,.40);border-color:rgba(232,212,120,.88);color:#8A6600}
+.nav a:nth-child(2),.nav a:nth-child(6),.nav a:nth-child(10){background:rgba(248,213,220,.42);border-color:rgba(232,181,192,.92);color:var(--burgundy-dark)}
+.nav a:nth-child(3),.nav a:nth-child(7){background:rgba(213,229,248,.46);border-color:rgba(168,200,232,.95);color:#2F6DA8}
+.nav a:nth-child(4),.nav a:nth-child(8){background:rgba(213,232,213,.50);border-color:rgba(168,200,168,.95);color:var(--green-dark)}
+.nav a:hover{transform:translateY(-1px);text-decoration:none;background:#fff;border-color:currentColor;color:var(--burgundy-dark)}
+main{max-width:1180px;margin:0 auto;padding:42px 24px 90px}
+.section{background:rgba(255,255,255,.82);border:1px solid var(--rule);border-radius:28px;padding:38px;margin:0 0 32px;box-shadow:0 18px 60px rgba(32,26,21,.05)}
+.section-heading{margin-bottom:28px}.eyebrow{letter-spacing:.24em;text-transform:uppercase;font-size:11px;color:var(--burgundy);margin:0 0 8px}
+h2{font-family:var(--serif);font-size:34px;line-height:1.12;margin:0 0 12px;color:var(--ink);font-weight:650}
+h3{font-size:20px;line-height:1.3;margin:0 0 12px;font-weight:650;color:var(--ink-soft)}
+h4{font-size:16px;margin:0 0 8px;color:var(--ink-soft)}p{margin:0 0 16px}
+.badges{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.badge{border-radius:999px;padding:8px 14px;font-size:13px;font-weight:500}
+.badge.pink{background:rgba(248,213,220,.55);border:1px solid var(--pink-dark);color:var(--burgundy-dark)}
+.badge.blue{background:rgba(213,229,248,.55);border:1px solid var(--blue-dark);color:#2F6DA8}
+.badge.green{background:rgba(213,232,213,.65);border:1px solid #A8C8A8;color:var(--green-dark)}
+.badge.yellow{background:rgba(245,230,168,.55);border:1px solid var(--yellow-dark);color:#9B7300}
+.badge.neutral{background:#fff;border:1px solid var(--rule);color:var(--ink-mute)}
+.grid{display:grid;gap:18px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid var(--rule);border-radius:20px;background:var(--surface);padding:22px}.card h3{font-family:var(--serif);font-size:24px}
+.card-number{font-family:var(--serif);font-size:52px;color:rgba(184,72,95,.18);line-height:1}
+.topic-block{border:1px solid var(--rule);border-left:4px solid var(--burgundy);border-radius:18px;background:#fff;padding:24px;margin:18px 0}
+.topic-block h3{font-family:var(--serif);font-size:25px}.explain{margin:13px 0}.explain span{color:var(--burgundy-dark);font-weight:650}
+.clean-list{margin:12px 0 0;padding-left:20px}.clean-list li{margin:8px 0}
+.lab-mini,.exam-tip,.warning{border-radius:16px;padding:16px 18px;margin-top:16px}
+.lab-mini{background:rgba(213,229,248,.33);border:1px solid var(--blue-dark)}
+.exam-tip{background:rgba(245,230,168,.34);border:1px solid var(--yellow-dark)}
+.warning{background:rgba(248,213,213,.40);border:1px solid #E5B3B3}
+.lab-mini strong,.exam-tip strong,.warning strong{color:var(--burgundy-dark)}
+.table-wrap{overflow-x:auto;border:1px solid var(--rule);border-radius:18px;background:#fff;margin:22px 0}
+table{border-collapse:collapse;width:100%;min-width:820px}th,td{padding:15px 16px;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left}
+th{background:var(--bg-soft);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--burgundy-dark);font-weight:600}
+tr:last-child td{border-bottom:0}
+code{font-family:'SFMono-Regular',Consolas,monospace;background:var(--bg-soft);border:1px solid var(--rule);padding:2px 6px;border-radius:6px;font-size:.92em}
+pre.code{white-space:pre-wrap;font-family:'SFMono-Regular',Consolas,monospace;background:#1d1b1b;color:#f7f1e8;border-radius:18px;padding:20px;overflow:auto;font-size:13px;line-height:1.55;margin:16px 0}
+.steps{counter-reset:step;display:grid;gap:14px}
+.step{position:relative;padding:18px 18px 18px 54px;border:1px solid var(--rule);border-radius:18px;background:#fff}
+.step:before{counter-increment:step;content:counter(step);position:absolute;left:18px;top:17px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:var(--burgundy-dark);font-size:12px;font-weight:650}
+.quiz-section{background:linear-gradient(145deg,#fff 0%,rgba(248,213,220,.13) 100%)}
+.quiz-card{border:1px solid var(--rule);border-radius:20px;background:#fff;padding:22px;margin:18px 0}
+.quiz-card h3{font-size:17px;font-family:var(--sans);font-weight:600}
+.options{display:grid;gap:10px;margin:16px 0}
+.options label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--rule);border-radius:14px;padding:12px 14px;cursor:pointer;background:rgba(250,247,242,.45)}
+.options label:hover{border-color:var(--pink-dark);background:rgba(248,213,220,.18)}
+.options input{margin-top:4px}
+.check-answer{border:1px solid var(--burgundy);background:var(--burgundy);color:#fff;border-radius:999px;padding:9px 16px;font-family:var(--sans);cursor:pointer;font-size:13px}
+.feedback{display:none;margin-top:14px;border-radius:14px;padding:14px 16px}
+.feedback.ok{display:block;background:rgba(213,232,213,.62);border:1px solid #A8C8A8}
+.feedback.no{display:block;background:rgba(248,213,213,.62);border:1px solid #E5B3B3}
+.feedback strong{color:var(--burgundy-dark)}
+.callout{border:1px solid var(--pink-dark);background:rgba(248,213,220,.18);border-radius:20px;padding:22px}
+.timeline{display:grid;gap:14px}
+.week{border:1px solid var(--rule);border-radius:18px;background:#fff;padding:20px}
+.week h3{font-family:var(--serif);font-size:24px}
+.case-study{border:1px solid var(--rule);border-radius:18px;background:var(--bg-soft);padding:22px;margin-top:18px}
+.case-study h3{font-family:var(--serif);font-size:22px;color:var(--burgundy-dark);margin-bottom:10px}
+.footer{padding:40px 24px;text-align:center;color:var(--ink-mute);border-top:1px solid var(--rule);font-size:13px}
+@media(max-width:900px){.grid.two,.grid.three{grid-template-columns:1fr}.section{padding:24px}.topbar{padding:0 18px}.metrics{gap:28px}.nav{position:static}.hero{padding-top:48px}h1{font-size:42px}h2{font-size:28px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Larissa Paiva</div>
+  <div class="topbar-right">
+    <span class="date">SC-300 · prova em 17 de junho</span>
+    <a href="/" class="back-btn">← Voltar ao Portfólio</a>
+  </div>
+</header>
+<section class="hero" id="overview">
+  <div class="label">Plano de estudo completo</div>
+  <h1>Microsoft SC-300<br>Identity and Access Administrator</h1>
+  <p class="subtitle">Guia aprofundado com domínios oficiais, tenant lab, Conditional Access, workload identities, governança e quizzes interativos.</p>
+  <div class="metrics">
+    <div class="metric"><strong>4</strong><span>domínios oficiais</span></div>
+    <div class="metric"><strong>20</strong><span>questões interativas</span></div>
+    <div class="metric"><strong>700</strong><span>score mínimo / 1000</span></div>
+    <div class="metric"><strong>17/06</strong><span>data da prova</span></div>
+  </div>
+</section>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#overview">Visão geral</a>
+    <a href="#d1">D1 · Identities</a>
+    <a href="#d2">D2 · Access</a>
+    <a href="#d3">D3 · Workloads</a>
+    <a href="#d4">D4 · Governance</a>
+    <a href="#kql">KQL</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#plano-junho">Plano até junho</a>
+    <a href="#referencias">Referências</a>
+  </div>
+</nav>
+<main>
+<section class="section">
+  <div class="section-heading"><p class="eyebrow">Como usar este guia</p><h2>Estrutura de estudo</h2></div>
+  <div class="grid three">
+    <div class="card"><div class="card-number">01</div><h3>Leia o conceito</h3><p>Comece pelos blocos "Conceito", "Como funciona" e "Por que importa". Eles explicam o raciocínio por trás do recurso, não apenas onde clicar.</p></div>
+    <div class="card"><div class="card-number">02</div><h3>Execute no tenant</h3><p>Use o Tenant Lab para criar objetos controlados. A prova cobra tomada de decisão: qual recurso usar, qual permissão aplicar, qual risco evitar.</p></div>
+    <div class="card"><div class="card-number">03</div><h3>Faça o quiz</h3><p>Depois de cada domínio, responda o quiz. Leia a tip mesmo quando acertar — ela reforça o padrão de raciocínio da prova.</p></div>
+  </div>
+  <div class="badges"><span class="badge pink">Identidade</span><span class="badge blue">Conditional Access</span><span class="badge green">Governança</span><span class="badge yellow">Workload identities</span></div>
+</section>
+
+<!-- D1 -->
+<section class="section" id="d1">
+  <div class="section-heading"><p class="eyebrow">Domínio 1 · 20-25%</p><h2>Implement and manage user identities</h2><p>Ciclo de vida das identidades humanas: tenant, roles, usuários, grupos, devices, licenças, externos e identidade híbrida.</p></div>
+  <section class="topic-block"><h3>1.1 Configure and manage a Microsoft Entra tenant</h3>
+    <div class="explain"><p><span>Conceito:</span> O tenant é a instância lógica da organização. Administrá-lo é definir limites de segurança, delegação, domínios e configurações globais.</p></div>
+    <ul class="clean-list"><li><strong>Built-in roles:</strong> Global Administrator, User Administrator, Helpdesk Administrator, Application Administrator — use o mais específico.</li><li><strong>Custom roles:</strong> quando roles padrão dão permissões demais ou de menos.</li><li><strong>Administrative Units:</strong> escopam administração para subconjuntos de usuários/grupos/devices por região ou departamento.</li><li><strong>Effective permissions:</strong> pode vir de role direta, grupo role-assignable, PIM, AU ou combinação.</li></ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Delegação por departamento/filial → Administrative Units. Permissão mínima para uma tarefa → role específico + least privilege.</p></div>
+    <div class="warning"><strong>Atenção:</strong><p>Evite Global Administrator para tarefas rotineiras. Global Admin deve ser raro, protegido por PIM, MFA forte e contas break-glass separadas.</p></div>
+  </section>
+  <section class="topic-block"><h3>1.2 Identidades, grupos e licenças</h3>
+    <ul class="clean-list"><li><strong>Grupos dinâmicos:</strong> membership por regra de atributo como department, jobTitle.</li><li><strong>Grupos assigned:</strong> controle manual, bom para acesso sensível.</li><li><strong>Licenciamento por grupo:</strong> reduz esforço manual, monitorar conflitos.</li><li><strong>Custom security attributes:</strong> atributos chave-valor para ABAC e classificação.</li><li><strong>Bulk operations:</strong> CSV/PowerShell para onboarding/offboarding em massa.</li></ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Atributos confiáveis + regra clara → dynamic group melhor que adicionar manualmente.</p></div>
+  </section>
+  <section class="topic-block"><h3>1.3 External users, B2B e cross-tenant</h3>
+    <ul class="clean-list"><li><strong>B2B collaboration:</strong> cria objeto guest no seu tenant.</li><li><strong>Cross-tenant access settings:</strong> controles inbound/outbound por parceiro, MFA trust, device claims.</li><li><strong>Cross-tenant synchronization:</strong> automatiza criação/atualização de usuários B2B entre tenants da mesma org.</li><li><strong>External collaboration settings:</strong> regras gerais de convite, restrições de domínio.</li></ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Colaboração entre dois tenants com controles específicos por parceiro → cross-tenant access settings. Convite genérico → external collaboration settings. Manter guests atualizados automaticamente → cross-tenant synchronization.</p></div>
+  </section>
+  <section class="topic-block"><h3>1.4 Hybrid identity: PHS, PTA, Federation</h3>
+    <ul class="clean-list">
+      <li><strong>Password Hash Sync (PHS):</strong> hash derivado sincronizado para Entra. Simples, resiliente, autenticação na nuvem. Recomendado em muitos cenários modernos.</li>
+      <li><strong>Pass-through Auth (PTA):</strong> senha validada em tempo real contra o AD DS. Depende de agentes on-premises disponíveis.</li>
+      <li><strong>Federation / AD FS:</strong> autenticação delegada a provedor federado. Maior complexidade, casos específicos como smart cards legados.</li>
+      <li><strong>Microsoft Entra Connect Sync:</strong> sincronização tradicional e rica para cenários complexos.</li>
+      <li><strong>Cloud Sync:</strong> agente mais leve, útil para múltiplas florestas e cenários simples.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Menor complexidade + maior resiliência → PHS. Validar senha no AD DS → PTA. AD FS / claims complexas / smart cards → Federation.</p></div>
+  </section>
+</section>
+
+<!-- Quiz D1 -->
+<section class="section quiz-section" id="quiz-d1">
+  <div class="section-heading"><p class="eyebrow">Quiz interativo</p><h2>Quiz · Domínio 1</h2></div>
+  <article class="quiz-card" data-correct="a" data-explanation="Administrative Units permitem escopo administrativo sobre subconjuntos de objetos por região ou departamento." data-tip="Pense em AU quando a pergunta fala em delegar por escopo organizacional.">
+    <h3>1. Qual recurso permite delegar administração apenas para usuários de uma região específica?</h3>
+    <div class="options"><label><input type="radio" name="d1q1" value="a"><span>A) Administrative Units</span></label><label><input type="radio" name="d1q1" value="b"><span>B) Global Administrator</span></label><label><input type="radio" name="d1q1" value="c"><span>C) Security Defaults</span></label><label><input type="radio" name="d1q1" value="d"><span>D) App Proxy</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="b" data-explanation="Helpdesk Administrator é mais limitado e adequado para tarefas de password/helpdesk. Least privilege." data-tip="Evite papéis amplos quando existe um role específico para a tarefa.">
+    <h3>2. Qual opção é mais alinhada ao least privilege para suporte N1 resetar passwords de usuários comuns?</h3>
+    <div class="options"><label><input type="radio" name="d1q2" value="a"><span>A) Global Administrator permanente</span></label><label><input type="radio" name="d1q2" value="b"><span>B) Helpdesk Administrator com escopo adequado</span></label><label><input type="radio" name="d1q2" value="c"><span>C) Owner em todas as subscriptions</span></label><label><input type="radio" name="d1q2" value="d"><span>D) Application Administrator</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="b" data-explanation="Grupos dinâmicos calculam membership automaticamente por atributos como department ou jobTitle." data-tip="Se a membership depende de atributos de usuário, pense em dynamic group.">
+    <h3>3. Qual recurso cria membership calculada automaticamente por atributos como department?</h3>
+    <div class="options"><label><input type="radio" name="d1q3" value="a"><span>A) Assigned group</span></label><label><input type="radio" name="d1q3" value="b"><span>B) Dynamic group</span></label><label><input type="radio" name="d1q3" value="c"><span>C) Administrative Unit</span></label><label><input type="radio" name="d1q3" value="d"><span>D) Access review</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="b" data-explanation="PHS sincroniza hash da senha do AD DS para a nuvem — autenticação ocorre no Entra, não no on-premises." data-tip="PHS = simples, resiliente, autenticação na nuvem. Geralmente recomendado.">
+    <h3>4. Qual método híbrido sincroniza um hash da senha do AD DS para o Entra ID?</h3>
+    <div class="options"><label><input type="radio" name="d1q4" value="a"><span>A) PTA</span></label><label><input type="radio" name="d1q4" value="b"><span>B) PHS</span></label><label><input type="radio" name="d1q4" value="c"><span>C) AD FS Federation</span></label><label><input type="radio" name="d1q4" value="d"><span>D) Kerberos constrained delegation</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="PTA valida a senha em tempo real contra o AD DS via agentes on-premises no momento do sign-in." data-tip="PTA depende de agentes disponíveis; PHS não depende de on-premises em tempo real.">
+    <h3>5. Qual método valida a senha diretamente contra o AD DS no momento do sign-in cloud?</h3>
+    <div class="options"><label><input type="radio" name="d1q5" value="a"><span>A) Pass-through Authentication</span></label><label><input type="radio" name="d1q5" value="b"><span>B) Password writeback</span></label><label><input type="radio" name="d1q5" value="c"><span>C) Access Package</span></label><label><input type="radio" name="d1q5" value="d"><span>D) PIM for Groups</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+</section>
+
+<!-- D2 -->
+<section class="section" id="d2">
+  <div class="section-heading"><p class="eyebrow">Domínio 2 · 25-30%</p><h2>Implement authentication and access management</h2><p>Métodos de autenticação, MFA, passwordless, Conditional Access, risco e Global Secure Access.</p></div>
+  <section class="topic-block"><h3>2.1 User authentication</h3>
+    <ul class="clean-list"><li><strong>MFA:</strong> fator extra além da senha. Exigido por CA, Security Defaults ou configurações específicas.</li><li><strong>Microsoft Authenticator:</strong> push, number matching e métodos passwordless.</li><li><strong>FIDO2/Passkeys:</strong> criptografia assimétrica, resistente a phishing.</li><li><strong>Certificate-based authentication:</strong> útil em organizações com PKI e requisitos fortes.</li><li><strong>Temporary Access Pass:</strong> credencial temporária para bootstrap passwordless ou recuperação.</li><li><strong>SSPR:</strong> self-service password reset com métodos de autenticação registrados.</li><li><strong>Windows Hello for Business:</strong> autenticação forte vinculada ao dispositivo com PIN/biometria.</li></ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Diferença crucial: permitir método de autenticação (Authentication methods policy) é diferente de exigir método em contexto (Conditional Access).</p></div>
+  </section>
+  <section class="topic-block"><h3>2.2 Conditional Access</h3>
+    <div class="explain"><p><span>Conceito:</span> Motor de decisão "se isso acontecer, aplique este controle". Usa sinais de usuário, app, localização, device, risco e plataforma.</p></div>
+    <ul class="clean-list">
+      <li><strong>Assignments:</strong> usuários/grupos, cloud apps e actions.</li>
+      <li><strong>Conditions:</strong> sign-in risk, user risk, device platform, locations, client apps.</li>
+      <li><strong>Grant controls:</strong> bloquear, exigir MFA, compliant device, hybrid joined.</li>
+      <li><strong>Session controls:</strong> sign-in frequency, persistent browser session, App Control via Defender.</li>
+      <li><strong>Report-only:</strong> avalie impacto antes de enforcement.</li>
+      <li><strong>What If tool:</strong> simula como políticas se aplicam a determinado cenário.</li>
+      <li><strong>Authentication context:</strong> aplica controles a ações sensíveis específicas dentro de apps.</li>
+    </ul>
+    <div class="warning"><strong>Atenção:</strong><p>CA mal configurado pode bloquear o tenant. Mantenha contas break-glass excluídas de políticas restritivas e monitoradas.</p></div>
+  </section>
+  <section class="topic-block"><h3>2.3 Microsoft Entra ID Protection e risco</h3>
+    <ul class="clean-list">
+      <li><strong>User risk:</strong> probabilidade de a identidade estar comprometida.</li>
+      <li><strong>Sign-in risk:</strong> risco daquela tentativa específica de login.</li>
+      <li><strong>Risky sign-ins:</strong> impossible travel, anonymous IP, leaked credentials.</li>
+      <li><strong>CAE (Continuous Access Evaluation):</strong> revoga acesso mais rapidamente a eventos críticos sem esperar expiração do token.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Risco calculado automaticamente + resposta baseada em risco → ID Protection + CA. Encerrar acesso rapidamente após evento crítico → CAE ou revogar sessões.</p></div>
+  </section>
+  <section class="topic-block"><h3>2.4 Global Secure Access (GSA)</h3>
+    <div class="explain"><p><span>Conceito:</span> Microsoft Entra Internet Access + Microsoft Entra Private Access. Zero Trust: verificar explicitamente, menor privilégio, assumir violação.</p></div>
+    <div class="table-wrap"><table><thead><tr><th>Componente</th><th>Função</th><th>Como identificar na prova</th></tr></thead><tbody>
+      <tr><td>GSA client</td><td>Agente no endpoint que encaminha tráfego</td><td>"Componente no dispositivo do usuário"</td></tr>
+      <tr><td>Private Network Connector</td><td>Conector próximo do recurso privado</td><td>"Servidor dentro da rede interna"</td></tr>
+      <tr><td>Microsoft traffic profile</td><td>Tráfego para Teams, Exchange, SharePoint</td><td>"Proteger tráfego Microsoft 365"</td></tr>
+      <tr><td>Private Access profile</td><td>Recursos privados por FQDN/IP — substituto de VPN</td><td>"App interna sem VPN ampla"</td></tr>
+      <tr><td>Internet Access profile</td><td>Tráfego internet/SaaS com web filtering</td><td>"Controlar navegação web"</td></tr>
+    </tbody></table></div>
+  </section>
+</section>
+
+<!-- Quiz D2 -->
+<section class="section quiz-section" id="quiz-d2">
+  <div class="section-heading"><p class="eyebrow">Quiz interativo</p><h2>Quiz · Domínio 2</h2></div>
+  <article class="quiz-card" data-correct="a" data-explanation="Temporary Access Pass é credencial temporária para bootstrap de passwordless ou recuperação de acesso." data-tip="TAP útil em onboarding, perda de dispositivo ou migração para passwordless.">
+    <h3>1. Qual recurso cria uma credencial temporária para bootstrap de métodos passwordless?</h3>
+    <div class="options"><label><input type="radio" name="d2q1" value="a"><span>A) Temporary Access Pass</span></label><label><input type="radio" name="d2q1" value="b"><span>B) PHS</span></label><label><input type="radio" name="d2q1" value="c"><span>C) Entitlement Management</span></label><label><input type="radio" name="d2q1" value="d"><span>D) App Proxy</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="FIDO2/passkeys usam criptografia assimétrica e são resistentes a phishing — chave privada nunca sai do dispositivo." data-tip="Passwordless forte = chave privada + desafio criptográfico.">
+    <h3>2. Qual método passwordless usa criptografia assimétrica e é resistente a phishing?</h3>
+    <div class="options"><label><input type="radio" name="d2q2" value="a"><span>A) Passkeys/FIDO2</span></label><label><input type="radio" name="d2q2" value="b"><span>B) SMS OTP</span></label><label><input type="radio" name="d2q2" value="c"><span>C) Password hash sync</span></label><label><input type="radio" name="d2q2" value="d"><span>D) Security Defaults</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="CA deve sempre ser testado em report-only antes de enforcement para evitar bloqueios não intencionais." data-tip="Mudanças de acesso: report-only primeiro, validar com What If e sign-in logs.">
+    <h3>3. Qual recurso deve ser testado em report-only antes de bloquear usuários reais?</h3>
+    <div class="options"><label><input type="radio" name="d2q3" value="a"><span>A) Conditional Access</span></label><label><input type="radio" name="d2q3" value="b"><span>B) Company branding</span></label><label><input type="radio" name="d2q3" value="c"><span>C) Naming policy</span></label><label><input type="radio" name="d2q3" value="d"><span>D) Terms of Use</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="CAE permite resposta mais rápida a eventos críticos como revogação ou risco elevado antes do token expirar." data-tip="CAE reduz dependência do tempo de vida tradicional do token.">
+    <h3>4. Qual recurso avalia continuamente eventos críticos e pode revogar acesso antes do token expirar?</h3>
+    <div class="options"><label><input type="radio" name="d2q4" value="a"><span>A) Continuous Access Evaluation</span></label><label><input type="radio" name="d2q4" value="b"><span>B) Terms of Use</span></label><label><input type="radio" name="d2q4" value="c"><span>C) Cloud Sync</span></label><label><input type="radio" name="d2q4" value="d"><span>D) Admin consent workflow</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="O GSA client é instalado no endpoint e encaminha tráfego conforme os perfis configurados." data-tip="GSA client = no dispositivo do usuário. Private Network Connector = próximo do recurso.">
+    <h3>5. Em Global Secure Access, qual componente é instalado no endpoint do usuário?</h3>
+    <div class="options"><label><input type="radio" name="d2q5" value="a"><span>A) Global Secure Access client</span></label><label><input type="radio" name="d2q5" value="b"><span>B) AD FS proxy</span></label><label><input type="radio" name="d2q5" value="c"><span>C) Azure Arc agent</span></label><label><input type="radio" name="d2q5" value="d"><span>D) Microsoft Authenticator</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+</section>
+
+<!-- D3 -->
+<section class="section" id="d3">
+  <div class="section-heading"><p class="eyebrow">Domínio 3 · 20-25%</p><h2>Plan and implement workload identities</h2><p>Identidades para aplicações, automações e recursos Azure — críticas por terem permissões amplas sem usuário humano.</p></div>
+  <section class="topic-block"><h3>3.1 Managed identity vs service principal vs app registration</h3>
+    <div class="explain"><p><span>Conceito:</span> A escolha correta reduz segredo exposto. Para recurso Azure acessando outro recurso, prefira managed identity.</p></div>
+    <div class="table-wrap"><table><thead><tr><th>Identidade</th><th>Quando usar</th><th>Vantagem principal</th></tr></thead><tbody>
+      <tr><td>System-assigned managed identity</td><td>Recurso Azure acessa outro Azure (VM, Function, App Service)</td><td>Lifecycle ligado ao recurso, sem segredo para gerir</td></tr>
+      <tr><td>User-assigned managed identity</td><td>Múltiplos recursos partilham a mesma identidade</td><td>Lifecycle independente, reutilizável</td></tr>
+      <tr><td>Service principal</td><td>App multi-tenant, automações, integrações externas</td><td>Controle granular, multi-tenant</td></tr>
+      <tr><td>App registration</td><td>Definição da aplicação na plataforma de identidade</td><td>Client ID, redirect URIs, credentials, API permissions</td></tr>
+    </tbody></table></div>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Recurso Azure acessa outro Azure → managed identity. App externa/multi-tenant → app registration + service principal. Nunca use user account para automação.</p></div>
+  </section>
+  <section class="topic-block"><h3>3.2 Enterprise apps, consentimento e SCIM</h3>
+    <ul class="clean-list">
+      <li><strong>Assignment required:</strong> só usuários/grupos atribuídos acessam.</li>
+      <li><strong>App roles:</strong> papéis emitidos no token para autorização dentro da app.</li>
+      <li><strong>SCIM:</strong> provisioning automático de usuários em SaaS.</li>
+      <li><strong>Delegated permission:</strong> app age em nome do usuário.</li>
+      <li><strong>Application permission:</strong> app age como ela mesma — normalmente exige admin consent.</li>
+      <li><strong>Admin consent workflow:</strong> usuários solicitam aprovação para apps que exigem consentimento admin.</li>
+      <li><strong>Client secrets vs certificados:</strong> certificados são preferíveis — menos risco de vazamento.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>SSO autentica. SCIM provisiona. Não confunda os dois.</p></div>
+  </section>
+  <section class="topic-block"><h3>3.3 Microsoft Entra Application Proxy</h3>
+    <div class="explain"><p><span>Conceito:</span> Publica apps web internas para acesso remoto seguro sem abrir inbound firewall. O Private Network Connector usa saída para a cloud.</p></div>
+    <ul class="clean-list">
+      <li><strong>Pre-authentication Microsoft Entra ID:</strong> aplica MFA, CA, risco e logs antes do backend — o mais seguro.</li>
+      <li><strong>Passthrough:</strong> backend autentica diretamente, sem pre-auth cloud.</li>
+      <li><strong>KCD (Kerberos Constrained Delegation):</strong> SSO para apps que usam Windows Authentication.</li>
+      <li><strong>Connector group:</strong> agrupa conectores por região ou app. Em produção, ao menos dois para HA.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>App web interna + SSO + MFA via Entra + sem inbound → Application Proxy. Acesso privado mais amplo por IP/FQDN → GSA Private Access. VPN tradicional raramente é a resposta certa na SC-300.</p></div>
+  </section>
+  <section class="topic-block"><h3>3.4 Azure Key Vault com managed identity</h3>
+    <div class="explain"><p><span>Conceito:</span> Workload usa managed identity para obter token e aceder Key Vault sem segredo no código.</p></div>
+    <ul class="clean-list">
+      <li><strong>Key Vault Secrets User:</strong> lê valores de secrets — role mínima para a maioria das workloads.</li>
+      <li><strong>Key Vault Reader:</strong> vê metadados, mas não o valor do secret.</li>
+      <li><strong>Key Vault Crypto User:</strong> operações criptográficas com keys.</li>
+      <li><strong>Key Vault Administrator:</strong> muito amplo — nunca para aplicações comuns.</li>
+      <li><strong>Azure RBAC vs Access Policies:</strong> prefira Azure RBAC no permission model do Key Vault.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>VM/Function acessa Key Vault → enable managed identity + assign Key Vault Secrets User no escopo correto. Contributor no recurso NÃO concede acesso ao Key Vault.</p></div>
+  </section>
+</section>
+
+<!-- Quiz D3 -->
+<section class="section quiz-section" id="quiz-d3">
+  <div class="section-heading"><p class="eyebrow">Quiz interativo</p><h2>Quiz · Domínio 3</h2></div>
+  <article class="quiz-card" data-correct="a" data-explanation="Managed identities fornecem identidade gerenciada pelo Azure sem segredo no código, com RBAC." data-tip="Recurso Azure acessa outro Azure → managed identity.">
+    <h3>1. Qual identidade é recomendada para uma VM Azure acessar Key Vault sem segredo no código?</h3>
+    <div class="options"><label><input type="radio" name="d3q1" value="a"><span>A) Managed identity</span></label><label><input type="radio" name="d3q1" value="b"><span>B) Usuário convidado</span></label><label><input type="radio" name="d3q1" value="c"><span>C) Senha hardcoded</span></label><label><input type="radio" name="d3q1" value="d"><span>D) Global Administrator</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Application permissions atuam sem usuário interativo e normalmente exigem admin consent." data-tip="Delegated = em nome do usuário. Application = app atua como ela mesma.">
+    <h3>2. Qual permissão normalmente exige admin consent por dar acesso amplo sem usuário interativo?</h3>
+    <div class="options"><label><input type="radio" name="d3q2" value="a"><span>A) Application permission</span></label><label><input type="radio" name="d3q2" value="b"><span>B) Delegated permission sempre</span></label><label><input type="radio" name="d3q2" value="c"><span>C) Dynamic membership</span></label><label><input type="radio" name="d3q2" value="d"><span>D) Company branding</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Application Proxy publica apps web internas para acesso seguro sem abrir inbound firewall." data-tip="App Proxy = app web interna específica. GSA Private Access = recursos privados mais amplos.">
+    <h3>3. Qual recurso publica aplicação on-premises para acesso externo seguro via Microsoft Entra?</h3>
+    <div class="options"><label><input type="radio" name="d3q3" value="a"><span>A) Microsoft Entra Application Proxy</span></label><label><input type="radio" name="d3q3" value="b"><span>B) Password Protection</span></label><label><input type="radio" name="d3q3" value="c"><span>C) PIM for Groups</span></label><label><input type="radio" name="d3q3" value="d"><span>D) Access Review</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="SCIM padroniza provisionamento e desprovisionamento de usuários em SaaS." data-tip="SSO autentica; SCIM provisiona. Não confunda.">
+    <h3>4. Qual protocolo é usado para provisionamento automático de usuários em SaaS?</h3>
+    <div class="options"><label><input type="radio" name="d3q4" value="a"><span>A) SCIM</span></label><label><input type="radio" name="d3q4" value="b"><span>B) Kerberos</span></label><label><input type="radio" name="d3q4" value="c"><span>C) NTLM</span></label><label><input type="radio" name="d3q4" value="d"><span>D) RDP</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Key Vault Secrets User permite ler valores de secrets — role mínima necessária para workloads que leem segredos." data-tip="Nunca use Key Vault Administrator para aplicações comuns — excesso de privilégio.">
+    <h3>5. Qual role deve ser atribuída a uma Function App que apenas lê um secret no Key Vault?</h3>
+    <div class="options"><label><input type="radio" name="d3q5" value="a"><span>A) Key Vault Secrets User</span></label><label><input type="radio" name="d3q5" value="b"><span>B) Key Vault Administrator</span></label><label><input type="radio" name="d3q5" value="c"><span>C) Contributor</span></label><label><input type="radio" name="d3q5" value="d"><span>D) Owner</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+</section>
+
+<!-- D4 -->
+<section class="section" id="d4">
+  <div class="section-heading"><p class="eyebrow">Domínio 4 · 20-25%</p><h2>Plan and automate identity governance</h2><p>Quem deve ter acesso, por quanto tempo, quem aprova, quem revisa e como removemos acesso quando deixa de ser necessário.</p></div>
+  <section class="topic-block"><h3>4.1 Entitlement Management</h3>
+    <div class="explain"><p><span>Conceito:</span> Catalogs + access packages + políticas de solicitação, aprovação, expiração e revisão. Acesso governado em vez de manual.</p></div>
+    <ul class="clean-list">
+      <li><strong>Catalog:</strong> contêiner lógico de recursos governados.</li>
+      <li><strong>Access package:</strong> pacote com recursos e políticas.</li>
+      <li><strong>Connected organizations:</strong> organizações externas confiáveis.</li>
+      <li><strong>External user lifecycle:</strong> remove guest automaticamente quando não há mais pacotes ativos.</li>
+      <li><strong>Terms of Use:</strong> termos que usuários devem aceitar para aceder recursos.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Acesso sob solicitação + aprovação + expiração + externos → entitlement management / access package.</p></div>
+  </section>
+  <section class="topic-block"><h3>4.2 Access reviews</h3>
+    <div class="explain"><p><span>Conceito:</span> Revisões periódicas para confirmar se usuários, guests ou admins ainda precisam de acesso.</p></div>
+    <ul class="clean-list">
+      <li><strong>Reviewers:</strong> manager para equipes, owner para apps/grupos, self-review em cenários menos críticos.</li>
+      <li><strong>Auto-apply:</strong> aplica decisões automaticamente após o fim da review.</li>
+      <li><strong>Recommendations:</strong> sistema recomenda negar usuários inativos.</li>
+      <li><strong>Guest reviews:</strong> essencial para reduzir externos esquecidos.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Recertificação + revisão periódica + remover acesso não utilizado → access reviews.</p></div>
+  </section>
+  <section class="topic-block"><h3>4.3 Privileged Identity Management (PIM)</h3>
+    <div class="explain"><p><span>Conceito:</span> Reduz privilégio permanente. Admins são eligible e ativam apenas quando necessário, com MFA, justificativa e aprovação.</p></div>
+    <ul class="clean-list">
+      <li><strong>Microsoft Entra roles:</strong> Global Administrator, Privileged Role Administrator, CA Administrator.</li>
+      <li><strong>Azure resource roles:</strong> Owner, Contributor em subscriptions/resource groups.</li>
+      <li><strong>PIM for Groups:</strong> membership/ownership privilegiado sob ativação just-in-time.</li>
+      <li><strong>Approval:</strong> exige aprovador para roles de maior risco.</li>
+      <li><strong>Break-glass accounts:</strong> fora do PIM, altamente protegidas, monitoradas com alertas de sign-in.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Reduzir admin permanente mantendo capacidade operacional → PIM. Contas break-glass devem ser excluídas de CA restritivo e monitoradas.</p></div>
+  </section>
+  <section class="topic-block"><h3>4.4 Logs, Diagnostic settings e KQL</h3>
+    <ul class="clean-list">
+      <li><strong>Sign-in logs:</strong> autenticações, resultado, CA aplicada, risco, IP, device.</li>
+      <li><strong>Audit logs:</strong> mudanças administrativas, criação de objetos, alterações em policies e roles.</li>
+      <li><strong>AADProvisioningLogs:</strong> provisioning para apps, HR-driven, cross-tenant sync.</li>
+      <li><strong>ServicePrincipalSignInLogs:</strong> autenticações de service principals.</li>
+      <li><strong>ManagedIdentitySignInLogs:</strong> autenticações de managed identities.</li>
+      <li><strong>Diagnostic settings → Log Analytics Workspace:</strong> para retenção, KQL, workbooks e alertas.</li>
+    </ul>
+    <div class="exam-tip"><strong>Exam tip:</strong><p>Consulta avançada + retenção + dashboard + correlação → Diagnostic settings → Log Analytics → KQL. Sign-in log individual recente → portal do Entra é suficiente.</p></div>
+  </section>
+</section>
+
+<!-- Quiz D4 -->
+<section class="section quiz-section" id="quiz-d4">
+  <div class="section-heading"><p class="eyebrow">Quiz interativo</p><h2>Quiz · Domínio 4</h2></div>
+  <article class="quiz-card" data-correct="a" data-explanation="Access packages combinam catálogo, recursos, política de solicitação, aprovação e expiração." data-tip="Access package = acesso governado sob demanda.">
+    <h3>1. Qual recurso combina catálogo, recursos, política de solicitação, aprovação e expiração?</h3>
+    <div class="options"><label><input type="radio" name="d4q1" value="a"><span>A) Access package</span></label><label><input type="radio" name="d4q1" value="b"><span>B) PHS</span></label><label><input type="radio" name="d4q1" value="c"><span>C) App secret</span></label><label><input type="radio" name="d4q1" value="d"><span>D) Kerberos ticket</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Access reviews permitem revisão recorrente e recertificação de acesso a grupos, apps, roles e guests." data-tip="Recertificação de acesso → access review.">
+    <h3>2. Qual recurso verifica periodicamente se usuários ainda precisam de determinado acesso?</h3>
+    <div class="options"><label><input type="radio" name="d4q2" value="a"><span>A) Access reviews</span></label><label><input type="radio" name="d4q2" value="b"><span>B) Company branding</span></label><label><input type="radio" name="d4q2" value="c"><span>C) PTA</span></label><label><input type="radio" name="d4q2" value="d"><span>D) Cloud Discovery</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="PIM reduz privilégio permanente com ativação just-in-time, MFA, justificativa e aprovação." data-tip="PIM = just-in-time + least privilege + auditoria.">
+    <h3>3. Qual recurso permite ativação just-in-time de funções privilegiadas?</h3>
+    <div class="options"><label><input type="radio" name="d4q3" value="a"><span>A) Privileged Identity Management</span></label><label><input type="radio" name="d4q3" value="b"><span>B) Password hash sync</span></label><label><input type="radio" name="d4q3" value="c"><span>C) Application Proxy</span></label><label><input type="radio" name="d4q3" value="d"><span>D) External collaboration settings</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Diagnostic settings enviam logs ao Log Analytics Workspace onde KQL é usado para consultas avançadas e dashboards." data-tip="KQL depende de dados enviados para o workspace via Diagnostic settings.">
+    <h3>4. Qual destino permite consultar logs de Entra com KQL para investigações avançadas?</h3>
+    <div class="options"><label><input type="radio" name="d4q4" value="a"><span>A) Log Analytics workspace</span></label><label><input type="radio" name="d4q4" value="b"><span>B) Company branding</span></label><label><input type="radio" name="d4q4" value="c"><span>C) Access package catalog</span></label><label><input type="radio" name="d4q4" value="d"><span>D) Local Group Policy</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+  <article class="quiz-card" data-correct="a" data-explanation="Break-glass garante acesso emergencial se CA, MFA ou federação falharem — por isso devem ser excluídas de políticas restritivas." data-tip="Break-glass: poucas contas, cloud-only, não federadas, monitoradas com alertas de sign-in.">
+    <h3>5. Por que contas break-glass devem ser excluídas de Conditional Access restritivo?</h3>
+    <div class="options"><label><input type="radio" name="d4q5" value="a"><span>A) Para garantir acesso emergencial se políticas ou MFA falharem</span></label><label><input type="radio" name="d4q5" value="b"><span>B) Porque nunca devem ter senha</span></label><label><input type="radio" name="d4q5" value="c"><span>C) Porque são contas B2B</span></label><label><input type="radio" name="d4q5" value="d"><span>D) Porque são service principals</span></label></div>
+    <button class="check-answer" type="button">Verificar resposta</button><div class="feedback"></div>
+  </article>
+</section>
+
+<!-- KQL -->
+<section class="section" id="kql">
+  <div class="section-heading"><p class="eyebrow">KQL essencial</p><h2>Consultas úteis para identidade</h2></div>
+  <div class="grid two">
+    <div class="card"><h3>Tabelas para memorizar</h3><ul class="clean-list"><li><code>SigninLogs</code> — login interativo de usuários</li><li><code>AuditLogs</code> — mudanças administrativas</li><li><code>AADProvisioningLogs</code> — provisioning e sync</li><li><code>ServicePrincipalSignInLogs</code> — autenticação de apps</li><li><code>ManagedIdentitySignInLogs</code> — autenticação de managed identities</li></ul></div>
+    <div class="card"><h3>Operadores essenciais</h3><ul class="clean-list"><li><code>where</code> — filtra eventos</li><li><code>project</code> — escolhe colunas</li><li><code>summarize count()</code> — agrupa e conta</li><li><code>order by TimeGenerated desc</code> — eventos recentes primeiro</li><li><code>has</code>, <code>contains</code>, <code>in</code> — busca em texto/listas</li></ul></div>
+  </div>
+  <h3>Falhas de login nas últimas 24h</h3>
+  <pre class="code">SigninLogs
+| where TimeGenerated > ago(24h)
+| where ResultType != 0
+| project TimeGenerated, UserPrincipalName, AppDisplayName, ResultType, ResultDescription, IPAddress, ConditionalAccessStatus
+| order by TimeGenerated desc</pre>
+  <h3>Alterações administrativas recentes</h3>
+  <pre class="code">AuditLogs
+| where TimeGenerated > ago(7d)
+| project TimeGenerated, OperationName, Category, Result, InitiatedBy, TargetResources
+| order by TimeGenerated desc</pre>
+  <h3>Falhas de service principals</h3>
+  <pre class="code">ServicePrincipalSignInLogs
+| where TimeGenerated > ago(7d)
+| where ResultType != 0
+| project TimeGenerated, ServicePrincipalName, AppId, ResourceDisplayName, ResultType, ResultDescription
+| order by TimeGenerated desc</pre>
+  <h3>Eventos de provisioning com falha</h3>
+  <pre class="code">AADProvisioningLogs
+| where TimeGenerated > ago(7d)
+| where ResultType != "Success"
+| project TimeGenerated, Action, ResultType, SourceIdentity, TargetIdentity, ServicePrincipal
+| order by TimeGenerated desc</pre>
+  <div class="exam-tip"><strong>Exam tip:</strong><p>Quando a pergunta pede consulta avançada, retenção, workbook ou correlação → Diagnostic settings → Log Analytics Workspace → KQL.</p></div>
+</section>
+
+<!-- Checklist -->
+<section class="section" id="checklist">
+  <div class="section-heading"><p class="eyebrow">Checklist final</p><h2>O que dominar antes da prova</h2></div>
+  <div class="grid two">
+    <div class="card"><h3>Identidades (D1)</h3><ul class="clean-list"><li>Roles built-in vs custom roles vs Administrative Units</li><li>Dynamic groups: regras de atributo</li><li>B2B, cross-tenant access settings e cross-tenant sync</li><li>PHS vs PTA vs Federation — quando usar cada um</li><li>Connect Sync vs Cloud Sync</li></ul></div>
+    <div class="card"><h3>Access (D2)</h3><ul class="clean-list"><li>MFA, SSPR, TAP, FIDO2, CBA e WHfB</li><li>Kerberos e Microsoft Entra Kerberos híbrido</li><li>Conditional Access: assignments, conditions, grant/session</li><li>ID Protection: user risk vs sign-in risk, CAE</li><li>GSA: Private, Internet e Microsoft traffic profile</li></ul></div>
+    <div class="card"><h3>Workloads (D3)</h3><ul class="clean-list"><li>Managed identity system-assigned vs user-assigned</li><li>Key Vault: Key Vault Secrets User + Azure RBAC</li><li>Enterprise apps, app roles, SSO (SAML/OIDC) e SCIM</li><li>Application Proxy: pre-auth, connector, KCD</li><li>Delegated vs application permissions + admin consent</li></ul></div>
+    <div class="card"><h3>Governance (D4)</h3><ul class="clean-list"><li>Entitlement management, catalogs e access packages</li><li>Access reviews: reviewer, frequência e auto-apply</li><li>PIM: eligible, ativação, MFA, justificativa, aprovação</li><li>Break-glass accounts: cloud-only, monitoradas, excluídas de CA</li><li>Logs → Diagnostic settings → Log Analytics → KQL</li></ul></div>
+  </div>
+</section>
+
+<!-- Plano -->
+<section class="section" id="plano-junho">
+  <div class="section-heading"><p class="eyebrow">Plano até junho</p><h2>Roteiro de preparação até 17/06</h2></div>
+  <div class="timeline">
+    <div class="week"><h3>Semana 1 · 12 a 18 mai</h3><p><strong>Foco:</strong> Tenant Lab + Domínio 1. Crie usuários, grupos dinâmicos, AU, roles escopados, guests e B2B. Tabela comparativa PHS/PTA/Federation. Quiz D1 até 80%.</p></div>
+    <div class="week"><h3>Semana 2 · 19 a 25 mai</h3><p><strong>Foco:</strong> Domínio 2. Configure métodos de autenticação, SSPR, CA em report-only, teste What If. Mapas mentais de CA e ID Protection. Estude Kerberos e GSA.</p></div>
+    <div class="week"><h3>Semana 3 · 26 mai a 1 jun</h3><p><strong>Foco:</strong> Domínio 3. App registration, enterprise apps, managed identity, Key Vault com RBAC, Application Proxy, Defender for Cloud Apps. Explique em voz alta a diferença entre app registration e enterprise app.</p></div>
+    <div class="week"><h3>Semana 4 · 2 a 8 jun</h3><p><strong>Foco:</strong> Domínio 4. Access package, access review, PIM com ativação real no tenant. Configure Diagnostic settings para enviar logs ao Log Analytics e rode KQL básico.</p></div>
+    <div class="week"><h3>Semana 5 · 9 a 15 jun</h3><p><strong>Foco:</strong> Simulados e lacunas. Rever quizzes, revisar erros, ler documentação dos tópicos fracos. Monte uma folha de comparação: PHS/PTA/Fed, delegated/application, managed identity/service principal, access package/access review/PIM.</p></div>
+    <div class="week"><h3>16 de junho</h3><p><strong>Revisão leve.</strong> Nada de conteúdo novo. Revise checklist, termos e diferenças conceituais. Durma bem.</p></div>
+    <div class="week"><h3>17 de junho · Dia da prova</h3><p>Procure palavras-chave em cada pergunta: menor privilégio, escopo, automação, governança, risco, híbrido, app sem segredo, externo, tenant parceiro. Elimine respostas amplas demais quando o enunciado pede algo específico.</p></div>
+  </div>
+</section>
+
+<!-- Referencias -->
+<section class="section" id="referencias">
+  <div class="section-heading"><p class="eyebrow">Referências oficiais</p><h2>Fontes para revisão</h2></div>
+  <ul class="clean-list">
+    <li><a href="https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/sc-300" target="_blank" rel="noopener">Study guide for Exam SC-300 — Microsoft Learn</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/global-secure-access/overview-what-is-global-secure-access" target="_blank" rel="noopener">What is Global Secure Access?</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/app-proxy/overview-what-is-app-proxy" target="_blank" rel="noopener">What is Microsoft Entra Application Proxy?</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/azure/key-vault/general/authentication" target="_blank" rel="noopener">Authenticate to Azure Key Vault</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-integrate-activity-logs-with-azure-monitor-logs" target="_blank" rel="noopener">Integrate Entra logs with Azure Monitor</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/id-governance/entitlement-management-overview" target="_blank" rel="noopener">What is entitlement management?</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure" target="_blank" rel="noopener">What is Privileged Identity Management?</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/whatis-phs" target="_blank" rel="noopener">Password hash synchronization</a></li>
+    <li><a href="https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-pta" target="_blank" rel="noopener">Pass-through Authentication</a></li>
+  </ul>
+</section>
+</main>
+<footer class="footer">Guia de estudo SC-300 · Larissa Paiva · Material educacional para revisão e hands-on · <a href="/">← Voltar ao portfólio</a></footer>
+<script>
+document.querySelectorAll('.quiz-card').forEach(function(card) {
+  var button = card.querySelector('.check-answer');
+  var feedback = card.querySelector('.feedback');
+  if (!button || !feedback) return;
+  button.addEventListener('click', function() {
+    var selected = card.querySelector('input[type="radio"]:checked');
+    var correct = card.dataset.correct;
+    var explanation = card.dataset.explanation;
+    var tip = card.dataset.tip;
+    if (!selected) {
+      feedback.className = 'feedback no';
+      feedback.innerHTML = '<strong>Escolha uma alternativa primeiro.</strong>';
+      return;
+    }
+    var isCorrect = selected.value === correct;
+    feedback.className = 'feedback ' + (isCorrect ? 'ok' : 'no');
+    feedback.innerHTML = (isCorrect ? '<strong>Correto!</strong> ' : '<strong>Quase lá.</strong> ') +
+      'Resposta correta: <strong>' + correct.toUpperCase() + '</strong>. ' + explanation +
+      '<br><em style="color:#9A3A4F">Tip: </em>' + tip;
+  });
+});
+</script>
+</body>
+</html>
