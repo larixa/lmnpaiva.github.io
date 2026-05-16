@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
   :root {
     --pink:        #B85C72;
     --pink-soft:   #E8B4C0;
-    --blue:        #3A6E9E;
-    --blue-soft:   #B8D4E8;
+    --blue:        #7BA7C4;
+    --blue-soft:   #D4E4F0;
     --yellow:      #9E7A10;
     --yellow-soft: #F0E2A8;
     --green:       #6B8E5A;
@@ -43,58 +43,116 @@
     font-size: 16px;
   }
 
-  /* ── HEADER ─────────────────────────────────────────────────────────── */
+  /* ── HEADER + TAB NAV ───────────────────────────────────────────────── */
   header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(245, 239, 232, 0.94);
+    background: rgba(245, 239, 232, 0.96);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
-    padding: 0.85rem 0;
   }
   .nav-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0.65rem 2rem 0.4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
   }
   .nav-logo {
     font-family: 'DM Serif Display', serif;
-    font-size: 1.35rem;
+    font-size: 1.3rem;
     color: var(--pink);
     text-decoration: none;
     letter-spacing: -0.01em;
+    cursor: pointer;
   }
   .nav-logo span { color: var(--blue); }
-  .nav-back {
-    font-size: 0.875rem;
-    color: var(--text-soft);
-    text-decoration: none;
-    padding: 0.45rem 1.1rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
+
+  /* TAB navigation bar */
+  .tab-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  .nav-back:hover { background: var(--pink); color: #fff; border-color: var(--pink); }
+  .tab-nav::-webkit-scrollbar { display: none; }
+
+  .tab-nav-inner {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.85rem 1.4rem 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: -1px;
+  }
+  .tab-btn:hover {
+    color: var(--pink);
+  }
+  .tab-btn.active {
+    color: var(--pink);
+    border-bottom-color: var(--pink);
+  }
+  .tab-btn .tab-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.78rem;
+    color: inherit;
+  }
+  .tab-btn .tab-sep {
+    color: var(--line);
+    margin: 0 0.05rem;
+  }
+  .tab-btn .tab-icon {
+    font-size: 0.9rem;
+    margin-right: 0.1rem;
+  }
+
+  /* TAB content panels */
+  .tab-content {
+    display: none;
+    animation: tabFade 0.35s ease;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  @keyframes tabFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   /* ── HERO ───────────────────────────────────────────────────────────── */
   .hero {
     max-width: 860px;
     margin: 0 auto;
-    padding: 5rem 2rem 4rem;
+    padding: 3rem 2rem 2.5rem;
     text-align: center;
     position: relative;
   }
   .hero::before {
     content: '';
     position: absolute;
-    top: 3rem; left: 50%;
+    top: 1.5rem; left: 50%;
     transform: translateX(-50%);
-    width: 160px; height: 160px;
+    width: 140px; height: 140px;
     border-radius: 50%;
     background: radial-gradient(circle, var(--blue-soft) 0%, transparent 70%);
     opacity: 0.4;
@@ -114,7 +172,7 @@
   }
   .hero h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
     line-height: 1.1;
     color: var(--text);
     margin-bottom: 1.25rem;
@@ -140,69 +198,153 @@
 
   /* ── DOMAIN OVERVIEW GRID ────────────────────────────────────────────── */
   .domains-overview {
-    max-width: 1060px;
-    margin: 3rem auto 0;
-    padding: 0 2rem;
+    max-width: 1100px;
+    margin: 1rem auto 0;
+    padding: 0 2rem 2rem;
   }
   .domains-overview h2 {
     font-family: 'DM Serif Display', serif;
-    font-size: 1.9rem;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--text);
+    font-size: 1.4rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    color: var(--pink);
     letter-spacing: -0.01em;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-pin {
+    color: var(--pink);
+    letter-spacing: -0.2em;
+    font-weight: 700;
   }
   .domain-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
   }
   .domain-card {
+    position: relative;
     background: #fff;
     border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    padding: 1.5rem 1.25rem;
-    text-decoration: none;
-    color: var(--text);
-    display: block;
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.4rem 1.5rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
     transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
     box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .domain-card .card-stripe {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
   }
   .domain-card:hover {
     transform: translateY(-4px);
-    border-color: var(--pink);
-    box-shadow: 0 10px 28px rgba(184, 92, 114, 0.14);
+    box-shadow: 0 12px 28px rgba(44, 40, 37, 0.10);
   }
-  .domain-card .num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.4rem;
-    color: var(--pink);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-  .domain-card .pct {
-    display: inline-block;
-    background: var(--blue-soft);
-    color: var(--blue);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.18rem 0.6rem;
-    border-radius: 999px;
-    margin-bottom: 0.7rem;
-    letter-spacing: 0.03em;
+  .domain-card .card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
   }
   .domain-card h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1.35;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.3;
     color: var(--text);
+    margin-bottom: 1.1rem;
+    min-height: 3rem;
+  }
+  .domain-card .card-pct {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.1rem;
+    line-height: 1;
+    color: var(--pink);
+    margin-bottom: 0.4rem;
+  }
+  .domain-card .card-meta {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-bottom: 0.9rem;
+  }
+  .domain-card .card-bar {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .domain-card .card-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  /* Quick links */
+  .overview-quick-links {
+    margin-top: 2.5rem;
+  }
+  .qlinks-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 1rem;
+  }
+  .qlinks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .qlink-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.3rem;
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: all 0.25s;
+    color: var(--text);
+  }
+  .qlink-card:hover {
+    background: #fff;
+    border-color: var(--pink);
+    transform: translateX(3px);
+  }
+  .qlink-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  .qlink-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .qlink-text strong {
+    font-size: 1rem;
+    color: var(--text);
+  }
+  .qlink-text span {
+    font-size: 0.82rem;
+    color: var(--text-soft);
   }
 
   /* ── MAIN CONTENT ───────────────────────────────────────────────────── */
   main {
     max-width: 860px;
     margin: 0 auto;
-    padding: 4rem 2rem 2rem;
+    padding: 1.5rem 2rem 2rem;
   }
 
   /* ── DOMAIN SECTIONS ────────────────────────────────────────────────── */
@@ -514,6 +656,23 @@
   .reveal-btn:hover { background: var(--pink); transform: translateY(-1px); }
   .reveal-btn:active { transform: translateY(0); }
 
+  /* ── Diagram Wrapper ──────────────────────────────────────────────── */
+  .diagram-wrapper {
+    background: var(--cream-2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1rem;
+    margin: 1.5rem 0 2rem;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+  }
+  .diagram-wrapper svg {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    margin: 0 auto;
+  }
+
   /* ── Quiz Feedback (acertou / errou) ──────────────────────────────── */
   .feedback-msg {
     margin: 0.8rem 0 0;
@@ -630,10 +789,47 @@
 
 <header>
   <div class="nav-container">
-    <a href="#top" class="nav-logo">lmn<span>paiva</span></a>
-    <a href="#top" class="nav-back">↑ Voltar ao topo</a>
+    <a href="#top" class="nav-logo" onclick="showTab('overview'); return false;">lmn<span>paiva</span></a>
   </div>
+  <nav class="tab-nav" role="tablist" aria-label="Navegação por domínio">
+    <div class="tab-nav-inner">
+      <button class="tab-btn active" data-tab="overview" onclick="showTab('overview')" role="tab" aria-selected="true">
+        <span class="tab-label">VISÃO GERAL</span>
+      </button>
+      <button class="tab-btn" data-tab="dominio-1" onclick="showTab('dominio-1')" role="tab" aria-selected="false">
+        <span class="tab-code">D1</span>
+        <span class="tab-sep">·</span>
+        <span class="tab-label">DEPLOY</span>
+      </button>
+      <button class="tab-btn" data-tab="dominio-2" onclick="showTab('dominio-2')" role="tab" aria-selected="false">
+        <span class="tab-code">D2</span>
+        <span class="tab-sep">·</span>
+        <span class="tab-label">IDENTIDADE</span>
+      </button>
+      <button class="tab-btn" data-tab="dominio-3" onclick="showTab('dominio-3')" role="tab" aria-selected="false">
+        <span class="tab-code">D3</span>
+        <span class="tab-sep">·</span>
+        <span class="tab-label">DISPOSITIVOS</span>
+      </button>
+      <button class="tab-btn" data-tab="dominio-4" onclick="showTab('dominio-4')" role="tab" aria-selected="false">
+        <span class="tab-code">D4</span>
+        <span class="tab-sep">·</span>
+        <span class="tab-label">APPS</span>
+      </button>
+      <button class="tab-btn" data-tab="autopilot" onclick="showTab('autopilot')" role="tab" aria-selected="false">
+        <span class="tab-icon">🚀</span>
+        <span class="tab-label">AUTOPILOT</span>
+      </button>
+      <button class="tab-btn" data-tab="recursos" onclick="showTab('recursos')" role="tab" aria-selected="false">
+        <span class="tab-icon">📚</span>
+        <span class="tab-label">RECURSOS</span>
+      </button>
+    </div>
+  </nav>
 </header>
+
+<!-- ═══════ TAB · VISÃO GERAL ═══════ -->
+<div class="tab-content active" id="tab-overview" role="tabpanel">
 
 <section class="hero" id="top">
   <span class="badge">Microsoft Endpoint Administrator</span>
@@ -650,32 +846,69 @@
 </section>
 
 <section class="domains-overview">
-  <h2>Os 4 domínios da prova</h2>
+  <h2><span class="section-pin">━</span> Distribuição dos Domínios na Prova</h2>
   <div class="domain-cards">
-    <a class="domain-card" href="#dominio-1">
-      <div class="num">01</div>
-      <span class="pct">25–30%</span>
+    <button class="domain-card" onclick="showTab('dominio-1')">
+      <span class="card-stripe" style="background: var(--pink);"></span>
+      <div class="card-label">DOMAIN 1.0</div>
       <h3>Implantar o cliente Windows</h3>
-    </a>
-    <a class="domain-card" href="#dominio-2">
-      <div class="num">02</div>
-      <span class="pct">15–20%</span>
-      <h3>Gerir identidade e conformidade</h3>
-    </a>
-    <a class="domain-card" href="#dominio-3">
-      <div class="num">03</div>
-      <span class="pct">40–45%</span>
-      <h3>Gerir, manter e proteger dispositivos</h3>
-    </a>
-    <a class="domain-card" href="#dominio-4">
-      <div class="num">04</div>
-      <span class="pct">10–15%</span>
-      <h3>Gerir aplicações</h3>
-    </a>
+      <div class="card-pct">25–30%</div>
+      <div class="card-meta">~10–18 questões</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width: 28%; background: var(--pink);"></div></div>
+    </button>
+    <button class="domain-card" onclick="showTab('dominio-2')">
+      <span class="card-stripe" style="background: var(--blue);"></span>
+      <div class="card-label">DOMAIN 2.0</div>
+      <h3>Gerenciar identidade e conformidade</h3>
+      <div class="card-pct">15–20%</div>
+      <div class="card-meta">~6–12 questões</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width: 18%; background: var(--blue);"></div></div>
+    </button>
+    <button class="domain-card" onclick="showTab('dominio-3')">
+      <span class="card-stripe" style="background: var(--green);"></span>
+      <div class="card-label">DOMAIN 3.0</div>
+      <h3>Gerenciar, manter e proteger dispositivos</h3>
+      <div class="card-pct">40–45%</div>
+      <div class="card-meta">~16–27 questões · o mais pesado</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width: 43%; background: var(--green);"></div></div>
+    </button>
+    <button class="domain-card" onclick="showTab('dominio-4')">
+      <span class="card-stripe" style="background: var(--yellow);"></span>
+      <div class="card-label">DOMAIN 4.0</div>
+      <h3>Gerenciar aplicativos</h3>
+      <div class="card-pct">10–15%</div>
+      <div class="card-meta">~4–9 questões</div>
+      <div class="card-bar"><div class="card-bar-fill" style="width: 13%; background: var(--yellow);"></div></div>
+    </button>
+  </div>
+
+  <div class="overview-quick-links">
+    <h3 class="qlinks-title">Acesso rápido</h3>
+    <div class="qlinks-grid">
+      <button class="qlink-card" onclick="showTab('autopilot')">
+        <div class="qlink-icon">🚀</div>
+        <div class="qlink-text">
+          <strong>Windows Autopilot</strong>
+          <span>Mergulho profundo + lab prático</span>
+        </div>
+      </button>
+      <button class="qlink-card" onclick="showTab('recursos')">
+        <div class="qlink-icon">📚</div>
+        <div class="qlink-text">
+          <strong>Recursos & Plano</strong>
+          <span>6 semanas até 29 de junho</span>
+        </div>
+      </button>
+    </div>
   </div>
 </section>
 
+</div><!-- /tab overview -->
+
 <main>
+
+<!-- ═══════ TAB · DOMÍNIO 1 ═══════ -->
+<div class="tab-content" id="tab-dominio-1" role="tabpanel">
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- DOMÍNIO 1 -->
@@ -687,7 +920,7 @@
     <span class="weight">25–30% do exame</span>
   </div>
 
-  <p>Este domínio é sobre <strong>como o Windows chega ao dispositivo do utilizador</strong>. Cobre desde a escolha da edição correta do Windows 11, passando pelos métodos de ativação, até às ferramentas modernas de provisionamento como o Windows Autopilot (que terá uma secção dedicada mais à frente).</p>
+  <p>Este domínio é sobre <strong>como o Windows chega ao dispositivo do usuário</strong>. Cobre desde a escolha da edição correta do Windows 11, passando pelos métodos de ativação, até as ferramentas modernas de provisionamento como o Windows Autopilot (que terá uma seção dedicada mais adiante).</p>
 
   <h3 class="section-h">1.1 · Edições do Windows 11 e Licenciamento</h3>
 
@@ -705,7 +938,7 @@
     <tbody>
       <tr>
         <td class="label-cell">Home</td>
-        <td>Utilizadores domésticos. <em>Não suportado em ambiente corporativo.</em></td>
+        <td>Usuários domésticos. <em>Não suportado em ambiente corporativo.</em></td>
         <td class="no">Não</td>
         <td class="no">Não</td>
       </tr>
@@ -729,7 +962,7 @@
       </tr>
       <tr>
         <td class="label-cell">Enterprise LTSC</td>
-        <td>Dispositivos especializados (caixas registadoras, equipamentos médicos). Sem Microsoft Store, sem updates de funcionalidades frequentes.</td>
+        <td>Dispositivos especializados (caixas registradoras, equipamentos médicos). Sem Microsoft Store, sem updates de funcionalidades frequentes.</td>
         <td class="yes">Sim</td>
         <td class="yes">Sim</td>
       </tr>
@@ -738,23 +971,163 @@
 
   <div class="tip-box">
     <span class="label">💡 Para a prova</span>
-    <p>Se vires um cenário com <strong>Windows 11 Home</strong>, a resposta correta envolve quase sempre <strong>fazer upgrade para Pro</strong> antes de qualquer ingresso em Entra ID ou inscrição no Intune. Home não suporta gestão empresarial.</p>
+    <p>Se você vir um cenário com <strong>Windows 11 Home</strong>, a resposta correta envolve quase sempre <strong>fazer upgrade para Pro</strong> antes de qualquer ingresso em Entra ID ou inscrição no Intune. Home não suporta gerenciamento empresarial.</p>
+  </div>
+
+  <h4 class="subsection-h">Recursos importantes do Windows · O que cada edição suporta</h4>
+  <p>Esta tabela é <strong>ouro puro</strong> para a prova. Pode aparecer uma questão como <em>"Precisa de Credential Guard. Qual edição mínima?"</em> e você precisa saber.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Recurso</th>
+        <th>Home</th>
+        <th>Pro</th>
+        <th>Enterprise</th>
+        <th>Education</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label-cell">Ingresso em Entra ID</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Ingresso em domínio AD</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Group Policy (GPO)</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">BitLocker (drive encryption)</td>
+        <td class="no">Não*</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Hyper-V</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Remote Desktop (host)</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Microsoft Store for Business</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Windows Information Protection (WIP)</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">AppLocker</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Windows Defender Application Control (WDAC)</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Credential Guard</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">DirectAccess</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Microsoft Defender for Endpoint</td>
+        <td class="no">Não</td>
+        <td class="no">Não*</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Windows Autopilot</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Subscription Activation</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim → Ent</td>
+        <td>—</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 0.85rem; color: var(--text-soft); margin-top: -1rem;"><em>* BitLocker em Home é apenas "Device Encryption" limitado, sem controlo via GPO/Intune. * Defender for Endpoint em Pro requer licenças separadas (E5/E5 Security).</em></p>
+
+  <h4 class="subsection-h">Recursos por segurança · O que cada um faz</h4>
+  <ul>
+    <li><strong>BitLocker:</strong> cifra o disco completo. Protege dados se o dispositivo for roubado.</li>
+    <li><strong>AppLocker:</strong> controla quais aplicativos podem correr no dispositivo (allowlist/blocklist por publisher, hash, path).</li>
+    <li><strong>Windows Defender Application Control (WDAC):</strong> versão mais robusta do AppLocker, baseada em políticas de assinatura digital. Recomendado para zero trust.</li>
+    <li><strong>Credential Guard:</strong> usa virtualização para proteger credenciais (NTLM hash, Kerberos ticket) contra ataques de roubo de credenciais como pass-the-hash. Requer TPM 2.0 e Secure Boot.</li>
+    <li><strong>Windows Defender SmartScreen:</strong> bloqueia downloads e sites maliciosos (todas as edições têm isto).</li>
+    <li><strong>Windows Sandbox:</strong> ambiente isolado descartável para testar apps suspeitas (Pro+).</li>
+    <li><strong>Memory Integrity (HVCI):</strong> proteção da memória do kernel via virtualização.</li>
+    <li><strong>Tamper Protection:</strong> impede que malware desative o Defender (todas).</li>
+  </ul>
+
+  <div class="warning-box">
+    <span class="label">⚠️ Truque cobrado</span>
+    <p>Se a questão pedir <strong>AppLocker, WDAC, Credential Guard ou DirectAccess</strong>, a resposta correta é sempre <strong>Enterprise</strong> ou <strong>Education</strong>. <strong>Pro não tem!</strong> Esta é uma das diferenciações mais cobradas entre Pro e Enterprise.</p>
   </div>
 
   <h4 class="subsection-h">Métodos de Ativação do Windows</h4>
 
-  <p>Existem quatro grandes métodos de ativação que precisas de conhecer:</p>
+  <p>Existem quatro grandes métodos de ativação que você precisa conhecer:</p>
 
   <ul>
     <li><strong>MAK (Multiple Activation Key):</strong> Uma chave única que ativa um número limitado de dispositivos. Cada ativação consome uma "unidade" da chave. Usado em ambientes pequenos ou desconectados.</li>
-    <li><strong>KMS (Key Management Service):</strong> Servidor on-premises que ativa clientes na rede interna. Os clientes precisam contactar o servidor KMS pelo menos uma vez a cada 180 dias para manterem a ativação.</li>
+    <li><strong>KMS (Key Management Service):</strong> Servidor on-premises que ativa clientes na rede interna. Os clientes precisam contatar o servidor KMS pelo menos uma vez a cada 180 dias para manterem a ativação.</li>
     <li><strong>Active Directory-Based Activation (ADBA):</strong> A ativação é feita automaticamente quando o dispositivo se junta ao domínio AD. Não precisa de um servidor KMS dedicado.</li>
-    <li><strong>Subscription Activation:</strong> O dispositivo "sobe" automaticamente de edição (Pro → Enterprise) quando o utilizador faz login com uma conta Entra ID com licença Windows 11 Enterprise E3/E5. <strong>É a forma moderna e a mais cobrada na prova.</strong></li>
+    <li><strong>Subscription Activation:</strong> O dispositivo "sobe" automaticamente de edição (Pro → Enterprise) quando o usuário faça login com uma conta Entra ID com licença Windows 11 Enterprise E3/E5. <strong>É a forma moderna e a mais cobrada na prova.</strong></li>
   </ul>
 
   <div class="concept-box">
     <span class="label">Conceito-chave</span>
-    <p><strong>Subscription Activation</strong> é o método preferido em ambientes cloud-first. O dispositivo vem com Windows 11 Pro de fábrica, e ao entrar com a conta Entra ID licenciada, é automaticamente promovido a Enterprise sem necessidade de imagem ou chave de produto. Quando o utilizador sai ou perde a licença, o dispositivo volta para Pro.</p>
+    <p><strong>Subscription Activation</strong> é o método preferido em ambientes cloud-first. O dispositivo vem com Windows 11 Pro de fábrica, e ao entrar com a conta Entra ID licenciada, é automaticamente promovido a Enterprise sem necessidade de imagem ou chave de produto. Quando o usuário sai ou perde a licença, o dispositivo volta para Pro.</p>
   </div>
 
   <h3 class="section-h">1.2 · Métodos de Implantação do Windows</h3>
@@ -762,17 +1135,17 @@
   <p>Existem várias formas de instalar o Windows num dispositivo. Vou apresentá-las da mais <strong>moderna</strong> (cloud-first) à mais <strong>tradicional</strong> (on-premises):</p>
 
   <h4 class="subsection-h">Windows Autopilot (cloud-first, moderno)</h4>
-  <p>Permite que dispositivos novos saiam direto do fornecedor para o utilizador final, e que tudo seja configurado automaticamente quando o utilizador liga o dispositivo pela primeira vez. <strong>Tem uma secção dedicada mais à frente neste guia.</strong></p>
+  <p>Permite que dispositivos novos saiam direto do fornecedor para o usuário final, e que tudo seja configuredo automaticamente quando o usuário liga o dispositivo pela primeira vez. <strong>Tem uma seção dedicada mais adiante neste guia.</strong></p>
 
   <h4 class="subsection-h">Provisioning Packages (Windows Configuration Designer)</h4>
-  <p>Ficheiros <code>.ppkg</code> criados na ferramenta <strong>Windows Configuration Designer</strong>. Podem ser aplicados por:</p>
+  <p>Arquivos <code>.ppkg</code> criados na ferramenta <strong>Windows Configuration Designer</strong>. Podem ser aplicados por:</p>
   <ul>
     <li>Pen USB</li>
     <li>Email</li>
-    <li>Partilha de rede</li>
+    <li>Compartilhamento de rede</li>
     <li>Diretamente durante o OOBE (Out-of-Box Experience)</li>
   </ul>
-  <p>Útil para configurar Wi-Fi, certificados, políticas e até para ingressar dispositivos em Entra ID em massa, sem precisar de Intune. Bom para cenários offline ou redes com limitação.</p>
+  <p>Útil para configurer Wi-Fi, certificados, políticas e até para ingressar dispositivos em Entra ID em massa, sem precisar de Intune. Bom para cenários offline ou redes com limitação.</p>
 
   <h4 class="subsection-h">Configuration Manager (anteriormente SCCM)</h4>
   <p>Solução on-premises da Microsoft para implantação em larga escala. Suporta:</p>
@@ -787,17 +1160,17 @@
 
   <h3 class="section-h">1.3 · Caminhos de Upgrade e Feature Updates</h3>
 
-  <p>Existem três tipos principais de mover-se entre versões do Windows:</p>
+  <p>Existem três tipos principais de se mover entre versões do Windows:</p>
 
   <ul>
-    <li><strong>In-place upgrade:</strong> Atualizar mantendo apps, ficheiros e definições. Suportado de Windows 10 → Windows 11 (se o hardware cumprir os requisitos: TPM 2.0, Secure Boot, CPU compatível).</li>
+    <li><strong>In-place upgrade:</strong> Atualizar mantendo apps, arquivos e definições. Suportado de Windows 10 → Windows 11 (se o hardware cumprir os requisitos: TPM 2.0, Secure Boot, CPU compatível).</li>
     <li><strong>Wipe-and-load:</strong> Apaga tudo e instala uma imagem nova. Usado em refresh de hardware antigo.</li>
     <li><strong>Side-by-side migration:</strong> Migração entre dois dispositivos (substituição de hardware).</li>
   </ul>
 
   <div class="warning-box">
     <span class="label">⚠️ Requisitos do Windows 11</span>
-    <p>Tens de conhecer estes requisitos para a prova. Um dispositivo só pode ter Windows 11 se cumprir:</p>
+    <p>Você precisa conhecer estes requisitos para a prova. Um dispositivo só pode ter Windows 11 se cumprir:</p>
     <ul>
       <li><strong>TPM 2.0</strong> (Trusted Platform Module)</li>
       <li><strong>Secure Boot</strong> ativado (UEFI)</li>
@@ -815,7 +1188,7 @@
         <th>Tipo</th>
         <th>O que é</th>
         <th>Frequência</th>
-        <th>Onde se configura</th>
+        <th>Onde se configure</th>
       </tr>
     </thead>
     <tbody>
@@ -842,7 +1215,7 @@
 
   <h3 class="section-h">1.4 · Windows 365 e Azure Virtual Desktop</h3>
 
-  <p>Estes são serviços de <strong>Cloud PC</strong> – ou seja, em vez do Windows correr no portátil físico, corre numa máquina virtual na nuvem que o utilizador acede remotamente.</p>
+  <p>Estes são serviços de <strong>Cloud PC</strong> – ou seja, em vez do Windows correr no notebook físico, roda em uma máquina virtual na nuvem que o usuário acessa remotamente.</p>
 
   <table class="compare-table">
     <thead>
@@ -855,16 +1228,16 @@
     <tbody>
       <tr>
         <td class="label-cell">Modelo</td>
-        <td>Subscrição fixa por utilizador (SaaS)</td>
+        <td>Assinatura fixa por usuário (SaaS)</td>
         <td>Pay-as-you-go (consumo Azure)</td>
       </tr>
       <tr>
         <td class="label-cell">Multi-sessão</td>
-        <td class="no">Não – 1 PC por utilizador</td>
-        <td class="yes">Sim – vários utilizadores num host</td>
+        <td class="no">Não – 1 PC por usuário</td>
+        <td class="yes">Sim – vários usuários num host</td>
       </tr>
       <tr>
-        <td class="label-cell">Gestão</td>
+        <td class="label-cell">Gerenciamento</td>
         <td>Microsoft Intune (mais simples)</td>
         <td>Portal do Azure (mais complexo, mais flexível)</td>
       </tr>
@@ -878,7 +1251,7 @@
 
   <div class="concept-box">
     <span class="label">Como decidir</span>
-    <p>Se a questão fala em <strong>"experiência semelhante a um PC pessoal"</strong>, <strong>"simples de gerir"</strong> ou <strong>"licenciamento previsível por utilizador"</strong> → <strong>Windows 365</strong>. Se fala em <strong>"vários utilizadores partilhando recursos"</strong>, <strong>"otimização de custos"</strong> ou <strong>"multi-sessão"</strong> → <strong>Azure Virtual Desktop</strong>.</p>
+    <p>Se a questão fala em <strong>"experiência semelhante a um PC pessoal"</strong>, <strong>"simples de gerenciar"</strong> ou <strong>"licenciamento previsível por usuário"</strong> → <strong>Windows 365</strong>. Se fala em <strong>"vários usuários compartilhando recursos"</strong>, <strong>"otimização de custos"</strong> ou <strong>"multi-sessão"</strong> → <strong>Azure Virtual Desktop</strong>.</p>
   </div>
 
   <!-- ─── QUIZ DOMÍNIO 1 ─── -->
@@ -888,7 +1261,7 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 1</span>
-      <p class="q-text">Um utilizador comprou um portátil novo com Windows 11 Home. Tu queres ingressá-lo em Microsoft Entra ID e inscrevê-lo no Intune. Qual é o primeiro passo?</p>
+      <p class="q-text">Um usuário comprou um notebook novo com Windows 11 Home. Você quer ingressá-lo em Microsoft Entra ID e inscrevê-lo no Intune. Qual é o primeiro passo?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Ingressar o dispositivo diretamente em Entra ID via Settings.</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Fazer upgrade da edição para Windows 11 Pro (ou superior) antes do ingresso.</li>
@@ -904,7 +1277,7 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 2</span>
-      <p class="q-text">A tua empresa quer que os dispositivos sejam automaticamente promovidos de Windows 11 Pro para Enterprise quando os utilizadores fazem login com a conta Entra ID. Qual método de ativação devo usar?</p>
+      <p class="q-text">A sua empresa quer que os dispositivos sejam automaticamente promovidos de Windows 11 Pro para Enterprise quando os usuários fazem login com a conta Entra ID. Qual método de ativação devo usar?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> KMS</li>
         <li data-correct="false"><span class="opt-letter">B.</span> MAK</li>
@@ -914,13 +1287,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        <strong>Subscription Activation</strong> é o método cloud-first que aproveita as licenças Windows 11 Enterprise E3/E5 atribuídas ao utilizador via Entra ID. Quando o utilizador faz login, a edição "sobe" de Pro para Enterprise. KMS e MAK exigem chaves manuais; ADBA exige domínio AD on-premises.
+        <strong>Subscription Activation</strong> é o método cloud-first que aproveita as licenças Windows 11 Enterprise E3/E5 atribuídas ao usuário via Entra ID. Quando o usuário faça login, a edição "sobe" de Pro para Enterprise. KMS e MAK exigem chaves manuais; ADBA exige domínio AD on-premises.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 3</span>
-      <p class="q-text">Tens uma frota de 50 dispositivos que precisam ser configurados para uma rede Wi-Fi específica, com certificado, sem acesso à internet pública durante o setup. Qual é a melhor abordagem?</p>
+      <p class="q-text">Você tem uma frota de 50 dispositivos que precisam ser configuredos para uma rede Wi-Fi específica, com certificado, sem acesso à internet pública durante o setup. Qual é a melhor abordagem?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Windows Autopilot self-deploying mode</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Provisioning package via Windows Configuration Designer</li>
@@ -930,7 +1303,7 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Provisioning packages</strong> (ficheiros .ppkg) são ideais quando precisas de configurar dispositivos <strong>offline ou com conectividade limitada</strong>. Podem ser aplicados via USB diretamente no OOBE e configurar Wi-Fi e certificados antes do dispositivo ter acesso à internet. Autopilot precisa sempre de internet para contactar o serviço Microsoft.
+        <strong>Provisioning packages</strong> (arquivos .ppkg) são ideais quando você precisa configurer dispositivos <strong>offline ou com conectividade limitada</strong>. Podem ser aplicados via USB diretamente no OOBE e configurer Wi-Fi e certificados antes do dispositivo ter acesso à internet. Autopilot precisa sempre de internet para contatar o serviço Microsoft.
       </div>
     </div>
 
@@ -946,13 +1319,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        A Microsoft <strong>não suporta</strong> Windows 11 em hardware que não cumpre TPM 2.0 + Secure Boot + CPU compatível. Mesmo que existam workarounds, a resposta da prova é sempre "manter no Windows 10 (com ESU se necessário) ou substituir hardware". Subscription Activation muda a edição, não o sistema operativo.
+        A Microsoft <strong>não suporta</strong> Windows 11 em hardware que não cumpre TPM 2.0 + Secure Boot + CPU compatível. Mesmo que existam workarounds, a resposta da prova é sempre "manter no Windows 10 (com ESU se necessário) ou substituir hardware". Subscription Activation muda a edição, não o sistema operacional.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 5</span>
-      <p class="q-text">A tua organização quer disponibilizar máquinas virtuais Windows na nuvem com licenciamento previsível por utilizador, gestão via Intune e cada utilizador com o seu próprio "PC". Que serviço escolhes?</p>
+      <p class="q-text">A sua organização quer disponibilizar máquinas virtuais Windows na nuvem com licenciamento previsível por usuário, gerenciamento via Intune e cada usuário com o seu próprio "PC". Que serviço você escolhe?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Azure Virtual Desktop multi-sessão</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Windows 365 Cloud PC</li>
@@ -962,7 +1335,7 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Windows 365</strong> é a opção SaaS, <strong>1 PC por utilizador</strong>, com <strong>subscrição mensal fixa</strong> e gestão via Intune. AVD seria para multi-sessão (vários utilizadores partilham um host) e tem licenciamento pay-as-you-go. As palavras-chave aqui são "previsível", "seu próprio PC" e "Intune".
+        <strong>Windows 365</strong> é a opção SaaS, <strong>1 PC por usuário</strong>, com <strong>assinatura mensal fixa</strong> e gerenciamento via Intune. AVD seria para multi-sessão (vários usuários compartilham um host) e tem licenciamento pay-as-you-go. As palavras-chave aqui são "previsível", "seu próprio PC" e "Intune".
       </div>
     </div>
 
@@ -978,13 +1351,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Feature Updates</strong> são as atualizações <strong>anuais</strong> que mudam a versão (23H2, 24H2, etc.). <strong>Quality Updates</strong> são as <strong>mensais</strong> de segurança e bug fixes (Patch Tuesday). No Intune são configurados em políticas separadas: "Feature updates for Windows 10 and later" vs "Update rings" / "Quality updates".
+        <strong>Feature Updates</strong> são as atualizações <strong>anuais</strong> que mudam a versão (23H2, 24H2, etc.). <strong>Quality Updates</strong> são as <strong>mensais</strong> de segurança e bug fixes (Patch Tuesday). No Intune são configuredos em políticas separadas: "Feature updates for Windows 10 and later" vs "Update rings" / "Quality updates".
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 7</span>
-      <p class="q-text">Estás a planear migrar 200 dispositivos de Windows 10 para Windows 11. Os utilizadores não podem perder aplicações nem ficheiros. Qual método usas?</p>
+      <p class="q-text">Você está planeando migrar 200 dispositivos de Windows 10 para Windows 11. Os usuários não podem perder aplicativos nem arquivos. Qual método usas?</p>
       <ol class="q-options">
         <li data-correct="true"><span class="opt-letter">A.</span> In-place upgrade</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Wipe-and-load</li>
@@ -994,13 +1367,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: A</strong>
-        <strong>In-place upgrade</strong> mantém apps, ficheiros e definições. Wipe-and-load apaga tudo. Side-by-side é entre dois dispositivos físicos diferentes. Autopilot Reset traz o dispositivo de volta para o estado inicial sem reimaginar (é usado para repurpose, não para upgrade de versão).
+        <strong>In-place upgrade</strong> mantém apps, arquivos e definições. Wipe-and-load apaga tudo. Side-by-side é entre dois dispositivos físicos diferentes. Autopilot Reset traz o dispositivo de volta para o estado inicial sem reimaginar (é usado para repurpose, não para upgrade de versão).
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 8</span>
-      <p class="q-text">Qual edição do Windows 11 deves escolher para um quiosque numa loja, onde o dispositivo nunca deve receber feature updates frequentes e não precisa da Microsoft Store?</p>
+      <p class="q-text">Qual edição do Windows 11 você deve escolher para um kiosk numa loja, onde o dispositivo nunca deve receber feature updates frequentes e não precisa da Microsoft Store?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Windows 11 Pro</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Windows 11 Enterprise</li>
@@ -1010,7 +1383,7 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        <strong>LTSC (Long-Term Servicing Channel)</strong> é desenhado para dispositivos especializados que precisam de <strong>estabilidade máxima</strong>: quiosques, equipamentos médicos, ATMs, máquinas industriais. Não recebe feature updates frequentes e não tem Microsoft Store. Palavras-chave: "quiosque", "industrial", "sem updates frequentes".
+        <strong>LTSC (Long-Term Servicing Channel)</strong> é desenhado para dispositivos especializados que precisam de <strong>estabilidade máxima</strong>: kiosks, equipamentos médicos, ATMs, máquinas industriais. Não recebe feature updates frequentes e não tem Microsoft Store. Palavras-chave: "kiosk", "industrial", "sem updates frequentes".
       </div>
     </div>
 
@@ -1040,23 +1413,28 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Configuration Manager</strong> é uma solução <strong>on-premises</strong>. A Microsoft criou o <strong>co-management</strong> exatamente para permitir migração gradual: o dispositivo é gerido em simultâneo pelo ConfigMgr (workloads on-prem) e pelo Intune (workloads cloud). Cada workload pode ser movido individualmente para o Intune.
+        <strong>Configuration Manager</strong> é uma solução <strong>on-premises</strong>. A Microsoft criou o <strong>co-management</strong> exatamente para permitir migração gradual: o dispositivo é gerenciado em simultâneo pelo ConfigMgr (workloads on-prem) e pelo Intune (workloads cloud). Cada workload pode ser movido individualmente para o Intune.
       </div>
     </div>
 
   </div>
 </section>
+</div><!-- /tab dominio-1 -->
+
+<!-- ═══════ TAB · DOMÍNIO 2 ═══════ -->
+<div class="tab-content" id="tab-dominio-2" role="tabpanel">
+
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- DOMÍNIO 2 -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <section class="domain-section" id="dominio-2">
   <div class="domain-header blue">
     <span class="domain-num">Domínio 2</span>
-    <h2>Gerir identidade e conformidade</h2>
+    <h2>Gerenciar identidade e conformidade</h2>
     <span class="weight">15–20% do exame</span>
   </div>
 
-  <p>Este domínio cobre <strong>como o dispositivo "se apresenta" ao Microsoft Entra ID</strong> e como garantes que ele cumpre regras de segurança antes de aceder a recursos corporativos. Vais ver aqui a parte mais confusa para muita gente: os <strong>tipos de ingresso (join types)</strong>.</p>
+  <p>Este domínio cobre <strong>como o dispositivo "se apresenta" ao Microsoft Entra ID</strong> e como garante que ele cumpre regras de segurança antes de acessar recursos corporativos. Você vai ver aqui a parte mais confusa para muita gente: os <strong>tipos de ingresso (join types)</strong>.</p>
 
   <h3 class="section-h">2.1 · Os 3 estados de dispositivo no Entra ID</h3>
 
@@ -1072,28 +1450,28 @@
 
   <div class="concept-box">
     <span class="label">A ideia central</span>
-    <p>A diferença entre eles é <strong>quem é o "dono" da identidade do dispositivo</strong> e <strong>que tipo de utilizador faz login nele</strong>. Vou explicar cada um separadamente, com analogia, e depois fazer uma tabela comparativa.</p>
+    <p>A diferença entre eles é <strong>quem é o "dono" da identidade do dispositivo</strong> e <strong>que tipo de usuário faça login nele</strong>. Vou explicar cada um separadamente, com analogia, e depois fazer uma tabela comparativa.</p>
   </div>
 
   <h4 class="subsection-h">🔷 Entra Joined</h4>
-  <p>O dispositivo é <strong>"cidadão"</strong> do Entra ID. Não tem ligação com Active Directory on-premises. O utilizador faz login no Windows com a sua conta Entra ID corporativa (<code>nome@empresa.com</code>).</p>
+  <p>O dispositivo é <strong>"cidadão"</strong> do Entra ID. Não tem conexão com Active Directory on-premises. O usuário faça login no Windows com a sua conta Entra ID corporativa (<code>nome@empresa.com</code>).</p>
 
   <ul>
     <li><strong>Quem se autentica:</strong> a conta de trabalho Entra ID</li>
     <li><strong>Dispositivo é propriedade de:</strong> a organização (corporate-owned)</li>
-    <li><strong>Sistema operativo:</strong> Windows 10/11 <strong>Pro, Enterprise, Education</strong> (Home NÃO suporta)</li>
+    <li><strong>Sistema operacional:</strong> Windows 10/11 <strong>Pro, Enterprise, Education</strong> (Home NÃO suporta)</li>
     <li><strong>Recebe Primary Refresh Token (PRT)</strong> no login → SSO automático para Microsoft 365 e apps SaaS</li>
-    <li><strong>Gestão:</strong> Microsoft Intune (MDM completo)</li>
+    <li><strong>Gerenciamento:</strong> Microsoft Intune (MDM completo)</li>
     <li><strong>Casos de uso:</strong> ambiente cloud-first, empresas modernas, startups, qualquer organização sem dependência forte de apps legacy on-premises</li>
   </ul>
 
   <h4 class="subsection-h">🔶 Entra Hybrid Joined</h4>
-  <p>O dispositivo está <strong>"em duas casas"</strong> ao mesmo tempo: ingressado no Active Directory on-premises <em>e também</em> registado no Entra ID. É o estado da "ponte" para empresas que ainda têm AD on-prem mas querem benefícios do Entra (SSO cloud, Conditional Access, Intune).</p>
+  <p>O dispositivo está <strong>"em duas casas"</strong> ao mesmo tempo: ingressado no Active Directory on-premises <em>e também</em> registrado no Entra ID. É o estado da "ponte" para empresas que ainda têm AD on-prem mas querem benefícios do Entra (SSO cloud, Conditional Access, Intune).</p>
 
   <ul>
     <li><strong>Quem se autentica:</strong> a conta AD (que é sincronizada com Entra ID via <strong>Entra Connect</strong> ou <strong>Entra Cloud Sync</strong>)</li>
     <li><strong>Dispositivo é propriedade de:</strong> a organização</li>
-    <li><strong>Sistema operativo:</strong> apenas <strong>Windows</strong> (Windows 10/11 Pro, Enterprise, Education)</li>
+    <li><strong>Sistema operacional:</strong> apenas <strong>Windows</strong> (Windows 10/11 Pro, Enterprise, Education)</li>
     <li><strong>Precisa de linha de visão para Domain Controller</strong> on-premises (problema para remote workers!)</li>
     <li>Suporta <strong>Kerberos/NTLM</strong> para apps legacy on-premises (file shares, apps internas)</li>
     <li><strong>Group Policy (GPO)</strong> continua a funcionar</li>
@@ -1106,15 +1484,15 @@
   </div>
 
   <h4 class="subsection-h">🟡 Entra Registered (Workplace Join)</h4>
-  <p>O dispositivo é <strong>pessoal</strong> – pertence ao utilizador, não à organização. O utilizador apenas "regista" o dispositivo para conseguir aceder a recursos da empresa (email, Teams, etc.) <strong>sem perder o controlo do seu próprio dispositivo</strong>.</p>
+  <p>O dispositivo é <strong>pessoal</strong> – pertence ao usuário, não à organização. O usuário apenas "registra" o dispositivo para conseguir acessar recursos da empresa (email, Teams, etc.) <strong>sem perder o controlo do seu próprio dispositivo</strong>.</p>
 
   <ul>
     <li><strong>Quem se autentica:</strong> conta pessoal (Microsoft account local) <em>+</em> uma conta de trabalho adicional para apps específicas</li>
-    <li><strong>Dispositivo é propriedade de:</strong> o utilizador (BYOD — Bring Your Own Device)</li>
-    <li><strong>Sistema operativo:</strong> ⭐ <strong>Windows 10/11, macOS, iOS, iPadOS, Android, Linux</strong> – é o ÚNICO estado que suporta TUDO</li>
-    <li><strong>Gestão:</strong> normalmente <strong>MAM (Mobile Application Management)</strong>, não MDM completo. A organização controla apenas as apps corporativas, não o dispositivo todo.</li>
+    <li><strong>Dispositivo é propriedade de:</strong> o usuário (BYOD — Bring Your Own Device)</li>
+    <li><strong>Sistema operacional:</strong> ⭐ <strong>Windows 10/11, macOS, iOS, iPadOS, Android, Linux</strong> – é o ÚNICO estado que suporta TUDO</li>
+    <li><strong>Gerenciamento:</strong> normalmente <strong>MAM (Mobile Application Management)</strong>, não MDM completo. A organização controla apenas os apps corporativas, não o dispositivo todo.</li>
     <li><strong>SSO:</strong> mais limitado – funciona para apps cloud específicas, não é "transparente" como nos outros estados</li>
-    <li><strong>Casos de uso:</strong> BYOD, telefones pessoais a aceder a email corporativo, contractors</li>
+    <li><strong>Casos de uso:</strong> BYOD, telefones pessoais a acessar email corporativo, contractors</li>
   </ul>
 
   <h4 class="subsection-h">📊 Tabela comparativa completa</h4>
@@ -1133,10 +1511,10 @@
         <td class="label-cell">Dono do dispositivo</td>
         <td>Organização</td>
         <td>Organização</td>
-        <td>Utilizador (BYOD)</td>
+        <td>Usuário (BYOD)</td>
       </tr>
       <tr>
-        <td class="label-cell">Sistemas operativos</td>
+        <td class="label-cell">Sistemas operacionais</td>
         <td>Windows 10/11 (Pro+)</td>
         <td>Apenas Windows</td>
         <td><strong>Windows, macOS, iOS, Android, Linux</strong></td>
@@ -1166,10 +1544,10 @@
         <td class="no">Não</td>
       </tr>
       <tr>
-        <td class="label-cell">Gestão típica</td>
+        <td class="label-cell">Gerenciamento típica</td>
         <td>Intune (MDM)</td>
         <td>Co-management ou Intune</td>
-        <td>MAM (gestão por app)</td>
+        <td>MAM (gerenciamento por app)</td>
       </tr>
       <tr>
         <td class="label-cell">Conditional Access</td>
@@ -1188,18 +1566,380 @@
 
   <div class="tip-box">
     <span class="label">💡 Truque para a prova</span>
-    <p>Identifica pelas palavras-chave do cenário:</p>
+    <p>Identifique pelas palavras-chave do cenário:</p>
     <ul>
       <li><strong>"Cloud-first", "sem on-premises", "nova empresa"</strong> → <strong>Entra Joined</strong></li>
       <li><strong>"Já temos AD", "apps legacy", "file shares Kerberos", "GPO"</strong> → <strong>Hybrid Joined</strong></li>
-      <li><strong>"BYOD", "dispositivo pessoal", "iPhone do utilizador", "Mac pessoal"</strong> → <strong>Entra Registered</strong></li>
+      <li><strong>"BYOD", "dispositivo pessoal", "iPhone do usuário", "Mac pessoal"</strong> → <strong>Entra Registered</strong></li>
     </ul>
   </div>
 
-  <h3 class="section-h">2.2 · Autenticação no dispositivo</h3>
+  <h4 class="subsection-h">🎨 Diagrama visual · Que sistemas operacionais cada estado suporta</h4>
+  <p>Esta é a parte que mais cai na prova. Olhe com atenção:</p>
+
+  <div class="diagram-wrapper">
+    <svg viewBox="0 0 800 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama dos três estados de dispositivo no Entra ID e os sistemas operacionais suportados">
+      <defs>
+        <linearGradient id="gradJoined" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#7BA7C4" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#7BA7C4" stop-opacity="0.03"/>
+        </linearGradient>
+        <linearGradient id="gradHybrid" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#9E7A10" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#9E7A10" stop-opacity="0.03"/>
+        </linearGradient>
+        <linearGradient id="gradReg" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#B85C72" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#B85C72" stop-opacity="0.03"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Título -->
+      <text x="400" y="32" text-anchor="middle" font-family="DM Serif Display, serif" font-size="20" fill="#2C2825">Estados de dispositivo no Microsoft Entra ID</text>
+      <text x="400" y="54" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="12" fill="#6B635C">Quem é dono · Que SO suporta · Como se gerencia</text>
+
+      <!-- ENTRA JOINED CARD -->
+      <rect x="30" y="80" width="240" height="420" rx="14" fill="url(#gradJoined)" stroke="#7BA7C4" stroke-width="1.5"/>
+      <rect x="30" y="80" width="240" height="40" rx="14" fill="#7BA7C4"/>
+      <rect x="30" y="106" width="240" height="14" fill="#7BA7C4"/>
+      <text x="150" y="106" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#FDFAF7">ENTRA JOINED</text>
+
+      <text x="150" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#7BA7C4">CORPORATE-OWNED · CLOUD-NATIVE</text>
+
+      <text x="50" y="180" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#2C2825">Sistemas operacionais:</text>
+
+      <!-- OS suportados Entra Joined -->
+      <g transform="translate(50, 195)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Pro</text>
+      </g>
+      <g transform="translate(50, 228)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Enterprise</text>
+      </g>
+      <g transform="translate(50, 261)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Education</text>
+      </g>
+      <g transform="translate(50, 294)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#B85C72" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#B85C72" font-weight="700">✗</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#6B635C">Windows Home</text>
+      </g>
+      <g transform="translate(50, 327)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#B85C72" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#B85C72" font-weight="700">✗</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#6B635C">macOS / iOS / Android</text>
+      </g>
+
+      <!-- Detalhes -->
+      <text x="50" y="380" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#7BA7C4">LOGIN COM:</text>
+      <text x="50" y="396" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Conta Entra ID corporativa</text>
+
+      <text x="50" y="420" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#7BA7C4">GERENCIAMENTO:</text>
+      <text x="50" y="436" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Intune (MDM completo)</text>
+
+      <text x="50" y="460" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#7BA7C4">CASO TÍPICO:</text>
+      <text x="50" y="476" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Notebook corporativo</text>
+      <text x="50" y="490" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">cloud-first</text>
+
+      <!-- HYBRID JOINED CARD -->
+      <rect x="280" y="80" width="240" height="420" rx="14" fill="url(#gradHybrid)" stroke="#9E7A10" stroke-width="1.5"/>
+      <rect x="280" y="80" width="240" height="40" rx="14" fill="#9E7A10"/>
+      <rect x="280" y="106" width="240" height="14" fill="#9E7A10"/>
+      <text x="400" y="106" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#FDFAF7">HYBRID JOINED</text>
+
+      <text x="400" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#9E7A10">CORPORATE-OWNED · AD + ENTRA</text>
+
+      <text x="300" y="180" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#2C2825">Sistemas operacionais:</text>
+
+      <g transform="translate(300, 195)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Pro</text>
+      </g>
+      <g transform="translate(300, 228)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Enterprise</text>
+      </g>
+      <g transform="translate(300, 261)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11 Education</text>
+      </g>
+      <g transform="translate(300, 294)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#B85C72" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#B85C72" font-weight="700">✗</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#6B635C">Windows Home</text>
+      </g>
+      <g transform="translate(300, 327)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#B85C72" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#B85C72" font-weight="700">✗</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#6B635C">macOS / iOS / Android</text>
+      </g>
+
+      <text x="300" y="380" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#9E7A10">LOGIN COM:</text>
+      <text x="300" y="396" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Conta AD on-premises</text>
+
+      <text x="300" y="420" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#9E7A10">GERENCIAMENTO:</text>
+      <text x="300" y="436" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Co-management ou Intune</text>
+
+      <text x="300" y="460" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#9E7A10">CASO TÍPICO:</text>
+      <text x="300" y="476" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Empresas com AD legacy</text>
+      <text x="300" y="490" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">a transitar para a cloud</text>
+
+      <!-- ENTRA REGISTERED CARD -->
+      <rect x="530" y="80" width="240" height="420" rx="14" fill="url(#gradReg)" stroke="#B85C72" stroke-width="1.5"/>
+      <rect x="530" y="80" width="240" height="40" rx="14" fill="#B85C72"/>
+      <rect x="530" y="106" width="240" height="14" fill="#B85C72"/>
+      <text x="650" y="106" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#FDFAF7">ENTRA REGISTERED</text>
+
+      <text x="650" y="148" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="11" font-weight="600" fill="#B85C72">BYOD · DISPOSITIVO PESSOAL</text>
+
+      <text x="550" y="180" font-family="DM Sans, sans-serif" font-size="11" font-weight="700" fill="#2C2825">Sistemas operacionais:</text>
+
+      <g transform="translate(550, 195)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Windows 10/11</text>
+      </g>
+      <g transform="translate(550, 228)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">macOS</text>
+      </g>
+      <g transform="translate(550, 261)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">iOS / iPadOS</text>
+      </g>
+      <g transform="translate(550, 294)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Android</text>
+      </g>
+      <g transform="translate(550, 327)">
+        <rect width="200" height="28" rx="6" fill="#fff" stroke="#6B8E5A" stroke-width="1.5"/>
+        <text x="14" y="18" font-family="DM Sans, sans-serif" font-size="12" fill="#6B8E5A" font-weight="700">✓</text>
+        <text x="32" y="18" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Linux (Ubuntu)</text>
+      </g>
+
+      <text x="550" y="380" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#B85C72">LOGIN COM:</text>
+      <text x="550" y="396" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">Conta pessoal (não corp)</text>
+
+      <text x="550" y="420" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#B85C72">GERENCIAMENTO:</text>
+      <text x="550" y="436" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">MAM (gerenciamento por app)</text>
+
+      <text x="550" y="460" font-family="DM Sans, sans-serif" font-size="10" font-weight="700" fill="#B85C72">CASO TÍPICO:</text>
+      <text x="550" y="476" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">iPhone pessoal a acessar</text>
+      <text x="550" y="490" font-family="DM Sans, sans-serif" font-size="11" fill="#2C2825">a email corporativo</text>
+
+      <!-- Legenda inferior -->
+      <text x="400" y="525" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="10" fill="#6B635C" font-style="italic">Apenas Entra Registered suporta TODOS os sistemas operacionais · É o único estado para BYOD</text>
+    </svg>
+  </div>
+
+  <div class="warning-box">
+    <span class="label">⚠️ Memorize este padrão</span>
+    <p><strong>Entra Joined</strong> e <strong>Hybrid Joined</strong> são <strong>EXCLUSIVOS do Windows</strong> (Pro/Enterprise/Education). Se aparecer numa questão um <em>iPhone, iPad, MacBook, celular Android, tablet Android</em> ou <em>Linux</em>, a única opção possível é <strong>Entra Registered</strong>. Esta armadilha aparece em ~3-4 questões da prova.</p>
+  </div>
+
+  <h3 class="section-h">2.2 · Como adicionar um dispositivo ao Entra ID (na prática)</h3>
+
+  <p>Vou separar por cenário, porque o caminho que tomas depende muito do tipo de dispositivo. Pensa nisto como uma "árvore de decisão":</p>
+
+  <h4 class="subsection-h">Cenário A · Windows novo, corporativo (Entra Joined)</h4>
+  <p>O método depende de quantos dispositivos:</p>
+  <ul>
+    <li><strong>Um ou poucos dispositivos:</strong> Settings → Accounts → Access work or school → Connect → "Join this device to Microsoft Entra ID". O usuário insira a conta corporativa.</li>
+    <li><strong>Em massa (recomendado):</strong> <strong>Windows Autopilot</strong> — o usuário apenas liga o dispositivo, faça login no OOBE, e tudo é automático. Veja a seção de Autopilot no Domínio 3.</li>
+    <li><strong>Durante o OOBE (Out-of-Box Experience):</strong> ao configurer Windows pela primeira vez, escolher "Set up for an organization" e inserir credenciais corporativas → o dispositivo fica automaticamente Entra Joined.</li>
+  </ul>
+
+  <h4 class="subsection-h">Cenário B · Windows já existente em domínio AD (Hybrid Joined)</h4>
+  <p>O dispositivo já está ingressado no AD on-premises e você quer que também seja registrado no Entra ID. Passos a alto nível:</p>
+  <ol>
+    <li>Instalar e configurer <strong>Microsoft Entra Connect</strong> (ou Entra Cloud Sync) no servidor on-premises para sincronizar identidades.</li>
+    <li>Configurar o <strong>Service Connection Point (SCP)</strong> no AD on-premises a apontar para o tenant Entra.</li>
+    <li>Configurar uma <strong>GPO</strong> para "Register domain-joined computers as devices".</li>
+    <li>Os dispositivos completam o registro automaticamente no próximo login.</li>
+  </ol>
+
+  <div class="tip-box">
+    <span class="label">💡 Atenção ao Autopilot Hybrid Join</span>
+    <p>Para Autopilot fazer um dispositivo Hybrid Joined, precisa adicionalmente do <strong>Intune Connector for Active Directory</strong> instalado num servidor com linha de visão para o domain controller. É fonte comum de problemas e aparece em questões da prova.</p>
+  </div>
+
+  <h4 class="subsection-h">Cenário C · iPhone/iPad pessoal a acessar email corporativo (Entra Registered)</h4>
+  <p>O usuário apenas instale o app <strong>Microsoft Authenticator</strong> ou <strong>Company Portal</strong> e adiciona a conta corporativa. Não há nada a configurer pelo IT — o dispositivo é automaticamente registrado no Entra. Se houver uma App Protection Policy aplicável, ela é aplicada aos apps relevantes (Outlook, Teams, Word, etc.).</p>
+
+  <h4 class="subsection-h">Cenário D · macOS corporativo</h4>
+  <p>macOS pode ser Entra Registered <strong>ou</strong> totalmente gerenciado via Intune. Para gerenciamento completa:</p>
+  <ol>
+    <li>Configurar a integração com <strong>Apple Business Manager (ABM)</strong></li>
+    <li>Importar tokens MDM da Apple para o Intune</li>
+    <li>Adicionar números de série dos Macs no ABM</li>
+    <li>Aplicar uma política Automated Device Enrollment (ADE)</li>
+    <li>O Mac é configuredo automaticamente no primeiro arranque</li>
+  </ol>
+
+  <h3 class="section-h">2.3 · Como inscrever dispositivos no Intune (na prática)</h3>
+
+  <p>Atenção: <strong>"adicionar ao Entra"</strong> e <strong>"inscrever no Intune"</strong> são <strong>duas coisas diferentes</strong>, embora muitas vezes aconteçam em conjunto.</p>
+
+  <div class="concept-box">
+    <span class="label">Diferença fundamental</span>
+    <p><strong>Entra ID</strong> = identidade do dispositivo (quem ele é, a quem pertence, qual o seu estado).<br>
+    <strong>Intune (MDM)</strong> = gerenciamento do dispositivo (políticas, apps, compliance, configurações).</p>
+    <p>Um dispositivo pode estar no Entra ID <strong>sem</strong> estar no Intune (ex: dispositivo Entra Registered sem MAM). Mas para gerenciamento completa, normalmente você quer ambos.</p>
+  </div>
+
+  <h4 class="subsection-h">Pré-requisito: ativar Automatic Enrollment</h4>
+  <p>Este é o passo mais esquecido (e o que mais causa problemas no lab):</p>
+  <ol>
+    <li>Vai a <strong>Entra admin center → Identity → Mobility (MDM and WIP) → Microsoft Intune</strong></li>
+    <li>Defina o <strong>MDM user scope</strong> para <em>All</em> (ou um grupo específico)</li>
+    <li>Mantém o <strong>MAM user scope</strong> também ativado para BYOD</li>
+  </ol>
+
+  <p>Sem isto, mesmo que o dispositivo se junte ao Entra, <strong>não se inscreve no Intune automaticamente</strong> — e o Autopilot vai falhar.</p>
+
+  <h4 class="subsection-h">Métodos de enrollment por plataforma</h4>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Plataforma</th>
+        <th>Como o usuário inscreve</th>
+        <th>Quando usar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label-cell">Windows (auto)</td>
+        <td>Acontece automaticamente quando se junta ao Entra ID (se MDM scope estiver ativo)</td>
+        <td>Padrão para Entra Joined</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Windows (manual)</td>
+        <td>Settings → Accounts → Access work or school → "Enroll only in device management"</td>
+        <td>BYOD Windows raro</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Windows Autopilot</td>
+        <td>Automático durante OOBE</td>
+        <td>Dispositivos novos em massa</td>
+      </tr>
+      <tr>
+        <td class="label-cell">iOS / iPadOS</td>
+        <td>App Company Portal → adicionar conta</td>
+        <td>BYOD</td>
+      </tr>
+      <tr>
+        <td class="label-cell">iOS / iPadOS (ADE)</td>
+        <td>Automático no OOBE via Apple Business Manager</td>
+        <td>Dispositivos corporativos</td>
+      </tr>
+      <tr>
+        <td class="label-cell">macOS</td>
+        <td>App Company Portal + perfil MDM aceite manualmente</td>
+        <td>BYOD ou corp</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Android Personally-Owned</td>
+        <td>Play Store → Intune Company Portal</td>
+        <td>BYOD</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Android Fully Managed</td>
+        <td>Factory reset + scan de QR code Intune</td>
+        <td>Dispositivos corporativos</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Android Zero-Touch</td>
+        <td>Automático pelo Google – sem touch</td>
+        <td>Grandes deployments</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="section-h">2.4 · O Company Portal · O app central</h3>
+
+  <p>O <strong>Company Portal</strong> é o app oficial da Microsoft que serve como <strong>"porta de entrada"</strong> dos usuários para os recursos corporativos. É uma das ferramentas mais importantes que aparecem na prova — você vai ver questões sobre ela com certeza.</p>
+
+  <h4 class="subsection-h">O que faça o Company Portal</h4>
+  <ul>
+    <li><strong>Inscrever o dispositivo no Intune</strong> (em iOS, Android, macOS)</li>
+    <li><strong>Apresentar apps disponíveis</strong> (intent "Available") para instalação on-demand pelo usuário</li>
+    <li><strong>Mostrar o estado de compliance</strong> do dispositivo ao usuário — "Compliant ✓" ou "Take action"</li>
+    <li><strong>Indicar ao usuário o que fazer</strong> para voltar a estar compliant (ex: "Atualize o iOS para 17.0+")</li>
+    <li><strong>Permitir retire/remove</strong> do próprio dispositivo (útil para BYOD a sair da empresa)</li>
+    <li><strong>Acessar "Self-service senha reset"</strong> e outras funções</li>
+  </ul>
+
+  <h4 class="subsection-h">Disponibilidade do Company Portal</h4>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Plataforma</th>
+        <th>Onde se obtém</th>
+        <th>Função principal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label-cell">Windows 10/11</td>
+        <td>Microsoft Store</td>
+        <td>Apps available + status compliance</td>
+      </tr>
+      <tr>
+        <td class="label-cell">iOS / iPadOS</td>
+        <td>App Store</td>
+        <td>Enrollment + apps + compliance</td>
+      </tr>
+      <tr>
+        <td class="label-cell">macOS</td>
+        <td>Download direto Microsoft</td>
+        <td>Enrollment + apps + compliance</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Android</td>
+        <td>Google Play Store</td>
+        <td>Enrollment + apps + compliance</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Web Portal</td>
+        <td>portal.manage.microsoft.com</td>
+        <td>Alternativa via browser para qualquer plataforma</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4 class="subsection-h">Customização do Company Portal</h4>
+  <p>No Intune admin center → Tenant administration → Customization, você pode customizar:</p>
+  <ul>
+    <li>Logo e cores corporativas</li>
+    <li>Nome da empresa</li>
+    <li>Contatos de suporte (telefone, email do help desk)</li>
+    <li>Mensagem de boas-vindas</li>
+    <li>URL de site de privacidade</li>
+    <li>Apps "destacadas" (Featured apps)</li>
+    <li>Ações de usuário permitidas (renomear dispositivo, retire, etc.)</li>
+  </ul>
+
+  <div class="tip-box">
+    <span class="label">💡 Para a prova</span>
+    <p>Se você vir um cenário <strong>"como é que o usuário instala umo app opcional"</strong>, a resposta envolve <strong>Company Portal</strong>. Se você vir <strong>"como é que o usuário veja porque é que o seu dispositivo está non-compliant"</strong>, também é Company Portal. É a <strong>cara da gerenciamento</strong> para o usuário final.</p>
+  </div>
+
+  <h3 class="section-h">2.5 · Autenticação no dispositivo</h3>
 
   <h4 class="subsection-h">Windows Hello for Business (WHfB)</h4>
-  <p>Substitui passwords por autenticação biométrica (impressão digital, reconhecimento facial) ou PIN. <strong>Importante:</strong> o PIN do WHfB é diferente de uma password — está ligado ao TPM do dispositivo e nunca sai do hardware.</p>
+  <p>Substitui senhas por autenticação biométrica (impressão digital, reconhecimento facial) ou PIN. <strong>Importante:</strong> o PIN do WHfB é diferente de uma senha — está ligado ao TPM do dispositivo e nunca sai do hardware.</p>
 
   <ul>
     <li><strong>Cloud trust model</strong> (recomendado): usa Entra ID Kerberos. Não precisa de PKI on-premises.</li>
@@ -1208,22 +1948,22 @@
   </ul>
 
   <h4 class="subsection-h">FIDO2 / Passkeys</h4>
-  <p>Chaves de segurança físicas (USB, NFC) ou passkeys armazenadas em dispositivos. Permitem login passwordless completamente.</p>
+  <p>Chaves de segurança físicas (USB, NFC) ou passkeys armazenadas em dispositivos. Permitem login senhaless completamente.</p>
 
   <h4 class="subsection-h">Multi-Factor Authentication (MFA)</h4>
-  <p>Combina algo que sabes (password) + algo que tens (telemóvel, token) + algo que és (biometria). Configurado em <strong>Conditional Access</strong> ou via <em>Security Defaults</em>.</p>
+  <p>Combina algo que você sabe (senha) + algo que você tem (celular, token) + algo que você é (biometria). Configurado em <strong>Conditional Access</strong> ou via <em>Security Defaults</em>.</p>
 
-  <h3 class="section-h">2.3 · Compliance Policies (Políticas de Conformidade)</h3>
+  <h3 class="section-h">2.6 · Compliance Policies (Políticas de Conformidade)</h3>
 
   <p>Uma <strong>Compliance Policy</strong> no Intune define <strong>quais regras um dispositivo deve cumprir</strong> para ser considerado "compliant". Exemplos:</p>
 
   <ul>
-    <li>Versão mínima do sistema operativo</li>
+    <li>Versão mínima do sistema operacional</li>
     <li>BitLocker ativado</li>
     <li>Secure Boot ativado</li>
     <li>Antivirus em dia</li>
     <li>Sem jailbreak/root</li>
-    <li>Password com complexidade mínima</li>
+    <li>Senha com complexidade mínima</li>
     <li>Microsoft Defender for Endpoint com risk score baixo</li>
   </ul>
 
@@ -1233,16 +1973,16 @@
   </div>
 
   <h4 class="subsection-h">Actions for noncompliance</h4>
-  <p>Quando um dispositivo se torna non-compliant, podes configurar ações graduais:</p>
+  <p>Quando um dispositivo se torna non-compliant, você pode configurer ações graduais:</p>
   <ol>
     <li><strong>Mark device noncompliant</strong> imediatamente, ou após X dias de tolerância</li>
     <li><strong>Send email to end user</strong> a alertar</li>
-    <li><strong>Send push notification</strong> ao utilizador</li>
+    <li><strong>Send push notification</strong> ao usuário</li>
     <li><strong>Remotely lock the device</strong></li>
     <li><strong>Retire the noncompliant device</strong> (remoção completa)</li>
   </ol>
 
-  <h3 class="section-h">2.4 · Conditional Access (CA)</h3>
+  <h3 class="section-h">2.7 · Conditional Access (CA)</h3>
 
   <p>É o "porteiro" do Entra ID. Uma política de Conditional Access tem dois lados:</p>
 
@@ -1255,7 +1995,7 @@
     </thead>
     <tbody>
       <tr>
-        <td>Utilizadores ou grupos</td>
+        <td>Usuários ou grupos</td>
         <td>Bloquear acesso (Block)</td>
       </tr>
       <tr>
@@ -1275,8 +2015,8 @@
         <td>Exigir app aprovada (ex: Outlook)</td>
       </tr>
       <tr>
-        <td>Risco do sign-in / utilizador</td>
-        <td>Exigir mudança de password</td>
+        <td>Risco do sign-in / usuário</td>
+        <td>Exigir mudança de senha</td>
       </tr>
     </tbody>
   </table>
@@ -1288,19 +2028,19 @@
       <li><strong>Require all of the selected controls (AND):</strong> <em>"Exigir MFA <strong>E</strong> dispositivo compliant"</em> — muito mais restritivo</li>
       <li><strong>Require one of the selected controls (OR):</strong> <em>"Exigir MFA <strong>OU</strong> dispositivo compliant"</em> — menos restritivo</li>
     </ul>
-    <p>A prova adora testar isto. Lê com atenção qual operador está a ser usado.</p>
+    <p>A prova adora testar isto. Leia com atenção qual operador está sendo usado.</p>
   </div>
 
   <h4 class="subsection-h">Report-only mode</h4>
-  <p>Antes de "ligar" uma política em produção, podes pô-la em <strong>Report-only</strong>. A política é avaliada para cada sign-in mas <strong>não é aplicada</strong> – só regista no log o que <em>teria</em> acontecido. Excelente para testar sem partir nada.</p>
+  <p>Antes de "ligar" uma política em produção, você pode pô-la em <strong>Report-only</strong>. A política é avaliada para cada sign-in mas <strong>não é aplicada</strong> – só registra no log o que <em>teria</em> acontecido. Excelente para testar sem partir nada.</p>
 
-  <h3 class="section-h">2.5 · Intune RBAC e Scope Tags</h3>
+  <h3 class="section-h">2.8 · Intune RBAC e Scope Tags</h3>
 
-  <p>Em organizações grandes, queres separar quem pode gerir o quê. O Intune tem três conceitos:</p>
+  <p>Em organizações grandes, você quer separar quem pode gerenciar o quê. O Intune tem três conceitos:</p>
 
   <ul>
     <li><strong>Roles:</strong> "School Administrator", "Help Desk Operator", "Policy and Profile Manager", etc.</li>
-    <li><strong>Scope Tags:</strong> etiquetas que limitam <em>quais</em> recursos um admin vê. Ex: scope tag "Lisbon" só vê dispositivos do escritório de Lisboa.</li>
+    <li><strong>Scope Tags:</strong> etiquetas que limitam <em>quais</em> recursos um admin veja. Ex: scope tag "Lisbon" só veja dispositivos do escritório de Lisboa.</li>
     <li><strong>Assignments:</strong> a quem o role/scope é atribuído.</li>
   </ul>
 
@@ -1311,7 +2051,7 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 1</span>
-      <p class="q-text">Um utilizador da tua empresa quer aceder ao email corporativo no seu iPhone pessoal. Ele não quer que a empresa controle todo o telefone, apenas o email. Qual estado de dispositivo é apropriado?</p>
+      <p class="q-text">Um usuário da sua empresa quer acessaro email corporativo no seu iPhone pessoal. Ele não quer que a empresa controle todo o telefone, apenas o email. Qual estado de dispositivo é apropriado?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Entra Joined</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Hybrid Joined</li>
@@ -1321,13 +2061,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        <strong>Entra Registered</strong> é o ÚNICO estado que suporta iOS (e macOS, Android, Linux). É feito para cenários BYOD: o dispositivo é do utilizador, e a empresa apenas controla as apps corporativas via MAM (Mobile Application Management). Entra Joined e Hybrid Joined exigem Windows.
+        <strong>Entra Registered</strong> é o ÚNICO estado que suporta iOS (e macOS, Android, Linux). É feito para cenários BYOD: o dispositivo é do usuário, e a empresa apenas controla os apps corporativas via MAM (Mobile Application Management). Entra Joined e Hybrid Joined exigem Windows.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 2</span>
-      <p class="q-text">A tua organização tem uma aplicação interna que exige autenticação Kerberos contra Active Directory. Qual estado de dispositivo deves usar para permitir que utilizadores remotos a acedam, mantendo benefícios do Entra ID?</p>
+      <p class="q-text">A sua organização tem um aplicativo interna que exige autenticação Kerberos contra Active Directory. Qual estado de dispositivo você deve usar para permitir que usuários remotos a acedam, mantendo benefícios do Entra ID?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Entra Joined</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Hybrid Joined</li>
@@ -1343,7 +2083,7 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 3</span>
-      <p class="q-text">Crias uma política de Conditional Access que exige "MFA AND device compliant". Um utilizador faz MFA mas o dispositivo está non-compliant. O que acontece?</p>
+      <p class="q-text">Crias uma política de Conditional Access que exige "MFA AND device compliant". Um usuário faça MFA mas o dispositivo está non-compliant. O que acontece?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Acesso permitido – MFA é suficiente</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Acesso negado – ambos os controlos têm de ser cumpridos</li>
@@ -1359,9 +2099,9 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 4</span>
-      <p class="q-text">Queres testar uma nova política de Conditional Access sem afetar utilizadores reais. Qual é a melhor abordagem?</p>
+      <p class="q-text">Você quer testar uma nova política de Conditional Access sem afetar usuários reais. Qual é a melhor abordagem?</p>
       <ol class="q-options">
-        <li data-correct="false"><span class="opt-letter">A.</span> Aplicar a política apenas ao teu utilizador admin</li>
+        <li data-correct="false"><span class="opt-letter">A.</span> Aplicar a política apenas ao seu usuário admin</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Desativar a política depois de criada</li>
         <li data-correct="true"><span class="opt-letter">C.</span> Configurar a política em modo Report-only</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Aplicar a política a um grupo vazio</li>
@@ -1375,39 +2115,39 @@
 
     <div class="quiz-question">
       <span class="q-number">Questão 5</span>
-      <p class="q-text">Numa Compliance Policy, o que acontece quando configuras "Mark device noncompliant" com tolerância de 5 dias?</p>
+      <p class="q-text">Numa Compliance Policy, o que acontece quando configures "Mark device noncompliant" com tolerância de 5 dias?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> O dispositivo é marcado non-compliant imediatamente</li>
         <li data-correct="true"><span class="opt-letter">B.</span> O dispositivo tem 5 dias para voltar a estar compliant antes de ser marcado non-compliant</li>
         <li data-correct="false"><span class="opt-letter">C.</span> O dispositivo é apagado depois de 5 dias</li>
-        <li data-correct="false"><span class="opt-letter">D.</span> O utilizador é bloqueado por 5 dias</li>
+        <li data-correct="false"><span class="opt-letter">D.</span> O usuário é bloqueado por 5 dias</li>
       </ol>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        A tolerância (grace period) dá tempo ao utilizador para corrigir o problema (ex: instalar uma atualização) antes do dispositivo ser oficialmente marcado non-compliant. Durante esses 5 dias, o dispositivo é considerado "in grace period".
+        A tolerância (grace period) dá tempo ao usuário para corrigir o problema (ex: instalar uma atualização) antes do dispositivo ser oficialmente marcado non-compliant. Durante esses 5 dias, o dispositivo é considerado "in grace period".
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 6</span>
-      <p class="q-text">Um administrador na filial de Lisboa só deve poder gerir dispositivos localizados em Lisboa. Como o configuras no Intune?</p>
+      <p class="q-text">Um administrador na filial de Lisboa só deve poder gerenciar dispositivos localizados em Lisboa. Como o configures no Intune?</p>
       <ol class="q-options">
-        <li data-correct="false"><span class="opt-letter">A.</span> Criar uma subscrição Intune separada para Lisboa</li>
-        <li data-correct="true"><span class="opt-letter">B.</span> Usar Scope Tags com o valor "Lisbon" e atribuir o role RBAC com esse scope</li>
+        <li data-correct="false"><span class="opt-letter">A.</span> Criar uma assinatura Intune separada para Lisboa</li>
+        <li data-correct="true"><span class="opt-letter">B.</span> Usar Scope Tags com o valor "Lisbon" e atribuar o role RBAC com esse scope</li>
         <li data-correct="false"><span class="opt-letter">C.</span> Criar uma Compliance Policy específica para Lisboa</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Não é possível segmentar admins no Intune</li>
       </ol>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Scope Tags</strong> são a forma do Intune segmentar visibilidade de recursos. Atribuis a scope tag "Lisbon" aos dispositivos/políticas de Lisboa, e atribuis o admin a um role RBAC limitado a essa scope tag. Ele só vê o que está marcado com "Lisbon".
+        <strong>Scope Tags</strong> são a forma do Intune segmentar visibilidade de recursos. Atribuas a scope tag "Lisbon" aos dispositivos/políticas de Lisboa, e atribuas o admin a um role RBAC limitado a essa scope tag. Ele só veja o que está marcado com "Lisbon".
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 7</span>
-      <p class="q-text">A tua empresa está a criar do zero – cloud-first, sem nenhuma infraestrutura on-premises. Qual estado de dispositivo deves implantar para os portáteis Windows novos?</p>
+      <p class="q-text">A sua empresa está criando do zero – cloud-first, sem nenhuma infraestrutura on-premises. Qual estado de dispositivo você deve implantar para os notebooks Windows novos?</p>
       <ol class="q-options">
         <li data-correct="true"><span class="opt-letter">A.</span> Entra Joined</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Hybrid Joined</li>
@@ -1417,7 +2157,7 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: A</strong>
-        Cenário cloud-first → <strong>Entra Joined</strong>. Não há AD on-premises, logo Hybrid Joined não faz sentido (e exige AD!). Entra Registered seria para BYOD pessoal. A Microsoft recomenda fortemente Entra Joined para novos dispositivos corporativos.
+        Cenário cloud-first → <strong>Entra Joined</strong>. Não há AD on-premises, logo Hybrid Joined não faça sentido (e exige AD!). Entra Registered seria para BYOD pessoal. A Microsoft recomenda fortemente Entra Joined para novos dispositivos corporativos.
       </div>
     </div>
 
@@ -1431,7 +2171,7 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Cloud trust</strong> é o modelo moderno e simples: usa Entra ID Kerberos, sem PKI on-premises. <strong>Certificate trust</strong> (legacy) é que exige CA on-premises a emitir certificados. <strong>Key trust</strong> usa chaves no TPM mas precisa de Kerberos AD configurado.
+        <strong>Cloud trust</strong> é o modelo moderno e simples: usa Entra ID Kerberos, sem PKI on-premises. <strong>Certificate trust</strong> (legacy) é que exige CA on-premises a emitir certificados. <strong>Key trust</strong> usa chaves no TPM mas precisa de Kerberos AD configuredo.
       </div>
     </div>
 
@@ -1447,13 +2187,13 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        O <strong>Primary Refresh Token (PRT)</strong> é emitido pelo Entra ID no momento do login do Windows e fica armazenado no dispositivo. Permite obter tokens de acesso para qualquer app Entra ID-integrada <strong>sem o utilizador precisar autenticar-se novamente</strong>. É a magia por trás do SSO em dispositivos Entra Joined e Hybrid Joined.
+        O <strong>Primary Refresh Token (PRT)</strong> é emitido pelo Entra ID no momento do login do Windows e fica armazenado no dispositivo. Permite obter tokens de acesso para qualquer app Entra ID-integrada <strong>sem o usuário precisar autenticar novamente</strong>. É a magia por trás do SSO em dispositivos Entra Joined e Hybrid Joined.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 10</span>
-      <p class="q-text">Quais sistemas operativos podem estar em estado Entra Registered? (escolhe a resposta mais completa)</p>
+      <p class="q-text">Quais sistemas operacionais podem estar em estado Entra Registered? (escolha a resposta mais completa)</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Apenas Windows 10/11</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Windows e macOS</li>
@@ -1463,12 +2203,17 @@
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        <strong>Entra Registered é o estado mais "universal"</strong> – suporta praticamente todos os sistemas operativos modernos. Foi desenhado para BYOD, então faz sentido suportar qualquer dispositivo que o utilizador possa ter. Entra Joined e Hybrid Joined são exclusivos do Windows (em ambiente MD-102).
+        <strong>Entra Registered é o estado mais "universal"</strong> – suporta praticamente todos os sistemas operacionais modernos. Foi desenhado para BYOD, então faça sentido suportar qualquer dispositivo que o usuário possa ter. Entra Joined e Hybrid Joined são exclusivos do Windows (em ambiente MD-102).
       </div>
     </div>
 
   </div>
 </section>
+
+</div><!-- /tab dominio-2 -->
+
+<!-- ═══════ TAB · DOMÍNIO 3 ═══════ -->
+<div class="tab-content" id="tab-dominio-3" role="tabpanel">
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- DOMÍNIO 3 -->
@@ -1476,15 +2221,15 @@
 <section class="domain-section" id="dominio-3">
   <div class="domain-header yellow">
     <span class="domain-num">Domínio 3</span>
-    <h2>Gerir, manter e proteger dispositivos</h2>
+    <h2>Gerenciar, manter e proteger dispositivos</h2>
     <span class="weight">40–45% do exame · o mais pesado</span>
   </div>
 
-  <p>Este é o <strong>maior domínio da prova</strong> e onde tens de te focar mais. Cobre tudo o que acontece <strong>depois</strong> de o dispositivo estar inscrito no Intune: configuração, segurança, updates, monitorização, Defender, Windows 365, BitLocker e — o tema principal — <strong>Windows Autopilot</strong>.</p>
+  <p>Este é o <strong>maior domínio da prova</strong> e onde você precisa focar mais. Cobre tudo o que acontece <strong>depois</strong> de o dispositivo estar inscrito no Intune: configuração, segurança, updates, monitoramento, Defender, Windows 365, BitLocker e — o tema principal — <strong>Windows Autopilot</strong>.</p>
 
   <h3 class="section-h">3.1 · Enrollment (Inscrição) de Dispositivos</h3>
 
-  <p>O <strong>enrollment</strong> é o processo pelo qual um dispositivo "entra" no Intune para ser gerido. Cada sistema operativo tem o seu método:</p>
+  <p>O <strong>enrollment</strong> é o processo pelo qual um dispositivo "entra" no Intune para ser gerenciado. Cada sistema operacional tem o seu método:</p>
 
   <table class="compare-table">
     <thead>
@@ -1523,13 +2268,153 @@
     </tbody>
   </table>
 
-  <h4 class="subsection-h">Os 4 modos do Android Enterprise</h4>
+  <h4 class="subsection-h">🔍 Android Enterprise · Mergulho profundo</h4>
+
+  <p>Android é a plataforma mais complexa do Intune porque tem <strong>4 cenários completamente diferentes</strong>, cada um com o seu próprio fluxo de enrollment, capacidades de gerenciamento e casos de uso. Vou explicar cada um com calma.</p>
+
+  <div class="concept-box">
+    <span class="label">Pré-requisito: conexão Google Play</span>
+    <p>Antes de qualquer enrollment Android, você precisa fazer uma <strong>conexão única</strong>: Intune admin center → Devices → Android → Android Enrollment → Managed Google Play. Ligas a sua conta Google empresarial e aprovas a integração com o Intune. Sem isto, <strong>nenhum dos 4 modos funciona</strong>.</p>
+  </div>
+
+  <h4 class="subsection-h">Modo 1 · Android Enterprise Fully Managed</h4>
+  <p>O dispositivo é <strong>100% da empresa</strong>. Não há espaço pessoal. Tudo o que o usuário faça é gerenciado pela organização. Equivalente ao "supervised" do iOS.</p>
   <ul>
-    <li><strong>Fully Managed:</strong> dispositivo 100% da empresa, sem espaço pessoal. Controlo total.</li>
-    <li><strong>Dedicated:</strong> dispositivo de uso único (kiosk, leitor de códigos, terminal). Sem utilizador associado.</li>
-    <li><strong>Corporate-Owned with Work Profile (COPE):</strong> dispositivo da empresa mas o utilizador também o usa pessoalmente. Espaço pessoal e profissional separados.</li>
-    <li><strong>Work Profile (Personally-Owned):</strong> BYOD. O dispositivo é do utilizador; apenas o "work profile" é gerido.</li>
+    <li><strong>Quem é dono:</strong> Organização</li>
+    <li><strong>Espaço pessoal:</strong> ❌ Não existe</li>
+    <li><strong>Como inscrever:</strong> Factory reset → durante setup wizard, no tela de email, digita <code>afw#setup</code> (ou QR code do Intune ou NFC tap)</li>
+    <li><strong>Apps:</strong> Apenas Managed Google Play (apps aprovadas pelo admin)</li>
+    <li><strong>Caso de uso:</strong> Celulares corporativos de comerciais, técnicos no terreno, dispositivos atribuídos individualmente</li>
   </ul>
+
+  <h4 class="subsection-h">Modo 2 · Android Enterprise Dedicated</h4>
+  <p>O dispositivo é <strong>de uso único</strong>, sem usuário atribuído. Funciona como um <strong>kiosk</strong> — fica bloqueado a uma ou poucas apps. O usuário (cliente, funcionário em rotação) não faça login.</p>
+  <ul>
+    <li><strong>Quem é dono:</strong> Organização</li>
+    <li><strong>Usuário atribuído:</strong> ❌ Não há (anónimo)</li>
+    <li><strong>Como inscrever:</strong> Factory reset → QR code do Intune (ou NFC, Zero-Touch)</li>
+    <li><strong>Modo kiosk:</strong> Sim — pode bloquear a uma único app (single-app) ou poucos apps (multi-app)</li>
+    <li><strong>Caso de uso:</strong> Tablets em montra de loja, terminais de inventário em armazém, leitores de códigos, sistemas de checkout, máquinas de pedidos no restaurante</li>
+  </ul>
+
+  <h4 class="subsection-h">Modo 3 · Corporate-Owned Work Profile (COPE)</h4>
+  <p>O dispositivo é <strong>da empresa</strong>, mas a empresa permite que o usuário também o use pessoalmente. Tem <strong>dois "perfis"</strong> no mesmo dispositivo, completamente separados.</p>
+  <ul>
+    <li><strong>Quem é dono:</strong> Organização (mas com uso pessoal permitido)</li>
+    <li><strong>Espaço pessoal:</strong> ✅ Separado do profissional (apps, dados, fotos próprias do usuário)</li>
+    <li><strong>Como inscrever:</strong> Factory reset → durante setup wizard, escolher "Set up work profile" ou via Zero-Touch / KME</li>
+    <li><strong>O que o admin vê:</strong> Apenas o lado profissional (privacy guaranteed para o pessoal)</li>
+    <li><strong>O que o admin pode fazer:</strong> Wipe ao dispositivo todo (admin escolhe) ou apenas ao work profile</li>
+    <li><strong>Caso de uso:</strong> Empresas que dão celular mas reconhecem que vai ser usado pessoalmente também — gestores, comerciais, dirigentes</li>
+  </ul>
+
+  <h4 class="subsection-h">Modo 4 · Personally-Owned Work Profile (BYOD)</h4>
+  <p>O dispositivo é <strong>do usuário</strong> (BYOD). A empresa apenas cria um <strong>"work profile" isolado</strong> dentro do celular pessoal. Tudo o resto é território pessoal — a empresa nem veja.</p>
+  <ul>
+    <li><strong>Quem é dono:</strong> Usuário</li>
+    <li><strong>Espaço pessoal:</strong> ✅ Predominante; o trabalho está num "compartimento" isolado</li>
+    <li><strong>Como inscrever:</strong> Usuário instalo app Intune Company Portal da Play Store → adiciona conta corporativa → aceita criação do work profile</li>
+    <li><strong>Apps profissionais:</strong> Aparecem com um pequeno ícone de mala (badge) para identificar visualmente</li>
+    <li><strong>Privacy:</strong> O admin <strong>NÃO vê</strong> apps pessoais, fotos, contatos, browsing</li>
+    <li><strong>Wipe:</strong> Apenas o work profile pode ser apagado (retire); o lado pessoal permanece intacto</li>
+    <li><strong>Caso de uso:</strong> Funcionários a usarem o celular pessoal para email/Teams corporativos</li>
+  </ul>
+
+  <h4 class="subsection-h">📊 Tabela comparativa dos 4 modos Android Enterprise</h4>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Fully Managed</th>
+        <th>Dedicated</th>
+        <th>COPE</th>
+        <th>Work Profile (BYOD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label-cell">Dono</td>
+        <td>Empresa</td>
+        <td>Empresa</td>
+        <td>Empresa</td>
+        <td>Usuário</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Usuário atribuído</td>
+        <td class="yes">Sim</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Espaço pessoal</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+        <td class="yes">Sim (separado)</td>
+        <td class="yes">Sim (predominante)</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Necessita factory reset</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="yes">Sim</td>
+        <td class="no">Não</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Método de enrollment</td>
+        <td>afw#setup, QR, NFC</td>
+        <td>QR code, NFC, Zero-Touch</td>
+        <td>QR code, Zero-Touch, KME</td>
+        <td>Company Portal app</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Modo kiosk</td>
+        <td>Não (opcional)</td>
+        <td class="yes">Sim — função principal</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Admin veja dados pessoais?</td>
+        <td>N/A (não há)</td>
+        <td>N/A</td>
+        <td class="no">Não</td>
+        <td class="no">Não</td>
+      </tr>
+      <tr>
+        <td class="label-cell">Caso típico</td>
+        <td>Comercial com celular corp</td>
+        <td>Terminal de armazém</td>
+        <td>Diretor com celular corp</td>
+        <td>iPhone/Android pessoal a acessar email</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tip-box">
+    <span class="label">💡 Cheat sheet para a prova</span>
+    <ul>
+      <li><strong>"Terminal", "kiosk", "sem usuário"</strong> → <strong>Dedicated</strong></li>
+      <li><strong>"BYOD", "celular pessoal", "privacidade do usuário"</strong> → <strong>Personally-Owned Work Profile</strong></li>
+      <li><strong>"Celular corporativo", "uso só profissional"</strong> → <strong>Fully Managed</strong></li>
+      <li><strong>"Da empresa mas com uso pessoal", "dois espaços"</strong> → <strong>COPE</strong></li>
+    </ul>
+  </div>
+
+  <h4 class="subsection-h">Métodos de inscrição em massa para Android</h4>
+  <ul>
+    <li><strong>Zero-Touch Enrollment (ZTE):</strong> protocolo do Google. O retailer/distribuidor associa o dispositivo ao tenant; o usuário apenas liga e o setup é automático. Não precisa de QR codes nem touch físico.</li>
+    <li><strong>Samsung Knox Mobile Enrollment (KME):</strong> equivalente da Samsung, específico para dispositivos Samsung. Funciona de forma parecida ao Zero-Touch.</li>
+    <li><strong>QR code enrollment:</strong> técnico faça factory reset, abre o setup wizard, e usa a câmera para ler um QR code gerado pelo Intune. Útil para volumes pequenos.</li>
+    <li><strong>afw#setup:</strong> escreves <code>afw#setup</code> no tela de email durante o setup wizard. O Android baixa automaticamente o Android Device Policy app.</li>
+    <li><strong>NFC enrollment:</strong> tap-to-enroll entre dois dispositivos. Hoje raramente usado.</li>
+  </ul>
+
+  <div class="warning-box">
+    <span class="label">⚠️ Importante para a prova</span>
+    <p>Para enrollar Fully Managed, Dedicated ou COPE, o dispositivo tem de estar <strong>numa fábrica fresh state</strong> (factory reset). Não dá para converter um dispositivo já em uso pessoal para esses modos sem reset. Só o <strong>Personally-Owned Work Profile</strong> pode ser adicionado a um dispositivo já em uso.</p>
+  </div>
 
   <h3 class="section-h">3.2 · Configuration Profiles</h3>
 
@@ -1539,11 +2424,11 @@
     <li><strong>Templates:</strong> conjuntos pré-construídos para Wi-Fi, VPN, certificados, email, etc.</li>
     <li><strong>Settings Catalog:</strong> ⭐ o método moderno e recomendado. Permite escolher milhares de definições individualmente. Substitui gradualmente os templates.</li>
     <li><strong>Administrative Templates:</strong> equivalente a GPOs ADMX no Intune (políticas Office, Edge, etc.)</li>
-    <li><strong>Custom (OMA-URI):</strong> quando precisas configurar algo muito específico que não está nas outras categorias.</li>
+    <li><strong>Custom (OMA-URI):</strong> quando precisa configurer algo muito específico que não está nas outras categorias.</li>
   </ul>
 
   <h4 class="subsection-h">Security Baselines</h4>
-  <p>São conjuntos <strong>pré-configurados</strong> de definições de segurança recomendadas pela Microsoft. Funcionam como um "ponto de partida seguro". Existem baselines para:</p>
+  <p>São conjuntos <strong>pré-configuredos</strong> de definições de segurança recomendadas pela Microsoft. Funcionam como um "ponto de partida seguro". Existem baselines para:</p>
   <ul>
     <li>Windows 10/11</li>
     <li>Microsoft Defender for Endpoint</li>
@@ -1553,14 +2438,14 @@
 
   <h3 class="section-h">3.3 · Remote Actions (Ações Remotas)</h3>
 
-  <p>Ações que podes executar num dispositivo gerido sem o tocar fisicamente. Memoriza estas, pois aparecem muito:</p>
+  <p>Ações que você pode executar num dispositivo gerenciado sem o tocar fisicamente. Memorize estas, pois aparecem muito:</p>
 
   <table class="compare-table">
     <thead>
       <tr>
         <th>Ação</th>
         <th>O que faz</th>
-        <th>Dados do utilizador</th>
+        <th>Dados do usuário</th>
       </tr>
     </thead>
     <tbody>
@@ -1580,13 +2465,13 @@
         <td>Mantém</td>
       </tr>
       <tr>
-        <td class="label-cell">Reset Password</td>
-        <td>Define uma nova password temporária</td>
+        <td class="label-cell">Reset Senha</td>
+        <td>Defina uma nova senha temporária</td>
         <td>Mantém</td>
       </tr>
       <tr>
         <td class="label-cell">Wipe</td>
-        <td>Apaga tudo, devolve ao estado de fábrica. Pode preservar a conta de utilizador (opcional).</td>
+        <td>Apaga tudo, devolve ao estado de fábrica. Pode preservar a conta de usuário (opcional).</td>
         <td><strong>Apaga</strong></td>
       </tr>
       <tr>
@@ -1609,7 +2494,7 @@
 
   <div class="tip-box">
     <span class="label">💡 Wipe vs Retire</span>
-    <p>Confunde muita gente. Memoriza assim:</p>
+    <p>Confunde muita gente. Memorize assim:</p>
     <ul>
       <li><strong>Wipe</strong> = funcionário deixou a empresa <strong>com dispositivo corporativo</strong> → apaga tudo</li>
       <li><strong>Retire</strong> = funcionário deixou a empresa <strong>com dispositivo pessoal (BYOD)</strong> → apaga só o corporativo</li>
@@ -1624,34 +2509,34 @@
     <li><strong>Next-gen antivirus:</strong> proteção em tempo real, cloud-delivered protection</li>
     <li><strong>EDR (Endpoint Detection and Response):</strong> deteta comportamentos suspeitos, não apenas malware conhecido</li>
     <li><strong>Attack Surface Reduction (ASR) rules:</strong> bloqueia técnicas comuns de ataque (macros, scripts, ransomware behaviour)</li>
-    <li><strong>Threat & Vulnerability Management (TVM):</strong> identifica vulnerabilidades nos dispositivos</li>
+    <li><strong>Threat & Vulnerability Management (TVM):</strong> identifique vulnerabilidades nos dispositivos</li>
     <li><strong>Automated Investigation and Remediation (AIR):</strong> resposta automática a incidentes</li>
   </ul>
 
   <h4 class="subsection-h">Onboarding de dispositivos no Defender</h4>
   <ul>
-    <li><strong>Via Intune:</strong> Configurar a "Endpoint detection and response" policy e atribuir aos grupos. É a forma recomendada.</li>
+    <li><strong>Via Intune:</strong> Configurar a "Endpoint detection and response" policy e atribuar aos grupos. É a forma recomendada.</li>
     <li><strong>Via Group Policy:</strong> para Hybrid Joined</li>
     <li><strong>Via script local:</strong> para dispositivos isolados</li>
     <li><strong>Via Configuration Manager</strong></li>
   </ul>
 
   <h4 class="subsection-h">Conditional Access baseado em risco</h4>
-  <p>O MDE atribui um <strong>Machine Risk Score</strong> a cada dispositivo (Low, Medium, High). Podes integrar isto numa <strong>Compliance Policy</strong> para considerar non-compliant um dispositivo com risk score "Medium" ou superior. Isto, combinado com Conditional Access, cria um ciclo de defesa automático.</p>
+  <p>O MDE atribua um <strong>Machine Risk Score</strong> a cada dispositivo (Low, Medium, High). Você pode integrar isto numa <strong>Compliance Policy</strong> para considerar non-compliant um dispositivo com risk score "Medium" ou superior. Isto, combinado com Conditional Access, cria um ciclo de defesa automático.</p>
 
   <h3 class="section-h">3.5 · Windows Autopatch e Update Management</h3>
 
   <h4 class="subsection-h">Update Rings</h4>
   <p>Permite definir <strong>anéis de implementação</strong> graduais para feature e quality updates:</p>
   <ol>
-    <li><strong>Pilot ring:</strong> 5-10 utilizadores. Recebem updates primeiro.</li>
+    <li><strong>Pilot ring:</strong> 5-10 usuários. Recebem updates primeiro.</li>
     <li><strong>Early adopters:</strong> ~20% do parque. Recebem 1 semana depois.</li>
     <li><strong>Broad deployment:</strong> ~70% do parque. Recebem 2 semanas depois.</li>
     <li><strong>Critical (last):</strong> dispositivos críticos. Recebem por último.</li>
   </ol>
 
   <h4 class="subsection-h">Windows Autopatch</h4>
-  <p>Serviço gerido pela Microsoft que <strong>automatiza completamente</strong> a gestão de updates: Windows, Microsoft 365 Apps, Edge e Teams. Define os rings automaticamente e monitoriza o sucesso da implementação. Requer licença Windows 11 Enterprise E3/E5 ou similar.</p>
+  <p>Serviço gerenciado pela Microsoft que <strong>automatiza completamente</strong> a gerenciamento de updates: Windows, Microsoft 365 Apps, Edge e Teams. Defina os rings automaticamente e monitoriza o sucesso da implementação. Requer licença Windows 11 Enterprise E3/E5 ou similar.</p>
 
   <h3 class="section-h">3.6 · BitLocker e Encryption</h3>
 
@@ -1659,7 +2544,7 @@
 
   <ul>
     <li><strong>TPM only:</strong> o dispositivo desbloqueia automaticamente no boot (sem PIN). Simples mas menos seguro contra ataques físicos.</li>
-    <li><strong>TPM + PIN:</strong> o utilizador insere um PIN no boot. Mais seguro.</li>
+    <li><strong>TPM + PIN:</strong> o usuário insira um PIN no boot. Mais seguro.</li>
     <li><strong>Recovery key:</strong> chave de 48 dígitos que pode desbloquear o dispositivo. <strong>É guardada automaticamente no Entra ID</strong> quando o dispositivo é Entra Joined ou Hybrid Joined.</li>
   </ul>
 
@@ -1670,7 +2555,7 @@
 
   <h3 class="section-h">3.7 · Endpoint Analytics</h3>
 
-  <p>Ferramenta do Intune que dá <strong>insights</strong> sobre a experiência do utilizador:</p>
+  <p>Ferramenta do Intune que dá <strong>insights</strong> sobre a experiência do usuário:</p>
   <ul>
     <li><strong>Startup performance:</strong> quanto tempo o Windows demora a arrancar</li>
     <li><strong>Application reliability:</strong> que apps crasham mais</li>
@@ -1678,45 +2563,45 @@
     <li><strong>Resource performance:</strong> uso de CPU, RAM, disco</li>
   </ul>
 
-  <p>Atribui um <strong>score</strong> de 0 a 100 a cada dispositivo, ajudando a identificar problemas antes do utilizador reclamar.</p>
+  <p>Atribua um <strong>score</strong> de 0 a 100 a cada dispositivo, ajudando a identificar problemas antes do usuário reclamar.</p>
 
   <h3 class="section-h">3.8 · Windows 365 Cloud PC (revisão profunda)</h3>
 
-  <p>Já vimos Windows 365 no Domínio 1 a um nível alto. Aqui vamos aprofundar a parte de gestão:</p>
+  <p>Já vimos Windows 365 no Domínio 1 a um nível alto. Aqui vamos aprofundar a parte de gerenciamento:</p>
 
   <h4 class="subsection-h">Tipos de Cloud PC</h4>
   <ul>
-    <li><strong>Windows 365 Business:</strong> versão "self-service" para pequenas empresas. Comprada e gerida diretamente pelo admin sem precisar de Intune.</li>
-    <li><strong>Windows 365 Enterprise:</strong> versão gerida via Intune, integrada com Entra ID. É o foco da prova.</li>
-    <li><strong>Windows 365 Frontline:</strong> para shift workers — várias pessoas partilham a mesma licença em horários diferentes.</li>
+    <li><strong>Windows 365 Business:</strong> versão "self-service" para pequenas empresas. Comprada e gerenciada diretamente pelo admin sem precisar de Intune.</li>
+    <li><strong>Windows 365 Enterprise:</strong> versão gerenciada via Intune, integrada com Entra ID. É o foco da prova.</li>
+    <li><strong>Windows 365 Frontline:</strong> para shift workers — várias pessoas compartilham a mesma licença em horários diferentes.</li>
   </ul>
 
   <h4 class="subsection-h">Provisioning Policies</h4>
   <p>No Windows 365 Enterprise, defines <strong>Provisioning Policies</strong> que controlam:</p>
   <ul>
     <li>Tipo de ingresso (Entra Joined ou Hybrid Joined)</li>
-    <li>Imagem do sistema operativo</li>
+    <li>Imagem do sistema operacional</li>
     <li>Região do Azure onde o Cloud PC corre</li>
     <li>Naming convention</li>
-    <li>Atribuição a grupos de utilizadores</li>
+    <li>Atribuição a grupos de usuários</li>
   </ul>
 
   <!-- ═════════════ AUTOPILOT DEEP DIVE ═════════════ -->
   <h3 class="section-h" style="border-bottom-color: var(--yellow);">3.9 · Windows Autopilot · Mergulho Profundo</h3>
 
-  <p>Esta secção é dedicada porque pediste detalhamento profundo, e porque Autopilot aparece em <strong>quase todas as provas MD-102</strong>. Vou explicar tudo: o que é, como funciona internamente, todos os modos, o que cada um exige, e no fim tens um lab para montar.</p>
+  <p>Esta seção é dedicada porque pediste detalhamento profundo, e porque Autopilot aparece em <strong>quase todas as provas MD-102</strong>. Vou explicar tudo: o que é, como funciona internamente, todos os modos, o que cada um exige, e no fim você tem um lab para montar.</p>
 
   <h4 class="subsection-h">O que é o Windows Autopilot</h4>
-  <p>Imagina o cenário tradicional: um técnico de IT recebe um portátil novo, instala uma imagem do Windows (golden image), configura o domínio, instala apps, configura políticas, e só depois o envia para o utilizador. Demora horas e exige um técnico físico.</p>
+  <p>Imagina o cenário tradicional: um técnico de IT recebe um notebook novo, instala uma imagem do Windows (golden image), configure o domínio, instala apps, configure políticas, e só depois o envia para o usuário. Demora horas e exige um técnico físico.</p>
 
-  <p>O Autopilot <strong>vira esta história ao contrário</strong>: o portátil vai direto do fornecedor para o utilizador final. Quando o utilizador liga o portátil pela primeira vez, conecta-se à internet e insere as credenciais Entra ID, o Autopilot:</p>
+  <p>O Autopilot <strong>vira esta história ao contrário</strong>: o notebook vai direto do fornecedor para o usuário final. Quando o usuário liga o notebook pela primeira vez, se conecta à internet e insira as credenciais Entra ID, o Autopilot:</p>
   <ol>
-    <li>Reconhece o dispositivo pelo seu <strong>hardware hash</strong> (já pré-registado no serviço)</li>
+    <li>Reconhece o dispositivo pelo seu <strong>hardware hash</strong> (já pré-registrado no serviço)</li>
     <li>Aplica um <strong>perfil de Autopilot</strong> com configurações de OOBE</li>
     <li>Junta o dispositivo ao Entra ID</li>
     <li>Inscreve o dispositivo automaticamente no Intune</li>
     <li>Instala apps obrigatórias, políticas, certificados, BitLocker, etc.</li>
-    <li>Entrega o dispositivo "pronto a usar" diretamente ao utilizador</li>
+    <li>Entrega o dispositivo "pronto a usar" diretamente ao usuário</li>
   </ol>
 
   <h4 class="subsection-h">Hardware Hash – a "impressão digital" do dispositivo</h4>
@@ -1724,9 +2609,9 @@
 
   <p>Como o hash chega ao Intune?</p>
   <ul>
-    <li><strong>OEM/Fornecedor:</strong> Dell, HP, Lenovo, Microsoft Surface — todos podem registar o hash diretamente no teu tenant durante a compra (via CSP). É a forma mais limpa.</li>
-    <li><strong>Manual upload (CSV):</strong> tu próprio recolhes o hash via PowerShell (script <code>Get-WindowsAutopilotInfo</code>) e fazes upload do CSV no Intune. Útil para dispositivos existentes.</li>
-    <li><strong>Configuration Manager:</strong> recolhe o hash automaticamente de dispositivos já geridos.</li>
+    <li><strong>OEM/Fornecedor:</strong> Dell, HP, Lenovo, Microsoft Surface — todos podem registrar o hash diretamente no seu tenant durante a compra (via CSP). É a forma mais limpa.</li>
+    <li><strong>Manual upload (CSV):</strong> você mesmo extrai o hash via PowerShell (script <code>Get-WindowsAutopilotInfo</code>) e faz upload do CSV no Intune. Útil para dispositivos existentes.</li>
+    <li><strong>Configuration Manager:</strong> recolhe o hash automaticamente de dispositivos já gerenciados.</li>
   </ul>
 
   <pre><code># Script PowerShell para extrair hardware hash
@@ -1748,24 +2633,24 @@ Get-WindowsAutopilotInfo -OutputFile C:\HWID.csv</code></pre>
     <tbody>
       <tr>
         <td class="label-cell">User-driven</td>
-        <td>O utilizador final</td>
+        <td>O usuário final</td>
         <td class="yes">Sim</td>
         <td class="yes">Sim</td>
-        <td>Padrão. Utilizador recebe o portátil em casa.</td>
+        <td>Padrão. Usuário recebe o notebook em casa.</td>
       </tr>
       <tr>
         <td class="label-cell">Self-deploying</td>
-        <td>Ninguém (sem utilizador)</td>
+        <td>Ninguém (sem usuário)</td>
         <td class="yes">Sim</td>
         <td class="no">Não</td>
-        <td>Kiosks, quiosques, salas de reunião, sinaléticas digitais</td>
+        <td>Kiosks, kiosks, salas de reunião, sinaléticas digitais</td>
       </tr>
       <tr>
         <td class="label-cell">Pre-provisioned (White Glove)</td>
-        <td>Técnico faz a maior parte; utilizador termina</td>
+        <td>Técnico faça a maior parte; usuário termina</td>
         <td class="yes">Sim</td>
         <td class="yes">Sim</td>
-        <td>Acelera a entrega: téc prepara, utilizador só faz login final</td>
+        <td>Acelera a entrega: téc prepara, usuário só faça login final</td>
       </tr>
       <tr>
         <td class="label-cell">Autopilot for Existing Devices</td>
@@ -1776,10 +2661,10 @@ Get-WindowsAutopilotInfo -OutputFile C:\HWID.csv</code></pre>
       </tr>
       <tr>
         <td class="label-cell">Autopilot Reset</td>
-        <td>Utilizador (após reset)</td>
+        <td>Usuário (após reset)</td>
         <td>Mantém estado</td>
         <td>Mantém estado</td>
-        <td>Reciclar dispositivo para novo utilizador rapidamente</td>
+        <td>Reciclar dispositivo para novo usuário rapidamente</td>
       </tr>
     </tbody>
   </table>
@@ -1789,15 +2674,15 @@ Get-WindowsAutopilotInfo -OutputFile C:\HWID.csv</code></pre>
     <ul>
       <li>Exige <strong>TPM 2.0 com attestation</strong> – máquinas virtuais não funcionam</li>
       <li>Só suporta <strong>Entra Joined</strong> (não Hybrid Joined)</li>
-      <li>Não há utilizador atribuído ao dispositivo – políticas user-based não se aplicam</li>
-      <li>Não há BitLocker self-service recovery para o utilizador (sem primary user)</li>
+      <li>Não há usuário atribuído ao dispositivo – políticas user-based não se aplicam</li>
+      <li>Não há BitLocker self-service recovery para o usuário (sem primary user)</li>
     </ul>
   </div>
 
   <h4 class="subsection-h">Autopilot v2 – Device Preparation (nova geração)</h4>
   <p>Em 2024 a Microsoft lançou uma nova versão simplificada: <strong>Autopilot Device Preparation</strong>, frequentemente chamada Autopilot v2. Diferenças principais:</p>
   <ul>
-    <li>⭐ <strong>Não precisa de pré-registar hardware hash!</strong> Identifica o dispositivo dinamicamente pelo sign-in</li>
+    <li>⭐ <strong>Não precisa de pré-registrar hardware hash!</strong> Identifique o dispositivo dinamicamente pelo sign-in</li>
     <li>Suporta apenas <strong>User-driven</strong> e <strong>Automatic (para Windows 365)</strong></li>
     <li>Suporta apenas <strong>Entra Joined</strong> (sem Hybrid Joined)</li>
     <li>Reporting em near real-time</li>
@@ -1807,21 +2692,21 @@ Get-WindowsAutopilotInfo -OutputFile C:\HWID.csv</code></pre>
   <p>Para a prova, é importante saberes que existem os dois: o "clássico" (v1) com todos os modos, e o "novo" (v2) simplificado. Se a questão menciona <strong>self-deploying</strong>, <strong>pre-provisioned</strong>, <strong>hybrid join</strong> ou <strong>hardware hash</strong>, é v1. Se menciona <strong>sem hardware hash</strong>, <strong>cloud-native</strong> e <strong>simplicidade</strong>, é v2.</p>
 
   <h4 class="subsection-h">Enrollment Status Page (ESP)</h4>
-  <p>É a página que o utilizador vê durante o setup do Autopilot. Mostra o progresso e <strong>bloqueia o uso do dispositivo</strong> até políticas e apps obrigatórias estarem instaladas.</p>
+  <p>É a página que o usuário veja durante o setup do Autopilot. Mostra o progresso e <strong>bloqueia o uso do dispositivo</strong> até políticas e apps obrigatórias estarem instaladas.</p>
 
   <p>Definições importantes do ESP:</p>
   <ul>
-    <li><strong>Show app and profile configuration progress:</strong> mostra ou esconde o ESP</li>
+    <li><strong>Show app and profile configuretion progress:</strong> mostra ou esconde o ESP</li>
     <li><strong>Block device use until all apps and profiles are installed:</strong> impede o uso até a instalação terminar</li>
     <li><strong>Block device use until these required apps are installed:</strong> permite escolher <em>selected</em> em vez de <em>all</em> – recomendado!</li>
-    <li><strong>Allow users to reset device if installation error occurs:</strong> dá ao utilizador a opção de "começar de novo"</li>
+    <li><strong>Allow users to reset device if installation error occurs:</strong> dá ao usuário a opção de "começar de novo"</li>
     <li><strong>Show error when installation takes longer than:</strong> timeout (default 60 min)</li>
     <li><strong>Install Windows quality updates:</strong> a partir de janeiro de 2026, instala patches de segurança durante o OOBE</li>
   </ul>
 
   <div class="tip-box">
     <span class="label">💡 Best practice ESP</span>
-    <p>Não escolhas "Block device use until ALL apps are installed". Em vez disso, usa <strong>"Selected"</strong> e identifica explicitamente as apps críticas. Isto evita que o setup falhe por causa de uma app secundária e dá uma experiência mais fluida.</p>
+    <p>Não escolhas "Block device use until ALL apps are installed". Em vez disso, usa <strong>"Selected"</strong> e identifique explicitamente os apps críticas. Isto evita que o setup falhe por causa de umo app secundária e dá uma experiência mais fluida.</p>
   </div>
 
   <h4 class="subsection-h">Deployment Profile – campos principais</h4>
@@ -1832,31 +2717,31 @@ Get-WindowsAutopilotInfo -OutputFile C:\HWID.csv</code></pre>
     <li><strong>User account type:</strong> Standard (recomendado) ou Administrator</li>
     <li><strong>Apply device name template:</strong> ex. <code>LAB-%RAND:5%</code> nomeia "LAB-A3F9B"</li>
     <li><strong>Allow pre-provisioned deployment:</strong> Yes/No</li>
-    <li><strong>Language (Region):</strong> só funciona com Ethernet (Wi-Fi precisa de input do utilizador)</li>
+    <li><strong>Language (Region):</strong> só funciona com Ethernet (Wi-Fi precisa de input do usuário)</li>
   </ul>
 
   <!-- ═════════════ LAB ═════════════ -->
   <div class="lab-section">
     <span class="lab-label">🔬 Lab Prático</span>
-    <h3>Monta o teu próprio ambiente Autopilot</h3>
-    <p>Vais construir um lab completo de Windows Autopilot user-driven, do zero, usando um <strong>Microsoft 365 Developer tenant gratuito</strong> e uma máquina virtual. Estima 4-6 horas no total, podes dividir por sessões. Este lab vai consolidar uns 30-40% do que vai aparecer na prova.</p>
+    <h3>Monta o seu próprio ambiente Autopilot</h3>
+    <p>Você vai construir um lab completo de Windows Autopilot user-driven, do zero, usando um <strong>Microsoft 365 Developer tenant gratuito</strong> e uma máquina virtual. Estima 4-6 horas no total, você pode dividir por sessões. Este lab vai consolidar uns 30-40% do que vai aparecer na prova.</p>
 
     <div class="lab-step">
       <span class="step-num">Passo 1.</span>
       <strong>Criar Microsoft 365 Developer tenant</strong>
-      <p style="margin-top: 0.5rem;">Vai a <code>developer.microsoft.com/microsoft-365/dev-program</code> e regista-te. Receberás 25 licenças E5 gratuitas (Intune incluído!) renováveis enquanto usares.</p>
+      <p style="margin-top: 0.5rem;">Vai a <code>developer.microsoft.com/microsoft-365/dev-program</code> e registre-se. Receberás 25 licenças E5 gratuitas (Intune incluído!) renováveis enquanto usares.</p>
     </div>
 
     <div class="lab-step">
       <span class="step-num">Passo 2.</span>
       <strong>Ativar Automatic MDM enrollment</strong>
-      <p style="margin-top: 0.5rem;">Vai a Entra admin center → Mobility (MDM and WIP) → Microsoft Intune. Define <em>MDM user scope</em> para <strong>All</strong>. Sem isto, o dispositivo junta-se ao Entra mas <strong>nunca</strong> se inscreve no Intune – é o erro #1 mais comum.</p>
+      <p style="margin-top: 0.5rem;">Vai a Entra admin center → Mobility (MDM and WIP) → Microsoft Intune. Defina <em>MDM user scope</em> para <strong>All</strong>. Sem isto, o dispositivo se associa ao Entra mas <strong>nunca</strong> se inscreve no Intune – é o erro #1 mais comum.</p>
     </div>
 
     <div class="lab-step">
       <span class="step-num">Passo 3.</span>
       <strong>Criar uma Windows 11 VM no Hyper-V (ou VMware/VirtualBox)</strong>
-      <p style="margin-top: 0.5rem;">Configurações: 2 vCPU, 4 GB RAM, 60 GB disco, Generation 2 (TPM ativado), Secure Boot. <strong>Importante:</strong> instala Windows 11 mas <em>não termines o OOBE</em>. Quando aparecer o ecrã de região, faz <code>Ctrl+Shift+F3</code> ou <code>Shift+F10</code> para abrir cmd, ou interrompe a VM aqui.</p>
+      <p style="margin-top: 0.5rem;">Configurações: 2 vCPU, 4 GB RAM, 60 GB disco, Generation 2 (TPM ativado), Secure Boot. <strong>Importante:</strong> instala Windows 11 mas <em>não termines o OOBE</em>. Quando aparecer o tela de região, faça <code>Ctrl+Shift+F3</code> ou <code>Shift+F10</code> para abrir cmd, ou interrompe a VM aqui.</p>
     </div>
 
     <div class="lab-step">
@@ -1868,13 +2753,13 @@ Set-Location C:\HWID
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Unrestricted -Force
 Install-Script -Name Get-WindowsAutopilotInfo
 Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
-      <p>Copia o CSV para o teu computador (rede partilhada, USB, ou OneDrive).</p>
+      <p>Copie o CSV para o seu computador (rede compartilhada, USB, ou OneDrive).</p>
     </div>
 
     <div class="lab-step">
       <span class="step-num">Passo 5.</span>
       <strong>Importar o hash no Intune</strong>
-      <p style="margin-top: 0.5rem;">Intune admin center → Devices → Windows → Windows enrollment → Devices → Import. Faz upload do CSV. Demora 10-15 minutos a aparecer.</p>
+      <p style="margin-top: 0.5rem;">Intune admin center → Devices → Windows → Windows enrollment → Devices → Import. Faça upload do CSV. Demora 10-15 minutos a aparecer.</p>
     </div>
 
     <div class="lab-step">
@@ -1882,13 +2767,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <strong>Criar um grupo dinâmico para dispositivos Autopilot</strong>
       <p style="margin-top: 0.5rem;">Entra admin center → Groups → New group → Security → Dynamic device. Regra:</p>
       <pre><code>(device.devicePhysicalIds -any (_ -contains "[ZTDId]"))</code></pre>
-      <p>Este grupo passa a conter automaticamente <strong>todos</strong> os dispositivos Autopilot registados.</p>
+      <p>Este grupo passa a conter automaticamente <strong>todos</strong> os dispositivos Autopilot registrados.</p>
     </div>
 
     <div class="lab-step">
       <span class="step-num">Passo 7.</span>
       <strong>Criar o Deployment Profile</strong>
-      <p style="margin-top: 0.5rem;">Intune → Devices → Windows enrollment → Deployment Profiles → Create profile → Windows PC. Configurações sugeridas:</p>
+      <p style="margin-top: 0.5rem;">Intune → Devices → Windows enrollment → Deployment Profiles → Create profile → Windows PC. Configurações sugerenciadas:</p>
       <ul style="margin-top: 0.6rem;">
         <li>Name: <code>LAB-UserDriven-EntraJoin</code></li>
         <li>Deployment mode: <strong>User-Driven</strong></li>
@@ -1904,9 +2789,9 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
     <div class="lab-step">
       <span class="step-num">Passo 8.</span>
       <strong>Criar uma Enrollment Status Page (ESP)</strong>
-      <p style="margin-top: 0.5rem;">Intune → Devices → Enrollment → Enrollment Status Page → Create. Configurações sugeridas:</p>
+      <p style="margin-top: 0.5rem;">Intune → Devices → Enrollment → Enrollment Status Page → Create. Configurações sugerenciadas:</p>
       <ul style="margin-top: 0.6rem;">
-        <li>Show app and profile configuration progress: <strong>Yes</strong></li>
+        <li>Show app and profile configuretion progress: <strong>Yes</strong></li>
         <li>Block device use until all apps and profiles are installed: <strong>Yes</strong></li>
         <li>Allow users to reset device if installation error occurs: <strong>Yes</strong></li>
         <li>Turn on log collection and diagnostics page: <strong>Yes</strong></li>
@@ -1916,18 +2801,18 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="lab-step">
       <span class="step-num">Passo 9.</span>
-      <strong>Adicionar uma app obrigatória (opcional mas recomendado)</strong>
-      <p style="margin-top: 0.5rem;">Intune → Apps → Windows → Add → Microsoft 365 apps for Windows 10/11. Atribui como <strong>Required</strong> ao grupo dinâmico. Isto valida que o ESP funciona corretamente.</p>
+      <strong>Adicionar umo app obrigatória (opcional mas recomendado)</strong>
+      <p style="margin-top: 0.5rem;">Intune → Apps → Windows → Add → Microsoft 365 apps for Windows 10/11. Atribua como <strong>Required</strong> ao grupo dinâmico. Isto valida que o ESP funciona corretamente.</p>
     </div>
 
     <div class="lab-step">
       <span class="step-num">Passo 10.</span>
       <strong>Executar o OOBE na VM</strong>
-      <p style="margin-top: 0.5rem;">Volta à VM Windows 11 (reverte ao snapshot pre-OOBE ou recria). Quando aparecer o ecrã "Is this the right country/region?":</p>
+      <p style="margin-top: 0.5rem;">Volta à VM Windows 11 (reverte ao snapshot pre-OOBE ou recria). Quando aparecer o tela "Is this the right country/region?":</p>
       <ol style="margin-top: 0.6rem;">
-        <li>Conecta-te à rede (Wi-Fi ou Ethernet)</li>
-        <li>O Autopilot vai detetar o dispositivo automaticamente e mostrar o nome da tua organização</li>
-        <li>Faz login com a conta Entra ID do teu tenant developer</li>
+        <li>Conecte-se à rede (Wi-Fi ou Ethernet)</li>
+        <li>O Autopilot vai detetar o dispositivo automaticamente e mostrar o nome da sua organização</li>
+        <li>Faça login com a conta Entra ID do seu tenant developer</li>
         <li>Observa o ESP a aplicar políticas e apps</li>
         <li>No fim, o dispositivo deve estar Entra Joined, Intune-enrolled, e com o Office instalado</li>
       </ol>
@@ -1935,8 +2820,8 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="lab-step">
       <span class="step-num">Passo 11. (Bónus)</span>
-      <strong>Testar Autopilot Reset</strong>
-      <p style="margin-top: 0.5rem;">Depois do dispositivo estar pronto, volta ao Intune → Devices → escolhe o dispositivo → Autopilot Reset. O dispositivo vai voltar ao OOBE com tudo apagado, mas mantém-se registado no Autopilot. Excelente para reciclar para outro utilizador.</p>
+      <strong>Tester Autopilot Reset</strong>
+      <p style="margin-top: 0.5rem;">Depois do dispositivo estar pronto, volta ao Intune → Devices → escolha o dispositivo → Autopilot Reset. O dispositivo vai voltar ao OOBE com tudo apagado, mas se mantém registrado no Autopilot. Excelente para reciclar para outro usuário.</p>
     </div>
 
     <p style="margin-top: 1.5rem;"><strong>Notas finais do lab:</strong> Self-deploying mode <strong>NÃO funciona em VMs</strong> porque exige TPM device attestation (que VMs não têm, mesmo com vTPM). Pre-provisioning também precisa de TPM físico. User-driven é o único que dá para testar a 100% em lab virtual.</p>
@@ -1949,7 +2834,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="quiz-question">
       <span class="q-number">Questão 1</span>
-      <p class="q-text">Queres implantar Windows Autopilot em modo self-deploying para 20 quiosques numa loja. Os quiosques são máquinas virtuais. O que acontece?</p>
+      <p class="q-text">Você quer implantar Windows Autopilot em modo self-deploying para 20 kiosks numa loja. Os kiosks são máquinas virtuais. O que acontece?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Funciona normalmente</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Falha com erro 0x800705B4 – self-deploying exige TPM 2.0 físico com attestation</li>
@@ -1959,13 +2844,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Self-deploying mode</strong> usa TPM device attestation para autenticar o dispositivo ao tenant Entra sem credenciais de utilizador. VMs não têm TPM físico real (mesmo com vTPM, falham a attestation). Para VMs, o único modo Autopilot que funciona é <strong>user-driven</strong>.
+        <strong>Self-deploying mode</strong> usa TPM device attestation para autenticar o dispositivo ao tenant Entra sem credenciais de usuário. VMs não têm TPM físico real (mesmo com vTPM, falham a attestation). Para VMs, o único modo Autopilot que funciona é <strong>user-driven</strong>.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 2</span>
-      <p class="q-text">Um utilizador BYOD sai da empresa. O telemóvel é dele. Qual ação remota usas no Intune?</p>
+      <p class="q-text">Um usuário BYOD sai da empresa. O celular é dele. Qual ação remota usas no Intune?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Wipe</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Retire</li>
@@ -1975,7 +2860,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Retire</strong> remove <strong>apenas dados e apps corporativas</strong>, preservando os dados pessoais do utilizador. É a ação correta para BYOD. <strong>Wipe</strong> apagaria tudo, incluindo as fotos do dispositivo pessoal — o que seria inadequado.
+        <strong>Retire</strong> remove <strong>apenas dados e apps corporativas</strong>, preservando os dados pessoais do usuário. É a ação correta para BYOD. <strong>Wipe</strong> apagaria tudo, incluindo as fotos do dispositivo pessoal — o que seria inadequado.
       </div>
     </div>
 
@@ -2007,7 +2892,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Self-deploying NÃO suporta Hybrid Join</strong> — só Entra Joined. Os modos que suportam Hybrid são <strong>User-driven, Pre-provisioned (white glove) e Autopilot for Existing Devices</strong>. Lembra-te: Microsoft já não recomenda Hybrid Join para novos deployments, mas continua a aparecer na prova.
+        <strong>Self-deploying NÃO suporta Hybrid Join</strong> — só Entra Joined. Os modos que suportam Hybrid são <strong>User-driven, Pre-provisioned (white glove) e Autopilot for Existing Devices</strong>. Lembre-se: Microsoft já não recomenda Hybrid Join para novos deployments, mas continua a aparecer na prova.
       </div>
     </div>
 
@@ -2015,7 +2900,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <span class="q-number">Questão 5</span>
       <p class="q-text">O que é o "hardware hash" no Autopilot?</p>
       <ol class="q-options">
-        <li data-correct="false"><span class="opt-letter">A.</span> A password do BitLocker</li>
+        <li data-correct="false"><span class="opt-letter">A.</span> A senha do BitLocker</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Uma identificação única do hardware do dispositivo usada pelo Autopilot para reconhecê-lo</li>
         <li data-correct="false"><span class="opt-letter">C.</span> O Serial Number do dispositivo</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Um certificado X.509</li>
@@ -2029,7 +2914,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="quiz-question">
       <span class="q-number">Questão 6</span>
-      <p class="q-text">Um dispositivo é marcado como "Medium risk" pelo Microsoft Defender for Endpoint. Queres que ele perca automaticamente o acesso a recursos corporativos. Como configuras isto?</p>
+      <p class="q-text">Um dispositivo é marcado como "Medium risk" pelo Microsoft Defender for Endpoint. Você quer que ele perca automaticamente o acesso a recursos corporativos. Como configures isto?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Apenas Conditional Access bloqueia automaticamente</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Criar Compliance Policy que considera "Medium risk" como non-compliant + Conditional Access que exige device compliant</li>
@@ -2039,7 +2924,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        A <strong>integração Defender-Intune-CA</strong> funciona assim: Defender atribui machine risk score → Compliance Policy avalia o risk score e marca o dispositivo non-compliant se exceder o limite → Conditional Access exige device compliant para aceder a recursos. <strong>É um ciclo de defesa automático</strong>.
+        A <strong>integração Defender-Intune-CA</strong> funciona assim: Defender atribua machine risk score → Compliance Policy avalia o risk score e marca o dispositivo non-compliant se exceder o limite → Conditional Access exige device compliant para acessar recursos. <strong>É um ciclo de defesa automático</strong>.
       </div>
     </div>
 
@@ -2055,13 +2940,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Dedicated</strong> (anteriormente "kiosk") é para dispositivos de uso único, <strong>sem utilizador associado</strong>. Perfeito para terminais, leitores de códigos, máquinas de pedidos. Fully Managed seria para dispositivos atribuídos a utilizadores; COPE para uso misto pessoal/profissional.
+        <strong>Dedicated</strong> (anteriormente "kiosk") é para dispositivos de uso único, <strong>sem usuário associado</strong>. Perfeito para terminais, leitores de códigos, máquinas de pedidos. Fully Managed seria para dispositivos atribuídos a usuários; COPE para uso misto pessoal/profissional.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 8</span>
-      <p class="q-text">Qual é a melhor opção para gerir definições do Windows 11 modernas no Intune?</p>
+      <p class="q-text">Qual é a melhor opção para gerenciar definições do Windows 11 modernas no Intune?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Custom OMA-URI</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Settings Catalog</li>
@@ -2071,29 +2956,29 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Settings Catalog</strong> é o método moderno e recomendado pela Microsoft. Tem milhares de definições granulares, é pesquisável e está sempre atualizado. Custom OMA-URI só é necessário para definições muito específicas que não estão no catálogo. Templates estão a ser progressivamente substituídos.
+        <strong>Settings Catalog</strong> é o método moderno e recomendado pela Microsoft. Tem milhares de definições granulares, é pesquisável e está sempre atualizado. Custom OMA-URI só é necessário para definições muito específicas que não estão no catálogo. Templates estão sendo progressivamente substituídos.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 9</span>
-      <p class="q-text">No Enrollment Status Page (ESP), recomenda-se usar "Block device use until SELECTED apps are installed" em vez de "ALL apps". Porquê?</p>
+      <p class="q-text">No Enrollment Status Page (ESP), é recomendado usar "Block device use until SELECTED apps are installed" em vez de "ALL apps". Porquê?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> "All" não funciona em Windows 11</li>
-        <li data-correct="true"><span class="opt-letter">B.</span> "All" pode falhar o setup inteiro se uma app não-crítica falhar; "Selected" permite definir apenas as apps realmente essenciais</li>
+        <li data-correct="true"><span class="opt-letter">B.</span> "All" pode falhar o setup inteiro se umo app não-crítica falhar; "Selected" permite definir apenas os apps realmente essenciais</li>
         <li data-correct="false"><span class="opt-letter">C.</span> "Selected" é mais rápido</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Não há diferença real</li>
       </ol>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        Best practice oficial: usa "<strong>Selected</strong>" e identifica explicitamente as apps obrigatórias (geralmente 2-4 apps críticas, como Office e VPN). Com "All", uma única app secundária a falhar pode bloquear o setup inteiro e o utilizador é forçado a fazer reset. Selected dá robustez e flexibilidade.
+        Best practice oficial: usa "<strong>Selected</strong>" e identifique explicitamente os apps obrigatórias (geralmente 2-4 apps críticas, como Office e VPN). Com "All", uma único app secundária a falhar pode bloquear o setup inteiro e o usuário é forçado a fazer reset. Selected dá robustez e flexibilidade.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 10</span>
-      <p class="q-text">A tua empresa quer um serviço que automatize completamente a aplicação de updates do Windows e Office, organizando em rings automáticos. Qual é a solução?</p>
+      <p class="q-text">A sua empresa quer um serviço que automatize completamente a aplicativo de updates do Windows e Office, organizando em rings automáticos. Qual é a solução?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Windows Update for Business manual</li>
         <li data-correct="false"><span class="opt-letter">B.</span> WSUS</li>
@@ -2103,12 +2988,17 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: C</strong>
-        <strong>Windows Autopatch</strong> é o serviço gerido pela Microsoft que automatiza TUDO: cria rings, monitoriza sucesso, faz rollback automático em caso de problemas. Cobre Windows, Microsoft 365 Apps, Edge e Teams. Requer licença Windows 11 Enterprise E3/E5. WSUS é legacy on-premises; Update for Business manual exige configuração manual de rings.
+        <strong>Windows Autopatch</strong> é o serviço gerenciado pela Microsoft que automatiza TUDO: cria rings, monitoriza sucesso, faça rollback automático em caso de problemas. Cobre Windows, Microsoft 365 Apps, Edge e Teams. Requer licença Windows 11 Enterprise E3/E5. WSUS é legacy on-premises; Update for Business manual exige configuração manual de rings.
       </div>
     </div>
 
   </div>
 </section>
+
+</div><!-- /tab dominio-3 -->
+
+<!-- ═══════ TAB · DOMÍNIO 4 ═══════ -->
+<div class="tab-content" id="tab-dominio-4" role="tabpanel">
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- DOMÍNIO 4 -->
@@ -2116,13 +3006,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 <section class="domain-section" id="dominio-4">
   <div class="domain-header green">
     <span class="domain-num">Domínio 4</span>
-    <h2>Gerir aplicações</h2>
+    <h2>Gerenciar aplicativos</h2>
     <span class="weight">10–15% do exame</span>
   </div>
 
-  <p>Este é o menor domínio em peso, mas é importante porque o teu trabalho real (e o de qualquer endpoint admin) é <strong>fazer chegar apps aos dispositivos de forma fiável</strong>. Cobre tipos de app, métodos de deployment e proteção de dados.</p>
+  <p>Este é o menor domínio em peso, mas é importante porque o seu trabalho real (e o de qualquer endpoint admin) é <strong>fazer chegar apps aos dispositivos de forma confiável</strong>. Cobre tipos de app, métodos de deployment e proteção de dados.</p>
 
-  <h3 class="section-h">4.1 · Tipos de aplicação no Intune</h3>
+  <h3 class="section-h">4.1 · Tipos de aplicativo no Intune</h3>
 
   <table class="compare-table">
     <thead>
@@ -2150,7 +3040,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       </tr>
       <tr>
         <td class="label-cell">WinGet</td>
-        <td>Gestor de pacotes do Windows. Intune suporta atribuir apps via WinGet IDs.</td>
+        <td>Gestor de pacotes do Windows. Intune suporta atribuar apps via WinGet IDs.</td>
         <td>Windows</td>
       </tr>
       <tr>
@@ -2160,7 +3050,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       </tr>
       <tr>
         <td class="label-cell">Web link</td>
-        <td>Cria um ícone no dispositivo que abre uma URL</td>
+        <td>Crie um ícone no dispositivo que abre uma URL</td>
         <td>Várias</td>
       </tr>
       <tr>
@@ -2172,28 +3062,28 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
   </table>
 
   <h4 class="subsection-h">Win32 Content Prep Tool</h4>
-  <p>Ferramenta gratuita que <strong>converte</strong> ficheiros de instalação (.exe, .msi, ficheiros de configuração) em pacotes <strong>.intunewin</strong>. Comando básico:</p>
+  <p>Ferramenta gratuita que <strong>converte</strong> arquivos de instalação (.exe, .msi, arquivos de configuração) em pacotes <strong>.intunewin</strong>. Comando básico:</p>
   <pre><code>IntuneWinAppUtil.exe -c &lt;source folder&gt; -s &lt;setup file&gt; -o &lt;output folder&gt;</code></pre>
 
-  <h3 class="section-h">4.2 · Assignments (Atribuições)</h3>
+  <h3 class="section-h">4.2 · Assignments (Atribuações)</h3>
 
-  <p>Quando atribuis uma app a um grupo, escolhes o <strong>intent</strong>:</p>
+  <p>Quando atribuas umo app a um grupo, você escolha o <strong>intent</strong>:</p>
   <ul>
-    <li><strong>Required:</strong> instala automaticamente, sem opção do utilizador</li>
+    <li><strong>Required:</strong> instala automaticamente, sem opção do usuário</li>
     <li><strong>Available for enrolled devices:</strong> aparece no Company Portal para instalação opcional</li>
-    <li><strong>Uninstall:</strong> remove a app de dispositivos que a tenham</li>
+    <li><strong>Uninstall:</strong> remove o app de dispositivos que a tenham</li>
     <li><strong>Available with or without enrollment:</strong> para apps em dispositivos sem MDM (apenas iOS/Android)</li>
   </ul>
 
   <h3 class="section-h">4.3 · App Protection Policies (APP / MAM)</h3>
 
-  <p>São políticas que <strong>protegem dados corporativos dentro de apps</strong>, mesmo em dispositivos não geridos. Exemplos do que controlam:</p>
+  <p>São políticas que <strong>protegem dados corporativos dentro de apps</strong>, mesmo em dispositivos não gerenciados. Exemplos do que controlam:</p>
   <ul>
     <li>Bloquear copiar/colar entre apps corporativas e pessoais</li>
     <li>Exigir PIN para abrir apps corporativas</li>
     <li>Cifrar dados em repouso dentro da app</li>
     <li>Impedir backup para iCloud / Google Drive pessoal</li>
-    <li>Bloquear capturas de ecrã</li>
+    <li>Bloquear capturas de tela</li>
     <li>Fazer "selective wipe" remoto apenas dos dados da app</li>
   </ul>
 
@@ -2206,21 +3096,21 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
   <h3 class="section-h">4.4 · App Configuration Policies</h3>
 
-  <p>Permitem <strong>pré-configurar</strong> apps com definições. Exemplo: configurar automaticamente a Outlook app no iOS com a conta corporativa, ou desativar guardar passwords no Edge. Funciona via:</p>
+  <p>Permitem <strong>pré-configurar</strong> apps com definições. Exemplo: configurer automaticamente a Outlook app no iOS com a conta corporativa, ou desativar guardar senhas no Edge. Funciona via:</p>
   <ul>
-    <li>App configuration delivered through MDM (precisa de dispositivo enrolled)</li>
-    <li>App configuration delivered through APP (funciona sem enrollment, via MAM)</li>
+    <li>App configuretion delivered through MDM (precisa de dispositivo enrolled)</li>
+    <li>App configuretion delivered through APP (funciona sem enrollment, via MAM)</li>
   </ul>
 
   <h3 class="section-h">4.5 · Microsoft 365 Apps for Enterprise</h3>
 
-  <p>O Office empresarial. No Intune escolhes:</p>
+  <p>O Office empresarial. No Intune você escolhe:</p>
   <ul>
     <li><strong>Update channel:</strong> Current Channel, Monthly Enterprise Channel, Semi-Annual Enterprise Channel</li>
     <li><strong>Architecture:</strong> 64-bit (recomendado) ou 32-bit</li>
-    <li><strong>Apps incluídas:</strong> Word, Excel, PowerPoint, Outlook, etc. (escolhes individualmente)</li>
+    <li><strong>Apps incluídas:</strong> Word, Excel, PowerPoint, Outlook, etc. (você escolha individualmente)</li>
     <li><strong>Idioma de instalação</strong></li>
-    <li><strong>Activation:</strong> Shared computer activation para dispositivos partilhados</li>
+    <li><strong>Activation:</strong> Shared computer activation para dispositivos comcompartilhados</li>
   </ul>
 
   <!-- ─── QUIZ DOMÍNIO 4 ─── -->
@@ -2230,7 +3120,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="quiz-question">
       <span class="q-number">Questão 1</span>
-      <p class="q-text">Tens um ficheiro <code>setup.exe</code> de uma aplicação comercial e precisas de o implantar via Intune para 500 PCs Windows. Qual é o processo correto?</p>
+      <p class="q-text">Você tem um arquivo <code>setup.exe</code> de um aplicativo comercial e você precisa o implantar via Intune para 500 PCs Windows. Qual é o processo correto?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Upload direto do .exe no Intune</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Usar o Win32 Content Prep Tool para gerar um .intunewin e fazer upload</li>
@@ -2240,13 +3130,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        Para fazer upload de qualquer .exe ou .msi como app Win32 no Intune, primeiro tens de o <strong>empacotar com o IntuneWinAppUtil.exe</strong>, gerando um ficheiro <code>.intunewin</code>. Este formato encripta e empacota o instalador para entrega via Intune.
+        Para fazer upload de qualquer .exe ou .msi como app Win32 no Intune, primeiro você precisa o <strong>empacotar com o IntuneWinAppUtil.exe</strong>, gerando um arquivo <code>.intunewin</code>. Este formato encripta e empacota o instalador para entrega via Intune.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 2</span>
-      <p class="q-text">Queres que uma app apareça no Company Portal para o utilizador instalar quando quiser, sem ser obrigatória. Qual intent de assignment usas?</p>
+      <p class="q-text">Você quer que umo app apareça no Company Portal para o usuário instalar quando quiser, sem ser obrigatória. Qual intent de assignment usas?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Required</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Available for enrolled devices</li>
@@ -2256,29 +3146,29 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Available</strong> = a app aparece no Company Portal e o utilizador escolhe quando instalar. <strong>Required</strong> instala automaticamente sem opção. <strong>Uninstall</strong> remove. Não existe intent chamado "Detected".
+        <strong>Available</strong> = o app aparece no Company Portal e o usuário escolha quando instalar. <strong>Required</strong> instala automaticamente sem opção. <strong>Uninstall</strong> remove. Não existe intent chamado "Detected".
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 3</span>
-      <p class="q-text">Um utilizador BYOD usa o Outlook no iPhone pessoal. Queres impedir que ele copie texto de emails corporativos para apps pessoais (WhatsApp, etc.). Qual é a abordagem correta?</p>
+      <p class="q-text">Um usuário BYOD usa o Outlook no iPhone pessoal. Você quer impedir que ele copie texto de emails corporativos para apps pessoais (WhatsApp, etc.). Qual é a abordagem correta?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Forçar enrollment MDM do iPhone</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Aplicar uma App Protection Policy ao Outlook restringindo o copy/paste</li>
-        <li data-correct="false"><span class="opt-letter">C.</span> Bloquear o utilizador via Conditional Access</li>
+        <li data-correct="false"><span class="opt-letter">C.</span> Bloquear o usuário via Conditional Access</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Configurar uma Compliance Policy</li>
       </ol>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>App Protection Policies (APP/MAM)</strong> protegem dados <strong>dentro</strong> de apps específicas sem precisar de gerir o dispositivo inteiro. Forçar MDM num iPhone pessoal é invasivo e o utilizador provavelmente recusaria. MAM é a solução elegante para BYOD.
+        <strong>App Protection Policies (APP/MAM)</strong> protegem dados <strong>dentro</strong> de apps específicas sem precisar de gerenciar o dispositivo inteiro. Forçar MDM num iPhone pessoal é invasivo e o usuário provavelmente recusaria. MAM é a solução elegante para BYOD.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 4</span>
-      <p class="q-text">A tua empresa quer Office 365 sempre na última versão estável com novas funcionalidades à medida que saem. Qual update channel deves usar?</p>
+      <p class="q-text">A sua empresa quer Office 365 sempre na última versão estável com novas funcionalidades à medida que saem. Qual update channel você deve usar?</p>
       <ol class="q-options">
         <li data-correct="true"><span class="opt-letter">A.</span> Current Channel</li>
         <li data-correct="false"><span class="opt-letter">B.</span> Semi-Annual Enterprise Channel</li>
@@ -2302,13 +3192,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>APP funciona sem MDM enrollment</strong> – essa é a sua grande vantagem para BYOD. Basta o utilizador adicionar a sua conta corporativa numa app compatível (Outlook, Word, Teams, etc.) e a política é aplicada automaticamente à camada da app, sem gerir o dispositivo todo.
+        <strong>APP funciona sem MDM enrollment</strong> – essa é a sua grande vantagem para BYOD. Basta o usuário adicionar a sua conta corporativa numo app compatível (Outlook, Word, Teams, etc.) e a política é aplicada automaticamente à camada da app, sem gerenciar o dispositivo todo.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 6</span>
-      <p class="q-text">Queres pré-configurar a app do Outlook no iOS para que os utilizadores não precisem inserir manualmente o servidor de email. Que tipo de política usas?</p>
+      <p class="q-text">Você quer pré-configurar o app do Outlook no iOS para que os usuários não precisem inserir manualmente o servidor de email. Que tipo de política usas?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Compliance Policy</li>
         <li data-correct="true"><span class="opt-letter">B.</span> App Configuration Policy</li>
@@ -2326,15 +3216,15 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <span class="q-number">Questão 7</span>
       <p class="q-text">No Microsoft 365 Apps for Enterprise, o que é "Shared Computer Activation"?</p>
       <ol class="q-options">
-        <li data-correct="false"><span class="opt-letter">A.</span> Permite usar uma licença em vários PCs do mesmo utilizador</li>
-        <li data-correct="true"><span class="opt-letter">B.</span> Permite vários utilizadores usarem Office no mesmo dispositivo partilhado, cada um ativado com a sua conta</li>
+        <li data-correct="false"><span class="opt-letter">A.</span> Permite usar uma licença em vários PCs do mesmo usuário</li>
+        <li data-correct="true"><span class="opt-letter">B.</span> Permite vários usuários usarem Office no mesmo dispositivo compartilhado, cada um ativado com a sua conta</li>
         <li data-correct="false"><span class="opt-letter">C.</span> Ativação por chave de produto</li>
         <li data-correct="false"><span class="opt-letter">D.</span> Ativação offline</li>
       </ol>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Shared Computer Activation</strong> é desenhada para cenários como Azure Virtual Desktop, RDS, ou kiosks onde vários utilizadores fazem login no mesmo dispositivo. Cada utilizador "empresta" a sua licença temporariamente. Sem isto, instalar Office num PC partilhado violaria o licenciamento.
+        <strong>Shared Computer Activation</strong> é desenhada para cenários como Azure Virtual Desktop, RDS, ou kiosks onde vários usuários fazem login no mesmo dispositivo. Cada usuário "empresta" a sua licença temporariamente. Sem isto, instalar Office num PC compartilhado violaria o licenciamento.
       </div>
     </div>
 
@@ -2356,7 +3246,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
     <div class="quiz-question">
       <span class="q-number">Questão 9</span>
-      <p class="q-text">Queres remover apenas dados corporativos de uma app, mantendo a app instalada no dispositivo pessoal. Como é que isto se chama?</p>
+      <p class="q-text">Você quer remover apenas dados corporativos de um app, mantendo o app instalada no dispositivo pessoal. Como é que isto se chama?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Full wipe</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Selective wipe (também chamado app wipe)</li>
@@ -2366,13 +3256,13 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        <strong>Selective wipe</strong> (ou <em>app wipe</em>) é executado via App Protection Policy e remove <strong>apenas os dados corporativos</strong> da app, mantendo a app instalada e os dados pessoais. É o equivalente do "Retire" mas a nível de app individual em vez de dispositivo.
+        <strong>Selective wipe</strong> (ou <em>app wipe</em>) é executado via App Protection Policy e remove <strong>apenas os dados corporativos</strong> da app, mantendo o app instalada e os dados pessoais. É o equivalente do "Retire" mas a nível de app individual em vez de dispositivo.
       </div>
     </div>
 
     <div class="quiz-question">
       <span class="q-number">Questão 10</span>
-      <p class="q-text">Vais implantar uma app via WinGet no Intune. Qual é a maior vantagem desta abordagem?</p>
+      <p class="q-text">Você vai implantar umo app via WinGet no Intune. Qual é a maior vantagem desta abordagem?</p>
       <ol class="q-options">
         <li data-correct="false"><span class="opt-letter">A.</span> Mais rápido que .intunewin</li>
         <li data-correct="true"><span class="opt-letter">B.</span> Não é preciso empacotar nem alojar o instalador – o Intune referencia o pacote WinGet diretamente</li>
@@ -2382,12 +3272,17 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       <button class="reveal-btn" onclick="revealAnswer(this)">Ver resposta</button>
       <div class="q-explanation">
         <strong>✓ Resposta: B</strong>
-        Com WinGet, basta indicar o <strong>WinGet ID</strong> da app (ex: <code>Mozilla.Firefox</code>) e o Intune trata de tudo. <strong>Sem empacotamento, sem hosting de ficheiros</strong>. A app é descarregada do repositório WinGet oficial. Excelente para apps open-source ou de fornecedores populares.
+        Com WinGet, basta indicar o <strong>WinGet ID</strong> do app (ex: <code>Mozilla.Firefox</code>) e o Intune trata de tudo. <strong>Sem empacotamento, sem hosting de arquivos</strong>. O app é baixada do repositório WinGet oficial. Excelente para apps open-source ou de fornecedores populares.
       </div>
     </div>
 
   </div>
 </section>
+
+</div><!-- /tab dominio-4 -->
+
+<!-- ═══════ TAB · RECURSOS ═══════ -->
+<div class="tab-content" id="tab-recursos" role="tabpanel">
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- RECURSOS FINAIS -->
@@ -2416,11 +3311,11 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
   <h3 class="section-h">📝 Simulados (practice tests)</h3>
   <ul>
     <li><strong>MeasureUp:</strong> simulado oficial Microsoft. Caro mas o mais próximo do real.</li>
-    <li><strong>ExamTopics:</strong> tem questões reais comentadas pela comunidade (verifica respostas, há erros).</li>
+    <li><strong>ExamTopics:</strong> tem questões reais comentadas pela comunidade (verifique respostas, há erros).</li>
     <li><strong>Whizlabs / Pluralsight:</strong> bons cursos com simulados incluídos.</li>
   </ul>
 
-  <h3 class="section-h">⏱️ Plano sugerido para as próximas 6 semanas</h3>
+  <h3 class="section-h">⏱️ Plano sugerenciado para as próximas 6 semanas</h3>
   <table class="compare-table">
     <thead>
       <tr><th>Semana</th><th>Foco</th><th>Atividades</th></tr>
@@ -2453,7 +3348,7 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
       </tr>
       <tr>
         <td class="label-cell">Semana 6</td>
-        <td>Revisão final intensiva</td>
+        <td>Revisão final invocê temiva</td>
         <td>Refazer todos os quizzes deste guia · 3-4 simulados completos · descansar no dia anterior</td>
       </tr>
     </tbody>
@@ -2461,10 +3356,12 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 
   <div class="tip-box">
     <span class="label">💡 Dia da prova</span>
-    <p>São 40-60 questões em 100 minutos = ~1.5 a 2 min por questão. Não fiques preso a uma questão difícil — marca para revisão e segue em frente. Há questões de "case study" com 4-6 perguntas seguidas: lê o cenário com calma uma vez, depois responde. Score mínimo: <strong>700/1000</strong>.</p>
+    <p>São 40-60 questões em 100 minutos = ~1.5 a 2 min por questão. Não fique preso a uma questão difícil — marque para revisão e siga em frente. Há questões de "case study" com 4-6 perguntas seguidas: lê o cenário com calma uma vez, depois responde. Score mínimo: <strong>700/1000</strong>.</p>
   </div>
 
 </section>
+
+</div><!-- /tab recursos -->
 
 </main>
 
@@ -2474,7 +3371,61 @@ Get-WindowsAutopilotInfo -OutputFile AutopilotHWID.csv</code></pre>
 </footer>
 
 <script>
-  // ── Quiz interativo: clica numa opção e vê logo se acertaste ──
+  // ── Tab navigation ────────────────────────────────────────────────
+  function showTab(tabId) {
+    // Esconder todas as tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    // Mostrar a tab selecionada
+    const targetTab = document.getElementById('tab-' + tabId);
+    if (targetTab) {
+      targetTab.classList.add('active');
+    }
+
+    // Atualizar botões da nav
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
+    });
+    const activeBtn = document.querySelector('.tab-btn[data-tab="' + tabId + '"]');
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+      activeBtn.setAttribute('aria-selected', 'true');
+      // Auto-scroll horizontal para o botão (útil em mobile)
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    // Scroll suave para o topo da página (logo abaixo do header)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Guardar última tab visitada
+    try { localStorage.setItem('md102-last-tab', tabId); } catch(e) {}
+
+    // Atalho especial: tab Autopilot é uma vista do Domínio 3 ancorada na seção 3.9
+    if (tabId === 'autopilot') {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-dominio-3').classList.add('active');
+      setTimeout(() => {
+        const autopilotSection = document.querySelector('h3[style*="border-bottom-color"]');
+        if (autopilotSection) {
+          autopilotSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }
+
+  // Restaurar última tab visitada (opcional)
+  document.addEventListener('DOMContentLoaded', () => {
+    // Por padrão começa em "overview" — não restaura para evitar confusão
+    // Se quiseres restaurar a última tab, descomenta:
+    // try {
+    //   const last = localStorage.getItem('md102-last-tab');
+    //   if (last && document.getElementById('tab-' + last)) showTab(last);
+    // } catch(e) {}
+  });
+
+  // ── Quiz interativo: clica numa opção e veja logo se acertaste ──
   document.querySelectorAll('.quiz-question').forEach(question => {
     const options = question.querySelectorAll('.q-options li');
     const explanation = question.querySelector('.q-explanation');
