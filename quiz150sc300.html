@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC-300 · Quiz · Identity & Access Administrator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #B85C72;
+    --pink-soft: #d9889c;
+    --pink-bg: #f5e6ea;
+    --blue: #3A6E9E;
+    --blue-soft: #6991b8;
+    --blue-bg: #e6eef5;
+    --yellow: #9E7A10;
+    --yellow-soft: #c19a32;
+    --yellow-bg: #f5edd6;
+    --bg: #FDFAF7;
+    --bg-soft: #f7f1ea;
+    --card: #ffffff;
+    --border: #e8ddd2;
+    --border-soft: #f0e7dc;
+    --ink: #2a2520;
+    --ink-soft: #6b5d52;
+    --ink-light: #9e8e80;
+    --green: #5a7c5a;
+    --green-bg: #e6ede6;
+    --red: #b85c5c;
+    --red-bg: #f5e6e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .serif { font-family: 'DM Serif Display', serif; font-weight: 400; }
+  .italic { font-style: italic; }
+
+  /* ── HEADER ─────────────────────────────────────────────── */
+  .topbar {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-inner {
+    max-width: 980px; margin: 0 auto;
+    padding: 18px 32px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .topbar-mark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem; color: var(--pink);
+    letter-spacing: -.01em;
+  }
+  .topbar-mark span { color: var(--ink); font-style: italic; }
+  .topbar-meta {
+    margin-left: auto; display: flex; gap: 18px; align-items: center;
+    font-size: 0.78rem; color: var(--ink-soft);
+  }
+  .topbar-meta .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: inline-block; margin-right: 6px; }
+
+  /* ── CONTAINER ──────────────────────────────────────────── */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn .35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 32px 80px; }
+  .wrap-wide { max-width: 880px; margin: 0 auto; padding: 48px 32px 80px; }
+
+  /* ── HERO TITLE ────────────────────────────────────────── */
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem; line-height: 1.1;
+    letter-spacing: -.02em; margin-bottom: 12px;
+  }
+  .hero-title em { color: var(--pink); font-style: italic; }
+  .hero-sub { color: var(--ink-soft); font-size: 1rem; margin-bottom: 36px; }
+
+  /* ── REGISTER ───────────────────────────────────────────── */
+  .register-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 40px 42px;
+    margin-top: 16px;
+  }
+  .input-block { margin-bottom: 20px; }
+  .input-block label {
+    display: block;
+    font-size: 0.78rem; font-weight: 600;
+    color: var(--ink-soft); margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: .08em;
+  }
+  .input-text {
+    width: 100%; padding: 13px 16px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    outline: none; transition: border-color .2s, background .2s;
+  }
+  .input-text:focus { border-color: var(--pink); background: #fff; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-mini {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 14px 16px; border-radius: 10px; text-align: center;
+  }
+  .stat-mini .v { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--pink); }
+  .stat-mini .l { font-size: 0.72rem; color: var(--ink-light); margin-top: 2px; }
+
+  /* ── BUTTONS ────────────────────────────────────────────── */
+  .btn {
+    padding: 13px 26px; border-radius: 999px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600;
+    border: 1px solid transparent; cursor: pointer;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary { background: var(--pink); color: #fff; }
+  .btn-primary:hover { background: #a04f63; transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { background: var(--ink-light); cursor: not-allowed; transform: none; }
+  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+  .btn-tertiary { background: transparent; color: var(--ink-soft); font-weight: 500; }
+  .btn-tertiary:hover { color: var(--pink); }
+  .btn-block { width: 100%; justify-content: center; padding: 15px; }
+
+  /* ── SETUP ──────────────────────────────────────────────── */
+  .welcome-line { font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 4px; font-style: italic; }
+  .section-block { margin-bottom: 38px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-head h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem; color: var(--ink);
+    letter-spacing: -.01em;
+  }
+  .section-head .hint { font-size: 0.8rem; color: var(--ink-light); }
+
+  .mode-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .mode-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px 20px; cursor: pointer;
+    transition: all .2s; position: relative;
+  }
+  .mode-card:hover { border-color: var(--pink-soft); transform: translateY(-2px); }
+  .mode-card.selected { border-color: var(--pink); background: #fffafb; box-shadow: 0 4px 24px rgba(184,92,114,0.08); }
+  .mode-card .mode-icon {
+    font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+    color: var(--blue); margin-bottom: 8px; font-style: italic;
+  }
+  .mode-card.selected .mode-icon { color: var(--pink); }
+  .mode-card .mode-name { font-weight: 600; font-size: 1.02rem; margin-bottom: 6px; }
+  .mode-card .mode-desc { font-size: 0.82rem; color: var(--ink-soft); line-height: 1.55; }
+  .mode-tag {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 0.68rem; color: var(--ink-light);
+    text-transform: uppercase; letter-spacing: .1em;
+  }
+
+  /* domains */
+  .domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .domain-tile {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 14px 16px; border-radius: 10px; cursor: pointer;
+    transition: all .2s; display: flex; align-items: center; gap: 12px;
+  }
+  .domain-tile:hover { border-color: var(--blue-soft); }
+  .domain-tile.selected { border-color: var(--blue); background: var(--blue-bg); }
+  .domain-tile .dchk {
+    width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--border);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #fff; background: transparent;
+    transition: all .2s;
+  }
+  .domain-tile.selected .dchk { background: var(--blue); border-color: var(--blue); }
+  .domain-tile .dname { font-size: 0.84rem; font-weight: 500; flex: 1; }
+  .domain-tile .dcount {
+    font-size: 0.72rem; color: var(--ink-light);
+    font-variant-numeric: tabular-nums;
+  }
+  .domain-actions { display: flex; gap: 10px; margin-top: 12px; }
+
+  /* diff & count */
+  .opts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    padding: 7px 16px; border-radius: 999px;
+    font-size: 0.82rem; font-weight: 500;
+    border: 1px solid var(--border); background: var(--card);
+    cursor: pointer; transition: all .2s; color: var(--ink-soft);
+  }
+  .pill:hover { border-color: var(--ink-light); }
+  .pill.selected.all { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .pill.selected.easy { border-color: var(--green); background: var(--green); color: #fff; }
+  .pill.selected.medium { border-color: var(--yellow); background: var(--yellow); color: #fff; }
+  .pill.selected.hard { border-color: var(--pink); background: var(--pink); color: #fff; }
+
+  .count-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem; color: var(--pink);
+    line-height: 1; margin-bottom: 4px;
+  }
+  .count-display em { font-style: italic; color: var(--blue); }
+  .count-sub { font-size: 0.78rem; color: var(--ink-light); margin-bottom: 12px; }
+  .count-slider {
+    width: 100%; appearance: none; height: 3px; border-radius: 2px;
+    background: var(--border); outline: none; cursor: pointer;
+  }
+  .count-slider::-webkit-slider-thumb {
+    appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--pink); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(184,92,114,0.3);
+  }
+  .count-slider::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--pink); cursor: pointer; border: 0;
+  }
+
+  /* errors review banner */
+  .errors-banner {
+    background: var(--yellow-bg); border-left: 3px solid var(--yellow);
+    padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.85rem;
+  }
+  .errors-banner strong { color: var(--yellow); }
+  .errors-banner button {
+    background: var(--yellow); color: #fff; border: none; padding: 6px 14px;
+    border-radius: 999px; font-size: 0.78rem; font-weight: 600; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── QUIZ ─────────────────────────────────────────────── */
+  .quiz-top {
+    display: flex; align-items: center; gap: 18px;
+    padding: 20px 0 28px; flex-wrap: wrap;
+  }
+  .quiz-prog { flex: 1; min-width: 180px; }
+  .quiz-prog-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.76rem; color: var(--ink-soft); margin-bottom: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .quiz-prog-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .quiz-prog-fill {
+    height: 100%; background: linear-gradient(90deg, var(--pink), var(--blue));
+    border-radius: 2px; transition: width .5s ease;
+  }
+  .quiz-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 12px; border-radius: 999px; font-size: 0.74rem; font-weight: 500;
+    font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 5px;
+  }
+  .chip.green { background: var(--green-bg); color: var(--green); }
+  .chip.red { background: var(--red-bg); color: var(--red); }
+  .chip.blue { background: var(--blue-bg); color: var(--blue); }
+  .chip.yellow { background: var(--yellow-bg); color: var(--yellow); }
+
+  .quiz-exit {
+    background: transparent; border: 1px solid var(--border);
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 0.75rem; color: var(--ink-soft);
+    cursor: pointer; transition: all .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .quiz-exit:hover { border-color: var(--red); color: var(--red); }
+
+  /* cert mode banner */
+  .cert-banner {
+    background: var(--blue-bg); border-left: 3px solid var(--blue);
+    padding: 12px 18px; border-radius: 0 8px 8px 0; margin-bottom: 16px;
+    font-size: 0.82rem; color: var(--blue);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cert-banner strong { font-weight: 600; }
+
+  /* question card */
+  .q-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 32px 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+  }
+  .q-meta {
+    display: flex; gap: 10px; align-items: center; margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .q-tag {
+    padding: 3px 10px; border-radius: 999px; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: .02em;
+  }
+  .q-tag.num { background: var(--bg-soft); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .q-tag.domain { background: var(--blue-bg); color: var(--blue); }
+  .q-tag.easy { background: var(--green-bg); color: var(--green); }
+  .q-tag.medium { background: var(--yellow-bg); color: var(--yellow); }
+  .q-tag.hard { background: var(--pink-bg); color: var(--pink); }
+  .q-tag.scenario { background: var(--bg-soft); color: var(--ink-soft); }
+  .q-flag {
+    margin-left: auto; background: transparent; border: 1px solid var(--border);
+    width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; transition: all .2s;
+  }
+  .q-flag:hover { border-color: var(--yellow); }
+  .q-flag.flagged { background: var(--yellow); border-color: var(--yellow); color: #fff; }
+
+  .q-scenario {
+    background: var(--blue-bg); border-left: 3px solid var(--blue);
+    padding: 16px 18px; border-radius: 0 8px 8px 0; margin-bottom: 20px;
+    font-size: 0.88rem; line-height: 1.65; color: var(--ink);
+  }
+  .q-scenario strong { color: var(--blue); font-weight: 600; }
+
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; line-height: 1.4; color: var(--ink);
+    letter-spacing: -.01em; margin-bottom: 24px;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; cursor: pointer;
+    transition: all .2s; font-size: 0.92rem; line-height: 1.55;
+  }
+  .option:hover:not(.disabled) { border-color: var(--pink-soft); background: #fff; }
+  .option.selected { border-color: var(--pink); background: #fff; }
+  .option.correct { border-color: var(--green); background: var(--green-bg); }
+  .option.wrong { border-color: var(--red); background: var(--red-bg); }
+  .option.disabled { cursor: default; }
+  .option-key {
+    width: 26px; height: 26px; flex-shrink: 0; border-radius: 6px;
+    border: 1.5px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.78rem; font-weight: 700; color: var(--ink-soft);
+    transition: all .2s; font-variant-numeric: tabular-nums;
+  }
+  .option.selected .option-key { background: var(--pink); border-color: var(--pink); color: #fff; }
+  .option.correct .option-key { background: var(--green); border-color: var(--green); color: #fff; }
+  .option.wrong .option-key { background: var(--red); border-color: var(--red); color: #fff; }
+  .option-text { flex: 1; padding-top: 2px; }
+
+  /* explanation */
+  .explanation {
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; margin-top: 18px;
+    animation: fadeIn .3s ease;
+  }
+  .exp-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+  }
+  .exp-head.correct { color: var(--green); }
+  .exp-head.wrong { color: var(--red); }
+  .exp-text { font-size: 0.9rem; line-height: 1.7; color: var(--ink); }
+
+  /* nav row */
+  .q-nav { display: flex; gap: 12px; margin-top: 20px; align-items: center; }
+  .q-nav .spacer { flex: 1; }
+  .kbd-hint {
+    font-size: 0.72rem; color: var(--ink-light);
+    display: flex; gap: 12px; align-items: center;
+  }
+  .kbd-hint kbd {
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 2px 7px; border-radius: 4px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem; font-weight: 600;
+  }
+
+  /* ── RESULTS ────────────────────────────────────────────── */
+  .result-hero { text-align: center; padding: 40px 0 24px; }
+  .result-ring {
+    width: 160px; height: 160px; border-radius: 50%;
+    margin: 0 auto 28px; position: relative;
+    background: conic-gradient(var(--pink) 0deg var(--pct), var(--border) var(--pct) 360deg);
+  }
+  .result-ring::before {
+    content: ''; position: absolute; inset: 12px;
+    border-radius: 50%; background: var(--bg);
+  }
+  .result-ring-inner {
+    position: absolute; inset: 0; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  .result-pct {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem; color: var(--pink); line-height: 1;
+  }
+  .result-pct-label { font-size: 0.72rem; color: var(--ink-light); margin-top: 2px; }
+  .result-verdict {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem; letter-spacing: -.02em; margin-bottom: 6px;
+  }
+  .result-verdict em { font-style: italic; }
+  .result-verdict.pass em { color: var(--green); }
+  .result-verdict.fail em { color: var(--red); }
+  .result-verdict.practice em { color: var(--blue); }
+  .result-name { font-size: 0.82rem; color: var(--ink-light); margin-bottom: 6px; }
+  .result-sub { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .result-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: 32px 0;
+  }
+  .r-stat {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 14px; text-align: center;
+  }
+  .r-stat .v {
+    font-family: 'DM Serif Display', serif; font-size: 1.6rem; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .r-stat .l { font-size: 0.72rem; color: var(--ink-light); margin-top: 6px; }
+  .r-stat.g .v { color: var(--green); }
+  .r-stat.r .v { color: var(--red); }
+  .r-stat.y .v { color: var(--yellow); }
+  .r-stat.b .v { color: var(--blue); }
+
+  .domain-breakdown { margin: 32px 0; }
+  .dom-bar { margin-bottom: 14px; }
+  .dom-bar-head {
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; margin-bottom: 5px;
+  }
+  .dom-bar-head span:last-child { font-variant-numeric: tabular-nums; color: var(--ink-light); }
+  .dom-bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .dom-bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+
+  .result-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+
+  /* ── REVIEW ─────────────────────────────────────────────── */
+  .review-head {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 28px; padding-top: 24px;
+  }
+  .review-head h2 {
+    font-family: 'DM Serif Display', serif; font-size: 1.7rem; letter-spacing: -.02em;
+  }
+  .review-filters { display: flex; gap: 8px; margin-bottom: 20px; }
+  .review-item {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px 26px; margin-bottom: 14px;
+  }
+  .review-item.correct-r { border-left: 3px solid var(--green); }
+  .review-item.wrong-r { border-left: 3px solid var(--red); }
+  .review-item.skipped-r { border-left: 3px solid var(--yellow); }
+  .review-q { font-weight: 500; font-size: 0.92rem; line-height: 1.55; margin-bottom: 12px; }
+  .review-scenario-mini {
+    font-size: 0.8rem; color: var(--ink-soft); background: var(--bg-soft);
+    padding: 10px 14px; border-radius: 6px; margin-bottom: 10px;
+    border-left: 2px solid var(--blue);
+  }
+  .review-ans {
+    font-size: 0.85rem; padding: 8px 12px; border-radius: 6px;
+    margin-bottom: 6px; display: flex; gap: 8px;
+  }
+  .review-ans.yours-w { background: var(--red-bg); color: var(--red); }
+  .review-ans.yours-c { background: var(--green-bg); color: var(--green); }
+  .review-ans.correct { background: var(--green-bg); color: var(--green); }
+  .review-ans .label { font-weight: 600; min-width: 60px; }
+  .review-exp {
+    font-size: 0.83rem; color: var(--ink-soft); line-height: 1.65;
+    padding-top: 10px; margin-top: 10px; border-top: 1px solid var(--border-soft);
+  }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .topbar-inner { padding: 16px 20px; }
+    .wrap { padding: 32px 20px 60px; }
+    .hero-title { font-size: 1.9rem; }
+    .register-card { padding: 28px 24px; }
+    .mode-row, .domain-grid, .opts-row, .result-stats { grid-template-columns: 1fr; }
+    .q-card { padding: 24px 22px; }
+    .q-text { font-size: 1.1rem; }
+    .result-stats { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-light); }
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ─────────────────────────────────────────── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-mark">SC-300<span>·quiz</span></div>
+    <div class="topbar-meta">
+      <span><span class="dot"></span>150 questões</span>
+      <span id="user-greet" style="display:none;"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: REGISTER ────────────────────────────────── -->
+<div class="screen active" id="screen-register">
+  <div class="wrap">
+    <div class="welcome-line">// bem-vinda</div>
+    <h1 class="hero-title">Identity & Access<br><em>Administrator</em></h1>
+    <p class="hero-sub">Treine para o exame SC-300 com 150 questões em português, cobrindo os 4 domínios oficiais — incluindo cenários estilo Microsoft.</p>
+
+    <div class="stats-row">
+      <div class="stat-mini"><div class="v">150</div><div class="l">questões</div></div>
+      <div class="stat-mini"><div class="v">34</div><div class="l">cenários</div></div>
+      <div class="stat-mini"><div class="v">04</div><div class="l">domínios</div></div>
+    </div>
+
+    <div class="register-card">
+      <div class="input-block">
+        <label>Como podemos te chamar?</label>
+        <input type="text" class="input-text" id="name-input" placeholder="Seu nome" autocomplete="off">
+      </div>
+      <button class="btn btn-primary btn-block" onclick="register()">Começar →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: SETUP ───────────────────────────────────── -->
+<div class="screen" id="screen-setup">
+  <div class="wrap">
+    <div class="welcome-line">// configurar sessão</div>
+    <h1 class="hero-title">Olá, <em id="hello-name">Larissa</em></h1>
+    <p class="hero-sub">Escolha o modo e os domínios que você quer treinar agora.</p>
+
+    <div id="errors-banner-wrap"></div>
+
+    <div class="section-block">
+      <div class="section-head">
+        <h3 class="italic">Modo</h3>
+      </div>
+      <div class="mode-row">
+        <div class="mode-card selected" data-mode="practice" onclick="selectMode('practice')">
+          <div class="mode-tag">prática</div>
+          <div class="mode-icon">Estudo</div>
+          <div class="mode-name">Modo Estudo</div>
+          <div class="mode-desc">Escolha domínios, dificuldade e quantidade. Explicação após cada resposta.</div>
+        </div>
+        <div class="mode-card" data-mode="cert" onclick="selectMode('cert')">
+          <div class="mode-tag">simulado</div>
+          <div class="mode-icon">Certificação</div>
+          <div class="mode-name">Modo Certificação</div>
+          <div class="mode-desc">60 questões mistas, 100 min cronometrados. Explicações só ao final.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="practice-config">
+      <div class="section-block">
+        <div class="section-head">
+          <h3 class="italic">Domínios</h3>
+          <span class="hint" id="dom-hint">4 selecionados</span>
+        </div>
+        <div class="domain-grid" id="domain-grid"></div>
+        <div class="domain-actions">
+          <button class="btn btn-tertiary" onclick="toggleAllDomains(true)" style="padding:6px 0">Selecionar todos</button>
+          <span style="color:var(--border)">·</span>
+          <button class="btn btn-tertiary" onclick="toggleAllDomains(false)" style="padding:6px 0">Limpar</button>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="opts-row">
+          <div>
+            <div class="section-head">
+              <h3 class="italic">Dificuldade</h3>
+            </div>
+            <div class="pill-row">
+              <button class="pill all selected" data-diff="all" onclick="selectDiff('all')">Todas</button>
+              <button class="pill easy" data-diff="easy" onclick="selectDiff('easy')">Fácil</button>
+              <button class="pill medium" data-diff="medium" onclick="selectDiff('medium')">Média</button>
+              <button class="pill hard" data-diff="hard" onclick="selectDiff('hard')">Difícil</button>
+            </div>
+          </div>
+          <div>
+            <div class="section-head">
+              <h3 class="italic">Quantidade</h3>
+            </div>
+            <div class="count-display"><em id="count-val">20</em></div>
+            <div class="count-sub">de <span id="avail-count">0</span> disponíveis</div>
+            <input type="range" class="count-slider" id="count-slider" min="5" max="100" value="20" oninput="updateCount(this.value)">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary btn-block" id="start-btn" onclick="startQuiz()">Iniciar →</button>
+  </div>
+</div>
+
+<!-- ── SCREEN: QUIZ ────────────────────────────────────── -->
+<div class="screen" id="screen-quiz">
+  <div class="wrap-wide">
+    <div class="quiz-top">
+      <button class="quiz-exit" onclick="exitQuiz()">← Sair</button>
+      <div class="quiz-prog">
+        <div class="quiz-prog-label">
+          <span id="prog-txt">Questão 1 de 20</span>
+          <span id="prog-pct">0%</span>
+        </div>
+        <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+      <div class="quiz-chips">
+        <div class="chip green">✓ <span id="chip-c">0</span></div>
+        <div class="chip red">✗ <span id="chip-w">0</span></div>
+        <div class="chip blue" id="chip-timer">⏱ --:--</div>
+      </div>
+    </div>
+    <div id="cert-banner-wrap"></div>
+    <div id="q-container"></div>
+    <div class="q-nav" id="q-nav">
+      <div class="spacer"></div>
+      <div class="kbd-hint">
+        <span><kbd>1</kbd>–<kbd>4</kbd> opção</span>
+        <span><kbd>Enter</kbd> próxima</span>
+      </div>
+      <button class="btn btn-secondary" id="btn-skip" onclick="skipQuestion()">Pular</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()" disabled>Próxima →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: RESULTS ─────────────────────────────────── -->
+<div class="screen" id="screen-results">
+  <div class="wrap">
+    <div class="result-hero">
+      <div class="result-ring" id="result-ring">
+        <div class="result-ring-inner">
+          <div class="result-pct" id="result-pct">0%</div>
+          <div class="result-pct-label">acertos</div>
+        </div>
+      </div>
+      <div class="result-name" id="result-name"></div>
+      <div class="result-verdict" id="result-verdict"></div>
+      <div class="result-sub" id="result-sub"></div>
+    </div>
+
+    <div class="result-stats">
+      <div class="r-stat g"><div class="v" id="rs-c">0</div><div class="l">corretas</div></div>
+      <div class="r-stat r"><div class="v" id="rs-w">0</div><div class="l">erradas</div></div>
+      <div class="r-stat y"><div class="v" id="rs-s">0</div><div class="l">puladas</div></div>
+      <div class="r-stat b"><div class="v" id="rs-t">00:00</div><div class="l">tempo</div></div>
+    </div>
+
+    <div class="section-head">
+      <h3 class="italic">Desempenho por domínio</h3>
+    </div>
+    <div class="domain-breakdown" id="dom-breakdown"></div>
+
+    <div class="result-btns">
+      <button class="btn btn-primary" onclick="goSetup()">Nova sessão</button>
+      <button class="btn btn-secondary" onclick="showReview()">Revisar questões →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: REVIEW ──────────────────────────────────── -->
+<div class="screen" id="screen-review">
+  <div class="wrap-wide">
+    <div class="review-head">
+      <button class="quiz-exit" onclick="goResults()">← Voltar</button>
+      <h2>Revisão de questões</h2>
+    </div>
+    <div class="review-filters">
+      <button class="pill selected all" data-filter="all" onclick="filterReview('all')">Todas</button>
+      <button class="pill" data-filter="wrong" onclick="filterReview('wrong')">Só erradas</button>
+      <button class="pill" data-filter="flagged" onclick="filterReview('flagged')">🚩 Marcadas</button>
+    </div>
+    <div id="review-list"></div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- ─ SCRIPT ────────────────────────────────────────────── -->
+<!-- ─────────────────────────────────────────────────────── -->
+<script>
+// ═══════════════════════════════════════════════════════════
+//  BANCO DE QUESTÕES
+// ═══════════════════════════════════════════════════════════
+const DOMAINS = {
+  d1: { name: 'Implementar e Gerenciar Identidades', short: 'Identidades', weight: 25 },
+  d2: { name: 'Autenticação e Gerenciamento de Acesso', short: 'Autenticação', weight: 25 },
+  d3: { name: 'Gerenciamento de Acesso para Aplicativos', short: 'Aplicativos', weight: 20 },
+  d4: { name: 'Identity Governance', short: 'Governance', weight: 30 }
+};
+
+const QUESTIONS = [
+// ═══════════════════════════════════════════════════════════════════════
+// DOMÍNIO 1 — Implementar e Gerenciar Identidades (38 questões)
+// ═══════════════════════════════════════════════════════════════════════
+
+// EASY (13)
+{d:'d1',diff:'easy',q:'O que é o Microsoft Entra ID?',o:['Servidor DNS corporativo','Serviço de identidade e acesso baseado em nuvem da Microsoft','Firewall de aplicações web','Sistema operacional de servidor'],a:1,exp:'O Microsoft Entra ID (antigo Azure AD) é o serviço de gerenciamento de identidade e acesso baseado em nuvem da Microsoft, usado para autenticar e autorizar usuários em aplicativos e serviços cloud.'},
+{d:'d1',diff:'easy',q:'Qual é o domínio padrão criado automaticamente para todo tenant Entra ID?',o:['contoso.microsoft.com','contoso.onmicrosoft.com','contoso.azure.com','contoso.entra.com'],a:1,exp:'Todo tenant recebe automaticamente um domínio inicial no formato <nome>.onmicrosoft.com, que pode ser usado mesmo antes de adicionar um domínio personalizado verificado.'},
+{d:'d1',diff:'easy',q:'Qual ferramenta sincroniza objetos do Active Directory local para o Entra ID?',o:['Azure Site Recovery','Microsoft Entra Connect','Azure Migrate','Microsoft Intune'],a:1,exp:'O Microsoft Entra Connect (antigo Azure AD Connect) é a ferramenta oficial para sincronizar usuários, grupos e dispositivos do AD local para o Entra ID em cenários de identidade híbrida.'},
+{d:'d1',diff:'easy',q:'Qual é a diferença entre um usuário "Member" e um usuário "Guest" no Entra ID?',o:['Members têm MFA, Guests não','Members são internos da organização; Guests são externos convidados via B2B','Members usam SSO; Guests não','Members pagam licença, Guests são gratuitos'],a:1,exp:'Members são usuários pertencentes ao tenant da organização. Guests são identidades externas convidadas via B2B Collaboration, com acesso limitado aos recursos especificamente compartilhados.'},
+{d:'d1',diff:'easy',q:'O que é "Password Hash Synchronization" (PHS)?',o:['Criptografia de senhas em trânsito','Sincronização de hashes de senha do AD local para o Entra ID, permitindo autenticação direta na nuvem','Política de complexidade de senhas','Redefinição de senha em lote'],a:1,exp:'O PHS sincroniza um hash do hash da senha do AD local para o Entra ID. Permite autenticação direta na nuvem mesmo se o AD local estiver offline, sendo o método mais simples de identidade híbrida.'},
+{d:'d1',diff:'easy',q:'Qual tipo de grupo adiciona membros automaticamente com base em atributos do usuário?',o:['Grupo de segurança estático','Grupo de distribuição','Grupo dinâmico','Grupo atribuído'],a:2,exp:'Grupos dinâmicos usam regras baseadas em atributos (departamento, cargo, localização) para adicionar e remover membros automaticamente, eliminando gestão manual.'},
+{d:'d1',diff:'easy',q:'O que é "Self-Service Password Reset" (SSPR)?',o:['Redefinição feita pelo helpdesk','Recurso que permite o usuário redefinir a própria senha usando métodos de verificação','Política de expiração de senhas','Bloqueio automático após falhas'],a:1,exp:'O SSPR permite que usuários redefinam suas próprias senhas sem intervenção do administrador, usando métodos como email, telefone ou Microsoft Authenticator.'},
+{d:'d1',diff:'easy',q:'Qual licença é necessária para usar grupos dinâmicos?',o:['Entra ID Free','Entra ID P1','Entra ID P2','Microsoft 365 Business Basic'],a:1,exp:'Grupos dinâmicos requerem licença Microsoft Entra ID P1 ou superior. A licença é necessária para cada usuário que for membro de um grupo dinâmico.'},
+{d:'d1',diff:'easy',q:'O que é "Pass-through Authentication" (PTA)?',o:['Autenticação sem senha','Validação de credenciais diretamente no AD local em tempo real, sem sincronizar senhas para a nuvem','Autenticação por token de sessão','Login automático por SSO'],a:1,exp:'O PTA usa um agente local que valida senhas diretamente contra o AD on-premises em tempo real. Não armazena hashes na nuvem, mantendo controle total no AD local.'},
+{d:'d1',diff:'easy',q:'O que acontece quando um usuário é deletado no Entra ID?',o:['É removido permanentemente de imediato','Fica em lixeira por 30 dias antes da exclusão permanente','Fica em quarentena por 90 dias','É apenas desabilitado, nunca deletado'],a:1,exp:'Usuários deletados ficam na lixeira (Deleted Users) por 30 dias, podendo ser restaurados durante esse período. Após 30 dias, são removidos permanentemente.'},
+{d:'d1',diff:'easy',q:'Para que serve o "Microsoft Entra Connect Health"?',o:['Gerenciar políticas de senha','Monitorar saúde e performance da infraestrutura de sincronização de identidades','Configurar acesso condicional','Emitir certificados de autenticação'],a:1,exp:'O Entra Connect Health fornece monitoramento, alertas e relatórios sobre a saúde do Entra Connect, ADFS e AD Domain Services, ajudando a manter a sincronização funcional.'},
+{d:'d1',diff:'easy',q:'O que é um "Tenant ID" no Entra ID?',o:['ID do plano de assinatura','GUID único que identifica a instância do Entra ID de uma organização','Nome de domínio da empresa','ID do administrador global'],a:1,exp:'O Tenant ID é um GUID único que identifica inequivocamente a instância (tenant) do Entra ID de uma organização. É usado em URLs de autorização OAuth e configurações de aplicativos.'},
+{d:'d1',diff:'easy',q:'Qual recurso permite atribuir licenças automaticamente baseado na pertinência a grupos?',o:['Dynamic Groups','Application Proxy','Group-based Licensing','Conditional Access'],a:2,exp:'O Group-based Licensing permite atribuir licenças automaticamente a usuários com base em sua associação a grupos, simplificando enormemente a gestão de licenças em escala.'},
+
+// MEDIUM (15)
+{d:'d1',diff:'medium',q:'Uma organização usa Entra Connect com PHS. O AD local fica offline por 4 horas. O que ocorre com logins no Microsoft 365?',o:['Nenhum usuário consegue logar','Usuários autenticam normalmente, pois os hashes já estão no Entra ID','Apenas administradores conseguem logar','Logins são bloqueados após 1 hora'],a:1,exp:'Com PHS, os hashes de senha já estão sincronizados no Entra ID. Se o AD local cair, os usuários continuam autenticando normalmente na nuvem, sem qualquer interrupção dos serviços.'},
+{d:'d1',diff:'medium',q:'Qual é a diferença entre "Entra ID Joined" e "Hybrid Entra ID Joined"?',o:['Não há diferença técnica','Entra Joined conecta apenas ao Entra ID (cloud); Hybrid Joined conecta ao AD local E ao Entra ID','Hybrid Joined exige licença P2','Entra Joined só funciona com Windows 11'],a:1,exp:'Entra ID Joined: dispositivo gerenciado apenas pelo Entra ID, típico de cenários cloud-only. Hybrid Joined: dispositivo ingressado no AD local E registrado no Entra ID, típico de ambientes híbridos com sistemas legados.',scenario:null},
+{d:'d1',diff:'medium',scenario:'A Contoso Ltd. tem 8.000 funcionários distribuídos em 4 florestas Active Directory sem trust entre si. A organização quer implementar identidade híbrida com o Microsoft 365.',q:'Qual é a configuração recomendada do Entra Connect?',o:['Instalar um Entra Connect por floresta com tenants Entra ID separados','Usar um único Entra Connect com suporte multi-forest, configurando conectores para cada floresta','Migrar todas as florestas para uma única antes da sincronização','Usar apenas B2B Collaboration entre as florestas'],a:1,exp:'O Entra Connect suporta nativamente múltiplas florestas em uma única instância. Configura-se conectores para cada floresta no mesmo servidor Entra Connect, sincronizando todos os objetos para o mesmo tenant Entra ID, com regras para evitar duplicidade.'},
+{d:'d1',diff:'medium',q:'Qual a vantagem do "Staging Mode" no Entra Connect?',o:['Reduz custo de licenciamento','Permite ter um segundo servidor Entra Connect pronto para failover, sem aplicar alterações de sincronização','Acelera o processo de sincronização inicial','Permite sincronização bidirecional automática'],a:1,exp:'O Staging Mode instala um segundo Entra Connect que processa todos os ciclos de sincronização mas não aplica alterações no Entra ID. Em caso de falha do servidor primário, pode ser promovido rapidamente — alta disponibilidade essencial em ambientes grandes.'},
+{d:'d1',diff:'medium',q:'O que é "Seamless SSO" e quando é usado?',o:['Login com biometria em dispositivos Windows','SSO automático para usuários em dispositivos ingressados no AD local quando acessam serviços cloud, sem re-inserir credenciais','SSO entre múltiplos tenants Entra ID','Login sem senha via FIDO2'],a:1,exp:'O Seamless SSO usa Kerberos para autenticar silenciosamente usuários em dispositivos AD-joined quando estão na rede corporativa. Útil em cenários com PHS ou PTA, eliminando prompts de senha desnecessários.'},
+{d:'d1',diff:'medium',scenario:'A Fabrikam Inc. quer impedir que contas privilegiadas do AD local sejam sincronizadas para o Entra ID, reduzindo a superfície de ataque caso o AD local seja comprometido.',q:'Qual é a abordagem recomendada?',o:['Deletar todas as contas privilegiadas do AD local','Configurar filtering no Entra Connect (OU filtering ou group filtering) para excluir contas privilegiadas do escopo de sincronização','Desabilitar manualmente cada conta no Entra ID após sincronizar','Usar o ADFS em vez do Entra Connect'],a:1,exp:'É uma best practice excluir contas privilegiadas locais (Domain Admins, Enterprise Admins) do escopo de sincronização via OU filtering ou attribute-based filtering. Isso evita que comprometimentos do AD local se propaguem para identidades cloud.'},
+{d:'d1',diff:'medium',q:'O que é "Source Anchor" no Entra Connect?',o:['Servidor primário de sincronização','Atributo imutável que vincula um objeto AD local a sua representação no Entra ID, garantindo correspondência consistente','Endereço IP do servidor Entra Connect','Chave de criptografia das senhas'],a:1,exp:'O Source Anchor (geralmente ms-DS-ConsistencyGuid) é o atributo usado para identificar inequivocamente um objeto entre AD local e Entra ID. Mudar o source anchor após a sincronização inicial é uma operação destrutiva.'},
+{d:'d1',diff:'medium',q:'Qual recurso permite sincronizar mudanças do Entra ID de volta para o AD local?',o:['Reverse Sync','Write-back (password, group, device)','Bidirectional Connector','Cross-tenant Sync'],a:1,exp:'Write-back permite que alterações feitas no Entra ID sejam refletidas no AD local. Exemplos: password write-back (SSPR atualiza AD local), group write-back, device write-back.'},
+{d:'d1',diff:'medium',q:'Como configurar expiração automática de grupos do Microsoft 365?',o:['Não é possível configurar expiração','Configurar Group Expiration Policy no Entra ID com duração e notificações de renovação automáticas','Usar scripts PowerShell agendados','Excluir grupos manualmente a cada 90 dias'],a:1,exp:'A Group Expiration Policy permite definir uma vida útil para grupos do Microsoft 365 (180 dias, 365 dias ou customizado). Owners recebem notificações para renovar; se ignoradas, o grupo é excluído automaticamente.'},
+{d:'d1',diff:'medium',q:'O que é "Cross-tenant Synchronization" no Entra ID?',o:['Sincronização entre AD local e Entra ID','Sincronização automática de usuários entre múltiplos tenants Entra ID de uma mesma organização (ex: holding com subsidiárias)','Replicação entre datacenters Microsoft','Migração de tenants'],a:1,exp:'Cross-tenant Sync automatiza a sincronização de usuários entre tenants distintos da mesma organização (fusões, holdings), eliminando a necessidade de convites B2B manuais e mantendo perfis sincronizados.'},
+{d:'d1',diff:'medium',q:'Qual é a diferença entre "Cloud Sync" e "Entra Connect Sync"?',o:['Não há diferença, são nomes alternativos','Cloud Sync é um agente leve gerenciado na nuvem, ideal para cenários simples e multi-floresta; Entra Connect tem mais recursos para cenários complexos','Cloud Sync é apenas para licenças P2','Entra Connect só funciona para sincronizar grupos'],a:1,exp:'Entra Cloud Sync é um agente leve com configuração simples no portal cloud, ideal para múltiplas florestas pequenas. Entra Connect (versão clássica) tem mais recursos: device write-back, group write-back avançado, password write-back robusto.'},
+{d:'d1',diff:'medium',scenario:'A Tailspin Toys está migrando de ADFS para autenticação cloud usando PHS. Eles têm 5.000 usuários e querem testar gradualmente antes do cutover completo.',q:'Qual recurso permite essa migração gradual?',o:['Migration Wizard do Entra Connect','Staged Rollout — mover grupos específicos para autenticação cloud enquanto ADFS continua para outros','Hybrid Sync Mode','Tenant Migration Service'],a:1,exp:'O Staged Rollout permite mover usuários gradualmente (por grupo) do ADFS para autenticação cloud (PHS ou PTA), permitindo validar a experiência com piloto antes do cutover completo, reduzindo risco.'},
+{d:'d1',diff:'medium',q:'O que é "Accidental Deletion Prevention" no Entra Connect?',o:['Impede qualquer deleção no Entra ID','Bloqueia a sincronização se o número de objetos a serem deletados exceder um limite configurado','Cria backup automático antes de deletar','Exige aprovação dupla para deleções'],a:1,exp:'Accidental Deletion Prevention interrompe automaticamente a sincronização se um ciclo tentar deletar mais objetos que o threshold (padrão: 500), prevenindo deleções em massa acidentais por erro de filtro ou problema no AD local.'},
+{d:'d1',diff:'medium',q:'Como funciona o "Soft Match" no Entra Connect?',o:['Correspondência baseada apenas em ObjectGUID','Mecanismo que usa UPN ou ProxyAddress para identificar e corresponder usuários cloud-only existentes durante a sincronização inicial','Comparação fuzzy de nomes','Sincronização parcial de atributos'],a:1,exp:'O Soft Match permite que o Entra Connect "case" usuários existentes do Entra ID (criados manualmente) com objetos do AD local usando UPN ou email proxy, em vez de criar duplicatas. Útil em migrações onde alguns usuários já existem cloud-only.'},
+{d:'d1',diff:'medium',scenario:'A Adventure Works recém-implementou Cross-tenant Sync entre a matriz e uma subsidiária recém-adquirida. Após 48h, alguns usuários da subsidiária reclamam de não conseguir acessar recursos compartilhados.',q:'Qual é a primeira investigação a fazer?',o:['Verificar se as licenças foram atribuídas corretamente no tenant de destino','Verificar Audit Logs do Cross-tenant Sync e revisar o "Scoping Filter" e atributos sincronizados','Reinstalar o Entra Connect','Migrar todos os usuários manualmente'],a:1,exp:'Em Cross-tenant Sync, problemas típicos vêm de scoping filter (quais usuários são sincronizados), mapeamento de atributos (UPN, mail) e configurações de inbound trust no tenant de destino. Os Provisioning Logs são o ponto de partida natural para diagnóstico.'},
+
+// HARD (10)
+{d:'d1',diff:'hard',scenario:'A Woodgrove Bank descobriu que um Service Principal com permissão Application Mail.Read.All estava sendo usado por um app desconhecido para exfiltrar emails de todos os usuários nas últimas 3 semanas.',q:'Quais ações IMEDIATAS você deve tomar?',o:['Apenas resetar a senha do admin que registrou o app','Desabilitar o Service Principal, revogar credenciais (secrets/certs), revogar tokens ativos, investigar Audit Logs e Sign-in Logs, e notificar conforme GDPR','Deletar todos os emails afetados dos mailboxes','Desabilitar todos os Service Principals do tenant'],a:1,exp:'Resposta a incidente de Service Principal comprometido: (1) desabilitar SP imediatamente, (2) revogar todas as credenciais, (3) usar "Revoke all refresh tokens", (4) auditar logs para identificar escopo e timeline, (5) notificar DPO (GDPR exige notificação em 72h se houver risco a titulares).'},
+{d:'d1',diff:'hard',q:'O que é "Duplicate Attribute Resiliency" no Entra Connect?',o:['Mecanismo que sincroniza atributos duplicados em backup','Recurso que coloca em quarentena objetos com UPN/ProxyAddress duplicados em vez de falhar a sincronização inteira','Cria automaticamente sufixos únicos para resolver duplicatas','Bloqueia totalmente a sincronização ao detectar duplicatas'],a:1,exp:'Duplicate Attribute Resiliency (ativo por padrão) detecta conflitos de UPN ou ProxyAddress durante sincronização. O objeto conflitante recebe UPN temporário (<GUID>@<tenant>.onmicrosoft.com) e fica em quarentena para resolução do admin, sem quebrar a sincronização dos demais objetos.'},
+{d:'d1',diff:'hard',scenario:'A Litware tem ambiente híbrido com Entra Connect. Após uma alteração de UPN em massa no AD local (mudança de domínio @litware.com para @litware.io), 1.200 usuários reportam perda de acesso aos serviços M365.',q:'Qual é a causa raiz mais provável e a remediação?',o:['As licenças foram automaticamente removidas; basta reatribuir','UPN mudou no AD local mas o Entra Connect pode não estar configurado para sincronizar mudanças de UPN; verificar "UserPrincipalName synchronization" e considerar uso de PowerShell para forçar sincronização','Os usuários precisam fazer logout e login novamente','O domínio @litware.io não foi verificado no tenant'],a:1,exp:'Por padrão, o Entra Connect não sincroniza mudanças de UPN para usuários federados/managed em alguns cenários (legado). Verificar a opção "Synchronize userPrincipalName updates" e o domínio adicionado ao tenant. Também é necessário que @litware.io seja verificado no Entra ID antes da sincronização.'},
+{d:'d1',diff:'hard',q:'O que é "Workload Identity Federation" e quando usar?',o:['Federação entre múltiplos tenants Entra ID','Permite que workloads externos (GitHub Actions, AWS, Kubernetes) obtenham tokens Entra ID usando seus próprios mecanismos de identidade, sem armazenar Client Secrets','Sincronização de identidades entre cargas de trabalho','Autenticação entre microsserviços no mesmo tenant'],a:1,exp:'Workload Identity Federation elimina secrets/certificados em pipelines CI/CD. Ex: GitHub Actions usa o OIDC token nativo do GitHub para trocar por um token Entra ID, sem armazenar Client Secret no repositório — eliminando vetor de comprometimento por leak.'},
+{d:'d1',diff:'hard',q:'Qual é o impacto de alterar o Source Anchor de uma instalação de Entra Connect já em produção?',o:['Nenhum, pode ser alterado a qualquer momento','Operação destrutiva: todos os objetos sincronizados são deletados e recriados no Entra ID, podendo causar perda de licenças, role assignments e dados associados','Apenas objetos novos usam o novo source anchor','O Entra Connect bloqueia a alteração automaticamente'],a:1,exp:'Alterar o source anchor em produção é uma das operações mais destrutivas possíveis. O Entra Connect tratará todos os objetos como novos, deletando os antigos e recriando — causando perda de atribuições de licenças, roles RBAC, group memberships e outros dados associados.'},
+{d:'d1',diff:'hard',scenario:'A Northwind Traders implementou Hybrid Identity há 6 meses. Auditoria descobre que 47 usuários têm contas duplicadas (uma sincronizada + uma cloud-only), causando confusão de licenciamento e acesso.',q:'Como remediar consolidando para uma identidade única por usuário?',o:['Deletar todas as contas cloud-only afetadas','Identificar par a par, mover atributos e ownership da cloud-only para a sincronizada via Soft Match (após popular ImmutableID), validar acesso e então deletar a cloud-only','Recriar todos os usuários do zero','Manter ambas e usar grupos para diferenciar'],a:1,exp:'Consolidação correta: (1) inventariar duplicatas, (2) escolher a conta autoritativa (geralmente a sincronizada do AD), (3) usar Soft Match populando o ImmutableID na cloud-only para que case com a do AD, (4) migrar dados, licenças, group memberships, (5) deletar a duplicata. Operação delicada que exige planejamento e janela de manutenção.'},
+{d:'d1',diff:'hard',q:'Como o Entra Connect lida com objetos que excedem o limite de 250.000 objetos por padrão no Entra ID?',o:['A sincronização falha silenciosamente','É necessário abrir um ticket Microsoft para aumentar o limite ou implementar filtering para reduzir o escopo de sincronização','O Entra Connect divide objetos automaticamente em múltiplos tenants','Sincroniza apenas os primeiros 250.000 objetos'],a:1,exp:'O limite padrão do Entra ID é 500.000 objetos para tenants gratuitos e ilimitado para tenants com domínio verificado. Para casos especiais (tenants com restrições), é necessário abrir suporte ou aplicar filtering por OU/atributo para manter o escopo sincronizado dentro dos limites.'},
+{d:'d1',diff:'hard',scenario:'A Wide World Importers tem 3 florestas AD com objetos que usam o mesmo proxyAddresses em florestas diferentes, causando conflitos quando sincronizadas para um único tenant.',q:'Qual é a estratégia de resolução?',o:['Renomear manualmente todos os objetos em conflito','Antes da sincronização: identificar todos os conflitos via PowerShell, decidir qual objeto é autoritativo, remover proxyAddresses conflitantes nas outras florestas. Durante: usar Duplicate Attribute Resiliency para isolar conflitos remanescentes','Sincronizar apenas uma floresta de cada vez','Usar tenants separados por floresta'],a:1,exp:'Multi-forest com proxyAddress conflitantes exige preparação: auditoria com Get-ADUser/Get-ADObject buscando duplicatas entre florestas; decisão de governança sobre objeto autoritativo; cleanup do AD local; só então sincronizar. Duplicate Attribute Resiliency serve como rede de segurança para conflitos não detectados, não como solução primária.'},
+{d:'d1',diff:'hard',q:'Como o Entra ID lida com Token Replay attacks?',o:['Não há proteção nativa contra replay','Combinação: tokens de curta duração (1h padrão), nonces em ID tokens OIDC, jti claim único, CAE invalidando tokens em eventos críticos, e Proof of Possession (mTLS/DPoP) opcional para binding ao client','Apenas HTTPS previne replay attacks','Tokens são invalidados após primeiro uso'],a:1,exp:'Defesa em camadas contra replay: (1) access tokens curtos limitam janela de ataque; (2) nonces previnem reuso direto; (3) jti permite tracking; (4) CAE invalida tokens proativamente; (5) Proof of Possession (preview) vincula token criptograficamente ao client — token interceptado é inútil em outro cliente.'},
+{d:'d1',diff:'hard',q:'O que é "Continuous Access Evaluation" (CAE) e como funciona tecnicamente?',o:['Avaliação contínua de performance de aplicações','Protocolo que permite ao Entra ID invalidar tokens em tempo real (em vez de esperar expiração) quando eventos críticos ocorrem; serviços CAE-aware recebem sinal e rejeitam o token','Sistema de monitoramento de compliance contínua','Renovação automática de tokens a cada minuto'],a:1,exp:'CAE substitui o modelo de expiração fixa por avaliação reativa. Eventos como user disabled, password change, MFA revoke, mudança significativa de IP geram sinais que serviços CAE-aware (Exchange, SharePoint, Teams, Graph) recebem para invalidar tokens imediatamente, fechando a janela de ataque pós-comprometimento.'},
+
+// ═══════════════════════════════════════════════════════════════════════
+// DOMÍNIO 2 — Autenticação e Gerenciamento de Acesso (38 questões)
+// ═══════════════════════════════════════════════════════════════════════
+
+// EASY (13)
+{d:'d2',diff:'easy',q:'O que é Multi-Factor Authentication (MFA)?',o:['Login com múltiplas senhas','Método que exige dois ou mais fatores de verificação distintos para autenticar','Sistema de login compartilhado entre apps','Autenticação apenas por biometria'],a:1,exp:'MFA combina pelo menos dois fatores: algo que você sabe (senha), algo que você tem (telefone, token) e/ou algo que você é (biometria). Reduz drasticamente o risco de comprometimento por roubo de senha.'},
+{d:'d2',diff:'easy',q:'Qual aplicativo da Microsoft é usado como autenticador móvel para MFA?',o:['Microsoft Teams','Microsoft Authenticator','Microsoft Outlook','Microsoft Edge'],a:1,exp:'O Microsoft Authenticator é o app oficial para MFA, oferecendo notificações push, códigos TOTP, login passwordless e backup de credenciais.'},
+{d:'d2',diff:'easy',q:'O que é "Conditional Access" no Entra ID?',o:['Firewall condicional','Motor de políticas que avalia sinais (usuário, dispositivo, localização, app, risco) e aplica controles de acesso baseados em condições','Sistema de filtros de email','Controle de acesso físico a salas'],a:1,exp:'Conditional Access é o "se-então" do Entra ID: SE (usuário acessa app de localização Z com risco W) ENTÃO (bloquear/exigir MFA/exigir dispositivo compliant). Requer licença P1.'},
+{d:'d2',diff:'easy',q:'O que são "Security Defaults" no Entra ID?',o:['Configurações de firewall do Azure','Conjunto de configurações de segurança mínimas habilitadas automaticamente para novos tenants, incluindo MFA para todos e bloqueio de autenticação legada','Política de senhas padrão','Configurações de compliance do Intune'],a:1,exp:'Security Defaults são gratuitos e habilitam: MFA para todos os usuários, MFA obrigatório para admins, bloqueio de autenticação legada. Ideais para organizações sem licença P1 e sem Conditional Access configurado.'},
+{d:'d2',diff:'easy',q:'O que é "Passwordless Authentication"?',o:['Login sem nome de usuário','Método de autenticação que elimina senhas tradicionais, usando biometria, FIDO2 keys ou app authenticator como fator principal','Login automático sem qualquer verificação','Autenticação apenas por email'],a:1,exp:'Passwordless elimina senhas substituindo-as por fatores mais seguros: Microsoft Authenticator com biometria, Windows Hello for Business e FIDO2 security keys.'},
+{d:'d2',diff:'easy',q:'O que é "Legacy Authentication" e por que deve ser bloqueada?',o:['Protocolos antigos (POP, IMAP, SMTP Auth) que não suportam MFA, representando risco se a senha for comprometida','Autenticação Kerberos do AD local','Login via Internet Explorer','Autenticação por certificado SSL antigo'],a:0,exp:'Legacy Authentication usa basic auth (usuário/senha sem MFA). É o vetor mais explorado em ataques de account takeover. Bloquear via Conditional Access fecha essa brecha — atacantes com senha válida ainda precisam superar o MFA.'},
+{d:'d2',diff:'easy',q:'O que é um "Temporary Access Pass" (TAP)?',o:['Token de acesso permanente para emergências','Senha temporária com expiração configurável, emitida por admin, usada para onboarding ou recuperação de conta','Licença temporária de 30 dias','Código de desbloqueio para dispositivos Intune'],a:1,exp:'TAP é uma senha temporária com prazo e número de usos configurável. Ideal para onboarding (usuário registra MFA com TAP) ou recuperação de conta quando todos os métodos MFA estão indisponíveis.'},
+{d:'d2',diff:'easy',q:'O que é "Number Matching" no Microsoft Authenticator?',o:['Validação do número de telefone','Recurso que exige que o usuário informe no app o número exibido na tela de login, prevenindo MFA fatigue','Correspondência de número de série do dispositivo','Verificação de número do cartão'],a:1,exp:'Number Matching protege contra MFA fatigue (push bombing): o usuário deve copiar no app o número da tela. Sem ver o número correto, atacantes não conseguem aprovar push enviado em massa.'},
+{d:'d2',diff:'easy',q:'O que é "Sign-in Frequency" em Conditional Access?',o:['Frequência de sincronização de senhas','Controla com que frequência o usuário precisa re-autenticar (incluindo MFA) ao usar um app','Limite de tentativas de login por hora','Frequência de renovação de tokens'],a:1,exp:'Sign-in Frequency define o intervalo antes de re-autenticação obrigatória. Pode ser tempo fixo (ex: 4 horas) ou "Every time" para recursos críticos. Balanceia segurança e usabilidade.'},
+{d:'d2',diff:'easy',q:'Qual método MFA é considerado mais resistente a phishing?',o:['SMS (código por mensagem)','Email com código','FIDO2 Security Key e Windows Hello for Business','Chamada telefônica automática'],a:2,exp:'FIDO2 e WHfB são phishing-resistant porque a chave criptográfica é vinculada ao domínio legítimo. Em site falso, o domínio não corresponde e a autenticação falha automaticamente.'},
+{d:'d2',diff:'easy',q:'O que é "Authentication Strengths" no Entra ID?',o:['Medidor de força de senhas','Configuração que define combinações de métodos de autenticação aceitáveis para acessar recursos específicos via Conditional Access','Pontuação de segurança do tenant','Limite de tentativas falhas'],a:1,exp:'Authentication Strengths permite exigir métodos específicos. Ex: recursos críticos exigem apenas métodos phishing-resistant (FIDO2, WHfB), bloqueando SMS/voz que são mais fracos.'},
+{d:'d2',diff:'easy',q:'O que é "Named Locations" em Conditional Access?',o:['Aliases de servidores DNS','Definições de redes confiáveis (por IP range ou país) usadas como condições em policies CA','Etiquetas de filiais','URLs de portais regionais'],a:1,exp:'Named Locations definem ranges de IP ou países como localizações nomeadas, usados em CA para criar condições como "permitir acesso somente da rede corporativa" ou "bloquear países de alto risco".'},
+{d:'d2',diff:'easy',q:'O que é "Risky Sign-ins" no Entra ID Protection?',o:['Logins fora do horário comercial','Tentativas identificadas por ML como possivelmente comprometidas, baseadas em sinais como IP anônimo, viagem impossível, malware IP','Logins que falharam várias vezes','Logins de novos dispositivos'],a:1,exp:'Risky Sign-ins são detectados pelo Identity Protection analisando: IP de Tor/proxy anônimo, viagem impossível, IP malicioso conhecido, e padrões anômalos. Permite resposta automática via Risk Policies.'},
+
+// MEDIUM (15)
+{d:'d2',diff:'medium',q:'O que é "MFA Fatigue" e como mitigar?',o:['Cansaço dos administradores ao gerenciar MFA','Ataque onde o invasor envia múltiplas notificações push esperando aprovação por engano; mitigado por Number Matching e Additional Context','Erro de servidor MFA por sobrecarga','Expiração frequente de métodos MFA cadastrados'],a:1,exp:'MFA Fatigue (push bombing): atacante com credenciais válidas tenta login repetidamente, inundando o celular da vítima com pushes. Eventualmente aprova por engano. Number Matching e Additional Context (mostrar app e localização) na notificação são mitigações essenciais.'},
+{d:'d2',diff:'medium',scenario:'A Contoso quer bloquear autenticação legada para todos os usuários, mas tem uma conta de serviço crítica que usa IMAP para uma aplicação que será migrada nos próximos 6 meses.',q:'Qual é a abordagem correta?',o:['Manter legacy auth habilitado globalmente até concluir a migração','Criar Conditional Access policy bloqueando legacy auth para todos, com exclusão específica da conta de serviço, e planejar migração da aplicação para autenticação moderna','Desabilitar legacy auth e aceitar a quebra da aplicação','Migrar todos os usuários para PHS antes de bloquear legacy'],a:1,exp:'Best practice: bloquear legacy auth via CA (Client Apps = "Exchange ActiveSync clients" + "Other clients"), com exclusão da conta de serviço específica documentada. Paralelamente, planejar e executar migração da aplicação para OAuth/Modern Auth dentro do prazo definido.'},
+{d:'d2',diff:'medium',q:'O que é "Continuous Access Evaluation" (CAE) e quais eventos disparam invalidação?',o:['Avaliação contínua de compliance de dispositivos','Mecanismo que invalida tokens em tempo real para eventos como: usuário desabilitado, senha alterada, MFA revogado, mudança significativa de IP','Renovação automática de tokens','Monitoramento contínuo de sessões ativas'],a:1,exp:'CAE permite que serviços (Exchange, Teams, SharePoint, Graph) recebam sinais do Entra ID e invalidem tokens imediatamente, sem esperar a expiração normal (1h). Fecha drasticamente a janela de ataque após eventos críticos.'},
+{d:'d2',diff:'medium',scenario:'Após auditoria de segurança, a Fabrikam descobriu que 30% dos usuários usam SMS como método primário de MFA, considerado mais vulnerável (SIM swap, SS7).',q:'Qual é a estratégia recomendada para migrar para métodos mais seguros sem impactar usuários?',o:['Desabilitar SMS imediatamente e forçar todos a usar app','Configurar Registration Campaign do Authenticator para nudgear migração; depois usar Authentication Strengths para bloquear SMS em recursos críticos','Trocar todos os usuários manualmente um por um','Aceitar SMS como método aceitável indefinidamente'],a:1,exp:'Abordagem em etapas: (1) Registration Campaign promove adoção voluntária do Authenticator; (2) Authentication Strengths em CA para recursos sensíveis exige métodos mais fortes que SMS; (3) Comunicação clara e suporte; (4) Eventualmente, remover SMS da Authentication Methods policy.'},
+{d:'d2',diff:'medium',q:'Qual é a diferença entre "Block" e "Grant" em Conditional Access?',o:['Block é temporário, Grant é permanente','Block impede totalmente o acesso; Grant permite o acesso podendo exigir controles (MFA, device compliance)','Grant concede privilégios elevados','Block apenas registra a tentativa sem impedir'],a:1,exp:'Ações em CA: Block = nega totalmente. Grant = permite, podendo exigir cumprimento de controles antes (MFA, compliant device, hybrid joined, app protection, terms of use). Pode-se combinar múltiplos controles com "Require all" ou "Require one".'},
+{d:'d2',diff:'medium',q:'O que é "Persistent Browser Session" em CA?',o:['Sessão que nunca expira','Controla se o browser mantém o usuário logado entre fechamentos/aberturas, via "Permanecer conectado?"','Modo anônimo automático','Cache permanente de credenciais'],a:1,exp:'Persistent Browser Session controla o cookie de sessão: "Always persistent" mantém logado ao fechar/reabrir o browser. "Never persistent" força novo login a cada nova sessão de browser. Útil para dispositivos compartilhados.'},
+{d:'d2',diff:'medium',q:'Como funciona a integração entre "Identity Protection" e "Conditional Access"?',o:['São produtos separados sem integração','Identity Protection calcula User Risk e Sign-in Risk; CA usa esses sinais como condições para aplicar controles automáticos (ex: MFA se risco médio, bloqueio se alto)','Identity Protection substitui CA','CA gera os scores que Identity Protection usa'],a:1,exp:'Integração poderosa: Identity Protection é o "sensor" (ML detectando riscos); CA é o "atuador" (policies que respondem). Risk-based CA: Sign-in Risk = Medium → Require MFA. User Risk = High → Require password change. Requer licença P2.'},
+{d:'d2',diff:'medium',q:'O que é "Authentication Context" em Conditional Access?',o:['Contexto de rede para localizar o usuário','Permite marcar funções/recursos específicos dentro de apps com um "ACR"; CA policies para o ACR exigem step-up auth sem re-login completo','Informações exibidas no Authenticator','Contexto armazenado no refresh token'],a:1,exp:'Authentication Context (ACR) habilita step-up granular: usuário acessa app normalmente, mas ao tentar função sensível (ex: aprovar pagamento), o app sinaliza o ACR e CA policy para aquele context exige MFA forte ou compliant device adicional.'},
+{d:'d2',diff:'medium',scenario:'A Tailspin Toys configurou CA exigindo "Compliant Device" para All Cloud Apps. No dia seguinte, 200 usuários estão sem acesso. O helpdesk está sobrecarregado.',q:'Qual foi o erro e como remediar rapidamente?',o:['Reinstalar Windows nos dispositivos','Erro: deploy direto sem fase Report-only. Remediar: mover a policy para Report-only, identificar dispositivos não-compliant, corrigir issues no Intune, depois reativar gradualmente por piloto','Desabilitar CA completamente','Adicionar todos os 200 como exceção permanente'],a:1,exp:'Best practice ignorada: nunca aplicar CA ampla sem fase Report-only. Processo correto: (1) Report-only por 2 semanas para análise de impacto; (2) corrigir issues; (3) piloto com grupo pequeno; (4) expansão gradual. Para recuperação imediata: usar break-glass e mover policy para Report-only.'},
+{d:'d2',diff:'medium',q:'O que são "Risk Policies" no Identity Protection?',o:['Políticas de avaliação de risco corporativo','Policies que automaticamente exigem ações (MFA, password change) quando User Risk ou Sign-in Risk atinge nível configurado','Políticas de compliance do Intune','Políticas de retenção de logs de risco'],a:1,exp:'Risk Policies habilitam resposta automática: Sign-in Risk Policy exige MFA ao detectar login suspeito; User Risk Policy força mudança de senha em conta possivelmente comprometida. Requer licença P2. Recomendação atual: configurar via CA (mais flexível) em vez de policies legadas.'},
+{d:'d2',diff:'medium',q:'O que é "Token Protection" em Conditional Access?',o:['Criptografa o token em trânsito','Vincula o token criptograficamente ao dispositivo/browser que o obteve, tornando token roubado inútil em outro client','Aumenta a duração do token','Armazena tokens apenas em memória'],a:1,exp:'Token Protection (preview) usa Proof of Possession: o token só funciona com a prova de chave privada do dispositivo original. Mesmo que atacante robe token via adversary-in-the-middle, não pode usá-lo em outro dispositivo. Mitigação efetiva contra token theft.'},
+{d:'d2',diff:'medium',scenario:'A Adventure Works detectou que um atacante está usando "Adversary-in-the-Middle" (AiTM) com proxy reverso para capturar sessões mesmo com MFA habilitado.',q:'Qual é a mitigação efetiva?',o:['Aumentar a frequência de MFA','Implementar phishing-resistant MFA (FIDO2/WHfB) que falham em domínios fake, combinado com Token Protection em CA','Bloquear todos os IPs externos','Desabilitar logins de fora da rede corporativa'],a:1,exp:'AiTM contorna MFA tradicional capturando o cookie de sessão pós-autenticação. Mitigações: (1) FIDO2/WHfB são vinculados ao RP ID do domínio — autenticação falha em site fake; (2) Token Protection impede uso do token em outro client; (3) CAE invalida tokens em mudança de comportamento.'},
+{d:'d2',diff:'medium',q:'Como configurar uma Conditional Access policy em modo "Report-only"?',o:['Não é possível testar policies antes de aplicar','Ao criar a policy, escolher o estado "Report-only" em vez de "On". Logs registram qual seria o resultado sem aplicar bloqueios','Criar uma policy de "Audit" separada','Habilitar logs verbose globalmente'],a:1,exp:'Report-only é essencial para deployments seguros: a policy é avaliada e o resultado registrado nos Sign-in Logs (campo "Conditional Access" mostra "Would have blocked", etc.), mas não aplica bloqueios. Permite validar impacto antes de tornar "On".'},
+{d:'d2',diff:'medium',q:'Qual é a vantagem do "Combined Registration" para MFA e SSPR?',o:['Reduz custo de licença','Oferece portal único (aka.ms/mysecurityinfo) onde usuários registram todos os métodos de autenticação e segurança em fluxo unificado','Combina MFA e SSPR em um único método','Permite registro automático sem participação do usuário'],a:1,exp:'Combined Registration simplifica drasticamente a experiência: em vez de dois fluxos separados (MFA e SSPR), o usuário registra todos os métodos uma vez. Reduz confusão, suporte e abandono de registro. É o padrão moderno do Entra ID.'},
+{d:'d2',diff:'medium',scenario:'A Woodgrove Bank quer permitir acesso de Guests (B2B) a apps específicos mas exigir MFA do tenant deles ou, se não tiverem, do tenant da Woodgrove.',q:'Qual feature configurar?',o:['MFA forçado no tenant de origem','Cross-tenant Access Settings com "Trust MFA from Microsoft Entra tenants" para reconhecer MFA já completado no tenant do parceiro','Convidar como Member em vez de Guest','Configurar federação SAML manual'],a:1,exp:'Cross-tenant Access Settings (Inbound) permite confiar em sinais MFA, device compliance e Hybrid Joined do tenant home do guest. Se o guest já completou MFA no tenant dele, não é desafiado novamente. Reduz friction sem comprometer segurança.'},
+
+// HARD (10)
+{d:'d2',diff:'hard',scenario:'Após análise de logs, a Litware identificou 47 usuários autenticados com sucesso via proxy anônimo nas últimas 24h. Todos negam ter feito login. O Identity Protection não elevou o user risk para a maioria.',q:'Quais ações imediatas tomar?',o:['Esperar o Identity Protection detectar automaticamente','Revogar todas as sessões dos 47 usuários, forçar reset de senha, investigar origem das credenciais (phishing? leak?), criar CA policy bloqueando proxies anônimos e Tor, notificar DPO','Ignorar como possível falso positivo','Apenas resetar a senha dos usuários afetados'],a:1,exp:'Ação imediata: (1) Revoke sessions em massa para os 47; (2) User Risk = High manualmente para forçar password change; (3) CA policy bloqueando Anonymous IPs/Tor; (4) investigação forense: como credenciais vazaram? phishing? data breach externo?; (5) notificação GDPR se aplicável (72h).'},
+{d:'d2',diff:'hard',q:'Como o "Pass-the-PRT" attack funciona e como mitigar?',o:['Atacante intercepta senha em texto plano','Atacante com acesso ao dispositivo extrai o Primary Refresh Token (PRT) e o usa para obter tokens para outros recursos; mitigação: TPM-based PRT, device compliance, CAE, e isolamento de dispositivos privilegiados (PAW)','Atacante quebra o hash da senha','Não há mitigação efetiva'],a:1,exp:'Pass-the-PRT é técnica de pós-comprometimento: malware no endpoint extrai o PRT (token de longa duração que dá acesso a vários recursos). Mitigações em camadas: (1) PRT protegido por TPM dificulta extração; (2) device compliance + CA exige dispositivo gerenciado; (3) CAE detecta uso anômalo; (4) PAW isola contas privilegiadas em dispositivos endurecidos sem browsing/email.'},
+{d:'d2',diff:'hard',q:'O que é o "Authentication Strength" "Phishing-resistant MFA" e quais métodos qualificam?',o:['Qualquer MFA com Number Matching','Métodos que usam criptografia de chave pública vinculada ao domínio: FIDO2 Security Keys, Windows Hello for Business e Certificate-based Authentication (CBA)','Apenas Microsoft Authenticator push','SMS com 6 dígitos'],a:1,exp:'Phishing-resistant MFA não pode ser interceptado em site fake porque a autenticação é vinculada criptograficamente ao Relying Party ID (domínio). FIDO2, WHfB e CBA satisfazem. Microsoft recomenda esse Authentication Strength para acesso a recursos críticos e contas privilegiadas.'},
+{d:'d2',diff:'hard',scenario:'A Northwind Traders implementou CA com MFA para All Cloud Apps. Após 1 semana, usuários em locais "trusted" (escritórios) reportam ainda receber prompts de MFA em todo login.',q:'Quais configurações revisar?',o:['Aumentar a duração do refresh token','Verificar: (1) Sign-in Frequency configurado muito baixo, (2) Named Locations marcadas corretamente como "Trusted", (3) política CA não está usando "Require MFA" sem condição de Named Location, (4) Persistent Browser Session habilitado','Desabilitar MFA nos escritórios','Migrar para Security Defaults'],a:1,exp:'Diagnóstico: (1) Sign-in Frequency baixo força re-autenticação frequente; (2) Named Locations como "Trusted" permitem exclusão em CA; (3) revisar se há policies conflitantes; (4) Persistent Browser Session = "Always" reduz prompts. Use Sign-in Logs > Conditional Access tab para ver qual policy aplicou MFA em cada login específico.'},
+{d:'d2',diff:'hard',q:'Como funciona "OAuth Consent Phishing" e como mitigar?',o:['Atacante quebra senha via brute force','Atacante registra app malicioso solicitando permissões legítimas (Mail.Read, Files.ReadWrite). Vítima clica em link e consente. Atacante tem acesso OAuth sem credenciais. Mitigação: restringir User Consent, App Governance, Admin Consent Workflow','Phishing tradicional de credenciais','Não existe esse tipo de ataque'],a:1,exp:'Consent Phishing é vetor real em ataques APT. Mitigação em camadas: (1) Entra ID > Enterprise Apps > Consent settings: "Allow user consent only for apps from verified publishers" ou desabilitar; (2) Admin Consent Workflow: usuários solicitam, admins aprovam; (3) App Governance (MDCA) monitora comportamento de apps OAuth; (4) auditar regularmente consentimentos via Audit Logs.'},
+{d:'d2',diff:'hard',scenario:'A Wide World Importers precisa implementar acesso "Zero Trust" para administradores: cada acesso a recursos críticos deve verificar identidade, dispositivo e contexto explicitamente.',q:'Qual combinação implementa essa estratégia?',o:['Apenas MFA e VPN corporativa','Identity Protection (risk scores) + Intune (device compliance) + Named Locations (network context) + Conditional Access (policy engine) + PIM (just-in-time admin) + Authentication Strengths (phishing-resistant)','Apenas Conditional Access com MFA','Security Defaults com PIM'],a:1,exp:'Zero Trust "Verify Explicitly" em ação: cada componente fornece um sinal (risk, device, location, identity, privilege) que o CA orquestra em decisão de acesso em tempo real. Admins têm zero standing access (PIM ativa role JIT) e devem usar dispositivo gerenciado + phishing-resistant MFA para acessar recursos sensíveis.'},
+{d:'d2',diff:'hard',q:'Como o "Cross-tenant Access Settings" controla colaboração B2B e B2B Direct Connect?',o:['Configurações apenas para apps SaaS','Define inbound e outbound: quais usuários/grupos podem ser convidados/convidar, quais apps são acessíveis, se confia em MFA/device compliance do outro tenant, e config de Direct Connect para shared channels','Apenas controla MFA entre tenants','Substitui completamente B2B Collaboration'],a:1,exp:'Cross-tenant Access Settings é o controle granular moderno para B2B: (1) Default settings (todos os tenants) + Organization-specific overrides; (2) Inbound: quem do parceiro pode acessar nossos recursos; (3) Outbound: quais usuários nossos podem acessar parceiros; (4) Trust settings: confiar em MFA/device do parceiro; (5) Direct Connect: Teams shared channels.'},
+{d:'d2',diff:'hard',scenario:'A Litware quer permitir BYOD para emails e arquivos via Outlook/Teams mobile, mas sem permitir browser ou apps não gerenciados. Os dispositivos não são Intune-enrolled.',q:'Qual é a configuração CA correta?',o:['Bloquear todos os dispositivos não-Intune','CA policy: Target = Office 365, Conditions = Device platforms (iOS, Android), Client apps = Mobile apps and desktop clients. Grant = "Require app protection policy" (MAM sem MDM)','Exigir Compliant Device (que requer enrollment)','Permitir apenas dispositivos Hybrid Joined'],a:1,exp:'BYOD sem MDM: usar Intune App Protection Policies (MAM-WE) sem enrollment do dispositivo. CA com "Require approved client app + Require app protection policy" garante que dados corporativos ficam em containers gerenciados (Outlook, Teams), bloqueando browser e apps não gerenciados. Política separada para dispositivos gerenciados via "Require Compliant Device".'},
+{d:'d2',diff:'hard',q:'Como implementar "Conditional Access for Workload Identities"?',o:['Não é possível aplicar CA a service principals','Configurar CA policies com "Workload Identities" como assignment, condicionando Service Principals e Managed Identities a Named Locations (IPs permitidos) ou Risk-based controls. Requer licença Workload Identities Premium','Apenas controles de IP funcionam','Service principals usam policies de usuário'],a:1,exp:'CA for Workload Identities (preview/GA com licença premium) estende CA a service principals e managed identities. Condições suportadas: Locations (restringir IPs de origem), Risk (sign-in risk para SPs detectado pelo Identity Protection for Workload Identities). Permite policies como "Service Principal X só pode autenticar dos IPs da pipeline CI/CD".'},
+{d:'d2',diff:'hard',q:'Quais são as configurações críticas em uma estratégia de "Emergency Access" (Break Glass)?',o:['Manter senhas simples para facilitar acesso','2 contas cloud-only com Global Admin, UPN não-óbvio (não "admin@..."), senhas de 20+ chars em cofres físicos separados, excluídas de CA/MFA (ou com FIDO2 dedicado), alertas imediatos no uso, testadas semestralmente','1 conta admin compartilhada entre time','Usar conta do CEO como emergência'],a:1,exp:'Break Glass best practices: (1) 2 contas (redundância); (2) cloud-only (imunes a problemas no AD/federação); (3) UPN obscuro (anti-reconnaissance); (4) Global Admin permanente (não PIM); (5) senha longa em cofres físicos separados (split-knowledge); (6) excluídas de CA — ou com FIDO2 dedicado se possível; (7) Azure Monitor alert no primeiro sign-in; (8) teste documentado a cada 6 meses; (9) parte do plano de continuidade.'},
+
+// ═══════════════════════════════════════════════════════════════════════
+// DOMÍNIO 3 — Gerenciamento de Acesso para Aplicativos (30 questões)
+// ═══════════════════════════════════════════════════════════════════════
+
+// EASY (10)
+{d:'d3',diff:'easy',q:'O que é "App Registration" no Entra ID?',o:['Inventário de software instalado','Registro de uma aplicação no Entra ID para permitir autenticação OAuth/OIDC e acesso a APIs','Cadastro no Microsoft Store','Listagem de apps no Azure Marketplace'],a:1,exp:'App Registration cria a definição da aplicação no Entra ID (App Object) e um Service Principal no tenant, permitindo autenticação via tokens OAuth/OIDC e autorização de acesso a APIs como Microsoft Graph.'},
+{d:'d3',diff:'easy',q:'Qual é a diferença entre "App Registration" e "Enterprise Application"?',o:['São termos para a mesma coisa','App Registration define a aplicação globalmente (App Object); Enterprise Application é o Service Principal — a instância da app no tenant específico','Enterprise é para apps internos; App Registration para externos','App Registration substitui Enterprise Application'],a:1,exp:'App Registration = blueprint global da aplicação. Service Principal (Enterprise Application) = instância da aplicação em um tenant específico. Quando um app multi-tenant é autorizado em um tenant, cria-se um Service Principal lá, sem alterar a App Registration original.'},
+{d:'d3',diff:'easy',q:'Qual protocolo moderno é usado para delegação de autorização no Entra ID?',o:['NTLM','OAuth 2.0','Kerberos','LDAP'],a:1,exp:'OAuth 2.0 é o protocolo de autorização padrão moderno. O Entra ID o usa para emitir access tokens que permitem aplicações acessarem recursos em nome do usuário ou da própria aplicação.'},
+{d:'d3',diff:'easy',q:'Para que serve o OpenID Connect (OIDC)?',o:['Criptografia em trânsito','Camada de identidade sobre OAuth 2.0 para autenticação de usuários, emitindo ID tokens com informações do perfil','Federação com AD local','Sincronização de diretórios'],a:1,exp:'OIDC adiciona uma camada de autenticação sobre OAuth 2.0. Enquanto OAuth foca em autorização, OIDC fornece informações sobre quem é o usuário via ID Token (JWT com claims de identidade).'},
+{d:'d3',diff:'easy',q:'O que é o "Entra Application Proxy"?',o:['Proxy de rede para tráfego externo','Publicar aplicações web on-premises para acesso remoto seguro com SSO via Entra ID, sem abrir portas no firewall','Cache de tokens de autenticação','Balanceador de carga para apps Azure'],a:1,exp:'Application Proxy permite publicar apps web internas (intranet, SAP, apps legados) para acesso externo seguro. Um connector instalado on-premises estabelece conexão outbound — sem necessidade de abrir portas inbound no firewall.'},
+{d:'d3',diff:'easy',q:'O que são "Delegated Permissions"?',o:['Permissões atribuídas a um grupo','Permissões que o app solicita para agir em nome do usuário logado, herdando suas permissões','Permissões permanentes de admin','Permissões temporárias com expiração'],a:1,exp:'Delegated Permissions são exercidas em nome do usuário. Ex: app com "Mail.Read" delegated pode ler emails do usuário logado, sujeito às permissões reais que o usuário tem.'},
+{d:'d3',diff:'easy',q:'O que são "Application Permissions"?',o:['Permissões que exigem aprovação do usuário','Permissões usadas por apps daemon/serviço (sem usuário), requerendo Admin Consent','Permissões somente leitura','Permissões com expiração automática'],a:1,exp:'Application Permissions são usadas por apps rodando sem usuário logado (background services, daemons). Sempre requerem Admin Consent porque podem agir sobre dados de toda a organização.'},
+{d:'d3',diff:'easy',q:'O que é "Admin Consent"?',o:['Aprovação de despesas de TI','Consentimento de admin para que um app use permissões em nome de toda a organização, sem cada usuário precisar consentir','Login de Global Admin','Aprovação de novos dispositivos'],a:1,exp:'Admin Consent autoriza permissões (especialmente Application Permissions ou permissões delegadas sensíveis) para toda a organização. Necessário para permissões marcadas como "Admin consent required" no Microsoft Graph.'},
+{d:'d3',diff:'easy',q:'O que são "Managed Identities" no Azure?',o:['Identidades criadas manualmente por admins','Identidades gerenciadas automaticamente pelo Azure para recursos, eliminando credenciais no código','Grupos gerenciados por script','Contas de serviço do AD local'],a:1,exp:'Managed Identities são identidades automáticas para recursos Azure (VMs, App Services, Functions). Permitem autenticar em outros serviços Azure (Key Vault, Storage) sem armazenar credenciais — o Azure gerencia o ciclo de vida.'},
+{d:'d3',diff:'easy',q:'Qual é a diferença entre "System-assigned" e "User-assigned" Managed Identity?',o:['System é mais seguro','System-assigned: vinculada a um recurso específico, deletada com ele. User-assigned: independente, pode ser compartilhada por múltiplos recursos','User-assigned é gratuita','Não há diferença funcional'],a:1,exp:'System-assigned MI tem ciclo de vida acoplado ao recurso (deletou o recurso, foi-se a MI). User-assigned MI é criada independentemente e pode ser atribuída a vários recursos, ideal para compartilhar identidade entre recursos relacionados.'},
+
+// MEDIUM (12)
+{d:'d3',diff:'medium',q:'Para uma aplicação daemon que acessa o Microsoft Graph sem usuário, qual fluxo OAuth usar?',o:['Authorization Code Flow','Client Credentials Flow com Application Permissions','Device Code Flow','Implicit Flow'],a:1,exp:'Aplicações daemon (background, sem usuário) usam Client Credentials Flow: autenticam com Client ID + Secret/Certificate, recebem token com Application Permissions previamente consentidas por admin. Não há contexto de usuário.'},
+{d:'d3',diff:'medium',scenario:'A Contoso registrou uma aplicação web pública que será usada por usuários de múltiplas organizações (multi-tenant). Como configurar e qual é o fluxo de consent?',q:'Qual é a configuração correta?',o:['Registrar uma App Registration em cada tenant','App Registration como "Multitenant", usuários autenticam via endpoint /common ou /organizations, primeiro usuário de um tenant gera Service Principal lá (com consent), admins do tenant podem dar Admin Consent para permissões elevadas','Compartilhar Client Secret entre tenants','Usar Federation manualmente'],a:1,exp:'Multi-tenant app: (1) App Registration configurada como "Accounts in any organizational directory"; (2) Endpoint de autenticação: /common ou /organizations; (3) Quando usuário de novo tenant autentica, é criado um Service Principal nesse tenant; (4) Para permissões que exigem Admin Consent, admin do tenant precisa autorizar; (5) URL de Admin Consent: login.microsoftonline.com/<tenant>/adminconsent.'},
+{d:'d3',diff:'medium',q:'Qual é a vantagem de usar Certificados em vez de Client Secrets em Service Principals?',o:['Certificados são mais fáceis de configurar','A chave privada do certificado nunca sai do sistema; Entra ID valida apenas a assinatura. Mais seguro que secrets em texto plano que podem vazar em logs/repos','Certificados são gratuitos','Não há vantagem real'],a:1,exp:'Certificados usam criptografia assimétrica: app assina um JWT com chave privada local; Entra ID valida com chave pública registrada. Secrets são texto plano enviado a cada autenticação, sujeitos a leak em logs, código-fonte, variáveis de ambiente.'},
+{d:'d3',diff:'medium',q:'O que é o "OAuth On-Behalf-Of" (OBO) flow e quando usar?',o:['Login automático sem usuário','Fluxo onde uma API recebe um token de um usuário e o usa para chamar outra API em nome desse usuário, preservando o contexto da identidade','Substituição do Authorization Code','Fluxo para apps daemon'],a:1,exp:'OBO Flow é usado em arquiteturas multi-API: front-end chama API A com token do usuário; API A precisa chamar API B em nome do usuário. API A troca o token recebido por um novo token para API B, mantendo o contexto da identidade do usuário original.'},
+{d:'d3',diff:'medium',scenario:'A Fabrikam quer publicar um SAP web app legado (on-premises) para acesso remoto de funcionários sem usar VPN. O app usa autenticação Windows Integrated.',q:'Qual solução implementar?',o:['Migrar SAP para Azure App Service','Entra Application Proxy com Kerberos Constrained Delegation (KCD): connector autentica via Kerberos no SAP em nome do usuário pré-autenticado pelo Entra ID','Expor SAP diretamente na internet','Usar apenas VPN tradicional'],a:1,exp:'Cenário clássico: Application Proxy + KCD permite SSO transparente para apps legados. Fluxo: (1) usuário autentica no Entra ID; (2) Entra ID emite token; (3) Connector recebe a requisição; (4) Connector usa KCD para obter ticket Kerberos do SAP em nome do usuário; (5) SAP autoriza o acesso. Tudo sem VPN.'},
+{d:'d3',diff:'medium',q:'O que é "App Roles" em uma App Registration?',o:['Roles do Azure RBAC aplicadas ao app','Funções definidas dentro do app (ex: "Admin", "Reader") que podem ser atribuídas a usuários/grupos via Enterprise Application, e aparecem como claim "roles" no token','Roles padrão do Entra ID','Permissões delegadas'],a:1,exp:'App Roles permitem autorização dentro do app: define-se roles na App Registration (ex: "Approver", "Auditor"), atribui-se a usuários/grupos no Enterprise Application. O token JWT incluirá "roles": ["Approver"], que o app usa para autorizar funcionalidades específicas.'},
+{d:'d3',diff:'medium',q:'Qual é a diferença entre "User Consent" e "Admin Consent"?',o:['São equivalentes','User Consent: cada usuário consente individualmente para suas próprias permissões. Admin Consent: admin autoriza para toda a organização, necessário para permissões sensíveis ou Application Permissions','Admin Consent é apenas para apps Microsoft','User Consent é mais seguro'],a:1,exp:'User Consent permite que usuários autorizem apps a usar permissões em seu nome (ex: "ler meus emails"). Admin Consent é exigido para: (1) Application Permissions; (2) permissões delegadas marcadas como "Admin consent required"; (3) quando User Consent está desabilitado pela organização.'},
+{d:'d3',diff:'medium',scenario:'A Tailspin Toys descobriu que vários funcionários instalaram apps de terceiros com permissões amplas (Mail.Read, Files.ReadWrite.All) via User Consent. Quer reduzir esse risco sem bloquear apps legítimos.',q:'Qual configuração é a melhor abordagem?',o:['Desabilitar User Consent completamente','Configurar User Consent restrito: "Allow user consent for apps from verified publishers, for selected permissions" + habilitar Admin Consent Workflow para apps que excedem','Bloquear todos os apps de terceiros','Aceitar como necessário'],a:1,exp:'Configuração balanceada: (1) Permitir User Consent apenas para apps de Verified Publishers (apps assinados); (2) Permissões de baixo risco automaticamente; (3) Para permissões mais sensíveis: Admin Consent Workflow — usuário solicita, admin aprova; (4) Auditar consents existentes via Microsoft Graph PowerShell.'},
+{d:'d3',diff:'medium',q:'O que é "Microsoft Graph" e qual sua relevância para apps Entra ID?',o:['Visualização de dados em dashboards','API REST unificada para acessar dados e serviços do Microsoft 365 (usuários, grupos, emails, arquivos, Teams, etc.), usando autenticação Entra ID','Substituto do Microsoft Power BI','Banco de dados de identidades'],a:1,exp:'Microsoft Graph é a API unificada para todo o Microsoft 365. Apps usam Graph para ler/escrever dados (com permissões adequadas). Endpoint único: graph.microsoft.com/v1.0/{resource}. Suporta tanto Delegated quanto Application Permissions.'},
+{d:'d3',diff:'medium',q:'O que é "OAuth Scope Consent Prompt"?',o:['Prompt para criar uma nova conta','Tela onde o usuário (ou admin) vê quais permissões um app está solicitando e decide consentir ou negar','Aviso de senha fraca','Validação de captcha'],a:1,exp:'Consent Prompt é a tela "<App> wants to access your account / your organization. This app would like to: Read your mail, Read your files...". O usuário vê exatamente o que está autorizando antes de prosseguir. Educação dos usuários sobre essa tela é essencial contra consent phishing.'},
+{d:'d3',diff:'medium',q:'Como auditar quais apps OAuth têm consentimentos no tenant?',o:['Verificar Azure Monitor','Entra ID > Enterprise Applications + Audit Logs filtrando "Consent to application" e "Add app role assignment to service principal"','Verificar logs do Intune','Não é possível auditar'],a:1,exp:'Auditoria de consents: (1) Enterprise Applications lista todos os SPs ativos; (2) cada SP mostra "Permissions" com consents concedidos; (3) Audit Logs filtrados registram quem consentiu, quando e para qual app — essencial para investigar consent phishing ou apps suspeitos.'},
+{d:'d3',diff:'medium',scenario:'A Adventure Works tem uma App Registration com Client Secret que expira em 30 dias e é usado por uma aplicação crítica em produção. Como rotacionar sem downtime?',q:'Qual é o procedimento correto?',o:['Atualizar a aplicação no momento exato da expiração','Criar um SEGUNDO secret antes da expiração do primeiro, atualizar a aplicação para usar o novo, validar funcionamento, depois remover o secret antigo','Configurar secret sem expiração','Substituir secret por senha de admin'],a:1,exp:'Rotação sem downtime: (1) Adicionar novo secret antes que o atual expire; (2) atualizar configuração da app para usar o novo (idealmente via Azure Key Vault com referência); (3) validar em produção; (4) só então deletar o secret antigo. Para automação completa: usar certificados auto-renovados via Key Vault, ou migrar para Workload Identity Federation eliminando secrets.'},
+
+// HARD (8)
+{d:'d3',diff:'hard',scenario:'A Litware identificou que um App Registration tem 3 certificados ativos, sendo 2 desconhecidos pela equipe de TI. Audit Logs mostram que foram adicionados há 2 meses por um Application Administrator que não está mais na empresa.',q:'Quais ações tomar?',o:['Remover apenas os 2 certificados desconhecidos','Tratar como possível comprometimento: remover os 2 certs desconhecidos, revogar todas as sessões/tokens do SP, auditar atividade do SP no período, investigar se houve uso anômalo via Sign-in Logs do service principal, e revisar processo de offboarding','Aguardar expiração dos certificados','Apenas notificar o time atual'],a:1,exp:'Sinais clássicos de Service Principal hijacking: credenciais não autorizadas adicionadas. Resposta: (1) remover credenciais não autorizadas; (2) revogar tokens emitidos; (3) auditar Sign-in Logs do SP para detectar uso suspeito; (4) inventariar dados acessados pelas permissões do SP; (5) notificar segurança; (6) revisar processo de offboarding (Application Admin role deveria ter sido removida). Lifecycle Workflows previne esse gap.'},
+{d:'d3',diff:'hard',q:'Como "Workload Identity Federation" elimina secrets em pipelines CI/CD do GitHub Actions?',o:['Não elimina, apenas criptografa','GitHub Actions gera um OIDC token para o workflow; configura-se Federated Credential na App Registration referenciando o repositório/branch; pipeline troca o GitHub OIDC token por um Entra ID token sem armazenar secret','Usa SSH keys','Requer rotação manual constante'],a:1,exp:'WIF para GitHub: (1) Na App Registration, configurar Federated Credential com Issuer = token.actions.githubusercontent.com e Subject = repo:org/repo:ref:refs/heads/main; (2) No workflow YAML, GitHub gera OIDC token; (3) usar action azure/login com client-id e tenant-id; (4) Azure aceita o token federado e emite seu próprio token. Resultado: zero secrets no GitHub.'},
+{d:'d3',diff:'hard',q:'O que é "App Governance" no Microsoft Defender for Cloud Apps (MDCA)?',o:['Política de uso aceitável','Add-on do MDCA que monitora comportamento de apps OAuth no Entra ID, detecta apps de risco (privilégios excessivos, comportamento anômalo, baixa reputação) e permite políticas automatizadas de resposta','Backup de configurações de apps','Substituto do Conditional Access'],a:1,exp:'App Governance estende monitoramento além de quem tem acesso — foca no que os apps fazem com o acesso. Detecta: apps que solicitam permissões excessivas vs. uso real, apps com comportamento de exfiltração de dados, apps de publishers de baixa reputação. Políticas podem disable apps automaticamente baseado em condições.'},
+{d:'d3',diff:'hard',scenario:'A Northwind Traders precisa publicar 50 apps web on-premises via Application Proxy. Alguns apps usam Header-based authentication; outros, Kerberos; outros, SAML.',q:'Como é a estratégia de deploy escalável?',o:['Migrar todos os apps para autenticação cloud','Inventariar e categorizar por tipo de auth: (1) Pre-authentication via Entra ID; (2) Connector groups por região/segmento; (3) Header-based usa "Custom Headers"; (4) Kerberos exige KCD setup no AD; (5) SAML pode usar Entra ID como IdP direto; (6) automatizar deploy via PowerShell/Graph API','Deploy individual sem padronização','Usar VPN para todos os apps'],a:1,exp:'Deploy de App Proxy em escala: (1) inventário detalhado de cada app (auth type, latência aceitável, criticidade); (2) Connector Groups por região/datacenter para latência; (3) automação via Graph API ou PowerShell para criar Enterprise Apps em batch; (4) KCD configurado no AD para apps Kerberos; (5) Custom Headers para apps com Header-based; (6) monitoramento via Entra Connect Health para Application Proxy.'},
+{d:'d3',diff:'hard',q:'Como o "OAuth 2.0 Device Code Flow" funciona e quando usar?',o:['Fluxo para dispositivos sem UI ou com input limitado (smart TVs, IoT, CLI tools): app exibe código curto, usuário acessa URL em outro dispositivo e insere o código para autorizar; app polia o Entra ID até receber tokens','Fluxo padrão para web apps','Substituto do Authorization Code','Apenas para dispositivos móveis'],a:0,exp:'Device Code Flow: (1) App pede device_code ao Entra ID; (2) Entra ID retorna user_code curto (ex: "ABCD-1234") + URL (microsoft.com/devicelogin); (3) App exibe ambos ao usuário; (4) Usuário em outro dispositivo (celular/PC) abre URL, insere user_code, autentica normalmente; (5) App polia o Entra ID e recebe tokens quando autorização completa. Usado em Azure CLI, scenarios IoT/TV.'},
+{d:'d3',diff:'hard',q:'O que são "API Permissions" em escopo "Application" vs "Delegated" no Microsoft Graph?',o:['São idênticas tecnicamente','Delegated: app acessa Graph em nome do usuário logado, com permissões intersecionadas com as do usuário (admin consent pode ser necessário). Application: app acessa Graph como ele mesmo, sem usuário, com escopo full da permissão (sempre exige admin consent)','Application são read-only','Delegated são apenas para apps Microsoft'],a:1,exp:'Distinção crítica: Delegated User.Read.All → app pode ler usuários SE o usuário logado tem essa permissão (admin). Application User.Read.All → app sempre pode ler todos os usuários, independente de contexto. Application permissions são poderosas e perigosas — exigem admin consent e auditoria rigorosa.'},
+{d:'d3',diff:'hard',scenario:'A Wide World Importers descobriu que tem 47 App Registrations sem dono identificado, criadas ao longo de 3 anos. Algumas têm permissões elevadas.',q:'Qual é a estratégia de cleanup segura?',o:['Deletar todas as 47 imediatamente','(1) Inventariar via PowerShell/Graph: criação, último uso (sign-ins do SP), permissões; (2) Identificar owners atuais ou via auditoria; (3) Apps sem atividade em 90+ dias: desabilitar SP (mantendo registro); (4) Comunicar e aguardar reação; (5) Após 30 dias sem reclamação, deletar; (6) Apps ativos sem dono: forçar atribuição de owner','Manter como estão para evitar quebra','Tornar todos read-only'],a:1,exp:'Cleanup seguro de Apps órfãs: o erro comum é deletar diretamente, quebrando integrações invisíveis. Processo: (1) inventário completo (Get-MgServicePrincipal); (2) cruzar com Sign-in Logs do SP para identificar quem ainda usa; (3) "soft delete" desabilitando primeiro; (4) janela de observação; (5) cleanup final. Implementar daqui em diante: Application Management Policies com owners obrigatórios e expiração de credenciais.'},
+{d:'d3',diff:'hard',q:'Como implementar "Federated Identity" entre Entra ID e um provedor SAML externo (ex: Okta, Ping)?',o:['Não é possível federar com providers externos','Configurar External Identity Provider em "External Identities": adicionar SAML/WS-Fed federation com metadata do provider externo. Usuários daquele provider podem autenticar no tenant Entra ID via redirecionamento, criando guest accounts automaticamente','Apenas via ADFS local','Requer scripts customizados'],a:1,exp:'External Identity Providers permitem federar com Google, Facebook, e qualquer provider SAML/WS-Fed. Fluxo: (1) configurar provider em External Identities; (2) carregar metadata SAML; (3) usuário externo acessa portal; (4) seleciona provider home; (5) redirecionado, autentica lá; (6) retorna ao Entra ID com asserção SAML; (7) account guest criada ou atualizada automaticamente.'},
+
+// ═══════════════════════════════════════════════════════════════════════
+// DOMÍNIO 4 — Identity Governance (44 questões)
+// ═══════════════════════════════════════════════════════════════════════
+
+// EASY (15)
+{d:'d4',diff:'easy',q:'O que é "Identity Governance"?',o:['Governança corporativa em geral','Conjunto de processos, políticas e tecnologias para garantir que as pessoas certas tenham acesso correto aos recursos certos, com revisão e auditoria periódicas','Governança de dados pessoais (LGPD)','Sistema de crachás físicos'],a:1,exp:'Identity Governance responde: quem tem acesso a quê? Deve ter? Por quê? O que foi feito com esse acesso? Implementada no Entra ID via Entitlement Management, Access Reviews, PIM e Lifecycle Workflows.'},
+{d:'d4',diff:'easy',q:'Quais são os pilares do ciclo de vida de acesso?',o:['CRUD (Create, Read, Update, Delete)','Joiner (entrada), Mover (mudança de função), Leaver (saída), Reviewer (revisão periódica)','Identify, Authenticate, Authorize, Audit','Request, Approve, Grant, Expire'],a:1,exp:'Joiner-Mover-Leaver (JML) + Reviewer é o modelo padrão: Joiner = onboarding completo; Mover = ajustar acessos na transição de cargo; Leaver = revogação total no offboarding; Reviewer = validação periódica de que o acesso ainda é necessário.'},
+{d:'d4',diff:'easy',q:'O que é "Privileged Identity Management" (PIM)?',o:['Gerenciador de senhas privilegiadas','Serviço que fornece acesso just-in-time (JIT) e just-enough-access (JEA) a recursos privilegiados, com aprovação, justificativa e expiração automática','Auditoria de admins','Gerenciamento de certificados de admin'],a:1,exp:'PIM elimina standing privilege: administradores não têm roles permanentes; quando precisam, ativam temporariamente (com MFA, justificativa, aprovação opcional), realizam a tarefa, e o acesso expira automaticamente. Reduz drasticamente o blast radius em caso de comprometimento.'},
+{d:'d4',diff:'easy',q:'O que é "Eligible" vs "Active" no PIM?',o:['Eligible: aprovado mas não ativo; Active: role atribuída e em uso no momento','Eligible: conta de serviço; Active: usuário','Eligible: permanente; Active: temporária','São sinônimos'],a:0,exp:'Eligible = usuário pode ATIVAR a role quando precisar (zero standing). Active = role atribuída e em uso (pode ser permanente legacy ou ativação temporária). Best practice: maioria das roles privilegiadas devem ser Eligible.'},
+{d:'d4',diff:'easy',q:'O que é "Access Review" no Entra ID?',o:['Revisão técnica de logs','Processo periódico e formal de revisão de atribuições de acesso, para validar que usuários ainda precisam dos acessos concedidos','Revisão de configurações de MFA','Auditoria externa anual'],a:1,exp:'Access Reviews permitem que reviewers (manager, owner, próprio usuário) avaliem periodicamente se o acesso ainda é necessário. Resultados podem aplicar remoções automáticas, mantendo o princípio de least privilege ao longo do tempo.'},
+{d:'d4',diff:'easy',q:'O que é "Just-in-Time (JIT) Access"?',o:['Acesso antecipado','Modelo em que acesso privilegiado é concedido apenas quando necessário, pelo mínimo de tempo, e revogado automaticamente','Acesso por localização','Acesso de emergência'],a:1,exp:'JIT Access (via PIM) elimina acesso permanente: admin solicita role, recebe por tempo limitado, role expira automaticamente. Reduz exposição da credencial comprometida a uma pequena janela vs. acesso permanente.'},
+{d:'d4',diff:'easy',q:'O que é "Just-Enough-Access (JEA)"?',o:['Acesso em horário comercial','Princípio de conceder permissões mínimas necessárias — nem mais, nem menos','Acesso com limite de operações','Acesso de rede interna apenas'],a:1,exp:'JEA é o princípio de least privilege em prática: em vez de Owner, criar Custom Role com apenas as permissões necessárias para a tarefa específica. Reduz blast radius e implementa zero trust.'},
+{d:'d4',diff:'easy',q:'O que é "Entitlement Management"?',o:['Gestão de licenças de software','Recurso de Identity Governance que gerencia ciclo de vida de acesso via Access Packages com fluxo de solicitação, aprovação, expiração e revisão','Gestão de privilégios SO','Controle de acesso físico'],a:1,exp:'Entitlement Management cria "catálogos" de Access Packages (bundles de grupos, apps, SharePoint). Usuários solicitam via myaccess.microsoft.com, passam por aprovação, recebem acesso por período definido, e é revisado/expirado automaticamente.'},
+{d:'d4',diff:'easy',q:'O que é um "Access Package"?',o:['Pacote de licenças','Agrupamento de recursos (grupos, apps, sites) com políticas de quem pode solicitar, como é aprovado, e quando expira — simplificando concessão de acesso','Backup de configurações','Script de provisionamento'],a:1,exp:'Access Package agrupa todos os recursos necessários para um papel/projeto (ex: "Desenvolvedor Contratado" = grupo AD + Jira + GitHub + SharePoint). Usuário solicita o package e recebe todos os acessos juntos, com política única.'},
+{d:'d4',diff:'easy',q:'O que é "Lifecycle Workflows"?',o:['Workflows de DevOps','Automação de tarefas de identidade em eventos joiner/mover/leaver: criar conta, atribuir licenças, revogar acessos automaticamente baseado em atributos','Workflows de aprovação','Fluxos de criação de políticas'],a:1,exp:'Lifecycle Workflows automatiza JML: Joiner (criar conta + TAP + licenças + grupos); Mover (atualizar acessos na mudança); Leaver (desabilitar + revogar tudo). Disparado por atributos como employeeStartDate ou via schedule.'},
+{d:'d4',diff:'easy',q:'O que é "myaccess.microsoft.com"?',o:['Portal de conta Microsoft pessoal','Portal self-service do Entitlement Management onde usuários descobrem e solicitam Access Packages, e revisam acesso quando designados como revisores','Portal de admin do Entra ID','Portal do Intune'],a:1,exp:'My Access é o portal self-service para Identity Governance. Funciona também para usuários B2B externos — parceiros solicitam Access Packages sem precisar de conta corporativa, autenticando com sua própria credencial home.'},
+{d:'d4',diff:'easy',q:'Qual licença é necessária para Entitlement Management e Access Reviews?',o:['Entra ID Free','Entra ID P1','Entra ID P2 ou Entra ID Governance','Office 365 E3'],a:2,exp:'PIM, Entitlement Management e Access Reviews exigem Microsoft Entra ID P2 ou a licença standalone Entra ID Governance. Lifecycle Workflows é parte da licença Entra ID Governance especificamente.'},
+{d:'d4',diff:'easy',q:'O que é "Connected Organization" no Entitlement Management?',o:['Subsidiária do mesmo tenant','Organização externa registrada como parceira confiável, permitindo que seus usuários solicitem Access Packages sem invite individual prévio','Hierarquia de tenants','VPN entre tenants'],a:1,exp:'Connected Organizations registram tenants/domínios parceiros. Usuários desses parceiros podem autenticar no myaccess e solicitar Access Packages diretamente — fluxo totalmente self-service, sem precisar de B2B invite manual.'},
+{d:'d4',diff:'easy',q:'Quem pode ser revisor em uma Access Review?',o:['Apenas admins','Self-review (próprio usuário), manager (via attribute), group/app owners, ou revisores designados manualmente','Apenas Global Admin','Apenas auditores externos'],a:1,exp:'Reviewers flexíveis: (1) Self-review — usuário confirma se ainda precisa; (2) Manager attribute — automático via hierarquia; (3) Group/App owners; (4) Designated reviewers; (5) Multi-stage (manager → security team). Escolha alinhada ao tipo de acesso revisado.'},
+{d:'d4',diff:'easy',q:'O que é o "Permission Creep Index" (PCI) no Entra Permissions Management?',o:['Score de complexidade de senha','Métrica que mede o gap entre permissões concedidas e permissões realmente usadas — PCI alto indica over-privileged identity','Performance de aplicação','Custo de licenças'],a:1,exp:'PCI (Permission Creep Index) é a métrica central do CIEM: percentual de permissões granted mas não exercidas em período de observação. Identifica candidatos a right-sizing — remover permissões não usadas ou converter para JIT via PIM.'},
+
+// MEDIUM (17)
+{d:'d4',diff:'medium',scenario:'A Contoso quer implementar onboarding automatizado: quando o RH define um novo funcionário, a conta Entra ID deve ser criada com TAP, licenças adequadas, grupos por departamento, e email de boas-vindas enviado ao manager.',q:'Qual solução do Entra ID Governance usar?',o:['Scripts PowerShell agendados','Lifecycle Workflows com trigger "employeeHireDate", tasks: generate TAP, send welcome email, add to groups, assign licenses, notify manager','Manual via helpdesk','Apenas Dynamic Groups'],a:1,exp:'Lifecycle Workflows é projetado exatamente para esse cenário: triggers baseados em atributos (employeeHireDate, employeeLeaveDateTime), tasks built-in (TAP generation, email, group/license assignment), e workflows customizáveis com Logic Apps para casos complexos. Substitui scripts ad-hoc.'},
+{d:'d4',diff:'medium',q:'O que é "PIM for Groups"?',o:['PIM aplicado apenas a grupos de alta disponibilidade','Extensão do PIM que permite ativação JIT de membership ou ownership em grupos Entra ID, estendendo zero-standing access a qualquer permissão baseada em grupo','Grupos dinâmicos no PIM','Grupos de dispositivos'],a:1,exp:'PIM for Groups: muitas permissões (Azure RBAC, app roles, SharePoint) são gerenciadas por membership em grupos. Com PIM for Groups, em vez de ativar role diretamente, o usuário ativa membership JIT no grupo — estendendo JIT a qualquer permissão baseada em grupo.'},
+{d:'d4',diff:'medium',q:'Como funciona "Aprovação Multi-Stage" no Entitlement Management?',o:['Aprovação sequencial onde múltiplos approvers precisam aprovar em estágios distintos (ex: stage 1 = manager, stage 2 = security team)','Aprovação paralela','Aprovação automática','Aprovação aleatória'],a:0,exp:'Multi-Stage Approval: workflow sequencial com até 3 estágios. Cada estágio pode ter approvers diferentes (manager, owner, sponsor, security team) e tempo limite. Stage 2 só inicia após aprovação no Stage 1. Útil para acesso a recursos críticos exigindo múltiplas validações.'},
+{d:'d4',diff:'medium',scenario:'A Fabrikam tem 15 desenvolvedores externos (contractors) que precisam de acesso temporário a recursos específicos por 90 dias, com possibilidade de renovação.',q:'Qual é a configuração recomendada?',o:['Criar contas locais para os 15','Access Package com policy "Para usuários de Connected Organizations" ou "Usuários novos externos", aprovação por manager, expiração 90 dias com option de renovação, Access Review automático antes do vencimento','Compartilhar credenciais de conta única','Adicionar como Members permanentes'],a:1,exp:'Cenário ideal para Entitlement Management: (1) Access Package com recursos do projeto; (2) Policy: scope = external users; (3) Approval: manager; (4) Lifecycle: 90 dias com Access Review aos 75 dias para renovação; (5) Auto-removal ao expirar. Tudo self-service, sem ticket manual.'},
+{d:'d4',diff:'medium',q:'O que é "Separation of Duties" (SoD) no PIM?',o:['Separar dev de prod','Mecanismo que previne que um usuário tenha simultaneamente roles "incompatíveis" — ex: quem cria pagamento não pode aprovar pagamento','Separação de licenças','Separação geográfica'],a:1,exp:'SoD no PIM: configurar "incompatible roles" para que um usuário elegível para Role A não possa ativar Role B simultaneamente. Implementa controles regulatórios (SOX, PCI-DSS) prevenindo que uma única pessoa execute ações conflitantes.'},
+{d:'d4',diff:'medium',q:'Qual é a relação entre "Access Review" e "Conditional Access"?',o:['São completamente independentes','Access Reviews podem ser usadas para revisar membership de grupos usados em CA assignments — garantindo que apenas usuários autorizados estão sujeitos/isentos das policies','Substituem uma à outra','CA é executado dentro do Access Review'],a:1,exp:'Integração comum: muitas CA policies usam grupos para assignment ou exclusion (ex: "Excluir grupo Break-Glass do MFA"). Access Review periódica desses grupos garante que somente usuários certos estão lá — auditando uma das configurações mais sensíveis de segurança.'},
+{d:'d4',diff:'medium',scenario:'A Tailspin Toys implementou Access Reviews mensais. Após 6 meses, gestores reclamam de sobrecarga — recebem centenas de requests e estão aprovando sem análise.',q:'Como redesenhar o programa?',o:['Eliminar Access Reviews','Risk-based reviews: alto risco mensal, baixo risco trimestral/anual; usar ML Recommendations para sugerir aprovar/negar baseado em last sign-in; manager review só para crítico; auto-remove on no-response; user self-attestation para low-risk','Aumentar prazo das reviews','Substituir por auditoria manual'],a:1,exp:'Programas efetivos: (1) tier por risco (admin mensal, regular trimestral, low-risk anual); (2) ML Recommendations reduzem cognitive load; (3) auto-apply em no-response; (4) self-attestation para acessos não-críticos; (5) métricas de saúde do programa (% completed on time, % denied) para ajustar.'},
+{d:'d4',diff:'medium',q:'O que é "Auto-assignment Policy" no Entitlement Management?',o:['Atribuição manual de packages','Acesso é provisionado/revogado automaticamente quando o usuário atende critérios (ex: department=Finance → recebe Access Package "Finance Tools" automaticamente)','Aprovação automática','Atribuição aleatória'],a:1,exp:'Auto-assignment Policies usam queries dinâmicas (ex: "user.department -eq Finance"). Quando usuário entra no escopo, recebe o Access Package automaticamente. Quando sai (mudou departamento), perde o acesso. Implementa attribute-based access control com zero intervenção manual.'},
+{d:'d4',diff:'medium',q:'Como o "PIM Activation" pode exigir aprovação?',o:['Aprovação não é possível no PIM','Configurar Role Settings com "Require approval to activate" e definir approvers — quando usuário tenta ativar role, fica pending até approver aprovar (com justificativa visível)','Apenas para Global Admin','Aprovação só via API'],a:1,exp:'PIM com aprovação: Role Settings > Activation > "Require approval". Approvers podem ser usuários específicos ou grupos. Usuário ativa → request pending → approvers notificados → aprovam/rejeitam (vendo justificativa, ticket, contexto). Auditoria completa de quem aprovou o quê.'},
+{d:'d4',diff:'medium',scenario:'A Adventure Works descobriu via Audit Log que um Application Administrator adicionou 5 Service Principals com permissões elevadas ao longo de 2 meses, sem aprovação formal.',q:'Qual controle implementar para prevenir?',o:['Remover todos os Application Administrators','PIM para a role Application Administrator: tornar eligible em vez de active permanente; exigir approval para activation; configurar Access Review trimestral; alertas no Sentinel para criação de credenciais em SPs','Auditar manualmente toda semana','Desabilitar criação de SPs'],a:1,exp:'Defesa em camadas: (1) PIM elimina standing privilege da role; (2) approval workflow garante outro par de olhos; (3) Access Review periódica valida que o admin ainda precisa; (4) detection: Sentinel monitora "Add service principal credentials" event; (5) governance: documentar processo formal para registrar SPs.'},
+{d:'d4',diff:'medium',q:'O que são "Catalogs" no Entitlement Management?',o:['Inventário de produtos','Contêineres lógicos que agrupam recursos relacionados e os Access Packages associados; cada catalog tem owners delegados para gerenciar conteúdo','Lista de licenças','Lista de políticas CA'],a:1,exp:'Catálogos delegam gestão de Access Packages por área/projeto (ex: "Marketing Catalog" gerenciado pelo time de Marketing). Owners do catalog adicionam recursos, criam Access Packages e configuram policies — sem necessidade de Global Admin envolvido em cada mudança.'},
+{d:'d4',diff:'medium',q:'O que é "PIM Just-in-Time access para Azure Resources"?',o:['Apenas para Entra ID roles','PIM estendido para Azure RBAC: roles em subscriptions/RGs/recursos podem ser elegíveis em vez de permanentes, com mesma capacidade de approval, MFA, justificativa, expiração','Substituto do Azure RBAC','Apenas para preview features'],a:1,exp:'PIM for Azure RBAC: ativar PIM em uma subscription habilita JIT para suas role assignments. Owner, Contributor, Custom Roles — todas podem ser elegíveis. Combina com Conditional Access (Auth Strength = phishing-resistant para ativar Owner) para zero-standing privilege completo em Azure.'},
+{d:'d4',diff:'medium',q:'O que é "Access Review" baseado em "Inactive Users"?',o:['Review apenas de usuários ativos','Review que sugere remover usuários sem sign-in há X dias (configurable, ex: 30 dias) — útil para detectar contas órfãs ou contratos encerrados','Apenas para guests','Review automático sem revisor'],a:1,exp:'Inactive user detection em Access Reviews: identifica membros que não fizeram sign-in em período definido. Reviewer vê a flag e pode aprovar remoção em massa. Combinado com auto-apply, remove silenciosamente contas dormentes — limpeza contínua e segura.'},
+{d:'d4',diff:'medium',q:'Como o "Microsoft Entra Permissions Management" identifica over-provisioning em multi-cloud?',o:['Apenas no Azure','Monitora atividade real em Azure/AWS/GCP por 90 dias, compara permissions granted vs. used, calcula PCI por identidade, recomenda right-sizing — incluindo remover permissões não usadas ou converter para JIT','Apenas listas permissões','Bloqueia automaticamente'],a:1,exp:'Entra Permissions Management é CIEM (Cloud Infrastructure Entitlement Management) multi-cloud: descobre todas as identidades e suas permissões em Azure, AWS, GCP; observa atividade real; calcula PCI; sugere right-sizing baseado em uso histórico. Integra com PIM para implementar JIT onde apropriado.'},
+{d:'d4',diff:'medium',scenario:'A Woodgrove Bank usa Lifecycle Workflows para offboarding. Após 6 meses, descobre que 15 ex-funcionários ainda têm acesso a recursos SharePoint via permissões diretas (não via grupos).',q:'Por que o Leaver workflow não cobriu isso, e como remediar?',o:['Leaver workflow não funciona com SharePoint','Tasks built-in do Leaver removem de grupos e revogam tokens, mas permissões diretas a recursos (SharePoint direct grants) não são cobertas. Remediar: (1) custom task no workflow chamando Logic App/Function para limpar SharePoint via Graph; (2) política de só conceder acesso via grupos','Refazer manualmente','Aceitar como gap aceitável'],a:1,exp:'Gap comum: workflows nativos cobrem o "happy path" do Entra ID, mas direct grants em apps específicos (SharePoint, Teams privates, third-party SaaS) não. Solução completa: (1) regra organizacional: acesso sempre via grupos governados; (2) custom tasks no Leaver workflow para cleanup específico; (3) Access Reviews complementares para detectar permissões diretas órfãs.'},
+{d:'d4',diff:'medium',q:'O que é "Privileged Access Group" e quando usar?',o:['Grupo com acesso a salas físicas','Grupo Entra ID configurado com PIM for Groups: membership/ownership podem ser elegíveis/JIT, usado quando permissões são gerenciadas por grupo','Grupo VIP','Grupo de servidores'],a:1,exp:'PAG (Privileged Access Group) via PIM for Groups: ideal quando permissões críticas são gerenciadas por grupo (Azure RBAC, app roles, SharePoint owners). Em vez de ativar role diretamente, ativa-se membership JIT no grupo — estendendo zero-standing a qualquer permissão grupo-based.'},
+{d:'d4',diff:'medium',q:'Qual é a diferença entre "Access Review" no PIM e no Entitlement Management?',o:['São idênticos','PIM Access Review: revisa role assignments (eligible/active). Entitlement Management Access Review: revisa Access Package assignments. Ambos no Identity Governance, mas escopos distintos','PIM é mais novo','EM não tem reviews'],a:1,exp:'Access Reviews permeiam todo o Identity Governance: (1) PIM tem reviews específicos para roles Entra/Azure (eligible e active); (2) Entitlement Management tem reviews para Access Package assignments; (3) Standalone Access Reviews podem revisar groups, apps, B2B guests. Cada um onde faz sentido contextualmente.'},
+
+// HARD (12)
+{d:'d4',diff:'hard',scenario:'A Litware quer migrar todos os admins de standing access para zero-standing via PIM. Atualmente: 250 admins, 80% com Global Admin permanente. Os admins resistem alegando que JIT vai impactar produtividade.',q:'Qual é o plano de migração e como reduzir resistência?',o:['Forçar migração overnight','Plano em fases: (1) Inventário completo de roles e frequência de uso; (2) Champions internos que testem; (3) Demonstrar ativação rápida (<2 min) e benefícios; (4) Migrar primeiro IT team; (5) Frequent users → Eligible com pré-aprovação; (6) High-risk roles → Eligible com approval; (7) Access Reviews para roles não usadas; (8) Remover permanent assignments gradualmente; (9) Manter 2 break-glass accounts','Cancelar projeto pela resistência','Manter standing mas adicionar MFA'],a:1,exp:'Migração para zero-standing é mudança cultural além de técnica. Estratégia: (1) data-driven (frequência real de uso); (2) early adopters defensores; (3) ROI comunicado (redução de blast radius); (4) UX otimizada (ativação rápida); (5) tier por criticidade (high-risk roles com mais controles); (6) métricas de progresso (% eligible vs active); (7) suporte e documentação; (8) break-glass mantém continuidade.'},
+{d:'d4',diff:'hard',q:'Como integrar PIM com Conditional Access usando "Authentication Context" para zero-standing privilege?',o:['Não é possível integrar','(1) Definir Authentication Context (ex: "c1: Admin Activation"); (2) PIM Role Settings: "Require Conditional Access policy on activation"; (3) CA policy para c1 exige Authentication Strength = phishing-resistant MFA + Compliant Device; (4) Para ativar Global Admin, usuário deve satisfazer ambos — zero-standing + verify explicitly','PIM substitui CA','CA não tem contexto de PIM'],a:1,exp:'Integração avançada implementa Zero Trust completo: PIM elimina standing; Authentication Context permite step-up só na ativação; CA enforça controles mais restritivos só para ativação privileged (FIDO2 obrigatório, dispositivo gerenciado). Resultado: admin pode usar conta normal para tarefas comuns; ao precisar de privilege, satisfaz controles fortes JIT. Best-in-class para contas críticas.'},
+{d:'d4',diff:'hard',scenario:'A Northwind Traders implementou Entitlement Management há 1 ano. Auditoria revela: (1) 12 Access Packages ativos sem owner identificado, (2) 8 packages com policies que permitem self-renewal indefinido, (3) 200 assignments expirados há meses ainda ativos por bug de sincronização.',q:'Como remediar e prevenir?',o:['Recriar todos os packages','(1) Cleanup imediato: forçar atribuição de owners; remover self-renewal indefinido configurando max duration; investigar/resolver bug de sync com Microsoft Support; (2) Governance: Access Reviews para owners de packages; policies aprovadas pelo Security Council; (3) Monitoring: alertas Sentinel para assignments além da expiração; (4) Auditoria periódica do catálogo','Aceitar como inevitável','Deletar packages problemáticos'],a:1,exp:'Maturidade de Identity Governance exige iteração: (1) cleanup baseado em achados de audit; (2) policies organizacionais (e técnicas) que previnem reincidência (max duration, owner obrigatório); (3) monitoring contínuo para detectar deriva; (4) Access Reviews para Access Packages e seus owners. Identity Governance não é "set and forget".'},
+{d:'d4',diff:'hard',q:'Como o "Microsoft Entra Permissions Management" automatiza right-sizing em Azure?',o:['Apenas reporta sem automação','Após período de observação, gera "permissions on-demand" requests: identidade pode solicitar permissions específicas JIT via portal, aprovação configurável, expiração automática — reduzindo standing permissions sem quebrar workloads','Bloqueia automaticamente','Apenas para AWS'],a:1,exp:'Right-sizing assistido: (1) baseline de uso (90 dias); (2) recomendação de redução (PCI alto); (3) "Permissions on-demand" workflow: usuário/serviço requisita permissão específica JIT quando precisa; (4) approval (humano ou auto-approve para low-risk); (5) tempo limitado. Modelo de zero-standing escalável para CIEM em multi-cloud.'},
+{d:'d4',diff:'hard',q:'Como implementar "Access Certification" para compliance regulatório (SOX, ISO 27001) usando Access Reviews?',o:['Não suporta compliance','(1) Mapear acessos críticos para frameworks regulatórios; (2) Access Reviews específicos por framework com cadência exigida (ex: SOX = quarterly); (3) Reviewers definidos por compliance (manager + control owner); (4) Evidência: export de results para audit trail; (5) Sign-off documentado; (6) integration com GRC tools via API/Graph','Apenas Microsoft Compliance Manager','Auditoria manual'],a:1,exp:'Access Certification regulatória: (1) inventário de acessos sujeitos a compliance (ex: financial systems para SOX); (2) Access Reviews com configuração específica (multi-stage, evidence collection, justification required); (3) cadência por regulação; (4) results exportados como evidence; (5) integration via Graph API para GRC platforms; (6) trail completo nos Audit Logs do Entra ID.'},
+{d:'d4',diff:'hard',scenario:'A Wide World Importers tem 4.000 funcionários e implementou Lifecycle Workflows. Após 3 meses, descobre que workflows estão falhando silenciosamente para 5% dos cases. Investigação revela attribute employeeStartDate ausente ou em formato incorreto vindo do HR system.',q:'Como diagnosticar e remediar sistematicamente?',o:['Inserir manualmente os dados faltantes','(1) Workflow History: identificar todas as falhas e categorizar por causa; (2) Trabalhar com HR para garantir qualidade do dado source; (3) Configurar Custom Extensions/Logic Apps para handling de edge cases (ex: parse de formatos alternativos); (4) Alertas Sentinel para workflow failures; (5) Reports periódicos para HR sobre quality issues; (6) Fallback workflow para manual review quando attribute ausente','Desabilitar workflows','Aceitar 5% de falha'],a:1,exp:'Lifecycle Workflows depende crucialmente da qualidade dos atributos de source: (1) workflow history visibility é essencial para detectar problemas; (2) feedback loop com HR/IT-source para corrigir na raiz; (3) custom logic via Logic Apps para edge cases; (4) monitoring contínuo (Sentinel, dashboards); (5) reporting upstream sobre data quality; (6) graceful degradation com manual review. Governance de identity = governance de dados.'},
+{d:'d4',diff:'hard',q:'Como o "Conditional Access for PIM activation" difere de "MFA on activation"?',o:['São equivalentes','MFA on activation: PIM exige MFA simples (qualquer método). CA on activation: aplica policy CA específica permitindo controles avançados (Authentication Strength, device compliance, location, risk) — muito mais granular','MFA é mais seguro','CA não funciona com PIM'],a:1,exp:'Evolução: (1) MFA on activation era controle básico (qualquer MFA basta); (2) "Require Conditional Access policy" na role permite delegar para CA, que pode exigir phishing-resistant Authentication Strength, compliant device, named location, risk levels. Best practice atual: usar CA on activation para flexibilidade e alinhamento com policies organizacionais.'},
+{d:'d4',diff:'hard',scenario:'A Litware implementou Entitlement Management para acesso externo. Um auditor descobre que 23 ex-funcionários de empresas parceiras (já desligados há meses no parceiro) ainda têm Access Packages ativos na Litware.',q:'Por que isso aconteceu e qual a remediação?',o:['Erro do sistema, sem prevenção possível','Causa: Connected Organization não tem visibility do status do usuário no tenant home. Remediação: (1) Auto-expiration agressiva em Access Packages para externos (ex: 90 dias max); (2) Mandatory Access Reviews por manager do solicitante; (3) requirement de re-justification em renewal; (4) Cross-tenant signal sharing (se disponível); (5) Workflow para revogar quando user signals "deleted" no tenant home','Manter como está','Eliminar parceria com empresas externas'],a:1,exp:'Gap intrinsic ao B2B: tenant host não é notificado de mudanças no tenant home do guest. Mitigações: (1) curtos lifecycles (não conceder acesso "indefinido"); (2) Access Reviews periódicas obrigatórias; (3) re-validação ativa em renovação; (4) cross-tenant signals quando configurados; (5) detection de inactivity (no sign-in em X dias = auto-revoke). Tradeoff entre fricção e segurança em external collaboration.'},
+{d:'d4',diff:'hard',q:'Como funcionam "Custom Task Extensions" em Lifecycle Workflows?',o:['Apenas tasks built-in são suportados','Extensions permitem chamar Logic Apps/Azure Functions a partir de workflow tasks, possibilitando integrações customizadas: trigger downstream systems (ServiceNow, SAP, third-party SaaS), executar lógica complexa, custom notifications','Apenas via PowerShell','Não existem extensions'],a:1,exp:'Custom Task Extensions são o mecanismo de extensibilidade: workflow task chama um Logic App via webhook quando executa. Logic App pode: criar ticket no ServiceNow, provisionar conta no SAP, enviar mensagem customizada no Slack/Teams, executar qualquer ação via Azure/HTTP. Habilita integrações enterprise-grade sem código no Entra ID.'},
+{d:'d4',diff:'hard',q:'Como implementar a estratégia "Tier Model" de Microsoft para identidades privilegiadas?',o:['Tier Model é obsoleto','Tier 0 (Control plane: Entra ID, Azure mgmt): FIDO2/WHfB obrigatório, PAW dedicado, PIM com approval, contas distintas das pessoais. Tier 1 (workloads/servers): acesso via PAW ou jump server. Tier 2 (endpoints/helpdesk): isolado de Tier 0. Princípio: credenciais NÃO cruzam tiers, dispositivos NÃO cruzam tiers','Usar um único nível para simplicidade','Apenas no AD local'],a:1,exp:'Enterprise Access Model (evolution do Tier Model): isolation rigorosa entre planos. Tier 0 = controle (compromisso aqui = controle total): protegido por hardware-bound credentials + PAW + JIT. Tier 1 = management plane. Tier 2 = user/endpoint. Crítico: admin Tier 0 NÃO usa essa conta para email/browsing (que ficam em Tier 2 com conta separada). Previne escalação cross-tier via phishing/malware.'},
+{d:'d4',diff:'hard',scenario:'A Adventure Works tem 800 service principals criados ao longo dos anos. Auditoria descobre que 340 têm credenciais expirando nos próximos 30 dias, e ninguém sabe quais aplicações ainda os usam.',q:'Como abordar essa "credentials cliff" de forma sistemática?',o:['Renovar todos sem investigar','(1) Inventário com Sign-in Logs dos SPs nos últimos 90 dias — quais ainda estão sendo usados? (2) SPs sem atividade: disable (preservando audit trail), aguardar reclamação, depois delete; (3) SPs ativos sem owner: forçar atribuição via Application Management Policies; (4) Renew credentials apenas para active+owned; (5) Going forward: certificate-based auth com auto-renewal, ou Workload Identity Federation eliminando secrets','Renovar manualmente um por um','Deletar todos os 340'],a:1,exp:'Credentials cliff é problema comum em ambientes maduros sem governance. Estratégia: (1) data-driven cleanup (Sign-in Logs revelam o que está vivo); (2) phased approach (disable antes de delete para reversibilidade); (3) governance going forward (ownership obrigatório, expiration policies, monitoring de credentials); (4) modernization (WIF elimina credentials para CI/CD; cert-based para apps que rodam em VMs Azure). Lifecycle de SP deve ser parte de Identity Governance, não apenas usuários.'},
+{d:'d4',diff:'hard',q:'Como medir maturidade de Identity Governance em uma organização?',o:['Apenas pelo número de licenças','Métricas: (1) % roles privileged em PIM Eligible vs Active permanent; (2) % users com sign-in nos últimos 90 dias / total; (3) Average time-to-revoke após termination; (4) % Access Packages com Access Review configurado; (5) % SPs com owner; (6) PCI médio das identidades; (7) % automation cobrindo JML; (8) compliance findings ano-a-ano','Pelo número de admins','Pelo custo do programa'],a:1,exp:'Identity Governance maturity: métricas balanceadas cobrindo: (1) Privilege Hygiene (PIM coverage, PCI); (2) Lifecycle (time-to-onboard, time-to-revoke, accuracy); (3) Visibility (% recursos governed, % SPs owned); (4) Automation (% workflows vs. manual); (5) Compliance (audit findings trend). Dashboard executivo com KPIs alinhados a Zero Trust maturity model da Microsoft.'},
+
+];
+
+// ═══════════════════════════════════════════════════════════
+//  ESTADO GLOBAL
+// ═══════════════════════════════════════════════════════════
+const STORAGE_NAME = 'sc300_name';
+const STORAGE_HISTORY = 'sc300_history';
+const STORAGE_WRONG = 'sc300_wrong';
+
+const state = {
+  userName: '',
+  mode: 'practice',
+  selectedDomains: ['d1','d2','d3','d4'],
+  selectedDiff: 'all',
+  questionCount: 20,
+  questions: [],
+  current: 0,
+  answers: [],
+  startTime: null,
+  endTime: null,
+  timerInterval: null,
+  timeLimit: null,
+  answered: false,
+  reviewFilter: 'all'
+};
+
+// ═══════════════════════════════════════════════════════════
+//  UTIL
+// ═══════════════════════════════════════════════════════════
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function fmtTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+function loadJSON(key, fallback) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  catch { return fallback; }
+}
+function saveJSON(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  const savedName = localStorage.getItem(STORAGE_NAME);
+  if (savedName) {
+    state.userName = savedName;
+    document.getElementById('name-input').value = savedName;
+  }
+  document.getElementById('name-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') register();
+  });
+  renderDomains();
+  updateAvailableCount();
+  updateGreeting();
+  document.addEventListener('keydown', handleKeyboard);
+});
+
+function updateGreeting() {
+  if (state.userName) {
+    document.getElementById('user-greet').style.display = 'inline';
+    document.getElementById('user-greet').innerHTML = '· olá, <em style="color:var(--pink);font-style:italic">' + state.userName + '</em>';
+    document.getElementById('hello-name').textContent = state.userName;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  REGISTER
+// ═══════════════════════════════════════════════════════════
+function register() {
+  const name = document.getElementById('name-input').value.trim();
+  if (!name) {
+    const inp = document.getElementById('name-input');
+    inp.focus();
+    inp.style.borderColor = 'var(--red)';
+    setTimeout(() => inp.style.borderColor = '', 1500);
+    return;
+  }
+  state.userName = name;
+  localStorage.setItem(STORAGE_NAME, name);
+  updateGreeting();
+  showSetup();
+}
+function showSetup() {
+  renderDomains();
+  updateAvailableCount();
+  renderErrorsBanner();
+  showScreen('setup');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SETUP — MODO
+// ═══════════════════════════════════════════════════════════
+function selectMode(mode) {
+  state.mode = mode;
+  document.querySelectorAll('.mode-card').forEach(c => {
+    c.classList.toggle('selected', c.dataset.mode === mode);
+  });
+  document.getElementById('practice-config').style.display = mode === 'cert' ? 'none' : 'block';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SETUP — DOMÍNIOS
+// ═══════════════════════════════════════════════════════════
+function renderDomains() {
+  const grid = document.getElementById('domain-grid');
+  grid.innerHTML = '';
+  Object.entries(DOMAINS).forEach(([id, d]) => {
+    const count = QUESTIONS.filter(q => q.d === id).length;
+    const isSel = state.selectedDomains.includes(id);
+    const tile = document.createElement('div');
+    tile.className = 'domain-tile' + (isSel ? ' selected' : '');
+    tile.onclick = () => toggleDomain(id);
+    tile.innerHTML =
+      '<div class="dchk">' + (isSel ? '✓' : '') + '</div>' +
+      '<div class="dname">' + d.short + '</div>' +
+      '<div class="dcount">' + count + '</div>';
+    grid.appendChild(tile);
+  });
+  document.getElementById('dom-hint').textContent =
+    state.selectedDomains.length + ' selecionado' + (state.selectedDomains.length === 1 ? '' : 's');
+}
+function toggleDomain(id) {
+  const i = state.selectedDomains.indexOf(id);
+  if (i >= 0) {
+    if (state.selectedDomains.length === 1) return;
+    state.selectedDomains.splice(i, 1);
+  } else {
+    state.selectedDomains.push(id);
+  }
+  renderDomains();
+  updateAvailableCount();
+}
+function toggleAllDomains(all) {
+  state.selectedDomains = all ? Object.keys(DOMAINS) : ['d1'];
+  renderDomains();
+  updateAvailableCount();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SETUP — DIFICULDADE & QUANTIDADE
+// ═══════════════════════════════════════════════════════════
+function selectDiff(diff) {
+  state.selectedDiff = diff;
+  document.querySelectorAll('.pill[data-diff]').forEach(p => {
+    p.classList.toggle('selected', p.dataset.diff === diff);
+  });
+  updateAvailableCount();
+}
+function getFilteredQuestions() {
+  return QUESTIONS.filter(q =>
+    state.selectedDomains.includes(q.d) &&
+    (state.selectedDiff === 'all' || q.diff === state.selectedDiff)
+  );
+}
+function updateAvailableCount() {
+  const avail = getFilteredQuestions().length;
+  document.getElementById('avail-count').textContent = avail;
+  const slider = document.getElementById('count-slider');
+  slider.max = Math.max(avail, 5);
+  if (parseInt(slider.value) > avail) {
+    slider.value = avail;
+    state.questionCount = avail;
+    document.getElementById('count-val').textContent = avail;
+  }
+  document.getElementById('start-btn').disabled = avail === 0;
+}
+function updateCount(v) {
+  state.questionCount = parseInt(v);
+  document.getElementById('count-val').textContent = v;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  BANNER DE ERROS PRÉVIOS
+// ═══════════════════════════════════════════════════════════
+function renderErrorsBanner() {
+  const wrap = document.getElementById('errors-banner-wrap');
+  const wrong = loadJSON(STORAGE_WRONG, []);
+  if (wrong.length === 0) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML =
+    '<div class="errors-banner">' +
+      '<div>Você tem <strong>' + wrong.length + '</strong> questão' + (wrong.length === 1 ? '' : 'ões') + ' de sessões anteriores que ainda não acertou.</div>' +
+      '<button onclick="startWrongOnly()">Treinar essas</button>' +
+    '</div>';
+}
+function startWrongOnly() {
+  const wrongIdxs = loadJSON(STORAGE_WRONG, []);
+  if (wrongIdxs.length === 0) return;
+  state.mode = 'practice';
+  state.questions = shuffle(wrongIdxs.map(i => ({ ...QUESTIONS[i], _origIdx: i })));
+  state.current = 0;
+  state.answers = [];
+  state.startTime = Date.now();
+  state.endTime = null;
+  state.timeLimit = null;
+  state.answered = false;
+  renderCertBanner();
+  renderQuestion();
+  showScreen('quiz');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INICIAR QUIZ
+// ═══════════════════════════════════════════════════════════
+function startQuiz() {
+  let pool;
+  if (state.mode === 'cert') {
+    const target = 60;
+    pool = [];
+    Object.entries(DOMAINS).forEach(([id, d]) => {
+      const domQs = QUESTIONS.map((q, i) => ({ ...q, _origIdx: i })).filter(q => q.d === id);
+      const n = Math.round((d.weight / 100) * target);
+      pool = pool.concat(shuffle(domQs).slice(0, n));
+    });
+    pool = shuffle(pool).slice(0, target);
+    state.timeLimit = 100 * 60;
+  } else {
+    const filtered = getFilteredQuestions().map(q => ({ ...q, _origIdx: QUESTIONS.indexOf(q) }));
+    pool = shuffle(filtered).slice(0, state.questionCount);
+    state.timeLimit = null;
+  }
+  state.questions = pool;
+  state.current = 0;
+  state.answers = [];
+  state.startTime = Date.now();
+  state.endTime = null;
+  state.answered = false;
+  if (state.timeLimit) startTimer();
+  renderCertBanner();
+  renderQuestion();
+  showScreen('quiz');
+}
+
+function renderCertBanner() {
+  const wrap = document.getElementById('cert-banner-wrap');
+  if (state.mode === 'cert') {
+    wrap.innerHTML =
+      '<div class="cert-banner">' +
+        '<strong>Modo Certificação</strong> · 60 questões · 100 min · explicações ao final · meta: 700/1000 (70%)' +
+      '</div>';
+  } else {
+    wrap.innerHTML = '';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  TIMER (cert mode)
+// ═══════════════════════════════════════════════════════════
+function startTimer() {
+  const chip = document.getElementById('chip-timer');
+  let remaining = state.timeLimit;
+  chip.innerHTML = '⏱ ' + fmtTime(remaining);
+  state.timerInterval = setInterval(() => {
+    remaining--;
+    if (remaining < 0) {
+      clearInterval(state.timerInterval);
+      finishQuiz(true);
+      return;
+    }
+    chip.innerHTML = '⏱ ' + fmtTime(remaining);
+    if (remaining <= 300) {
+      chip.style.background = 'var(--red-bg)';
+      chip.style.color = 'var(--red)';
+    }
+  }, 1000);
+}
+function stopTimer() {
+  if (state.timerInterval) clearInterval(state.timerInterval);
+  state.timerInterval = null;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RENDER QUESTION
+// ═══════════════════════════════════════════════════════════
+function renderQuestion() {
+  const q = state.questions[state.current];
+  state.answered = false;
+
+  const total = state.questions.length;
+  const pct = Math.round((state.current / total) * 100);
+  document.getElementById('prog-txt').textContent = 'Questão ' + (state.current + 1) + ' de ' + total;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  const corrects = state.answers.filter(a => a && a.correct).length;
+  const wrongs = state.answers.filter(a => a && !a.correct && !a.skipped).length;
+  document.getElementById('chip-c').textContent = corrects;
+  document.getElementById('chip-w').textContent = wrongs;
+  if (!state.timeLimit) {
+    document.getElementById('chip-timer').innerHTML = '⏱ ' + fmtTime(Math.floor((Date.now() - state.startTime) / 1000));
+  }
+
+  const prev = state.answers[state.current];
+  const diffMap = { easy: 'Fácil', medium: 'Média', hard: 'Difícil' };
+  let metaHtml =
+    '<span class="q-tag num">' + String(state.current + 1).padStart(2, '0') + '/' + total + '</span>' +
+    '<span class="q-tag domain">' + DOMAINS[q.d].short + '</span>' +
+    '<span class="q-tag ' + q.diff + '">' + diffMap[q.diff] + '</span>';
+  if (q.scenario) metaHtml += '<span class="q-tag scenario">⚙ Cenário</span>';
+
+  const isFlagged = prev && prev.flagged;
+  metaHtml += '<button class="q-flag' + (isFlagged ? ' flagged' : '') + '" onclick="toggleFlag()" title="Marcar para revisão">🚩</button>';
+
+  let scenarioHtml = '';
+  if (q.scenario) {
+    scenarioHtml = '<div class="q-scenario"><strong>Cenário:</strong> ' + q.scenario + '</div>';
+  }
+
+  let optionsHtml = '<div class="options" id="options-list">';
+  q.o.forEach((opt, i) => {
+    optionsHtml +=
+      '<div class="option" data-idx="' + i + '" onclick="selectOption(' + i + ')">' +
+        '<div class="option-key">' + (i + 1) + '</div>' +
+        '<div class="option-text">' + opt + '</div>' +
+      '</div>';
+  });
+  optionsHtml += '</div>';
+
+  document.getElementById('q-container').innerHTML =
+    '<div class="q-card">' +
+      '<div class="q-meta">' + metaHtml + '</div>' +
+      scenarioHtml +
+      '<div class="q-text">' + q.q + '</div>' +
+      optionsHtml +
+      '<div id="exp-slot"></div>' +
+    '</div>';
+
+  document.getElementById('btn-next').disabled = true;
+  document.getElementById('btn-next').textContent =
+    (state.current === total - 1) ? 'Finalizar →' : 'Próxima →';
+  document.getElementById('btn-skip').style.display = state.mode === 'cert' ? 'none' : 'inline-flex';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SELECT OPTION
+// ═══════════════════════════════════════════════════════════
+function selectOption(idx) {
+  if (state.answered) return;
+  state.answered = true;
+  const q = state.questions[state.current];
+  const correct = idx === q.a;
+  const wasFlagged = state.answers[state.current] && state.answers[state.current].flagged;
+
+  state.answers[state.current] = {
+    qIdx: q._origIdx,
+    selected: idx,
+    correct: correct,
+    flagged: wasFlagged || false,
+    skipped: false
+  };
+
+  document.querySelectorAll('.option').forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.a) el.classList.add('correct');
+    if (i === idx && !correct) el.classList.add('wrong');
+    if (i === idx) el.classList.add('selected');
+  });
+
+  // Track wrong para revisão futura
+  const wrongList = loadJSON(STORAGE_WRONG, []);
+  if (!correct) {
+    if (!wrongList.includes(q._origIdx)) {
+      wrongList.push(q._origIdx);
+      saveJSON(STORAGE_WRONG, wrongList);
+    }
+  } else {
+    const i = wrongList.indexOf(q._origIdx);
+    if (i >= 0) {
+      wrongList.splice(i, 1);
+      saveJSON(STORAGE_WRONG, wrongList);
+    }
+  }
+
+  // Chips
+  const corrects = state.answers.filter(a => a && a.correct).length;
+  const wrongs = state.answers.filter(a => a && !a.correct && !a.skipped).length;
+  document.getElementById('chip-c').textContent = corrects;
+  document.getElementById('chip-w').textContent = wrongs;
+
+  // Explicação (NÃO no modo cert)
+  if (state.mode !== 'cert') {
+    const exp = document.getElementById('exp-slot');
+    const headClass = correct ? 'correct' : 'wrong';
+    const headTxt = correct ? '✓ Correto' : '✗ Resposta correta:';
+    const correctOpt = q.o[q.a];
+    let bodyTxt = q.exp;
+    if (!correct) {
+      bodyTxt = '<strong style="color:var(--green)">' + correctOpt + '</strong><br><br>' + q.exp;
+    }
+    exp.innerHTML =
+      '<div class="explanation">' +
+        '<div class="exp-head ' + headClass + '">' + headTxt + '</div>' +
+        '<div class="exp-text">' + bodyTxt + '</div>' +
+      '</div>';
+  }
+
+  document.getElementById('btn-next').disabled = false;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  NAV
+// ═══════════════════════════════════════════════════════════
+function nextQuestion() {
+  if (!state.answered) return;
+  if (state.current === state.questions.length - 1) {
+    finishQuiz(false);
+  } else {
+    state.current++;
+    renderQuestion();
+  }
+}
+function skipQuestion() {
+  if (state.mode === 'cert') return;
+  const q = state.questions[state.current];
+  const wasFlagged = state.answers[state.current] && state.answers[state.current].flagged;
+  state.answers[state.current] = {
+    qIdx: q._origIdx,
+    selected: -1,
+    correct: false,
+    flagged: wasFlagged || false,
+    skipped: true
+  };
+  if (state.current === state.questions.length - 1) {
+    finishQuiz(false);
+  } else {
+    state.current++;
+    renderQuestion();
+  }
+}
+function toggleFlag() {
+  const q = state.questions[state.current];
+  if (!state.answers[state.current]) {
+    state.answers[state.current] = {
+      qIdx: q._origIdx,
+      selected: null,
+      correct: false,
+      flagged: true,
+      skipped: false
+    };
+  } else {
+    state.answers[state.current].flagged = !state.answers[state.current].flagged;
+  }
+  document.querySelector('.q-flag').classList.toggle('flagged', state.answers[state.current].flagged);
+}
+function exitQuiz() {
+  if (confirm('Tem certeza que quer sair? Seu progresso na sessão atual será perdido.')) {
+    stopTimer();
+    showScreen('setup');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════════════════════════════
+function handleKeyboard(e) {
+  if (!document.getElementById('screen-quiz').classList.contains('active')) return;
+  if (['1','2','3','4'].includes(e.key)) {
+    const idx = parseInt(e.key) - 1;
+    const q = state.questions[state.current];
+    if (q && idx < q.o.length && !state.answered) {
+      selectOption(idx);
+    }
+  } else if (e.key === 'Enter') {
+    if (!document.getElementById('btn-next').disabled) {
+      nextQuestion();
+    }
+  } else if (e.key === 'f' || e.key === 'F') {
+    toggleFlag();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  FINISH QUIZ
+// ═══════════════════════════════════════════════════════════
+function finishQuiz(timedOut) {
+  stopTimer();
+  state.endTime = Date.now();
+  // Preenche skipped para perguntas não respondidas (ex: timeout)
+  for (let i = 0; i < state.questions.length; i++) {
+    if (!state.answers[i]) {
+      state.answers[i] = {
+        qIdx: state.questions[i]._origIdx,
+        selected: -1,
+        correct: false,
+        flagged: false,
+        skipped: true
+      };
+    }
+  }
+  // Histórico
+  const elapsed = Math.floor((state.endTime - state.startTime) / 1000);
+  const corrects = state.answers.filter(a => a.correct).length;
+  const total = state.questions.length;
+  const hist = loadJSON(STORAGE_HISTORY, []);
+  hist.unshift({
+    date: new Date().toISOString(),
+    mode: state.mode,
+    total: total,
+    correct: corrects,
+    pct: Math.round((corrects / total) * 100),
+    elapsed: elapsed,
+    timedOut: !!timedOut
+  });
+  saveJSON(STORAGE_HISTORY, hist.slice(0, 20));
+  showResults(timedOut);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RESULTS
+// ═══════════════════════════════════════════════════════════
+function showResults(timedOut) {
+  const total = state.questions.length;
+  const corrects = state.answers.filter(a => a.correct).length;
+  const wrongs = state.answers.filter(a => !a.correct && !a.skipped).length;
+  const skipped = state.answers.filter(a => a.skipped).length;
+  const pct = Math.round((corrects / total) * 100);
+  const elapsed = Math.floor(((state.endTime || Date.now()) - state.startTime) / 1000);
+
+  // Ring
+  const ring = document.getElementById('result-ring');
+  ring.style.setProperty('--pct', (pct * 3.6) + 'deg');
+  document.getElementById('result-pct').textContent = pct + '%';
+
+  // Verdict
+  const verdict = document.getElementById('result-verdict');
+  const sub = document.getElementById('result-sub');
+  document.getElementById('result-name').textContent = state.userName ? '— ' + state.userName + ' —' : '';
+
+  if (state.mode === 'cert') {
+    if (pct >= 70) {
+      verdict.innerHTML = 'Você <em>passaria</em> no exame';
+      verdict.className = 'result-verdict pass';
+      sub.textContent = 'Resultado equivale a aprovação (meta: 700/1000).';
+    } else {
+      verdict.innerHTML = 'Você <em>não passaria</em> ainda';
+      verdict.className = 'result-verdict fail';
+      sub.textContent = 'Continue treinando — meta é 70% (700/1000).';
+    }
+    if (timedOut) sub.textContent += ' · Tempo esgotou.';
+  } else {
+    let msg, cls = 'practice';
+    if (pct >= 90) msg = 'Excelente desempenho!';
+    else if (pct >= 70) msg = 'Bom trabalho!';
+    else if (pct >= 50) msg = 'Continue praticando!';
+    else msg = 'Vamos revisar os conceitos.';
+    verdict.innerHTML = '<em>' + msg + '</em>';
+    verdict.className = 'result-verdict practice';
+    sub.textContent = 'Modo prática · sem critério de aprovação.';
+  }
+
+  document.getElementById('rs-c').textContent = corrects;
+  document.getElementById('rs-w').textContent = wrongs;
+  document.getElementById('rs-s').textContent = skipped;
+  document.getElementById('rs-t').textContent = fmtTime(elapsed);
+
+  // Domain breakdown
+  const breakdown = {};
+  Object.keys(DOMAINS).forEach(id => { breakdown[id] = { total: 0, correct: 0 }; });
+  state.questions.forEach((q, i) => {
+    breakdown[q.d].total++;
+    if (state.answers[i] && state.answers[i].correct) breakdown[q.d].correct++;
+  });
+
+  const colors = { d1: 'var(--pink)', d2: 'var(--blue)', d3: 'var(--yellow)', d4: 'var(--green)' };
+  let domHtml = '';
+  Object.entries(breakdown).forEach(([id, b]) => {
+    if (b.total === 0) return;
+    const dpct = Math.round((b.correct / b.total) * 100);
+    domHtml +=
+      '<div class="dom-bar">' +
+        '<div class="dom-bar-head">' +
+          '<span>' + DOMAINS[id].short + '</span>' +
+          '<span>' + b.correct + '/' + b.total + ' · ' + dpct + '%</span>' +
+        '</div>' +
+        '<div class="dom-bar-track">' +
+          '<div class="dom-bar-fill" style="width:' + dpct + '%;background:' + colors[id] + '"></div>' +
+        '</div>' +
+      '</div>';
+  });
+  document.getElementById('dom-breakdown').innerHTML = domHtml;
+
+  showScreen('results');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  REVIEW
+// ═══════════════════════════════════════════════════════════
+function showReview() {
+  state.reviewFilter = 'all';
+  document.querySelectorAll('.review-filters .pill').forEach(p => {
+    p.classList.toggle('selected', p.dataset.filter === 'all');
+  });
+  renderReviewList();
+  showScreen('review');
+}
+function filterReview(f) {
+  state.reviewFilter = f;
+  document.querySelectorAll('.review-filters .pill').forEach(p => {
+    p.classList.toggle('selected', p.dataset.filter === f);
+  });
+  renderReviewList();
+}
+function renderReviewList() {
+  const list = document.getElementById('review-list');
+  let html = '';
+  const diffMap = { easy: 'Fácil', medium: 'Média', hard: 'Difícil' };
+  state.questions.forEach((q, i) => {
+    const a = state.answers[i];
+    if (!a) return;
+    if (state.reviewFilter === 'wrong' && (a.correct || a.skipped)) return;
+    if (state.reviewFilter === 'flagged' && !a.flagged) return;
+
+    let cls = 'correct-r';
+    if (a.skipped) cls = 'skipped-r';
+    else if (!a.correct) cls = 'wrong-r';
+
+    let ansHtml = '';
+    if (a.skipped) {
+      ansHtml += '<div class="review-ans yours-w"><span class="label">Pulada</span><span>—</span></div>';
+    } else if (a.correct) {
+      ansHtml += '<div class="review-ans yours-c"><span class="label">Sua:</span><span>✓ ' + q.o[a.selected] + '</span></div>';
+    } else {
+      ansHtml += '<div class="review-ans yours-w"><span class="label">Sua:</span><span>✗ ' + q.o[a.selected] + '</span></div>';
+      ansHtml += '<div class="review-ans correct"><span class="label">Certa:</span><span>✓ ' + q.o[q.a] + '</span></div>';
+    }
+    if (a.correct && !a.skipped) {
+      // já mostra a sua = certa, não repete
+    }
+
+    let metaHtml =
+      '<span class="q-tag num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="q-tag domain">' + DOMAINS[q.d].short + '</span>' +
+      '<span class="q-tag ' + q.diff + '">' + diffMap[q.diff] + '</span>';
+    if (q.scenario) metaHtml += '<span class="q-tag scenario">⚙ Cenário</span>';
+    if (a.flagged) metaHtml += '<span class="q-tag" style="background:var(--yellow-bg);color:var(--yellow)">🚩 Marcada</span>';
+
+    html += '<div class="review-item ' + cls + '">';
+    html += '<div class="q-meta" style="margin-bottom:14px">' + metaHtml + '</div>';
+    if (q.scenario) {
+      html += '<div class="review-scenario-mini"><strong>Cenário:</strong> ' + q.scenario + '</div>';
+    }
+    html += '<div class="review-q">' + q.q + '</div>';
+    html += ansHtml;
+    html += '<div class="review-exp"><strong>Por quê:</strong> ' + q.exp + '</div>';
+    html += '</div>';
+  });
+  if (!html) {
+    html = '<div style="text-align:center;color:var(--ink-light);padding:60px 20px;font-style:italic">Nenhuma questão neste filtro.</div>';
+  }
+  list.innerHTML = html;
+}
+
+function goResults() {
+  showScreen('results');
+}
+function goSetup() {
+  state.answers = [];
+  state.questions = [];
+  state.current = 0;
+  state.startTime = null;
+  state.endTime = null;
+  showSetup();
+}
+</script>
+
+</body>
+</html>
